@@ -2,3 +2,6 @@
 This respository includes code and documentation describing the DEID. 
 
 The DEID is a new evaporation-based optical and thermal instrument designed to measure  mass, size, density, and type (i.e., snow, rain, and mixtures) of individual hydrometeors.
+
+Files in this directory include:
+DEID__.m - this Matlab script does the following ...
