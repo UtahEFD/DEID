@@ -1,0 +1,300 @@
+%% DEID Processing Code
+% TRANSLATOR(s): Benjamin Silberman, Travis Morrison
+% AUTHOR : Dhiraj Singh
+% LAST UPDATED: 04/09/2024
+clear, clc, close all
+%% Set path, obtain .avi file:
+
+workingDir = 'E:\DEID_Processor\RAW_DATA\DEID.avifiles\';
+inputDir = '01_04_2024\';
+outputDir = 'processed_output_data\';
+% Sets path for .m to run in:
+cd([workingDir, inputDir]) 
+
+% Check if the output directory exists
+if ~exist(outputDir, 'dir')
+    % If the directory doesn't exist, create it
+    mkdir(outputDir);
+    disp(['Directory "', outputDir, '" created successfully.']);
+else
+    % If the directory already exists, display a message
+    disp(['Directory "', outputDir, '" already exists.']);
+end
+
+%% Identifies all .avi files in inputDir 
+% Get a list of all files and folders in this folder
+filesAndFolders = dir(".");
+% Initialize an empty cell array to store the file names
+fileNames = {};
+% Loop through each item in the input directory
+for file_i = 1:length(filesAndFolders)
+    % Check if the item is a file (not a folder) and if it ends with .avi
+    if ~filesAndFolders(file_i).isdir && endsWith(filesAndFolders(file_i).name, '.avi', 'IgnoreCase', true)
+        % Get the name of the file and append it to the list
+        fileNames{end+1} = filesAndFolders(file_i).name;
+    end
+end
+
+%% Set global varabiles and constants:
+
+pix_to_m_conversion = 1.0080625e-7; % Some factor to map pixel to real space
+Colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
+Colorbar_Kapton_image_indexes = [1 27 384-1 288-27]; % Location of Kapton tape in pixel locations
+Minmum_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
+Min_Hydrometer_Size = 10; % Minumum hydrometer size in pixels 
+Colorbar_Max_Temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
+Sort_Threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2- I really don't understand this
+Minimum_Drop_Life = 0; % Minimum number of frames a drop has to be visable to be processed
+k_dLv = 0.0029; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
+Camera_fps = 15;% This is the frames per second (fps) of the camera
+L_constant = 2.594*10^6; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
+Rho_Water = 1000; % kg / m^3
+HeatFlux_Density_coeff = 6.4418e04; % constant obtained from lab denisty of ice 
+
+%% Begin DEID processing:
+
+for file_i = 1:length(fileNames)
+    
+    disp(['Processing File: ', fileNames{file_i}])
+    vid=VideoReader(fileNames{file_i});
+    
+    %% Creates datetime timeseries for output file
+    % Get end time of avi file
+    video_dir = dir(fileNames{file_i});
+    video_end_time = datetime([video_dir.date]);
+    % Get the duration of the video in seconds
+    videoLengthSeconds = vid.Duration;
+    % Specify the frequency (1/15 of a second)
+    frequency = seconds(1/Camera_fps);
+    % Calculate the number of time steps
+    numTimeSteps = floor(videoLengthSeconds * Camera_fps); % 1/15 of a second
+    % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
+    timeSeries = datetime(video_end_time - (0:numTimeSteps) * frequency, 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
+    timeSeries = flip(timeSeries);  % Flips time series so it ends at the end time
+
+    % Get number of frames, preallocate cell for data, and obtain date
+    % information:
+    Num_frames = vid.NumFrames;                               
+    Hydrometer_Data = cell(Num_frames,1); 
+    
+    %% "Frame by frame method"; this is how Dhiraj is obtaining SWE for each
+    % .avi file 
+    
+    % Preallocate variables saved in loop for speed:
+    plate_temperature = nan(Num_frames,1);
+    Sum_Hydrometer_Area_times_DeltaT = nan(Num_frames,1);
+    
+    % Enter loop to process images: 
+    for frame_ii = 1:Num_frames
+    
+        % Get image:    
+        current_frame = read(vid, frame_ii);  
+    
+        % Clean image to get plate temperature: 
+        current_frame_gray = rgb2gray(current_frame); % Convert frame of interest to gray scale
+        current_frame_gray_cropped_wKapton = imcrop(current_frame_gray,Colorbar_image_indexes);% Crop out colorbar
+        plate_temperature(frame_ii) = max(max(double(current_frame_gray_cropped_wKapton))); % Dhiraj assumes max temperature in image is the plate temperature with Kapton tape
+    
+        % Clean orginal image: 
+        current_frame_gray_cropped = imcrop(current_frame_gray, Colorbar_Kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
+        current_frame_filtered = current_frame_gray_cropped > 70; % Removed below 70, on rbg ([0, 255]) scale 
+        current_frame_filtered_filled = imfill(current_frame_filtered, 'Holes'); % Clean up hydrometers
+        
+        % Get Hydrometer properties: 
+        Hydrometer_geo_properties = regionprops(current_frame_filtered_filled, 'Centroid', 'Area','BoundingBox'); % Returns the centroid, the area of each blob, and the bounding box (left, top, width, height).
+        
+        % If no properties are found, go to next frame: 
+        if (isempty(Hydrometer_geo_properties))
+            continue;
+        end
+        
+        % Build hydrometer propertie matrices from regionprops values: 
+        Hydrometer_Bounding_box = cat(1,Hydrometer_geo_properties.BoundingBox); % Concat all values to build matrix of Bounding Box indices
+        Hydrometer_Centroid = round(cat(1, Hydrometer_geo_properties.Centroid)); % Concat all values to build matrix of Centroids
+        Hydrometer_Area_pix = cat(1, Hydrometer_geo_properties.Area); % Concat all values to build matrix of hydrometer areas in pixels
+        
+        % Convert hydrometer areas to m^2: 
+        Hydrometer_Area = Hydrometer_Area_pix.*pix_to_m_conversion; 
+        Hydrometer_Major_Axis = Hydrometer_Bounding_box(:, 3) * sqrt(pix_to_m_conversion); % hydrometer major axis
+        Hydrometer_Minor_Axis = Hydrometer_Bounding_box(:, 4) * sqrt(pix_to_m_conversion); % hydrometer minor axis
+        
+        % Get the hydrometer ellipse area:
+        Hydrometer_ellipse_area = Hydrometer_Major_Axis.*Hydrometer_Minor_Axis;
+    
+        % Calculating the difference in temperature of each centroid and
+        % the plate:
+        Hydrometer_Centroid_index = sub2ind(size(current_frame_gray_cropped), Hydrometer_Centroid(:, 2), Hydrometer_Centroid(:, 1)); % Find the index of the centriods in orginal image
+        Hydrometer_Centroid_values = double(current_frame_gray_cropped(Hydrometer_Centroid_index)); % Intensities of Centroid pixels of snow
+        Plate_Hydrometer_DeltaT = Colorbar_Max_Temp-(Hydrometer_Centroid_values.*(Colorbar_Max_Temp/plate_temperature(frame_ii)));
+        
+        % Now calculate product of hydrometer area with the temp
+        % difference:
+        Hydrometer_Area_times_DeltaT = Hydrometer_Area.*Plate_Hydrometer_DeltaT; 
+        
+        % Sum the product of individual area and temp. diff in each frame:
+        % THIS IS HOW WE GET HYDROMETER MASS (FRAME BY FRAME METHOD)
+        Sum_Hydrometer_Area_times_DeltaT(frame_ii)=sum(Hydrometer_Area_times_DeltaT); 
+        
+        % Build large matrix of hydrometer data
+        Hydrometer_Data{frame_ii} = cat(2, Hydrometer_Centroid, Hydrometer_Area, Plate_Hydrometer_DeltaT, Hydrometer_ellipse_area, Hydrometer_Major_Axis, Hydrometer_Minor_Axis); 
+    
+    end
+    
+    %% Frame by frame SWE calculation
+    
+    % Use current_frame_gray_cropped to calculate the area of hot plate:
+    HotPlate_Area = size(current_frame_gray_cropped,1) * size(current_frame_gray_cropped,2) * pix_to_m_conversion;
+    
+    Hydrometer_Mass_fbf = (k_dLv*Sum_Hydrometer_Area_times_DeltaT) / Camera_fps; % mass evaporates in each frame
+    SWE_fbf = Hydrometer_Mass_fbf / HotPlate_Area;
+    SWE_fbf_accumulation = sum(SWE_fbf); 
+    
+     %% Sorting one frame to others frame ~ Data cleaning of some sorts: 
+
+    % Create new cell array for sorted data: 
+    Hydrometer_Data_Sorted = Hydrometer_Data; 
+
+    % Loop over every data cell corresponding to each frame:
+    % Uses "sortPositions_v2.m" - a code that Dhiraj worte 
+    
+    for frame_jj = 2:Num_frames
+        Hydrometer_Data_Sorted{frame_jj} = sortPositions_v2(Hydrometer_Data_Sorted{frame_jj-1}, Hydrometer_Data_Sorted{frame_jj}, Sort_Threshold);
+    end
+
+    % Return frame with max number of hydrometers 
+    Max_Hydrometers_Obs = max(cellfun(@(x) size(x, 1), Hydrometer_Data_Sorted, 'UniformOutput', 1));
+     
+
+    % Now pad the data with zeros so the frames all have the same number:  
+    Hydrometer_Data_Sorted = cellfun(@(x) cat(1, x, zeros(Max_Hydrometers_Obs-size(x, 1), 7)),...
+        Hydrometer_Data_Sorted, 'UniformOutput', 0);
+    
+    %%  Isolating the variables and put them into a matrix to work with: 
+
+    % For reference: [Hydrometer_Centroid, Hydrometer_Area,
+    % Plate_Hydrometer_DeltaT, Hydrometer_ellipse_area,
+    % Hydrometer_Major_Axis,Hydrometer_Minor_Axis]
+
+    Final_Hydrometer_Area = cellfun(@(x) x(:, 3), Hydrometer_Data_Sorted, 'UniformOutput', 0);
+    Final_Delta_T = cellfun(@(x) x(:, 4), Hydrometer_Data_Sorted, 'UniformOutput', 0);
+    Final_ellipse_Area = cellfun(@(x) x(:, 5), Hydrometer_Data_Sorted, 'UniformOutput', 0);
+    Final_Major_Axis = cellfun(@(x) x(:, 6), Hydrometer_Data_Sorted, 'UniformOutput', 0);
+    Final_Minor_Axis = cellfun(@(x) x(:, 7), Hydrometer_Data_Sorted, 'UniformOutput', 0);
+    
+    %Convert to matrix: 
+    Final_Hydrometer_Area = cat(2,Final_Hydrometer_Area{:});
+    Final_Delta_T = cat(2,Final_Delta_T{:});
+    Final_ellipse_Area = cat(2,Final_ellipse_Area{:});
+    Final_Major_Axis = cat(2,Final_Major_Axis{:});
+    Final_Minor_Axis = cat(2,Final_Minor_Axis{:});
+
+    %% "Particle by particle method"
+    % Calulcate the evolution of each hydrometer to get properties.
+    % This method 'cleans' the plate to not double count hydrometers that
+    % appear across multiple frames. 
+    
+    % Preallocate variables:
+    Hydrometer_Delta_time = {}; % Hydrometer time to melt and evaporate
+    Hydrometer_Delta_T = {}; % Hydrometer centroid's max intensity
+    Hydrometer_Delta_T1 = {}; % Hydrometer centroid's mean intensity
+    Hydrometer_Max_Area = {}; % Hydrometer maximum area
+    Hydrometer_Max_Curcumscribed_Area = {};% Hydrometer Max circumscribed area
+    Hydrometer_Max_Major_Axis = {};% Hydrometer Max Major axis
+    Hydrometer_Max_Minor_Axis = {};% Hydrometer Max minor axis
+    Hydrometer_Mass_pbp = {}; % Hydrometer calculated mass
+    Hydrometer_Density = {}; % Hydrometer density
+    Hydrometer_inital_time=[]; % Time of each snowflake
+    
+    % Loop over all hydrometers: 
+    % This is where the cleaning occurs!
+    
+    for Hydrometer_ii = 1:Max_Hydrometers_Obs
+    
+        Hydrometer_appear_evap_boolean = diff(Final_Hydrometer_Area(Hydrometer_ii, :) > 0); 
+        % Create array of indexes which are booleans, +1 is when snowflake starts, and -1 when it leaves
+        % diff is [X(3)-X(2)] for backwward FD
+        
+        if sum(Hydrometer_appear_evap_boolean)<0
+            continue;
+        end
+        
+        Hydrometer_appears_index = find(Hydrometer_appear_evap_boolean > 0); % finds the index when the hydrometer appears
+        Hydrometer_evaps_index = find(Hydrometer_appear_evap_boolean < 0); % hydrometer dissapears index
+        Hydrometer_inital_time=cat(2,Hydrometer_inital_time,Hydrometer_appears_index); % time when snow arrives the plate
+    
+        if isempty(Hydrometer_evaps_index) % get rid of hydrometers which do no evaporate completely
+            continue; 
+        
+        else
+        
+        % Isolate the hydrometer properties for the lifetime of the
+        % hydrometer: 
+        Hydrometer_Delta_T_tmp = Final_Delta_T(Hydrometer_ii, Hydrometer_appears_index(1):Hydrometer_evaps_index(end)+1);
+        Hydrometer_ellipse_Area_tmp = Final_ellipse_Area(Hydrometer_ii, Hydrometer_appears_index(1):Hydrometer_evaps_index(end)+1);
+        Hydrometer_Major_Axis_tmp = Final_Major_Axis(Hydrometer_ii,Hydrometer_appears_index(1):Hydrometer_evaps_index(end)+1);
+        Hydrometer_Minor_Axis_tmp = Final_Minor_Axis(Hydrometer_ii, Hydrometer_appears_index(1):Hydrometer_evaps_index(end)+1);
+        
+        % Prepare area of each hydrometer for temporal intergration: 
+        Hydrometer_area_tmp = Final_Hydrometer_Area(Hydrometer_ii, Hydrometer_appears_index(1):Hydrometer_evaps_index(end)+1); 
+        Hydrometer_area_tmp_bool = Hydrometer_area_tmp > 0; % Isolate for positive values
+        Hydrometer_area_tmp_bool = bwareaopen(Hydrometer_area_tmp_bool, Minimum_Drop_Life); % Any hydrometer which lives for less than 'Minimum_Drop_Life' is discarded
+       
+        % Integration ~ need to double check with google search: 
+        propstemp = regionprops(Hydrometer_area_tmp_bool, 'PixelIdxList');
+        
+        % Loop over some region property definded in previous line: 
+        
+            for jj = 1:numel(propstemp)
+                Hydrometer_Max_Area{end+1} = max(Hydrometer_area_tmp(propstemp(jj).PixelIdxList));
+                Hydrometer_Max_Curcumscribed_Area{end+1} = max(Hydrometer_ellipse_Area_tmp(propstemp(jj).PixelIdxList));
+                Hydrometer_Max_Major_Axis{end+1} = max(Hydrometer_Major_Axis_tmp(propstemp(jj).PixelIdxList));
+                Hydrometer_Max_Minor_Axis{end+1} = max(Hydrometer_Minor_Axis_tmp(propstemp(jj).PixelIdxList));
+                Hydrometer_Delta_time{end+1} = numel(propstemp(jj).PixelIdxList);
+                Hydrometer_Delta_T{end+1} = max(Hydrometer_Delta_T_tmp(propstemp(jj).PixelIdxList));
+                Hydrometer_Delta_T1{end+1} = mean(Hydrometer_Delta_T_tmp(propstemp(jj).PixelIdxList));
+            
+                % Multiply the area by the temperature difference for that hydrometer:
+                Hydrometer_Area_times_DeltaT_pbp = Hydrometer_area_tmp(propstemp(jj).PixelIdxList).*Hydrometer_Delta_T_tmp(propstemp(jj).PixelIdxList);
+            
+                % Now integrate:
+                Hydrometer_Mass_pbp{end+1} = trapz(k_dLv*Hydrometer_Area_times_DeltaT_pbp);
+            end
+        end
+    end
+    
+    %% Convert to matrixes:
+    Hydrometer_Mass_pbp=cell2mat(Hydrometer_Mass_pbp); % Hydrometer mass
+    Hydrometer_Max_Area=cell2mat(Hydrometer_Max_Area); % Actual area
+    Hydrometer_Max_Curcumscribed_Area=cell2mat(Hydrometer_Max_Curcumscribed_Area); % Ellipse area
+    Hydrometer_Max_Major_Axis=cell2mat(Hydrometer_Max_Major_Axis); % Height
+    Hydrometer_Max_Minor_Axis=cell2mat(Hydrometer_Max_Minor_Axis); % Width
+    Hydrometer_Delta_T=cell2mat(Hydrometer_Delta_T); % Temperature diffrence between plate and water droplet using max intensity
+    Hydrometer_Delta_T1=cell2mat(Hydrometer_Delta_T1); % Temperature diffrence between plate and water droplet using mean intensity 
+
+    % Now multiples mass by "dt":
+    Hydrometer_Mass_pbp = Hydrometer_Mass_pbp/Camera_fps; 
+
+    Hydrometer_Diameter = (1.12)*Hydrometer_Max_Area.^0.5; % Convert area to diameter of hydrometer
+    Water_eq_Diameter = (6.*Hydrometer_Mass_pbp/3140).^0.33; % Water equi. diameter. Not sure where this is from
+
+    Time_2_evap = cell2mat(Hydrometer_Delta_time)*(1/Camera_fps); % Evaporation time
+    Time_2_evap_norm = sort(Hydrometer_inital_time)/Camera_fps; % Time in sec to what? Evap?
+    Spherical_Volume = 0.75*Hydrometer_Max_Area.^1.5; % Spherical volume
+    Sphere_Density = Hydrometer_Mass_pbp./Spherical_Volume; % Density calculation: spherical assumption
+    Energy_perTime = Hydrometer_Mass_pbp*L_constant./(Hydrometer_Max_Area.*Time_2_evap); % Heat flux method: energy per unit area per time
+    HeatFlux_Density1 = HeatFlux_Density_coeff * Hydrometer_Mass_pbp./(Hydrometer_Max_Area.*Time_2_evap.*Hydrometer_Delta_T);
+    HeatFlux_Density2 = HeatFlux_Density_coeff * Hydrometer_Mass_pbp./(Hydrometer_Max_Area.*Time_2_evap.*Hydrometer_Delta_T1);
+    HeatFlux_Volume = Hydrometer_Mass_pbp./HeatFlux_Density2; % Volume of each snowflakes using heat flux method density
+    
+    %% Particle by particle SWE calculation
+    
+    SWE_pbp = Hydrometer_Mass_pbp ./ HotPlate_Area;
+    SWE_pbp_accumulation = sum(SWE_pbp);
+    SWE_factor = SWE_fbf_accumulation / SWE_pbp_accumulation; % we use this factor when using SWE to calculate Snow Depth
+    
+    mean_density = mean(HeatFlux_Density1, 'omitnan'); % Desnity-Heat Flux Method
+    mean_density1 = mean(HeatFlux_Density2, 'omitnan'); % Desnity-Heat Flux Method
+    
+    
+    
+end
