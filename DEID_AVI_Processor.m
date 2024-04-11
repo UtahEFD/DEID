@@ -251,13 +251,16 @@ for file_i = 1:length(fileNames)
     mean_density1 = mean(HeatFlux_Density2, 'omitnan'); % Desnity-Heat Flux Method
     
     %% Organizes data into output arrays
-    Data_FBF= table(time_series_fbf, SWE_fbf');
+    Data_FBF= table(time_series_fbf', SWE_fbf);
     Data_PBP = table(Hydrometeor_initial_times', Hydrometeor_initial_time_indexes',Hydrometeor_Time_2_evap_norm', Hydrometeor_Mass_pbp', Hydrometeor_Diameter',  ...
         Hydrometeor_Max_Area', Hydrometeor_Max_Circumscribed_Area', Time_2_evap', Sphere_Density', HeatFlux_Density1', HeatFlux_Density2', Energy_perTime', ... 
         HeatFlux_Volume', Water_eq_Diameter', Hydrometeor_Max_Major_Axis', Hydrometeor_Max_Minor_Axis',  Hydrometeor_Delta_T', Hydrometeor_Delta_T1');
-    Data_PBP.Properties.VariableNames = {'Initial_Time', 'Initial_Time_Index','Time_2_Evap_Norm', 'Mass', 'Diameter',  ...
-        'Max_Area', 'Max_Circumscribed_Area', 'Time_2_Evap', 'Sphere_Density', 'Heat_Flux_Density_1', 'Heat_Flux_Density_2', 'Energy_Per_Time', ... 
-        'Heat_Flux_Volume', 'Water_Eq_Diameter', 'Max_Major_Axis', 'Max_Minor_Axis',  'Delta_T', 'Delta_T1'};
+    Data_PBP.Properties.VariableNames = {'Hydrometeor_initial_times', 'Hydrometeor_initial_time_indexes','Hydrometeor_Time_2_evap_norm', 'Hydrometeor_Mass_pbp', 'Hydrometeor_Diameter',  ...
+        'Hydrometeor_Max_Area', 'Hydrometeor_Max_Circumscribed_Area', 'Time_2_evap', 'Sphere_Density', 'HeatFlux_Density1', 'HeatFlux_Density2', 'Energy_perTime', ... 
+        'HeatFlux_Volume', 'Water_eq_Diameter', 'Hydrometeor_Max_Major_Axis', 'Hydrometeor_Max_Minor_Axis',  'Hydrometeor_Delta_T', 'Hydrometeor_Delta_T1'};
+    % Data_PBP.Properties.VariableNames = {'Initial_Time', 'Initial_Time_Index','Time_2_Evap_Norm', 'Mass', 'Diameter',  ...
+    %     'Max_Area', 'Max_Circumscribed_Area', 'Time_2_Evap', 'Sphere_Density', 'Heat_Flux_Density_1', 'Heat_Flux_Density_2', 'Energy_Per_Time', ... 
+    %     'Heat_Flux_Volume', 'Water_Eq_Diameter', 'Max_Major_Axis', 'Max_Minor_Axis',  'Delta_T', 'Delta_T1'};
 
     %% Saves processed output arrays to .csv for single .avi file
     % Replace the file extension with '.csv'
@@ -266,3 +269,5 @@ for file_i = 1:length(fileNames)
     writetable(Data_FBF, [outputDir, outputFileName, '_FBF.csv']);
     disp(['Saved Output for: ', outputFileName])
 end
+
+
