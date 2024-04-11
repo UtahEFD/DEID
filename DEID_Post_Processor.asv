@@ -1,0 +1,133 @@
+%% DEID Post Processing Code
+% Outputs data derived from particle by particle csv file
+% AUTHOR : Dhiraj Singh, Benjamin Silberman, Alex Blackmer
+% LAST UPDATED: 04/10/2024
+clear, clc, close all
+close all
+clear all
+
+workingDir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/Jan_09_10_storm/processed_output_data/';
+cd(workingDir)
+
+%% Handles FBF SWE data
+A_hot=0.0056;
+aa=textread('01_09_24_1349_50_FBF.txt');% swe rate at each frame
+aa = aa';
+% aa=textread('L_Feb_13_0400_1600_SWE.txt');
+del=1/15;
+SWE_rate=aa(:,1)*15*3600;% check the residue with plotting
+tt=0:del:del*(length(aa)-1);
+temp=[tt' SWE_rate];
+nod1=4500;% for five minute 4500=15*300 
+k1 = floor(length(aa)/nod1); % 5-min avg
+temp1 = zeros(k1,2);
+for j=1:k1  
+    temp1(j,:)=mean(temp(nod1*(j-1)+1:nod1*(j-1)+nod1,:));
+end
+%  t_c=27812;% variable
+t_c=  2340;
+t_time=temp1(:,1);
+swe_rate1=temp1(:,2);
+time_hour=nod1/(15*3600);
+swe_accu=swe_rate1*(time_hour);
+swe_accumulation=cumsum(swe_accu);
+swe_accumulation_inch=swe_accumulation/25.4;
+t_time=(t_c+temp1(:,1));
+tt_time=27475200+864000+t_time;% variable
+
+%% Handles PBP Data
+pbp_table=readtable('01_09_24_1349_50_PBP.csv');
+
+% h_initial_time=pbp_table.Hydrometeor_initial_times/15; 
+h_initial_time=pbp_table.Hydrometeor_initial_times;
+m=pbp_table.Hydrometer_Mass_pbp;    
+D=pbp_table.Hydrometer_Diameter;    
+A=pbp_table.Hydrometer_Max_Area;    
+AA=pbp_table.Hydrometer_Max_Curcumscribed_Area; 
+t_evp=pbp_table.Time_2_evap;        
+d_sph=pbp_table.Sphere_Density;     
+TT=pbp_table.Hydrometer_Delta_T;    
+TT1=pbp_table.Hydrometer_Delta_T1;  
+% d_heat=a(:,8);
+% d_heat=a(:,8)*0.6767;
+d_heat= 6.4418e+04*m./(A.*t_evp.*TT);
+d_sph= 6.4418e+04*m./(A.*t_evp.*TT1);
+raw_den_heat=mean(d_heat);
+% terminal velocity
+Area_ratio=AA./A;
+rho_air= 0.9;
+
+g=9.8;
+pi=3.14;
+eta=1.81*10^-5;
+nu=eta/rho_air;
+x1=8*m.*g*rho_air;
+x2=pi*eta^2;
+x3=Area_ratio.^0.25;
+X=x1.*x3./x2;
+p1=(1+0.1519.*X.^0.5).^0.5;
+Re=8.5*(p1-1).^2;
+v=Re.*eta.*(pi./AA).^0.5;
+v_t=v./(2.*rho_air);
+vvol=m./1000;
+A_m=1.2*vvol.^(2/3);
+cpx1=AA./A;
+sdi=A./A_m;
+mu=1.5*10^-5;
+ v_st = (1/(18*mu))* d_heat.*D.^2;
+Data2=[h_initial_time m d_sph d_heat v_t A cpx1 sdi D AA t_evp];
+[g1,g2]=find(Data2(:,2)>0 & Data2(:,2)<0.005);
+Data3=Data2(g1,:);
+
+
+  VV1=Data3(:,2)./(Data3(:,3));
+  VV2=Data3(:,2)./(Data3(:,4));
+% VV=Data3(:,2)./(Data3(:,4));
+  Data1=[Data3 VV1 VV2];
+%  Data1=[Data3 VV];
+% % averaging
+s2=60;
+s3=3600/s2;
+noh=60;
+noc=s3*(noh);
+for i=1:noc
+     ini=(Data1(:,1)>=(s2*(i-1)+0));
+     fin=(Data1(:,1)<=(s2*(i-1)+s2));
+     avg_time(i)=nanmean(Data1(ini & fin,1)); % mean time
+     total_mass(i)=sum(Data1(ini & fin,2)); % total mass in given time
+     rho_s(i)=nanmean(Data1(ini & fin,3)); % mean sph. density in given time
+     rho_h(i)=nanmean(Data1(ini & fin,4)); % mean heat density in given time
+     avg_velocity(i)=nanmean(Data1(ini & fin,5));
+     total_area(i)=sum(Data1(ini & fin,6)); % mean density in 1 min
+     avg_cpx(i)=nanmean(Data1(ini & fin,7));    
+     avg_sdi(i)=nanmean(Data1(ini & fin,8));  
+     avg_dia(i)=nanmean(Data1(ini & fin,9)); 
+     total_cir_area(i)=sum(Data1(ini & fin,10));
+      total_vol1(i)=sum(Data1(ini & fin,11));
+      total_vol2(i)=sum(Data1(ini & fin,12));
+end
+ F_data=[avg_time' total_mass' rho_s' rho_h'  avg_velocity' total_area' avg_cpx' avg_sdi' avg_dia' total_cir_area' total_vol1' total_vol2' ];
+ B=rmmissing(F_data);
+ %% swe
+ r_time= ( t_c+B(:,1));
+ rr_time=27475200+864000+r_time;
+ hd=datenum(seconds(rr_time));
+ SWE=s3*B(:,2)./(A_hot);% 
+ SWE_accum = SWE.*(1/s3); % 
+ SWE_accumulation_inch = cumsum(SWE_accum)/25.4;
+ factor=swe_accumulation_inch(end)/SWE_accumulation_inch(end);
+ SWE_f=SWE*factor;
+ SWE_accum_f = SWE_f.*(1/s3); % 
+ SWE_accumulation_f = cumsum(SWE_accum_f);
+ SWE_accumulation_inch_f = cumsum(SWE_accum_f)/25.4;
+ %% snow
+ fac2=mean(B(:,11))./mean(B(:,12));
+ V3=fac2*B(:,12);
+  ddensity1=B(:,2)./B(:,4);
+  ddensity2=B(:,2)./B(:,12);
+%  ddensity=B(:,4);
+%  den_sphere=mean(B(:,3))
+ Snow = 1000*SWE_f./ddensity1;
+ Snow_accum=Snow.*(1/s3);
+ Snow_accumulation=cumsum(Snow_accum);
+ Snow_accumulation_inch=cumsum(Snow_accum)/25.4;
