@@ -106,19 +106,19 @@ for i = 1:one_hour_in_seconds
     ini = (pbp_table.h_initial_time_index >= (one_hour_in_minutes * (i-1) + 0));
     fin = (pbp_table.h_initial_time_index <= (one_hour_in_minutes * (i-1) + one_hour_in_minutes));
     logical_index = ini & fin;
-    filtered_data = pbp_table(logical_index,:);
-    avg_table.avg_time(i) = mean(filtered_data.h_initial_time_index, 'omitnan'); % mean time
-    avg_table.total_mass(i) = sum(filtered_data.mass, 'omitnan'); % total mass in given time
-    avg_table.rho_s(i) = mean(filtered_data.density_sph, 'omitnan'); % mean sph. density in given time
-    avg_table.rho_h(i) = mean(filtered_data.hfd_1, 'omitnan'); % mean heat density in given time
-    avg_table.avg_vel(i) = mean(filtered_data.v_t, 'omitnan');
-    avg_table.total_area(i) = sum(filtered_data.max_area, 'omitnan'); % mean density in 1 min
-    avg_table.avg_cpx(i) = mean(filtered_data.cpx1, 'omitnan');    
-    avg_table.avg_sdi(i) = mean(filtered_data.sdi, 'omitnan');  
-    avg_table.avg_dia(i) = mean(filtered_data.diameter, 'omitnan'); 
-    avg_table.total_cir_area(i) = sum(filtered_data.max_circ_area, 'omitnan');
-    avg_table.total_vol1(i) = sum(filtered_data.VV1, 'omitnan');
-    avg_table.total_vol2(i) = sum(filtered_data.VV2, 'omitnan');
+    fd = pbp_table(logical_index,:);    % Filtered table
+    avg_table.avg_time(i) = mean(fd.h_initial_time_index, 'omitnan'); % mean time
+    avg_table.total_mass(i) = sum(fd.mass, 'omitnan'); % total mass in given time
+    avg_table.rho_s(i) = mean(fd.density_sph, 'omitnan'); % mean sph. density in given time
+    avg_table.rho_h(i) = mean(fd.hfd_1, 'omitnan'); % mean heat density in given time
+    avg_table.avg_vel(i) = mean(fd.v_t, 'omitnan');
+    avg_table.total_area(i) = sum(fd.max_area, 'omitnan'); % mean density in 1 min
+    avg_table.avg_cpx(i) = mean(fd.cpx1, 'omitnan');    
+    avg_table.avg_sdi(i) = mean(fd.sdi, 'omitnan');  
+    avg_table.avg_dia(i) = mean(fd.diameter, 'omitnan'); 
+    avg_table.total_cir_area(i) = sum(fd.max_circ_area, 'omitnan');
+    avg_table.total_vol1(i) = sum(fd.VV1, 'omitnan');
+    avg_table.total_vol2(i) = sum(fd.VV2, 'omitnan');
 end
 
 % Removes missing values where no snow was measured
