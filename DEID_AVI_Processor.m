@@ -6,9 +6,9 @@
 clear, clc, close all
 
 %% Set path, obtain .avi file:
-workingDir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/';
-inputDir = 'Atwater/JAN/Jan_09_10_storm/';
-outputDir = 'processed_output_data/';
+workingDir = 'E:\DEID_Processor\RAW_DATA\DEID.avifiles\';
+inputDir = '01_09_2024\';
+outputDir = 'processed_output_data\';
 % Sets path for .m to run in:
 cd([workingDir, inputDir]) 
 % Check if the output directory exists
@@ -51,7 +51,7 @@ Rho_Water = 1000; % kg / m^3
 HeatFlux_Density_coeff = 6.4418e04; % constant obtained from lab denisty of ice 
 
 %% Begin DEID processing:
-for file_i = 1:length(fileNames)
+for file_i = 7:length(fileNames)
     disp(['Processing File: ', fileNames{file_i}])
     vid=VideoReader(fileNames{file_i});
     
