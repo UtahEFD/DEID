@@ -88,11 +88,9 @@ pbp_table = table(h_initial_time_index, mass, density_sph, hfd_1, v_t, max_area,
 [g1,g2] = find(pbp_table.mass > 0 & pbp_table.mass < 0.005);
 pbp_table = pbp_table(g1,:);
 
-% Appends volume data to table
-VV1 = pbp_table.mass./(pbp_table.density_sph);
-VV2 = pbp_table.mass./(pbp_table.hfd_1);
-pbp_table.VV1 = VV1;
-pbp_table.VV2 = VV2;
+% Appends volume data to table 
+pbp_table.VV1 = pbp_table.mass./(pbp_table.density_sph);
+pbp_table.VV2 = pbp_table.mass./(pbp_table.hfd_1);
 
 %% Averages PBP data
 % Define column names
