@@ -9,9 +9,10 @@ clear
 workingDir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/Jan_09_10_storm/processed_output_data';
 cd(workingDir)
 
+% Specifies resampling period frequency
+time_step = minutes(1);      
 % Defines global variables
-time_step = minutes(1);        % Resampling period in minutes
-A_hot = 0.0101;       % Area of hot plate?
+A_hot = 0.0101;                % Area of hot plate
 mm_to_inches = 1/25.4;
 
 %% Handles FBF SWE data
@@ -21,7 +22,6 @@ fbf_table_raw.Timestamp = datetime(fbf_table_raw.Timestamp);
 fbf_table_raw = table2timetable(fbf_table_raw);
 % Resamples time series at desired interval
 fbf_table = retime(fbf_table_raw, 'regular', 'sum', 'TimeStep', time_step);
-
 fbf_table.SWE_accum_mm = cumsum(fbf_table.SWE_fbf);
 fbf_table.SWE_accum_in = fbf_table.SWE_accum_mm * mm_to_inches;
 
@@ -31,6 +31,8 @@ pbp_table_raw=readtable('01_09_24_1349_50_PBP.csv');
 % Sorts table by timestamp
 timestamp = datetime(pbp_table_raw.Hydrometeor_initial_times);
 pbp_table_raw = sortrows(pbp_table_raw, 'Hydrometeor_initial_times');
+% These variables can be replaced when this script is merged with
+% DEID_AVI_PROCESSOR.m
 mass = pbp_table_raw.Hydrometeor_Mass_pbp;    
 diameter = pbp_table_raw.Hydrometeor_Diameter;    
 max_area = pbp_table_raw.Hydrometeor_Max_Area;    
@@ -71,6 +73,7 @@ v_st = (1/(18*mu))* hfd_1.*diameter.^2;
 pbp_table_raw = table(timestamp, mass, density_sph, hfd_1, v_t, max_area, cpx1, sdi, diameter, max_circ_area, time_to_evap);
 pbp_table_raw = sortrows(pbp_table_raw, 'timestamp');
 % Filters data to find where 0 < mass < .005
+% Not sure if code is still necessary after rewriting time averaging method
 [g1,g2] = find(pbp_table_raw.mass > 0 & pbp_table_raw.mass < 0.005);
 pbp_table_raw = pbp_table_raw(g1,:);
 
@@ -89,25 +92,25 @@ sum_table = retime(pbp_table_raw(:, sum_cols), 'regular', 'sum', 'TimeStep', tim
 
 pbp_table = horzcat(avg_table, sum_table);
 
-%% Gets average SWE from averaged PBP data
-pbp_table.SWE = pbp_table.mass ./ (A_hot);       % mm/min rate
-pbp_table.SWE_accum_mm = cumsum(pbp_table.SWE);  % in of swe
-pbp_table.SWE_accum_in = pbp_table.SWE_accum_mm * mm_to_inches;  % in of swe
-% Finds difference factor between FBF swe1 and PBP swe2 and adjusts swe2
+%% Total SWE per averaging period PBP data
+pbp_table.SWE_mm = pbp_table.mass ./ (A_hot);      
+pbp_table.SWE_accum_mm = cumsum(pbp_table.SWE_mm);  
+pbp_table.SWE_accum_in = pbp_table.SWE_accum_mm * mm_to_inches; 
+% Finds difference factor between FBF SWE and PBP SWE and adjusts PBP SWE
 factor = fbf_table.SWE_accum_in(end) / pbp_table.SWE_accum_in(end);
-pbp_table.SWE_F = pbp_table.SWE * factor;                                   
-pbp_table.SWE_F_accum_mm = cumsum(pbp_table.SWE_F);            % mm/hr rate
-pbp_table.SWE_F_accum_in = pbp_table.SWE_F_accum_mm * mm_to_inches; % in of swe
+pbp_table.SWE_F_mm = pbp_table.SWE_mm * factor;                                   
+pbp_table.SWE_F_accum_mm = cumsum(pbp_table.SWE_F_mm);            
+pbp_table.SWE_F_accum_in = pbp_table.SWE_F_accum_mm * mm_to_inches; 
 
-%% Gets Snow from PBP data
+%% Total Snow per averaging period PBP data
+% Finds difference factor between volume methods
 factor2 = mean(pbp_table.VV1) ./ mean(pbp_table.VV2);
-V3 = factor2 * pbp_table.VV2;
-% ddensity1 = avg_table.total_mass ./ avg_table.rho_h;      % Not used       
+V3 = factor2 * pbp_table.VV2;      
+% Adjusted density
 ddensity2 = pbp_table.mass ./ pbp_table.VV2;   % kg/m^3
-% den_sphere=mean(avg_data(:,3))                            % not sure what this is
-pbp_table.snow = 1000 * pbp_table.SWE_F ./ ddensity2;                      % mm/min rate
-pbp_table.snow_acc_mm = cumsum(pbp_table.snow);        % mm of snow 
-pbp_table.snow_acc_in = pbp_table.snow_acc_mm * mm_to_inches;  % in of snow
+pbp_table.snow_mm = 1000 * pbp_table.SWE_F_mm ./ ddensity2;   
+pbp_table.snow_acc_mm = cumsum(pbp_table.snow_mm);
+pbp_table.snow_acc_in = pbp_table.snow_acc_mm * mm_to_inches;
 
 % %% Outputs to file
 % Data_FBF_AVG = table(hd, swe2_accum_rate_f,swe2_accumulation_f,...
