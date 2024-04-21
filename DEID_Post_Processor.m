@@ -6,7 +6,7 @@ clear, clc, close all
 close all
 clear
 
-workingDir = 'E:\DEID_Processor\RAW_DATA\DEID.avifiles\01_09_2024\processed_output_data';
+workingDir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/Jan_09_10_storm/processed_output_data';
 cd(workingDir)
 
 % Defines global variables
@@ -41,6 +41,11 @@ swe1_accumulation_inch = swe1_accumulation / 25.4;
 % Manipulates time series to give date and time rather than just seconds
 t_time = (t_c + swe1_period_series(:,1));
 tt_time = 27475200+864000 + t_time;% variable
+
+%% Testing new time averaging
+% Reads in particle by particle table data
+pbp_table2=readtable('01_09_24_1349_50_PBP.csv');
+
 
 %% Handles PBP Data
 % Reads in particle by particle table data
@@ -99,24 +104,24 @@ column_names = {'avg_time', 'total_mass', 'rho_s', 'rho_h', 'avg_vel', ...
     'total_vol1', 'total_vol2' }; 
 avg_table = array2table(nan(one_hour_in_seconds, numel(column_names)), 'VariableNames', column_names);
 
-for i = 1:one_hour_in_seconds
+parfor i = 1:one_hour_in_seconds
     % Aggregates and averages particles found in time period
     ini = (pbp_table.h_initial_time_index >= (one_hour_in_minutes * (i-1) + 0));
     fin = (pbp_table.h_initial_time_index <= (one_hour_in_minutes * (i-1) + one_hour_in_minutes));
     logical_index = ini & fin;
     fd = pbp_table(logical_index,:);    % Filtered table
-    avg_table.avg_time(i) = mean(fd.h_initial_time_index, 'omitnan'); % mean time
-    avg_table.total_mass(i) = sum(fd.mass, 'omitnan'); % total mass in given time
-    avg_table.rho_s(i) = mean(fd.density_sph, 'omitnan'); % mean sph. density in given time
-    avg_table.rho_h(i) = mean(fd.hfd_1, 'omitnan'); % mean heat density in given time
-    avg_table.avg_vel(i) = mean(fd.v_t, 'omitnan');
-    avg_table.total_area(i) = sum(fd.max_area, 'omitnan'); % mean density in 1 min
-    avg_table.avg_cpx(i) = mean(fd.cpx1, 'omitnan');    
-    avg_table.avg_sdi(i) = mean(fd.sdi, 'omitnan');  
-    avg_table.avg_dia(i) = mean(fd.diameter, 'omitnan'); 
-    avg_table.total_cir_area(i) = sum(fd.max_circ_area, 'omitnan');
-    avg_table.total_vol1(i) = sum(fd.VV1, 'omitnan');
-    avg_table.total_vol2(i) = sum(fd.VV2, 'omitnan');
+    avg_table(i).avg_time = mean(fd.h_initial_time_index, 'omitnan'); % mean time
+    avg_table(i).total_mass = sum(fd.mass, 'omitnan'); % total mass in given time
+    avg_table(i).rho_s = mean(fd.density_sph, 'omitnan'); % mean sph. density in given time
+    avg_table(i).rho_h = mean(fd.hfd_1, 'omitnan'); % mean heat density in given time
+    avg_table(i).avg_vel = mean(fd.v_t, 'omitnan');
+    avg_table(i).total_area = sum(fd.max_area, 'omitnan'); % mean density in 1 min
+    avg_table(i).avg_cpx = mean(fd.cpx1, 'omitnan');    
+    avg_table(i).avg_sdi = mean(fd.sdi, 'omitnan');  
+    avg_table(i).avg_dia = mean(fd.diameter, 'omitnan'); 
+    avg_table(i).total_cir_area = sum(fd.max_circ_area, 'omitnan');
+    avg_table(i).total_vol1 = sum(fd.VV1, 'omitnan');
+    avg_table(i).total_vol2 = sum(fd.VV2, 'omitnan');
 end
 
 % Removes missing values where no snow was measured

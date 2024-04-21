@@ -6,9 +6,9 @@
 clear, clc, close all
 
 %% Set path, obtain .avi file:
-workingDir = 'E:\DEID_Processor\RAW_DATA\DEID.avifiles\';
-inputDir = '01_09_2024\';
-outputDir = 'processed_output_data\';
+workingDir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/';
+inputDir = 'Jan_09_10_storm/';
+outputDir = 'processed_output_data/';
 % Sets path for .m to run in:
 cd([workingDir, inputDir]) 
 % Check if the output directory exists
