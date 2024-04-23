@@ -5,21 +5,20 @@
 % LAST UPDATED: 04/10/2024
 clear, clc, close all
 
-%% Set path, obtain .avi file:
-workingDir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/';
-inputDir = 'Jan_09_10_storm/';
-outputDir = 'processed_output_data/';
+
+%% Set Up 
+% Preallocate Storage
+col_names = {'timestamp', 'SWE_FBF_mm', 'SWE_PBP_mm', 'SWE_PBP_F_mm', 'density_F1', 'snow_PBP_mm'};
+col_types = {'datetime', 'double', 'double', 'double', 'double', 'double'};
+
+output_table = table('Size', [0, length(col_names)], ...
+                         'VariableNames', col_names, ...
+                         'VariableTypes', col_types);
+
+% Set path, obtain .avi file:
+workingDir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/test';
 % Sets path for .m to run in:
-cd([workingDir, inputDir]) 
-% Check if the output directory exists
-if ~exist(outputDir, 'dir')
-    % If the directory doesn't exist, create it
-    mkdir(outputDir);
-    disp(['Directory "', outputDir, '" created successfully.']);
-else
-    % If the directory already exists, display a message
-    disp(['Directory "', outputDir, '" already exists.']);
-end
+cd(workingDir) 
 
 %% Identifies all .avi files in inputDir 
 % Get a list of all files and folders in this folder
@@ -51,7 +50,7 @@ Rho_Water = 1000; % kg / m^3
 HeatFlux_Density_coeff = 6.4418e04; % constant obtained from lab denisty of ice 
 
 %% Begin DEID processing:
-for file_i = 7:length(fileNames)
+for file_i = 1:length(fileNames)
     disp(['Processing File: ', fileNames{file_i}])
     vid=VideoReader(fileNames{file_i});
     
@@ -60,35 +59,36 @@ for file_i = 7:length(fileNames)
     video_dir = dir(fileNames{file_i});
     video_end_time = datetime([video_dir.date]);
     % Get the duration of the video in seconds
-    videoLengthSeconds = vid.Duration;
+    video_length = vid.Duration;
     % Specify the frequency (1/15 of a second)
     frequency = seconds(1/camera_fps);
     % Calculate the number of time steps
-    num_time_steps = floor(videoLengthSeconds * camera_fps); % 1/15 of a second
+    num_time_steps = floor(video_length * camera_fps); % 1/15 of a second
     % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
     time_series = datetime(video_end_time - (0:num_time_steps) * frequency, 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
     time_series = flip(time_series);  % Flips time series so it ends at the end time
     % Get number of frames, preallocate cell for data, and obtain date
     % information:
-    Num_frames = vid.NumFrames;                               
-    Hydrometeor_Data = cell(Num_frames,1); 
+    num_frames = vid.NumFrames;                               
+    Hydrometeor_Data = cell(num_frames,1); 
     
     %% "Frame by frame method"; this is how Dhiraj is obtaining SWE for each
     % .avi file 
     % Preallocate variables saved in loop for speed:
-    plate_temperature = nan(Num_frames,1);
-    Sum_Hydrometeor_Area_times_DeltaT = nan(Num_frames,1);
+    plate_temperature = nan(num_frames,1);
+    Sum_Hydrometeor_Area_times_DeltaT = nan(num_frames,1);
+    tic
     % Enter loop to process images: 
-    for frame_ii = 1:Num_frames
+    for frame_ii = 1:num_frames 
         % Get image:    
-        current_frame = read(vid, frame_ii);  
+        current_frame = readFrame(vid);  
         % Clean image to get plate temperature: 
         current_frame_gray = rgb2gray(current_frame); % Convert frame of interest to gray scale
         current_frame_gray_cropped_wKapton = imcrop(current_frame_gray,Colorbar_image_indexes);% Crop out colorbar
         plate_temperature(frame_ii) = max(max(double(current_frame_gray_cropped_wKapton))); % Dhiraj assumes max temperature in image is the plate temperature with Kapton tape
         % Clean orginal image: 
         current_frame_gray_cropped = imcrop(current_frame_gray, Colorbar_Kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
-        current_frame_filtered = current_frame_gray_cropped > 70; % Removed below 70, on rbg ([0, 255]) scale 
+        current_frame_filtered = current_frame_gray_cropped > Minmum_thres; % Removed below 70, on rbg ([0, 255]) scale 
         current_frame_filtered_filled = imfill(current_frame_filtered, 'Holes'); % Clean up Hydrometeors
         % Get Hydrometeor properties: 
         Hydrometeor_geo_properties = regionprops(current_frame_filtered_filled, 'Centroid', 'Area','BoundingBox'); % Returns the centroid, the area of each blob, and the bounding box (left, top, width, height).
@@ -120,21 +120,23 @@ for file_i = 7:length(fileNames)
         % Build large matrix of Hydrometeor data
         Hydrometeor_Data{frame_ii} = cat(2, Hydrometeor_Centroid, Hydrometeor_Area, Plate_Hydrometeor_DeltaT, Hydrometeor_ellipse_area, Hydrometeor_Major_Axis, Hydrometeor_Minor_Axis); 
     end
+
+    toc
     
     %% Frame by frame SWE calculation
     % Use current_frame_gray_cropped to calculate the area of hot plate:
     HotPlate_Area = size(current_frame_gray_cropped,1) * size(current_frame_gray_cropped,2) * pix_to_m_conversion;
     Hydrometeor_Mass_fbf = (k_dLv*Sum_Hydrometeor_Area_times_DeltaT) / camera_fps; % mass evaporates in each frame
-    SWE_fbf = Hydrometeor_Mass_fbf / HotPlate_Area;
-    SWE_fbf_accumulation = sum(SWE_fbf); 
-    time_series_fbf = time_series(1:length(SWE_fbf));
+    SWE_FBF_mm = Hydrometeor_Mass_fbf / HotPlate_Area;
+    SWE_fbf_accumulation = sum(SWE_FBF_mm); 
+    time_series_fbf = time_series(1:length(SWE_FBF_mm));
     
     %% Sorting one frame to others frame ~ Data cleaning of some sorts: 
     % Create new cell array for sorted data: 
     Hydrometeor_Data_Sorted = Hydrometeor_Data; 
     % Loop over every data cell corresponding to each frame:
     % Uses "sortPositions_v2.m" - a code that Dhiraj wrote 
-    for frame_jj = 2:Num_frames
+    for frame_jj = 2:num_frames
         Hydrometeor_Data_Sorted{frame_jj} = sortPositions_v2(Hydrometeor_Data_Sorted{frame_jj-1}, Hydrometeor_Data_Sorted{frame_jj}, Sort_Threshold);
     end
     % Return frame with max number of Hydrometeors 
@@ -251,7 +253,7 @@ for file_i = 7:length(fileNames)
     mean_density1 = mean(HeatFlux_Density2, 'omitnan'); % Desnity-Heat Flux Method
     
     %% Organizes data into output arrays
-    Data_FBF= table(time_series_fbf', SWE_fbf);
+    Data_FBF= table(time_series_fbf', SWE_FBF_mm);
     Data_PBP = table(Hydrometeor_initial_times', Hydrometeor_initial_time_indexes',Hydrometeor_Time_2_evap_norm', Hydrometeor_Mass_pbp', Hydrometeor_Diameter',  ...
         Hydrometeor_Max_Area', Hydrometeor_Max_Circumscribed_Area', Time_2_evap', Sphere_Density', HeatFlux_Density1', HeatFlux_Density2', Energy_perTime', ... 
         HeatFlux_Volume', Water_eq_Diameter', Hydrometeor_Max_Major_Axis', Hydrometeor_Max_Minor_Axis',  Hydrometeor_Delta_T', Hydrometeor_Delta_T1');
@@ -273,13 +275,12 @@ for file_i = 7:length(fileNames)
     
     %% Handles FBF SWE data
     fbf_table_raw = Data_FBF;
-    fbf_table_raw.Properties.VariableNames{'Var1'} = 'Timestamp';
-    fbf_table_raw.Timestamp = datetime(fbf_table_raw.Timestamp);
+    fbf_table_raw.Properties.VariableNames{'Var1'} = 'timestamp';
+    fbf_table_raw.timestamp = datetime(fbf_table_raw.timestamp);
     fbf_table_raw = table2timetable(fbf_table_raw);
     % Resamples time series at desired interval
     fbf_table = retime(fbf_table_raw, 'regular', 'sum', 'TimeStep', time_step);
-    fbf_table.SWE_accum_mm = cumsum(fbf_table.SWE_fbf);
-    fbf_table.SWE_accum_in = fbf_table.SWE_accum_mm * mm_to_inches;
+    fbf_table.SWE_FBF_accum_mm = cumsum(fbf_table.SWE_FBF_mm);
     
     %% Handles PBP Data
     % Reads in particle by particle table data
@@ -349,31 +350,43 @@ for file_i = 7:length(fileNames)
     pbp_table = horzcat(avg_table, sum_table);
     
     %% Total SWE per averaging period PBP data
-    pbp_table.SWE_mm = pbp_table.mass ./ (A_hot);      
-    pbp_table.SWE_accum_mm = cumsum(pbp_table.SWE_mm);  
-    pbp_table.SWE_accum_in = pbp_table.SWE_accum_mm * mm_to_inches; 
+    pbp_table.SWE_PBP_mm = pbp_table.mass ./ (A_hot);      
+    pbp_table.SWE_PBP_accum_mm = cumsum(pbp_table.SWE_PBP_mm);  
     % Finds difference factor between FBF SWE and PBP SWE and adjusts PBP SWE
-    factor = fbf_table.SWE_accum_in(end) / pbp_table.SWE_accum_in(end);
-    pbp_table.SWE_F_mm = pbp_table.SWE_mm * factor;                                   
-    pbp_table.SWE_F_accum_mm = cumsum(pbp_table.SWE_F_mm);            
-    pbp_table.SWE_F_accum_in = pbp_table.SWE_F_accum_mm * mm_to_inches; 
+    factor = fbf_table.SWE_FBF_accum_mm(end) / pbp_table.SWE_PBP_accum_mm(end);
+    pbp_table.SWE_PBP_F_mm = pbp_table.SWE_PBP_mm * factor;                                   
+    pbp_table.SWE_PBP_F_accum_mm = cumsum(pbp_table.SWE_PBP_F_mm);            
     
     %% Total Snow per averaging period PBP data
     % Finds difference factor between volume methods
     factor2 = mean(pbp_table.VV1) ./ mean(pbp_table.VV2);
     V3 = factor2 * pbp_table.VV2;      
     % Adjusted density
+    pbp_table.density_F1 = pbp_table.mass ./ pbp_table.hfd_1;   % kg/m^3
     pbp_table.density_F2 = pbp_table.mass ./ pbp_table.VV2;   % kg/m^3
-    pbp_table.snow_mm = 1000 * pbp_table.SWE_F_mm ./ pbp_table.density_F2;   
-    pbp_table.snow_acc_mm = cumsum(pbp_table.snow_mm);
-    pbp_table.snow_acc_in = pbp_table.snow_acc_mm * mm_to_inches;
-    
-    %% Saves processed output arrays to .csv for single .avi file
-    % Replace the file extension with '.csv'
-    outputFileName = strrep(fileNames{file_i}, '.avi', '');
-    writetable(pbp_table, [outputDir, outputFileName, '_PBP.csv']);
-    writetable(fbf_table, [outputDir, outputFileName, '_FBF.csv']);
-    disp(['Saved Output for: ', outputFileName])
+    pbp_table.snow_PBP_mm = 1000 * pbp_table.SWE_PBP_F_mm ./ pbp_table.density_F1;   
+    pbp_table.snow_PBP_acc_mm = cumsum(pbp_table.snow_PBP_mm);
+
+    % Appends data for single video to output table
+    output = synchronize(fbf_table, pbp_table);
+    output = timetable2table(output);
+    output_table = [output_table; output(:, col_names)];
 end
+
+%% Sorts and cumulatively sums data for SWE and Snow totals
+output_table = sortrows(output_table, 'timestamp');
+output_table.SWE_FBF_acc_mm = cumsum(output_table.SWE_FBF_mm);
+output_table.SWE_PBP_acc_mm = cumsum(output_table.SWE_PBP_mm);
+output_table.SWE_PBP_F_acc_mm = cumsum(output_table.SWE_PBP_F_mm);
+output_table.snow_PBP_acc_mm = cumsum(output_table.snow_PBP_mm);
+output_table.snow_PBP_acc_in = output_table.snow_PBP_acc_mm * mm_to_inches;
+
+
+%% Saves processed output arrays to .csv for single .avi file
+% Replace the file extension with '.csv'
+currentDir = pwd;
+[~, parent_dir, ~] = fileparts(currentDir);
+writetable(output_table, [parent_dir, '.csv']);
+disp(['Saved Output for: ', parent_dir])
 
 
