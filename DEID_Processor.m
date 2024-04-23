@@ -8,55 +8,60 @@ clear, clc, close all
 
 %% Set Up 
 % Preallocate Storage
-col_names = {'timestamp', 'SWE_FBF_mm', 'SWE_PBP_mm', 'SWE_PBP_F_mm', 'density_F1', 'snow_PBP_mm'};
-col_types = {'datetime', 'double', 'double', 'double', 'double', 'double'};
+col_names = {'timestamp', 'hfd_1', 'hfd_2', 'SWE_FBF_mm', 'SWE_PBP_mm', 'SWE_PBP_F_mm', 'rho_hfd1_F', 'snow_PBP_hfd1_mm'};
+col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
 
 output_table = table('Size', [0, length(col_names)], ...
                          'VariableNames', col_names, ...
                          'VariableTypes', col_types);
 
 % Set path, obtain .avi file:
-workingDir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/test';
+% working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/test';
+working_dir = 'Z:\DEID\Atwater\JAN\test';
 % Sets path for .m to run in:
-cd(workingDir) 
+cd(working_dir) 
 
 %% Identifies all .avi files in inputDir 
 % Get a list of all files and folders in this folder
-filesAndFolders = dir(".");
+directory = dir(".");
 % Initialize an empty cell array to store the file names
-fileNames = {};
+file_names = {};
 % Loop through each item in the input directory
-for file_i = 1:length(filesAndFolders)
+for file_i = 1:length(directory)
     % Check if the item is a file (not a folder) and if it ends with .avi
-    if ~filesAndFolders(file_i).isdir && endsWith(filesAndFolders(file_i).name, '.avi', 'IgnoreCase', true)
+    if ~directory(file_i).isdir && endsWith(directory(file_i).name, '.avi', 'IgnoreCase', true)
         % Get the name of the file and append it to the list
-        fileNames{end+1} = filesAndFolders(file_i).name;
+        file_names{end+1} = directory(file_i).name;
     end
 end
 
 %% Set global varabiles and constants:
+% Specifies resampling period frequency
+time_step = minutes(5);      
+% Defines global variables
+mm_to_inches = 1/25.4;
 pix_to_m_conversion = 1.0080625e-7; % Some factor to map pixel to real space
-Colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
-Colorbar_Kapton_image_indexes = [1 27 384-1 288-27]; % Location of Kapton tape in pixel locations
-Minmum_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
-Min_Hydrometeor_Size = 10; % Minumum Hydrometeor size in pixels 
-Colorbar_Max_Temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
-Sort_Threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2- I really don't understand this
-Minimum_Drop_Life = 0; % Minimum number of frames a drop has to be visable to be processed
+colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
+colorbar_kapton_image_indexes = [1 27 384-1 288-27]; % Location of Kapton tape in pixel locations
+colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
+min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
+sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2- I really don't understand this
+min_h_size = 10; % Minumum Hydrometeor size in pixels 
+minimum_drop_life = 0; % Minimum number of frames a drop has to be visable to be processed
 k_dLv = 0.0029; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
 camera_fps = 15;% This is the frames per second (fps) of the camera
-L_constant = 2.594*10^6; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
-Rho_Water = 1000; % kg / m^3
-HeatFlux_Density_coeff = 6.4418e04; % constant obtained from lab denisty of ice 
+l_constant = 2.594*10^6; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
+rho_water = 1000; % Density of water [kg/m^3]
+hf_rho_coeff = 6.4418e04; % Heat flux density constant obtained from lab denisty of ice. [(K*s)/m]
 
 %% Begin DEID processing:
-for file_i = 1:length(fileNames)
-    disp(['Processing File: ', fileNames{file_i}])
-    vid=VideoReader(fileNames{file_i});
+for file_i = 1:length(file_names)
+    disp(['Processing File: ', file_names{file_i}])
+    vid=VideoReader(file_names{file_i});
     
     %% Creates datetime timeseries for output file
     % Get end time of avi file
-    video_dir = dir(fileNames{file_i});
+    video_dir = dir(file_names{file_i});
     video_end_time = datetime([video_dir.date]);
     % Get the duration of the video in seconds
     video_length = vid.Duration;
@@ -84,11 +89,11 @@ for file_i = 1:length(fileNames)
         current_frame = readFrame(vid);  
         % Clean image to get plate temperature: 
         current_frame_gray = rgb2gray(current_frame); % Convert frame of interest to gray scale
-        current_frame_gray_cropped_wKapton = imcrop(current_frame_gray,Colorbar_image_indexes);% Crop out colorbar
+        current_frame_gray_cropped_wKapton = imcrop(current_frame_gray,colorbar_image_indexes);% Crop out colorbar
         plate_temperature(frame_ii) = max(max(double(current_frame_gray_cropped_wKapton))); % Dhiraj assumes max temperature in image is the plate temperature with Kapton tape
         % Clean orginal image: 
-        current_frame_gray_cropped = imcrop(current_frame_gray, Colorbar_Kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
-        current_frame_filtered = current_frame_gray_cropped > Minmum_thres; % Removed below 70, on rbg ([0, 255]) scale 
+        current_frame_gray_cropped = imcrop(current_frame_gray, colorbar_kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
+        current_frame_filtered = current_frame_gray_cropped > min_thres; % Removed below 70, on rbg ([0, 255]) scale 
         current_frame_filtered_filled = imfill(current_frame_filtered, 'Holes'); % Clean up Hydrometeors
         % Get Hydrometeor properties: 
         Hydrometeor_geo_properties = regionprops(current_frame_filtered_filled, 'Centroid', 'Area','BoundingBox'); % Returns the centroid, the area of each blob, and the bounding box (left, top, width, height).
@@ -110,7 +115,7 @@ for file_i = 1:length(fileNames)
         % the plate:
         Hydrometeor_Centroid_index = sub2ind(size(current_frame_gray_cropped), Hydrometeor_Centroid(:, 2), Hydrometeor_Centroid(:, 1)); % Find the index of the centriods in orginal image
         Hydrometeor_Centroid_values = double(current_frame_gray_cropped(Hydrometeor_Centroid_index)); % Intensities of Centroid pixels of snow
-        Plate_Hydrometeor_DeltaT = Colorbar_Max_Temp-(Hydrometeor_Centroid_values.*(Colorbar_Max_Temp/plate_temperature(frame_ii)));
+        Plate_Hydrometeor_DeltaT = colorbar_max_temp-(Hydrometeor_Centroid_values.*(colorbar_max_temp/plate_temperature(frame_ii)));
         % Now calculate product of Hydrometeor area with the temp
         % difference:
         Hydrometeor_Area_times_DeltaT = Hydrometeor_Area.*Plate_Hydrometeor_DeltaT;         
@@ -125,9 +130,9 @@ for file_i = 1:length(fileNames)
     
     %% Frame by frame SWE calculation
     % Use current_frame_gray_cropped to calculate the area of hot plate:
-    HotPlate_Area = size(current_frame_gray_cropped,1) * size(current_frame_gray_cropped,2) * pix_to_m_conversion;
+    hp_area = size(current_frame_gray_cropped,1) * size(current_frame_gray_cropped,2) * pix_to_m_conversion;    % Hotplate Area [m^2]
     Hydrometeor_Mass_fbf = (k_dLv*Sum_Hydrometeor_Area_times_DeltaT) / camera_fps; % mass evaporates in each frame
-    SWE_FBF_mm = Hydrometeor_Mass_fbf / HotPlate_Area;
+    SWE_FBF_mm = Hydrometeor_Mass_fbf / hp_area;
     SWE_fbf_accumulation = sum(SWE_FBF_mm); 
     time_series_fbf = time_series(1:length(SWE_FBF_mm));
     
@@ -137,7 +142,7 @@ for file_i = 1:length(fileNames)
     % Loop over every data cell corresponding to each frame:
     % Uses "sortPositions_v2.m" - a code that Dhiraj wrote 
     for frame_jj = 2:num_frames
-        Hydrometeor_Data_Sorted{frame_jj} = sortPositions_v2(Hydrometeor_Data_Sorted{frame_jj-1}, Hydrometeor_Data_Sorted{frame_jj}, Sort_Threshold);
+        Hydrometeor_Data_Sorted{frame_jj} = sortPositions_v2(Hydrometeor_Data_Sorted{frame_jj-1}, Hydrometeor_Data_Sorted{frame_jj}, sort_threshold);
     end
     % Return frame with max number of Hydrometeors 
     Max_Hydrometeors_Obs = max(cellfun(@(x) size(x, 1), Hydrometeor_Data_Sorted, 'UniformOutput', 1));
@@ -201,7 +206,7 @@ for file_i = 1:length(fileNames)
         % Prepare area of each Hydrometeor for temporal intergration: 
         Hydrometeor_area_tmp = Final_Hydrometeor_Area(Hydrometeor_ii, Hydrometeor_appears_index(1):Hydrometeor_evaps_index(end)+1); 
         Hydrometeor_area_tmp_bool = Hydrometeor_area_tmp > 0; % Isolate for positive values
-        Hydrometeor_area_tmp_bool = bwareaopen(Hydrometeor_area_tmp_bool, Minimum_Drop_Life); % Any Hydrometeor which lives for less than 'Minimum_Drop_Life' is discarded
+        Hydrometeor_area_tmp_bool = bwareaopen(Hydrometeor_area_tmp_bool, minimum_drop_life); % Any Hydrometeor which lives for less than 'Minimum_Drop_Life' is discarded
         % Integration ~ need to double check with google search: 
         propstemp = regionprops(Hydrometeor_area_tmp_bool, 'PixelIdxList');
         % Loop over some region property definded in previous line: 
@@ -237,20 +242,18 @@ for file_i = 1:length(fileNames)
     Time_2_evap_norm = sort(Hydrometeor_inital_time_index)/camera_fps; % Time in sec to what? Evap?
     Spherical_Volume = 0.75*Hydrometeor_Max_Area.^1.5; % Spherical volume
     Sphere_Density = Hydrometeor_Mass_pbp./Spherical_Volume; % Density calculation: spherical assumption
-    Energy_perTime = Hydrometeor_Mass_pbp*L_constant./(Hydrometeor_Max_Area.*Time_2_evap); % Heat flux method: energy per unit area per time
-    HeatFlux_Density1 = HeatFlux_Density_coeff * Hydrometeor_Mass_pbp./(Hydrometeor_Max_Area.*Time_2_evap.*Hydrometeor_Delta_T);
-    HeatFlux_Density2 = HeatFlux_Density_coeff * Hydrometeor_Mass_pbp./(Hydrometeor_Max_Area.*Time_2_evap.*Hydrometeor_Delta_T1);
+    Energy_perTime = Hydrometeor_Mass_pbp*l_constant./(Hydrometeor_Max_Area.*Time_2_evap); % Heat flux method: energy per unit area per time
+    HeatFlux_Density1 = hf_rho_coeff * Hydrometeor_Mass_pbp./(Hydrometeor_Max_Area.*Time_2_evap.*Hydrometeor_Delta_T);
+    HeatFlux_Density2 = hf_rho_coeff * Hydrometeor_Mass_pbp./(Hydrometeor_Max_Area.*Time_2_evap.*Hydrometeor_Delta_T1);
     HeatFlux_Volume = Hydrometeor_Mass_pbp./HeatFlux_Density2; % Volume of each snowflakes using heat flux method density
     Hydrometeor_initial_time_indexes= Hydrometeor_inital_time_index(1:length(Hydrometeor_Mass_pbp));
     Hydrometeor_initial_times = time_series(Hydrometeor_initial_time_indexes);
     Hydrometeor_Time_2_evap_norm = Time_2_evap_norm(1:length(Hydrometeor_Mass_pbp));
 
     %% Particle by particle SWE calculation
-    SWE_pbp = Hydrometeor_Mass_pbp ./ HotPlate_Area;
+    SWE_pbp = Hydrometeor_Mass_pbp ./ hp_area;
     SWE_pbp_accumulation = sum(SWE_pbp);
     SWE_factor = SWE_fbf_accumulation / SWE_pbp_accumulation; % we use this factor when using SWE to calculate Snow Depth
-    mean_density = mean(HeatFlux_Density1, 'omitnan'); % Desnity-Heat Flux Method
-    mean_density1 = mean(HeatFlux_Density2, 'omitnan'); % Desnity-Heat Flux Method
     
     %% Organizes data into output arrays
     Data_FBF= table(time_series_fbf', SWE_FBF_mm);
@@ -267,13 +270,7 @@ for file_i = 1:length(fileNames)
 
 
     %% Post Processing Script starts here
-    % Specifies resampling period frequency
-    time_step = minutes(1);      
-    % Defines global variables
-    A_hot = 0.0101;                % Area of hot plate
-    mm_to_inches = 1/25.4;
-    
-    %% Handles FBF SWE data
+    % Handles FBF SWE data
     fbf_table_raw = Data_FBF;
     fbf_table_raw.Properties.VariableNames{'Var1'} = 'timestamp';
     fbf_table_raw.timestamp = datetime(fbf_table_raw.timestamp);
@@ -300,7 +297,7 @@ for file_i = 1:length(fileNames)
     density_sph = pbp_table_raw.Sphere_Density;    
     % Reads in heat flux density directly 
     hfd_1 = pbp_table_raw.HeatFlux_Density1;
-    hfd_2 = pbp_table_raw.HeatFlux_Density2;                % Unused
+    hfd_2 = pbp_table_raw.HeatFlux_Density2;
     
     % Computes terminal velocity
     % Constants
@@ -319,7 +316,7 @@ for file_i = 1:length(fileNames)
     Re = 8.5*(p1-1).^2;
     v = Re.*eta.*(pi./max_circ_area).^0.5;
     v_t = v./(2.*rho_air);
-    vvol = mass./1000;
+    vvol = mass./rho_water;
     A_m = 1.2*vvol.^(2/3);
     cpx1 = max_circ_area./max_area;
     sdi = max_area./A_m;
@@ -327,7 +324,7 @@ for file_i = 1:length(fileNames)
     v_st = (1/(18*mu))* hfd_1.*diameter.^2;
     
     % Stores derived data in table for easy access
-    pbp_table_raw = table(timestamp, mass, density_sph, hfd_1, v_t, max_area, cpx1, sdi, diameter, max_circ_area, time_to_evap);
+    pbp_table_raw = table(timestamp, mass, density_sph, hfd_1, hfd_2, v_t, max_area, cpx1, sdi, diameter, max_circ_area, time_to_evap);
     pbp_table_raw = sortrows(pbp_table_raw, 'timestamp');
     % Filters data to find where 0 < mass < .005
     % Not sure if code is still necessary after rewriting time averaging method
@@ -335,22 +332,23 @@ for file_i = 1:length(fileNames)
     pbp_table_raw = pbp_table_raw(g1,:);
     
     % Appends volume data to table 
-    pbp_table_raw.VV1 = pbp_table_raw.mass./(pbp_table_raw.density_sph);
-    pbp_table_raw.VV2 = pbp_table_raw.mass./(pbp_table_raw.hfd_1);
+    pbp_table_raw.VV1 = pbp_table_raw.mass./(pbp_table_raw.density_sph);    % Volume calculated using spherical density
+    pbp_table_raw.VV2 = pbp_table_raw.mass./(pbp_table_raw.hfd_1);          % Volume calculated using heat flux density 1
+    pbp_table_raw.VV3 = pbp_table_raw.mass./(pbp_table_raw.hfd_2);          % Volume calculated using heat flux density 2
     pbp_table_raw = table2timetable(pbp_table_raw);
     
     %% Computes averaged and summed PBP data
     % Averages PBP data 
-    avg_cols = {'density_sph', 'hfd_1', 'v_t','cpx1', 'sdi', 'diameter'};
+    avg_cols = {'density_sph', 'hfd_1', 'hfd_2', 'v_t', 'cpx1', 'sdi', 'diameter'};
     avg_table = retime(pbp_table_raw(:, avg_cols), 'regular', 'mean', 'TimeStep', time_step);
     % Sums PBP data
-    sum_cols = {'mass', 'max_area', 'max_circ_area', 'VV1', 'VV2'};
+    sum_cols = {'mass', 'max_area', 'max_circ_area', 'VV1', 'VV2', 'VV3'};
     sum_table = retime(pbp_table_raw(:, sum_cols), 'regular', 'sum', 'TimeStep', time_step);
     
     pbp_table = horzcat(avg_table, sum_table);
     
     %% Total SWE per averaging period PBP data
-    pbp_table.SWE_PBP_mm = pbp_table.mass ./ (A_hot);      
+    pbp_table.SWE_PBP_mm = pbp_table.mass ./ (hp_area);      
     pbp_table.SWE_PBP_accum_mm = cumsum(pbp_table.SWE_PBP_mm);  
     % Finds difference factor between FBF SWE and PBP SWE and adjusts PBP SWE
     factor = fbf_table.SWE_FBF_accum_mm(end) / pbp_table.SWE_PBP_accum_mm(end);
@@ -358,15 +356,24 @@ for file_i = 1:length(fileNames)
     pbp_table.SWE_PBP_F_accum_mm = cumsum(pbp_table.SWE_PBP_F_mm);            
     
     %% Total Snow per averaging period PBP data
-    % Finds difference factor between volume methods
-    factor2 = mean(pbp_table.VV1) ./ mean(pbp_table.VV2);
-    V3 = factor2 * pbp_table.VV2;      
     % Adjusted density
-    pbp_table.density_F1 = pbp_table.mass ./ pbp_table.hfd_1;   % kg/m^3
-    pbp_table.density_F2 = pbp_table.mass ./ pbp_table.VV2;   % kg/m^3
-    pbp_table.snow_PBP_mm = 1000 * pbp_table.SWE_PBP_F_mm ./ pbp_table.density_F1;   
-    pbp_table.snow_PBP_acc_mm = cumsum(pbp_table.snow_PBP_mm);
+    pbp_table.rho_spd = pbp_table.mass ./ pbp_table.VV1;    % Density from spherical density method [kg/m^3]
+    pbp_table.rho_hfd1 = pbp_table.mass ./ pbp_table.VV2;   % Density from HFD1 density method [kg/m^3]
+    pbp_table.rho_hfd2 = pbp_table.mass ./ pbp_table.VV3;   % Density from HFD2 density method [kg/m^3]
 
+    % Finds difference factor between volume methods
+    f_spd_hfd1 = mean(pbp_table.VV1) ./ mean(pbp_table.VV2);   % Adjustment factor between spd and HFD1 density methods
+    pbp_table.VV2_F = f_spd_hfd1 * pbp_table.VV2;                % Adjusted volume for HFD1
+    pbp_table.rho_hfd1_F = pbp_table.mass ./ pbp_table.VV2_F;  % Density from HFD1 adjusted for spd density method [kg/m^3]
+    pbp_table.snow_PBP_hfd1_mm = rho_water * pbp_table.SWE_PBP_F_mm ./ pbp_table.rho_hfd1_F;   
+    pbp_table.snow_PBP_hfd1_acc_mm = cumsum(pbp_table.snow_PBP_hfd1_mm);
+   
+    f_spd_hfd2 = mean(pbp_table.VV1) ./ mean(pbp_table.VV3);   % Adjustment factor between spd and HFD2 density methods
+    pbp_table.VV3_F = f_spd_hfd2 * pbp_table.VV3;                % Adjusted volume for HFD2
+    pbp_table.rho_hfd2_F = pbp_table.mass ./ pbp_table.VV3_F;  % Density from HFD2 adjusted for spd density method [kg/m^3]
+    pbp_table.snow_PBP_hfd2_mm = rho_water * pbp_table.SWE_PBP_F_mm ./ pbp_table.rho_hfd2_F;   
+    pbp_table.snow_PBP_hfd2_acc_mm = cumsum(pbp_table.snow_PBP_hfd2_mm);
+    
     % Appends data for single video to output table
     output = synchronize(fbf_table, pbp_table);
     output = timetable2table(output);
@@ -378,8 +385,8 @@ output_table = sortrows(output_table, 'timestamp');
 output_table.SWE_FBF_acc_mm = cumsum(output_table.SWE_FBF_mm);
 output_table.SWE_PBP_acc_mm = cumsum(output_table.SWE_PBP_mm);
 output_table.SWE_PBP_F_acc_mm = cumsum(output_table.SWE_PBP_F_mm);
-output_table.snow_PBP_acc_mm = cumsum(output_table.snow_PBP_mm);
-output_table.snow_PBP_acc_in = output_table.snow_PBP_acc_mm * mm_to_inches;
+output_table.snow_PBP_hfd1_acc_mm = cumsum(output_table.snow_PBP_hfd1_mm);
+output_table.snow_PBP_hfd1_acc_in = output_table.snow_PBP_acc_mm * mm_to_inches;
 
 
 %% Saves processed output arrays to .csv for single .avi file
