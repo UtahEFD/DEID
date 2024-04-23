@@ -386,7 +386,7 @@ output_table.SWE_FBF_acc_mm = cumsum(output_table.SWE_FBF_mm);
 output_table.SWE_PBP_acc_mm = cumsum(output_table.SWE_PBP_mm);
 output_table.SWE_PBP_F_acc_mm = cumsum(output_table.SWE_PBP_F_mm);
 output_table.snow_PBP_hfd1_acc_mm = cumsum(output_table.snow_PBP_hfd1_mm);
-output_table.snow_PBP_hfd1_acc_in = output_table.snow_PBP_acc_mm * mm_to_inches;
+output_table.snow_PBP_hfd1_acc_in = output_table.snow_PBP_hfd1_acc_mm * mm_to_inches;
 
 
 %% Saves processed output arrays to .csv for single .avi file
