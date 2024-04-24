@@ -3,6 +3,7 @@
 % DEID_AVI_Processor.m
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
 % LAST UPDATED: 04/10/2024
+%                                                                     
 clear, clc, close all
 
 
@@ -68,7 +69,7 @@ for file_i = 1:length(file_names)
     % Specify the frequency 
     frequency = seconds(1/vid_fps);
     % Calculate the number of time steps
-    num_frames = round(vid_length * vid_fps);
+    num_frames = vid.NumFrames;
     % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
     time_series = datetime(vid_end_time - (0:num_frames) * frequency, 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
     time_series = flip(time_series);  % Flips time series so it ends at the end time
