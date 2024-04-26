@@ -9,7 +9,7 @@ clear, clc, close all
 
 %% Set up working directory and identify video files 
 % Set path, obtain .avi file:
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/01_15_2024';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/01_11_2024';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 % Sets path for .m to run in:
 cd(working_dir) 
@@ -27,12 +27,13 @@ for file_i = 1:length(directory)
     end
 end
 
-%% Set global varabiles and constants:
+%% Set global varables and constants:
 % Specifies resampling period 
 time_step = minutes(5);      
 % Defines global variables
 mm_to_inches = 1/25.4;
-pix_to_m_conversion = 1.0080625e-7; % Some factor to map pixel to real space
+residue_filter = 0.005;
+pix_to_m2_conversion = 1.0080625e-7; % Pixel to m^2. Replace
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
 colorbar_kapton_image_indexes = [1 27 384-1 288-27]; % Location of Kapton tape in pixel locations
 colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
@@ -46,8 +47,8 @@ rho_water = 1000; % Density of water [kg/m^3]
 hf_rho_coeff = 6.4418e04; % Heat flux density constant obtained from lab denisty of ice. [(K*s)/m]
 
 % Preallocate Storage
-col_names = {'timestamp', 'SWE_FBF_mm', 'SWE_PBP_mm', 'SWE_PBP_F_mm', 'rho_hfd1_F', 'snow_PBP_hfd1_mm', 'rho_hfd2_F', 'snow_PBP_hfd2_mm'};
-col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
+col_names = {'timestamp', 'SWE_FBF_mm', 'SWE_PBP_mm', 'SWE_PBP_F_mm', 'rho_hfd', 'snow_PBP_mm'};
+col_types = {'datetime', 'double', 'double', 'double', 'double', 'double'};
 
 output_table = table('Size', [0, length(col_names)], ...
                          'VariableNames', col_names, ...
@@ -56,7 +57,7 @@ output_table = table('Size', [0, length(col_names)], ...
 %% Begin DEID video processing:
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
-parfor file_i = 1:length(file_names)
+for file_i = 1:length(file_names)
     disp(['Processing File: ', file_names{file_i}])
     vid=VideoReader(file_names{file_i});
     
@@ -100,9 +101,9 @@ parfor file_i = 1:length(file_names)
         h_centroid = round(cat(1, h_geo_prop.Centroid)); % Concat all values to build matrix of Centroids
         h_area_pix = cat(1, h_geo_prop.Area); % Concat all values to build matrix of Hydrometeor areas in pixels
         % Convert Hydrometeor areas to m^2: 
-        h_area = h_area_pix.*pix_to_m_conversion; 
-        h_major_axis = h_bounding_box(:, 3) * sqrt(pix_to_m_conversion); % Hydrometeor major axis
-        h_minor_axis = h_bounding_box(:, 4) * sqrt(pix_to_m_conversion); % Hydrometeor minor axis
+        h_area = h_area_pix.*pix_to_m2_conversion; 
+        h_major_axis = h_bounding_box(:, 3) * sqrt(pix_to_m2_conversion); % Hydrometeor major axis
+        h_minor_axis = h_bounding_box(:, 4) * sqrt(pix_to_m2_conversion); % Hydrometeor minor axis
         % Get the Hydrometeor ellipse area:
         h_elipse_area = h_major_axis.*h_minor_axis;
         % Calculating the difference in temperature of each centroid and
@@ -122,7 +123,7 @@ parfor file_i = 1:length(file_names)
 
     % Frame by frame SWE calculation
     % Use current_frame_gray_cropped to calculate the area of hot plate:
-    hp_area = size(current_frame_gray_cropped,1) * size(current_frame_gray_cropped,2) * pix_to_m_conversion;    % Hotplate Area [m^2]
+    hp_area = size(current_frame_gray_cropped,1) * size(current_frame_gray_cropped,2) * pix_to_m2_conversion;    % Hotplate Area [m^2]
     h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % mass evaporates in each frame
     SWE_FBF_mm = h_mass_fbf / hp_area;
     SWE_fbf_accumulation = sum(SWE_FBF_mm); 
@@ -213,7 +214,7 @@ parfor file_i = 1:length(file_names)
                 % Multiply the area by the temperature difference for that Hydrometeor:
                 h_area_times_dT_pbp = h_area_tmp(propstemp(jj).PixelIdxList).*h_dT_tmp(propstemp(jj).PixelIdxList);
                 % Now integrate:
-                h_mass_pbp{end+1} = trapz(k_dLv*h_area_times_dT_pbp);
+                h_mass_pbp{end+1} = sum(k_dLv*h_area_times_dT_pbp);
             end
         end
     end
@@ -228,18 +229,16 @@ parfor file_i = 1:length(file_names)
     h_delta_temp_mean=cell2mat(h_delta_temp_mean); % Temperature diffrence between plate and water droplet using mean intensity 
     % Now multiples mass by "dt":
     h_mass_pbp = h_mass_pbp / vid_fps; 
-    h_diam = (1.12) * h_max_area.^0.5; % Convert area to diameter of Hydrometeor
-    h_water_eq_diameter = (6 .* h_mass_pbp / 3140).^0.33; % Water equi. diameter. Not sure where this is from
-    h_time_2_evap = cell2mat(h_delta_time) * (1/vid_fps); % Evaporation time
+    h_diam = (4/pi) * h_max_area.^(1/2); % Convert area to diameter of Hydrometeor
+    h_water_eq_diameter = (6 .* h_mass_pbp / (pi * rho_water)).^(1/3); % Water equi. diameter. Not sure where this is from
+    h_time_2_evap = cell2mat(h_delta_time) * (1 / vid_fps); % Evaporation time
     h_time_2_evap_norm = sort(h_init_time_ind) / vid_fps; % Time in sec to what? Evap?
     h_time_2_evap_norm = h_time_2_evap_norm(1:length(h_mass_pbp));
-    h_sph_vol = 0.75 * h_max_area.^1.5; % Spherical volume
+    h_sph_vol = (3/4) * h_max_area.^(3/2); % Spherical volume
     h_rho_sph = h_mass_pbp ./ h_sph_vol; % Density calculation: spherical assumption
     h_energy_per_time = h_mass_pbp * l_constant ./ (h_max_area.*h_time_2_evap); % Heat flux method: energy per unit area per time
-    h_rho_hfd1 = hf_rho_coeff * h_mass_pbp ./ (h_max_area .* h_time_2_evap .* h_delta_temp_max);
-    h_rho_hfd2 = hf_rho_coeff * h_mass_pbp ./ (h_max_area .* h_time_2_evap .* h_delta_temp_mean);
-    h_hfd1_vol = h_mass_pbp ./ h_rho_hfd1; % Volume of each snowflakes using heat flux method 1 density
-    h_hfd2_vol = h_mass_pbp ./ h_rho_hfd2; % Volume of each snowflakes using heat flux method 2 density
+    h_rho_hfd = hf_rho_coeff * h_mass_pbp ./ (h_max_area .* h_time_2_evap .* h_delta_temp_mean); % USE THIS
+    h_hfd_vol = h_mass_pbp ./ h_rho_hfd; % Volume of each snowflakes using heat flux method 2 density
     h_initial_time_indexes = h_init_time_ind(1:length(h_mass_pbp));
     h_initial_times = time_series(h_initial_time_indexes);
 
@@ -253,11 +252,11 @@ parfor file_i = 1:length(file_names)
 
     % Handles PBP data
     pbp_table_raw = table(h_initial_times', h_initial_time_indexes', h_time_2_evap_norm', h_mass_pbp', h_diam',  ...
-        h_max_area', h_max_circ_area', h_time_2_evap', h_rho_sph', h_rho_hfd1', h_rho_hfd2', h_energy_per_time', ... 
-        h_hfd1_vol', h_hfd2_vol', h_water_eq_diameter', h_max_maj_axis', h_max_min_axis',  h_delta_temp_max', h_delta_temp_mean');
+        h_max_area', h_max_circ_area', h_time_2_evap', h_rho_sph', h_rho_hfd', h_energy_per_time', ... 
+        h_hfd_vol', h_water_eq_diameter', h_max_maj_axis', h_max_min_axis',  h_delta_temp_max', h_delta_temp_mean');
     pbp_table_raw.Properties.VariableNames = {'h_initial_times', 'h_initial_time_indexes','h_time_2_evap_norm', 'h_mass_pbp', 'h_diam',  ...
-        'h_max_area', 'h_max_circ_area', 'h_time_2_evap', 'h_rho_sph', 'h_rho_hfd1', 'h_rho_hfd2', 'h_energy_per_time', ... 
-        'h_hfd1_vol', 'h_hfd2_vol', 'h_water_eq_diameter', 'h_max_maj_axis', 'h_max_min_axis',  'h_delta_temp_max', 'h_delta_temp_mean'};
+        'h_max_area', 'h_max_circ_area', 'h_time_2_evap', 'h_rho_sph', 'h_rho_hfd', 'h_energy_per_time', ... 
+        'h_hfd_vol', 'h_water_eq_diameter', 'h_max_maj_axis', 'h_max_min_axis',  'h_delta_temp_max', 'h_delta_temp_mean'};
 
     %% Post Processing Script starts here
     % Resamples time series at desired interval
@@ -277,10 +276,9 @@ parfor file_i = 1:length(file_names)
     time_to_evap = pbp_table_raw.h_time_2_evap;        
     delta_T = pbp_table_raw.h_delta_temp_max;    
     delta_T1 = pbp_table_raw.h_delta_temp_mean; 
-    density_sph = pbp_table_raw.h_rho_sph;    
+    rho_sph = pbp_table_raw.h_rho_sph;    
     % Reads in heat flux density directly 
-    hfd_1 = pbp_table_raw.h_rho_hfd1;
-    hfd_2 = pbp_table_raw.h_rho_hfd2;
+    rho_hfd = pbp_table_raw.h_rho_hfd;
     
     % Computes terminal velocity
     % Constants
@@ -299,33 +297,30 @@ parfor file_i = 1:length(file_names)
     Re = 8.5*(p1-1).^2;
     v = Re.*eta.*(pi./max_circ_area).^0.5;
     v_t = v./(2.*rho_air);
-    vvol = mass./rho_water;
-    A_m = 1.2*vvol.^(2/3);
-    cpx1 = max_circ_area./max_area;
-    sdi = max_area./A_m;
-    mu = 1.5*10^-5;
-    v_st = (1/(18*mu))* hfd_1.*diameter.^2;
+    a_m = ((9*pi)/16)^(1/3) * (mass./rho_water).^(2/3); % Surface area of equivalent water droplet (See POF Singh et al. 2023)
+    cpx1 = max_circ_area ./ max_area;
+    sdi = max_area ./ a_m;
+    mu = 1.5*10^-5;     % Viscosity of air
+    v_st = (1/(18*mu))* rho_hfd.*diameter.^2;
     
     % Stores derived data in table for easy access
-    pbp_table_raw = table(timestamp, mass, density_sph, hfd_1, hfd_2, v_t, max_area, cpx1, sdi, diameter, max_circ_area, time_to_evap);
+    pbp_table_raw = table(timestamp, mass, rho_sph, rho_hfd, v_t, max_area, cpx1, sdi, diameter, max_circ_area, time_to_evap);
     pbp_table_raw = sortrows(pbp_table_raw, 'timestamp');
-    % Filters data to find where 0 < mass < .005
-    % Not sure if code is still necessary after rewriting time averaging method
-    [g1,g2] = find(pbp_table_raw.mass > 0 & pbp_table_raw.mass < 0.005);
+    % Filters data to find where 0 < mass < .005 to omit residue on plate
+    [g1,g2] = find(pbp_table_raw.mass > 0 & pbp_table_raw.mass < residue_filter); % [kg]
     pbp_table_raw = pbp_table_raw(g1,:);
     
     % Appends volume data to table 
-    pbp_table_raw.VV1 = pbp_table_raw.mass./(pbp_table_raw.density_sph);    % Volume calculated using spherical density
-    pbp_table_raw.VV2 = pbp_table_raw.mass./(pbp_table_raw.hfd_1);          % Volume calculated using heat flux density 1
-    pbp_table_raw.VV3 = pbp_table_raw.mass./(pbp_table_raw.hfd_2);          % Volume calculated using heat flux density 2
+    pbp_table_raw.VV1 = pbp_table_raw.mass./(pbp_table_raw.rho_sph);    % Volume calculated using spherical density
+    pbp_table_raw.VV2 = pbp_table_raw.mass./(pbp_table_raw.rho_hfd);          % Volume calculated using heat flux density
     pbp_table_raw = table2timetable(pbp_table_raw);
     
     %% Computes averaged and summed PBP data
     % Averages PBP data 
-    avg_cols = {'density_sph', 'hfd_1', 'hfd_2', 'v_t', 'cpx1', 'sdi', 'diameter'};
+    avg_cols = {'v_t', 'cpx1', 'sdi', 'diameter'};
     avg_table = retime(pbp_table_raw(:, avg_cols), 'regular', 'mean', 'TimeStep', time_step);
     % Sums PBP data
-    sum_cols = {'mass', 'max_area', 'max_circ_area', 'VV1', 'VV2', 'VV3'};
+    sum_cols = {'mass', 'max_area', 'max_circ_area', 'VV1', 'VV2'};
     sum_table = retime(pbp_table_raw(:, sum_cols), 'regular', 'sum', 'TimeStep', time_step);
     % Join tables
     pbp_table = horzcat(avg_table, sum_table);
@@ -341,21 +336,9 @@ parfor file_i = 1:length(file_names)
     %% Total Snow per averaging period PBP data
     % Adjusted density
     pbp_table.rho_spd = pbp_table.mass ./ pbp_table.VV1;    % Density from spherical density method [kg/m^3]
-    pbp_table.rho_hfd1 = pbp_table.mass ./ pbp_table.VV2;   % Density from HFD1 density method [kg/m^3]
-    pbp_table.rho_hfd2 = pbp_table.mass ./ pbp_table.VV3;   % Density from HFD2 density method [kg/m^3]
-
-    % Finds difference factor between volume methods
-    f_spd_hfd1 = mean(pbp_table.VV1) ./ mean(pbp_table.VV2);   % Adjustment factor between spd and HFD1 density methods
-    pbp_table.VV2_F = f_spd_hfd1 * pbp_table.VV2;                % Adjusted volume for HFD1
-    pbp_table.rho_hfd1_F = pbp_table.mass ./ pbp_table.VV2_F;  % Density from HFD1 adjusted for spd density method [kg/m^3]
-    pbp_table.snow_PBP_hfd1_mm = rho_water * pbp_table.SWE_PBP_F_mm ./ pbp_table.rho_hfd1_F;   
-    pbp_table.snow_PBP_hfd1_acc_mm = cumsum(pbp_table.snow_PBP_hfd1_mm);
-   
-    f_spd_hfd2 = mean(pbp_table.VV1) ./ mean(pbp_table.VV3);   % Adjustment factor between spd and HFD2 density methods
-    pbp_table.VV3_F = f_spd_hfd2 * pbp_table.VV3;                % Adjusted volume for HFD2
-    pbp_table.rho_hfd2_F = pbp_table.mass ./ pbp_table.VV3_F;  % Density from HFD2 adjusted for spd density method [kg/m^3]
-    pbp_table.snow_PBP_hfd2_mm = rho_water * pbp_table.SWE_PBP_F_mm ./ pbp_table.rho_hfd2_F;   
-    pbp_table.snow_PBP_hfd2_acc_mm = cumsum(pbp_table.snow_PBP_hfd2_mm);
+    pbp_table.rho_hfd = pbp_table.mass ./ pbp_table.VV2;   % Density from HFD density method [kg/m^3]
+    pbp_table.snow_PBP_mm = rho_water * pbp_table.SWE_PBP_F_mm ./ pbp_table.rho_hfd;   
+    pbp_table.snow_PBP_acc_mm = cumsum(pbp_table.snow_PBP_mm);
     
     %% Appends data for single video to output table
     output = synchronize(fbf_table, pbp_table);
@@ -376,10 +359,8 @@ output_table = sortrows(output_table, 'timestamp');
 output_table.SWE_FBF_acc_mm = cumsum(output_table.SWE_FBF_mm);
 output_table.SWE_PBP_acc_mm = cumsum(output_table.SWE_PBP_mm);
 output_table.SWE_PBP_F_acc_mm = cumsum(output_table.SWE_PBP_F_mm);
-output_table.snow_PBP_hfd1_acc_mm = cumsum(output_table.snow_PBP_hfd1_mm);
-output_table.snow_PBP_hfd1_acc_in = output_table.snow_PBP_hfd1_acc_mm * mm_to_inches;
-output_table.snow_PBP_hfd2_acc_mm = cumsum(output_table.snow_PBP_hfd2_mm);
-output_table.snow_PBP_hfd2_acc_in = output_table.snow_PBP_hfd2_acc_mm * mm_to_inches;
+output_table.snow_PBP_acc_mm = cumsum(output_table.snow_PBP_mm);
+output_table.snow_PBP_acc_in = output_table.snow_PBP_acc_mm * mm_to_inches;
 
 %% Saves processed output arrays to .csv for all video files present in directory
 % Gets folder name and saves output as 'folder name'.csv
