@@ -2,7 +2,7 @@
 % Outputs particle by particle csv file to be post processed by
 % DEID_AVI_Processor.m
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
-% LAST UPDATED: 04/10/2024
+% LAST UPDATED: 04/29/2024
 %                                                                     
 clear, clc, close all
 
@@ -30,20 +30,24 @@ end
 %% Set global varables and constants:
 % Specifies resampling period 
 time_step = minutes(5);      
-% Defines global variables
-mm_to_inches = 1/25.4;
-residue_filter = 0.005;
-pix_to_m2_conversion = 1.0080625e-7; % Pixel to m^2. Replace
+% Unit conversions:
+mm_to_inches = 1/25.4; % [mm/in]
+pix_to_m_conversion = 3.1750e-04; % Pixel to [m]
+pix_to_m2_conversion = pix_to_m_conversion^2; % Pixel to [m^2]
+% Physical constants:
+rho_water = 1000; % Density of water [kg/m^3]
+mu = 1.5*10^-5;   % Viscosity of air [kg/m*s] 
+% DEID specific parameters:
+residue_filter = 0.005; % [kg]
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
 colorbar_kapton_image_indexes = [1 27 384-1 288-27]; % Location of Kapton tape in pixel locations
 colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
 min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
-sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2- I really don't understand this
+sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2
 min_h_size = 10; % Minumum Hydrometeor size in pixels 
 minimum_drop_life = 0; % Minimum number of frames a drop has to be visable to be processed
 k_dLv = 0.0029; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
 l_constant = 2.594*10^6; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
-rho_water = 1000; % Density of water [kg/m^3]
 hf_rho_coeff = 6.4418e04; % Heat flux density constant obtained from lab denisty of ice. [(K*s)/m]
 
 % Preallocate Storage
@@ -57,7 +61,7 @@ output_table = table('Size', [0, length(col_names)], ...
 %% Begin DEID video processing:
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
-for file_i = 1:length(file_names)
+parfor file_i = 1:length(file_names)
     disp(['Processing File: ', file_names{file_i}])
     vid=VideoReader(file_names{file_i});
     
@@ -84,7 +88,7 @@ for file_i = 1:length(file_names)
         current_frame = read(vid, frame_ii);  
         % Clean image to get plate temperature: 
         current_frame_gray = im2gray(current_frame); % Convert frame of interest to gray scale
-        current_frame_gray_cropped_wKapton = imcrop(current_frame_gray,colorbar_image_indexes);% Crop out colorbar
+        current_frame_gray_cropped_wKapton = imcrop(current_frame_gray, colorbar_image_indexes);% Crop out colorbar
         plate_temp(frame_ii) = max(max(double(current_frame_gray_cropped_wKapton))); % Dhiraj assumes max temperature in image is the plate temperature with Kapton tape
         % Clean orginal image: 
         current_frame_gray_cropped = imcrop(current_frame_gray, colorbar_kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
@@ -276,38 +280,25 @@ for file_i = 1:length(file_names)
     time_to_evap = pbp_table_raw.h_time_2_evap;        
     delta_T = pbp_table_raw.h_delta_temp_max;    
     delta_T1 = pbp_table_raw.h_delta_temp_mean; 
-    rho_sph = pbp_table_raw.h_rho_sph;    
-    % Reads in heat flux density directly 
+    rho_sph = pbp_table_raw.h_rho_sph; 
     rho_hfd = pbp_table_raw.h_rho_hfd;
     
-    % Computes terminal velocity
-    % Constants
-    rho_air = 0.9;
-    g = 9.8;
-    pi = 3.14;
-    eta = 1.81*10^-5;
-    % Derived values
-    area_ratio = max_circ_area./max_area;
-    nu = eta/rho_air;
-    x1 = 8*mass.*g*rho_air;
-    x2 = pi*eta^2;
-    x3 = area_ratio.^0.25;
-    X = x1.*x3./x2;
-    p1 = (1+0.1519.*X.^0.5).^0.5;
-    Re = 8.5*(p1-1).^2;
-    v = Re.*eta.*(pi./max_circ_area).^0.5;
-    v_t = v./(2.*rho_air);
+    % Calculate terminal velocity using terminalVelocity function
+
+    v_t = terminalVelocity(max_area, max_circ_area, mass);
+    
+    % Calculate SDI, Cx, and v_st (what is this?)  
+    
     a_m = ((9*pi)/16)^(1/3) * (mass./rho_water).^(2/3); % Surface area of equivalent water droplet (See POF Singh et al. 2023)
-    cpx1 = max_circ_area ./ max_area;
-    sdi = max_area ./ a_m;
-    mu = 1.5*10^-5;     % Viscosity of air
-    v_st = (1/(18*mu))* rho_hfd.*diameter.^2;
+    cx = max_circ_area ./ max_area; % 'Complexity' (See CRST Morrison et al. 2023)
+    sdi = max_area ./ a_m; % 'SDI' (See CRST Morrison et al. 2023) 
+    v_st = (1/(18*mu))* rho_hfd.*diameter.^2; % this isn't being used for anything? 
     
     % Stores derived data in table for easy access
-    pbp_table_raw = table(timestamp, mass, rho_sph, rho_hfd, v_t, max_area, cpx1, sdi, diameter, max_circ_area, time_to_evap);
+    pbp_table_raw = table(timestamp, mass, rho_sph, rho_hfd, v_t, max_area, cx, sdi, diameter, max_circ_area, time_to_evap);
     pbp_table_raw = sortrows(pbp_table_raw, 'timestamp');
     % Filters data to find where 0 < mass < .005 to omit residue on plate
-    [g1,g2] = find(pbp_table_raw.mass > 0 & pbp_table_raw.mass < residue_filter); % [kg]
+    [g1,g2] = find(pbp_table_raw.mass > 0 & pbp_table_raw.mass < residue_filter); 
     pbp_table_raw = pbp_table_raw(g1,:);
     
     % Appends volume data to table 
