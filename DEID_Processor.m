@@ -9,7 +9,7 @@ clear, clc, close all
 
 %% Set up working directory and identify video files 
 % Set path, obtain .avi file:
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/test/';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/Jan_09_10_storm';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 % Sets path for .m to run in:
 cd(working_dir) 
@@ -61,7 +61,7 @@ output_table = table('Size', [0, length(col_names)], ...
 %% Begin DEID video processing:
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
-for file_i = 1:length(file_names)
+parfor file_i = 1:length(file_names)
     disp(['Processing File: ', file_names{file_i}])
     vid=VideoReader(file_names{file_i});
     
@@ -85,17 +85,17 @@ for file_i = 1:length(file_names)
     % Enter loop to process images: 
     for frame_ii = 1:num_frames 
         % Get image:    
-        current_frame = read(vid, frame_ii);  
+        frame = read(vid, frame_ii);  
         % Clean image to get plate temperature: 
-        current_frame_gray = im2gray(current_frame); % Convert frame of interest to gray scale
-        current_frame_gray_cropped_wKapton = imcrop(current_frame_gray, colorbar_image_indexes);% Crop out colorbar
-        plate_temp(frame_ii) = max(max(double(current_frame_gray_cropped_wKapton))); % Dhiraj assumes max temperature in image is the plate temperature with Kapton tape
+        frame_gray = im2gray(frame); % Convert frame of interest to gray scale
+        frame_gray_cropped_wKapton = imcrop(frame_gray, colorbar_image_indexes);% Crop out colorbar
+        plate_temp(frame_ii) = max(max(double(frame_gray_cropped_wKapton))); % Dhiraj assumes max temperature in image is the plate temperature with Kapton tape
         % Clean orginal image: 
-        current_frame_gray_cropped = imcrop(current_frame_gray, colorbar_kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
-        current_frame_filtered = current_frame_gray_cropped > min_thres; % Removed below min threshold, on rbg ([0, 255]) scale 
-        current_frame_filtered_filled = imfill(current_frame_filtered, 'Holes'); % Clean up Hydrometeors
+        frame_gray_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
+        frame_filtered = frame_gray_cropped > min_thres; % Removed below min threshold, on rbg ([0, 255]) scale 
+        frame_filtered_filled = imfill(frame_filtered, 'Holes'); % Clean up Hydrometeors
         % Get Hydrometeor properties: 
-        h_geo_prop = regionprops(current_frame_filtered_filled, 'Centroid', 'Area','BoundingBox'); % Returns the centroid, the area of each blob, and the bounding box (left, top, width, height).
+        h_geo_prop = regionprops(frame_filtered_filled, 'Centroid', 'Area','BoundingBox'); % Returns the centroid, the area of each blob, and the bounding box (left, top, width, height).
         % If no properties are found, go to next frame: 
         if (isempty(h_geo_prop))
             continue;
@@ -109,11 +109,11 @@ for file_i = 1:length(file_names)
         h_major_axis = h_bounding_box(:, 3) * sqrt(pix_to_m2_conversion); % Hydrometeor major axis
         h_minor_axis = h_bounding_box(:, 4) * sqrt(pix_to_m2_conversion); % Hydrometeor minor axis
         % Get the Hydrometeor ellipse area:
-        h_elipse_area = h_major_axis.*h_minor_axis;
+        h_elipse_area = h_major_axis .* h_minor_axis;
         % Calculating the difference in temperature of each centroid and
         % the plate:
-        h_centroid_i = sub2ind(size(current_frame_gray_cropped), h_centroid(:, 2), h_centroid(:, 1)); % Find the index of the centriods in orginal image
-        h_centroid_values = double(current_frame_gray_cropped(h_centroid_i)); % Intensities of Centroid pixels of snow
+        h_centroid_i = sub2ind(size(frame_gray_cropped), h_centroid(:, 2), h_centroid(:, 1)); % Find the index of the centriods in orginal image
+        h_centroid_values = double(frame_gray_cropped(h_centroid_i)); % Intensities of Centroid pixels of snow
         plate_h_dtemp = colorbar_max_temp - (h_centroid_values .* (colorbar_max_temp / plate_temp(frame_ii)));
         % Now calculate product of Hydrometeor area with the temp
         % difference:
@@ -127,7 +127,7 @@ for file_i = 1:length(file_names)
 
     % Frame by frame SWE calculation
     % Use current_frame_gray_cropped to calculate the area of hot plate:
-    hp_area = size(current_frame_gray_cropped,1) * size(current_frame_gray_cropped,2) * pix_to_m2_conversion;    % Hotplate Area [m^2]
+    hp_area = size(frame_gray_cropped,1) * size(frame_gray_cropped,2) * pix_to_m2_conversion;    % Hotplate Area [m^2]
     h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % mass evaporates in each frame
     SWE_FBF_mm = h_mass_fbf / hp_area;
     SWE_fbf_accumulation = sum(SWE_FBF_mm); 
@@ -135,16 +135,18 @@ for file_i = 1:length(file_names)
     
     %% Sorting one frame to others frame ~ Data cleaning of some sorts: 
     % Create new cell array for sorted data: 
-    h_data_sorted = h_data; 
+    h_data_sorted = cell(size(h_data));
+    h_data_sorted{1} = h_data{1};
     % Loop over every data cell corresponding to each frame:
     % Uses "sortPositions_v2.m" - a code that Dhiraj wrote 
     for frame_jj = 2:num_frames
+        h_data_sorted{frame_jj} = h_data{frame_jj};
         h_data_sorted{frame_jj} = sortPositions_v2(h_data_sorted{frame_jj-1}, h_data_sorted{frame_jj}, sort_threshold);
     end
     % Return frame with max number of Hydrometeors 
     max_h_obs = max(cellfun(@(x) size(x, 1), h_data_sorted, 'UniformOutput', 1));
     % Now pad the data with zeros so the frames all have the same number:  
-    h_data_sorted = cellfun(@(x) cat(1, x, zeros(max_h_obs-size(x, 1), 7)),...
+    h_data_sorted = cellfun(@(x) cat(1, x, zeros(max_h_obs - size(x, 1), 7)),...
         h_data_sorted, 'UniformOutput', 0);
     
     %% Isolating the variables and put them into a matrix to work with:
@@ -185,9 +187,7 @@ for file_i = 1:length(file_names)
         h_appear_evap_bool = diff(h_area_final(h_ii, :) > 0); 
         % Create array of indexes which are booleans, +1 is when snowflake starts, and -1 when it leaves
         % diff is [X(3)-X(2)] for backwward FD
-        if sum(h_appear_evap_bool)<0
-            continue;
-        end
+        
         h_appears_ind = find(h_appear_evap_bool > 0); % finds the index when the Hydrometeor appears
         h_evaps_ind = find(h_appear_evap_bool < 0); % Hydrometeor dissapears index
         h_init_time_ind = cat(2,h_init_time_ind,h_appears_ind); % time when snow arrives the plate
@@ -218,7 +218,7 @@ for file_i = 1:length(file_names)
                 % Multiply the area by the temperature difference for that Hydrometeor:
                 h_area_times_dT_pbp = h_area_tmp(propstemp(jj).PixelIdxList) .* h_dT_tmp(propstemp(jj).PixelIdxList);
                 % Now integrate:
-                h_mass_pbp{end+1} = trapz(k_dLv * h_area_times_dT_pbp);
+                h_mass_pbp{end+1} = sum(k_dLv * h_area_times_dT_pbp);
             end
         end
     end

@@ -33,11 +33,11 @@ clc
 
 %% Extracting time, mass, diameter, Area, density, evaporation time for indivisual snow/rain droplet
 cd('/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/test/');
-vid=VideoReader('Atwater_23_24_046.avi');
+vid=VideoReader('Atwater_23_24_047.avi');
 
 nof = vid.NumberOfFrames;
 data = cell(nof, 1);
-coeff=1e-07; % conversion from pixel^2 to m^2
+coeff=(1.0080625e-7)^2; % conversion from pixel^2 to m^2
 for i = 1:nof
     frames = read(vid,i);
     img = rgb2gray(frames);
@@ -160,7 +160,7 @@ for i = 1:nmax
             
             % the following trapz algorithm assumes that dt = 1
             %constant k/dLv = 0.0031
-            dropmass{end+1} = trapz(0.0029*axitemp);
+            dropmass{end+1} = sum(0.0029*axitemp);
             % fps is not consider here
         end
     end
@@ -203,8 +203,8 @@ jj= time1(1:length(m));
 Data1=[tt(1:length(m)) m' D' A' A1' t_evp' rho_s' d_heat1' d_heat2' E' v1' D1' hei' width' jj' T' T1'];
 Data2=[swe' E1'];
 % %  Data3=ref_temp1;
-save('Atwater_23_24_046_SWE.txt', 'Data2', '-ASCII'); 
-save('Atwater_23_24_046_particles.txt', 'Data1', '-ASCII');
+save('Atwater_23_24_047_SWE.txt', 'Data2', '-ASCII'); 
+save('Atwater_23_24_047_particles.txt', 'Data1', '-ASCII');
   
  %% save data
 
