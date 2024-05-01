@@ -32,7 +32,8 @@ clc
 %     % Hydrometer_Data = cell(Num_frames,1); % Preallocate the cell where the data will go   
 
 %% Extracting time, mass, diameter, Area, density, evaporation time for indivisual snow/rain droplet
-vid=VideoReader('E:\DEID_Processor\RAW_DATA\DEID.avifiles\01_09_2024\Atwater_23_24_001.avi');
+cd('/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/test/');
+vid=VideoReader('Atwater_23_24_046.avi');
 
 nof = vid.NumberOfFrames;
 data = cell(nof, 1);
@@ -202,8 +203,8 @@ jj= time1(1:length(m));
 Data1=[tt(1:length(m)) m' D' A' A1' t_evp' rho_s' d_heat1' d_heat2' E' v1' D1' hei' width' jj' T' T1'];
 Data2=[swe' E1'];
 % %  Data3=ref_temp1;
-save('E:\DEID_Processor\Atwater_FinalData\Storm_Data_for_Final_Plots\Test_01_09_SWE.txt', 'Data2', '-ASCII'); 
-save('E:\DEID_Processor\Atwater_FinalData\Storm_Data_for_Final_Plots\Test_01_09_particles.txt', 'Data1', '-ASCII');
+save('Atwater_23_24_046_SWE.txt', 'Data2', '-ASCII'); 
+save('Atwater_23_24_046_particles.txt', 'Data1', '-ASCII');
   
  %% save data
 

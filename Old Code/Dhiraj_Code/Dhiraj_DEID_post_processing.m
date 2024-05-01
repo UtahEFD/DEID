@@ -2,8 +2,8 @@
 close all
 clear all
 
-A_hot=0.0056;
- aa=textread('SWE_DEC08_2023.txt');% swe rate at each frame
+A_hot=0.0101;
+ aa=textread('Atwater_23_24_046_SWE.txt');% swe rate at each frame
 % aa=textread('L_Feb_13_0400_1600_SWE.txt');
 del=1/15;
   SWE_rate=aa(:,1)*15*3600;% check the residue with plotting
@@ -26,7 +26,7 @@ del=1/15;
  t_time=(t_c+temp1(:,1));
  tt_time=27475200+864000+t_time;% variable
 % a=textread('L_Feb_13_0400_1600_particle.txt');
-a=textread('Particle_DEC08_2023.txt');
+a=textread('Atwater_23_24_046_particles.txt');
 
 time=a(:,15)/15; % time in sec
 m=a(:,2);
@@ -41,7 +41,7 @@ TT1=a(:,17);
 %   d_heat=a(:,8)*0.6767;
  d_heat= 6.4418e+04*m./(A.*t_evp.*TT);
  d_sph= 6.4418e+04*m./(A.*t_evp.*TT1);
-raw_den_heat=mean(d_heat)
+raw_den_heat=mean(d_heat);
 % terminal velocity
 Area_ratio=AA./A;
 rho_air= 0.9;
