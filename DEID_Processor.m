@@ -33,7 +33,7 @@ min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
 sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2
 min_h_size = 10; % Minumum Hydrometeor size in pixels 
 minimum_drop_life = 0; % Minimum number of frames a drop has to be visable to be processed
-k_dLv = 0.0029; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
+k_dLv = 0.0035; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
 l_constant = 2.594e06; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
 hf_rho_coeff = 6.4418e04; % Heat flux density constant obtained from lab denisty of ice. [(K*s)/m]
 
