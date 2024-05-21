@@ -8,7 +8,7 @@ clear, clc, close all
 
 
 %% Sets filepath, global variables, and physical constants.
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/JAN/JAN1';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/FEB';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
 % Set global varables and constants:
