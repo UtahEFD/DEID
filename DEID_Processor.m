@@ -5,10 +5,9 @@
 % LAST UPDATED: 05/08/2024
                                                                  
 clear, clc, close all
-
-
 %% Sets filepath, global variables, and physical constants.
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/stormData/jan05';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/stormData/feb20';
+
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
 % Set global varables and constants:
@@ -420,47 +419,93 @@ total_output_table_all.Snow_Acc_mm = cumsum(total_output_table_all.Snow_mm);
 total_output_table_all.Snow_Acc_in = total_output_table_all.Snow_Acc_mm * mm_to_inches;
 
 %% Now create an averaged data table using a given snow interval
-snowDepthAvg = 5;
-snowStart = 0
-snowDepth = 0; 
+
+snow_depth_avg = 5;
+snow_start = total_output_table_all.Snow_Acc_mm(end);
+snow_depth = total_output_table_all.Snow_Acc_mm(end)-snow_depth_avg;
+start_row = 0;
+depth_row = start_row+snow_depth_avg;
 snowInterval_table = timetable();
 snowIntervalTableVarNames = {'Time', 'SnowStart', 'SnowDepth', 'Complexity', 'SDI', 'Density_HFD', 'SWE'};
 
-while snowDepth <= total_output_table_all.Snow_Acc_mm(end)
+while snow_start >= total_output_table_all.Snow_Acc_mm(1)
 
-    snowDepth = snowDepth + snowDepthAvg
-
-    if total_output_table_all.Snow_Acc_mm(end) < snowDepth
-        time_row = total_output_table_all.Time((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth));
-        time_row = time_row(end);
-        snowDepth = total_output_table_all.Snow_Acc_mm(end)
-        cx_row = mean(total_output_table_all.Complexity((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-        sdi_row = mean(total_output_table_all.SDI((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-        density_row = sum(total_output_table_all.Mass((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :))... 
-            / sum(total_output_table_all.Volume((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-        swe_row =  mean(total_output_table_all.SWE_mm((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-        new_row = table2timetable(table(time_row, snowStart, snowDepth, cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames)); 
+    if total_output_table_all.Snow_Acc_mm(1) > snow_depth
+        time_row = total_output_table_all.Time(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start);
+        time_row = time_row(1);
+        cx_row = mean(total_output_table_all.Complexity(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start));
+        sdi_row = mean(total_output_table_all.SDI(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start));
+        density_row = sum(total_output_table_all.Mass(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start))...
+            / sum(total_output_table_all.Volume(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start));
+        swe_row =  mean(total_output_table_all.SWE_mm(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start));
+        new_row = table2timetable(table(time_row, start_row, total_output_table_all.Snow_Acc_mm(end), cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames));
         % new_row = table(horzcat(snowStart, snowDepth, cx_row, sdi_row, density_row));
-        snowInterval_table = vertcat(snowInterval_table, new_row);
+        snowInterval_table = vertcat(snowInterval_table, new_row); 
         break;
-    
+
     else
     
-    time_row = total_output_table_all.Time((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth));
+    time_row = total_output_table_all.Time(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start);
     time_row = time_row(1);
-    cx_row = mean(total_output_table_all.Complexity((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-    sdi_row = mean(total_output_table_all.SDI((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-    density_row = sum(total_output_table_all.Mass((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :))...
-        / sum(total_output_table_all.Volume((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-    new_row = table2timetable(table(time_row, snowStart, snowDepth, cx_row, sdi_row, density_row, 'VariableNames',snowIntervalTableVarNames));
+    cx_row = mean(total_output_table_all.Complexity(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start));
+    sdi_row = mean(total_output_table_all.SDI(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start));
+    density_row = sum(total_output_table_all.Mass(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start))...
+        / sum(total_output_table_all.Volume(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start));
+    swe_row =  mean(total_output_table_all.SWE_mm(total_output_table_all.Snow_Acc_mm > snow_depth & total_output_table_all.Snow_Acc_mm <= snow_start));
+    new_row = table2timetable(table(time_row, start_row, depth_row, cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames));
     % new_row = table(horzcat(snowStart, snowDepth, cx_row, sdi_row, density_row));
     snowInterval_table = vertcat(snowInterval_table, new_row); 
     end
 
-    snowStart = snowStart + snowDepthAvg
+    snow_start = snow_start - snow_depth_avg;
+    snow_depth = snow_depth - snow_depth_avg;
+    start_row = start_row + snow_depth_avg;
+    depth_row = depth_row + snow_depth_avg;
 
 end
 
+%% Now create an averaged data table using a given snow interval
+% snowDepthAvg = 5;
+% snowStart = 0
+% snowDepth = 0; 
+% snowInterval_table = timetable();
+% snowIntervalTableVarNames = {'Time', 'SnowStart', 'SnowDepth', 'Complexity', 'SDI', 'Density_HFD', 'SWE'};
+% 
+% while snowDepth <= total_output_table_all.Snow_Acc_mm(end)
+% 
+%     snowDepth = snowDepth + snowDepthAvg
+% 
+%     if total_output_table_all.Snow_Acc_mm(end) < snowDepth
+%         time_row = total_output_table_all.Time((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth));
+%         time_row = time_row(end);
+%         snowDepth = total_output_table_all.Snow_Acc_mm(end)
+%         cx_row = mean(total_output_table_all.Complexity((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
+%         sdi_row = mean(total_output_table_all.SDI((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
+%         density_row = sum(total_output_table_all.Mass((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :))... 
+%             / sum(total_output_table_all.Volume((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
+%         swe_row =  mean(total_output_table_all.SWE_mm((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
+%         new_row = table2timetable(table(time_row, snowStart, snowDepth, cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames)); 
+%         % new_row = table(horzcat(snowStart, snowDepth, cx_row, sdi_row, density_row));
+%         snowInterval_table = vertcat(snowInterval_table, new_row);
+%         break;
+% 
+%     else
+% 
+%     time_row = total_output_table_all.Time((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth));
+%     time_row = time_row(1);
+%     cx_row = mean(total_output_table_all.Complexity((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
+%     sdi_row = mean(total_output_table_all.SDI((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
+%     density_row = sum(total_output_table_all.Mass((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :))...
+%         / sum(total_output_table_all.Volume((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
+%     swe_row =  mean(total_output_table_all.SWE_mm((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
+%     new_row = table2timetable(table(time_row, snowStart, snowDepth, cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames));
+%     % new_row = table(horzcat(snowStart, snowDepth, cx_row, sdi_row, density_row));
+%     snowInterval_table = vertcat(snowInterval_table, new_row); 
+%     end
+% 
+%     snowStart = snowStart + snowDepthAvg
+% 
+% end
 %% Saves processed output and diagnostic data for all video files present
 % Gets folder name and saves output as 'folder name'.csv
 start_time = datestr(total_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
