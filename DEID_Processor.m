@@ -33,7 +33,9 @@ min_h_size = 10; % Minumum Hydrometeor size in pixels
 minimum_drop_life = 0; % Minimum number of frames a drop has to be visable to be processed
 k_dLv = 0.0035; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
 l_constant = 2.594e06; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
-hf_rho_coeff = 6.4418e04; % Heat flux density constant obtained from lab denisty of ice. [(K*s)/m]
+% Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
+% c = hf_rho_coeff
+hf_rho_coeff = 1.01e05; % [K*s*m^-1] 
 
 
 %% Move to working directory and identify video files 
