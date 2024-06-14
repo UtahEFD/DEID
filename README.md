@@ -1,8 +1,31 @@
 # DEID (Differential Emissivity Imaging Device)
-This respository includes code and documentation describing the DEID. 
-
+This respository includes the DEID code base and associated documentation. 
 The DEID is a new evaporation-based optical and thermal instrument designed to measure  mass, size, density, and type (i.e., snow, rain, and mixtures) of individual hydrometeors.
+This code base is used to extract hydrometeor properties from the DEID thermal camera video. Analysis of output data is done independently.
 
-Files in this directory include:
-(1) DEID_code_variables.m - this Matlab script does the following: input of this code is thermal images. The output of individual hydrometeor especially, mass, area, evaporation time, density, which can be calculated with this Matlab script. After calculation of individual parameters, SWE rate, snow rate, visibility can be estimated using the 2nd part of this code. Information about initial parameters and calibration parameter is written in the code and each line is explained.
-(2) Istan_swe_rho.m this code is for computing instantaneous swe rate and density. every frame, 1/fps sec, swe rate can calculate. 
+## **DEID_Processor.m**
+The primary Matlab script that derives hydrometeor and bulk properties. Takes in DEID video files in AVI format and outputs both a time series of bulk hydrometeor properties as well as each individual particle recorded by DEID. 
+
+#### Time Series Output:
+- Timestamp
+- SWE (total)
+- Snow (total)
+- Density (mean)
+- Complexity (mean)
+- SDI (mean)
+
+#### Particle Table Output:
+- Timestamp
+- SWE 
+- Snow
+- Density
+- Mass
+- Volume
+- Complexity
+- SDI
+
+## **sortPositions_v2.m**
+Helper function for DEID_Processor script to sort positions of hydrometeors on hotplate surface.
+
+## **terminalVelocity.m**
+Helper function for DEID_Processor script to computer terminal velocity of each hydrometeor. 
