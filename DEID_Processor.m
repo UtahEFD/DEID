@@ -67,6 +67,13 @@ particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'doubl
 particle_output_table = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
+% Buckingham Pi output table
+buckPi_particle_col_names = {'Time', 'Density', 'Mass', 'Diameter', 'Surface Area', 'Void Space', 'Temp Diff'};
+buckPi_particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double'};
+buckPi_particle_output_table = table('Size', [0, length(buckPi_particle_col_names)], ...
+                         'VariableNames', buckPi_particle_col_names, ...
+                         'VariableTypes', buckPi_particle_col_types);
+% {'rho_hfd', 'mass', 'diam', 'surface_area_eq', 'vol_hfd',  'void_space'}
 % Diagnostic output table
 diag_col_names = {'Filename', 'Start_Time','End_Time', 'SWE_Factor', 'Num_Particles'};
 diag_col_types = {'string', 'datetime', 'datetime', 'double', 'double'};
@@ -318,6 +325,9 @@ parfor file_i = 1:length(file_names)
         % Calculate terminal velocity using terminalVelocity function
         pbp_table_particles.terminal_vel = terminalVelocity(pbp_table_particles.max_area, pbp_table_particles.max_circ_area, pbp_table_particles.mass);
         
+        % Calculate 'void space'
+        pbp_table_particles.void_space = pbp_table_particles.max_circ_area - pbp_table_particles.max_area; 
+
         % Calculate SDI, Cx  
         pbp_table_particles.surface_area_eq = ((9*pi)/16)^(1/3) * (pbp_table_particles.mass ./ rho_water).^(2/3); % Surface area of equivalent water droplet (See POF Singh et al. 2023)
         pbp_table_particles.complexity = pbp_table_particles.max_circ_area ./ pbp_table_particles.max_area; % 'Complexity' (See CRST Morrison et al. 2023)
@@ -371,6 +381,11 @@ parfor file_i = 1:length(file_names)
         particle_output_table_all = pbp_table_particles(:, {'terminal_vel', 'complexity', 'sdi', 'mass', 'vol_hfd', 'rho_hfd', 'SWE_PBP_F_mm','snow_PBP_mm'});
         particle_output_table_all = timetable2table(particle_output_table_all);
         particle_output_table_all.Properties.VariableNames = particle_col_names;
+        % Selects a different subset of output variables to be exported for
+        % buckingham pi analysis 
+        buckPi_particle_output_table_all = pbp_table_particles(:, {'rho_hfd', 'mass', 'diam', 'surface_area_eq', 'void_space', 'delta_temp_mean'});
+        buckPi_particle_output_table_all = timetable2table(buckPi_particle_output_table_all);
+        buckPi_particle_output_table_all.Properties.VariableNames = buckPi_particle_col_names;
         % Loop through each variable and replace NaNs with zeros.
         % NaNs are showing up for some videos because the pbp and fbf tables
         % dont have the same number of time stamps. Replacing Nans is a quick
@@ -379,9 +394,13 @@ parfor file_i = 1:length(file_names)
         for i = 2:length(output_names)
             particle_output_table_all.(output_names{i})(isnan(particle_output_table_all.(output_names{i}))) = 0;
         end
+        output_names = buckPi_particle_output_table_all.Properties.VariableNames;
+        for i = 2:length(output_names)
+            buckPi_particle_output_table_all.(output_names{i})(isnan(buckPi_particle_output_table_all.(output_names{i}))) = 0;
+        end
         % Appends output
         particle_output_table = [particle_output_table; particle_output_table_all(:, particle_col_names)];
-
+        buckPi_particle_output_table = [buckPi_particle_output_table; buckPi_particle_output_table_all(:, buckPi_particle_col_names)];
         %% Appends AVERAGED TIME SERIES data for single video to output table
         % video_output_table = synchronize(fbf_table_retimed, pbp_table_retimed);
         % Selects a subset of output variables to be exported
@@ -405,6 +424,7 @@ end
 %% Sorts table by time and handles duplicates 
 ts_output_table = sortrows(ts_output_table, 'Time');
 particle_output_table = table2timetable(sortrows(particle_output_table, 'Time')); 
+buckPi_particle_output_table = table2timetable(sortrows(buckPi_particle_output_table, 'Time'));
 % Custom function averages some variables and sums others
 customFunction = @(x) [mean(x(:,1:4), 1), sum(x(:,5:6), 1)]; 
 averagedAndSummedValues = splitapply(customFunction, table2array(ts_output_table(:,2:end)), ...
@@ -519,6 +539,7 @@ start_time = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 writetimetable(particle_output_table, ['DEID_Particle_', start_time, '.csv']);
 writetimetable(ts_output_table, ['DEID_TS_', start_time, '.csv']);
 writetimetable(snowInterval_table, ['DEID_snowAvg_', start_time, '.csv']);
+writetimetable(buckPi_particle_output_table, ['DEID_BuckPi_', start_time, '.csv']); 
 % Writes out diagnostic data
 writetable(diag_output_table, ['Diag_DEID_', start_time,'.csv']);
 
