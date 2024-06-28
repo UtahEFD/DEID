@@ -1,4 +1,4 @@
-function [DEID_storm_data_table, FULL_storm_data_table] = missingTimeFunction(particle_output_table, storm_date)
+git adfunction [DEID_storm_data_table, FULL_storm_data_table] = missingTimeFunction(particle_output_table, storm_date)
 % Function to find missing time between .avi files 
 % Post Processing for DEID_Processor.m
 
