@@ -6,7 +6,7 @@
                                                                  
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants.
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/k_dTesting';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/k_dTesting';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
 % Set global varables and constants:
@@ -43,13 +43,13 @@ k_dLv = 1;
 % Sets path for .m to run in:
 cd(working_dir) 
 % Get a list of all files and folders in this directory
-directory = dir("k_dTesting_20ul.avi");
+directory = dir(".");
 % Initialize an empty cell array to store the file names
 file_names = {};
 % Loop through each item in the input directory
 for file_i = 1:length(directory)
     % Check if the item is a file (not a folder) and if it ends with .avi
-    if ~directory(file_i).isdir && endsWith(directory(file_i).name, '.avi', 'IgnoreCase', true)
+    if ~directory(file_i).isdir && endsWith(directory(file_i).name, '_20ul.avi', 'IgnoreCase', true) && ~startsWith({directory(file_i).name}, '._') 
         % Get the name of the file and append it to the list
         file_names{end+1} = directory(file_i).name;
     end
@@ -91,7 +91,7 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
     %                      'VariableNames', diag_col_names, ...
     %                      'VariableTypes', diag_col_types);
 
-    filename = file_names{file_i};
+    filename = string(file_names); % {file_i};
     disp(['Processing File: ', filename])
     vid=VideoReader(filename);
     
