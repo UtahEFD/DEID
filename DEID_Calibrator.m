@@ -6,7 +6,7 @@
                                                                  
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants.
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/Atwater/test/';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID/k_dTesting';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
 % Set global varables and constants:
@@ -31,18 +31,19 @@ min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
 sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2
 min_h_size = 10; % Minumum Hydrometeor size in pixels 
 minimum_drop_life = 0; % Minimum number of frames a drop has to be visable to be processed
-k_dLv = 0.0035; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
 l_constant = 2.594e06; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
 % Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
 % c = hf_rho_coeff
 hf_rho_coeff = 1.01e05; % [K*s*m^-1] 
+
+k_dLv = 1; 
 
 
 %% Move to working directory and identify video files 
 % Sets path for .m to run in:
 cd(working_dir) 
 % Get a list of all files and folders in this directory
-directory = dir(".");
+directory = dir("k_dTesting_20ul.avi");
 % Initialize an empty cell array to store the file names
 file_names = {};
 % Loop through each item in the input directory
@@ -53,42 +54,42 @@ for file_i = 1:length(directory)
         file_names{end+1} = directory(file_i).name;
     end
 end
-
 %% Initialize Output Tables
 % Time series output table
-ts_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Density_HFD', 'SWE_mm', 'Snow_mm'};
-ts_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double'};
-ts_output_table = table('Size', [0, length(ts_col_names)], ...
-                         'VariableNames', ts_col_names, ...
-                         'VariableTypes', ts_col_types);
+% ts_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Density_HFD', 'SWE_mm', 'Snow_mm'};
+% ts_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double'};
+% ts_output_table = table('Size', [0, length(ts_col_names)], ...
+%                          'VariableNames', ts_col_names, ...
+%                          'VariableTypes', ts_col_types);
 % Particles output table
 particle_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Mass', 'Volume', 'Density_HFD','SWE_mm','Snow_mm'};
 particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
 particle_output_table = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
-% Buckingham Pi output table
-buckPi_particle_col_names = {'Time', 'Density', 'Mass', 'Diameter', 'Surface Area', 'Void Space', 'Temp Diff'};
-buckPi_particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double'};
-buckPi_particle_output_table = table('Size', [0, length(buckPi_particle_col_names)], ...
-                         'VariableNames', buckPi_particle_col_names, ...
-                         'VariableTypes', buckPi_particle_col_types);
-% {'rho_hfd', 'mass', 'diam', 'surface_area_eq', 'vol_hfd',  'void_space'}
-% Diagnostic output table
-diag_col_names = {'Filename', 'Start_Time','End_Time', 'SWE_Factor', 'Num_Particles'};
-diag_col_types = {'string', 'datetime', 'datetime', 'double', 'double'};
-diag_output_table = table('Size', [0, length(diag_col_names)], ...
-                         'VariableNames', diag_col_names, ...
-                         'VariableTypes', diag_col_types);
+% % Buckingham Pi output table
+% buckPi_particle_col_names = {'Time', 'Density', 'Mass', 'Diameter', 'Surface Area', 'Void Space', 'Temp Diff'};
+% buckPi_particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double'};
+% buckPi_particle_output_table = table('Size', [0, length(buckPi_particle_col_names)], ...
+%                          'VariableNames', buckPi_particle_col_names, ...
+%                          'VariableTypes', buckPi_particle_col_types);
+% % {'rho_hfd', 'mass', 'diam', 'surface_area_eq', 'vol_hfd',  'void_space'}
+% % Diagnostic output table
+% diag_col_names = {'Filename', 'Start_Time','End_Time', 'SWE_Factor', 'Num_Particles'};
+% diag_col_types = {'string', 'datetime', 'datetime', 'double', 'double'};
+% diag_output_table = table('Size', [0, length(diag_col_names)], ...
+%                          'VariableNames', diag_col_names, ...
+%                          'VariableTypes', diag_col_types);
 
 %% Begin DEID video processing:
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
-parfor file_i = 1:length(file_names)
+% for file_i = 1:length(file_names)
+
     % Sets up diagnostic table
-    diag_table = table('Size', [1, length(diag_col_names)], ...
-                         'VariableNames', diag_col_names, ...
-                         'VariableTypes', diag_col_types);
+    % diag_table = table('Size', [1, length(diag_col_names)], ...
+    %                      'VariableNames', diag_col_names, ...
+    %                      'VariableTypes', diag_col_types);
 
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
@@ -112,9 +113,9 @@ parfor file_i = 1:length(file_names)
     h_data = cell(num_frames,1);    % Hydrometeor data
     
     % Appends diagnostic data to table
-    diag_table.Filename = filename;
-    diag_table.Start_Time = vid_start_time;
-    diag_table.End_Time = vid_end_time;
+    % diag_table.Filename = filename;
+    % diag_table.Start_Time = vid_start_time;
+    % diag_table.End_Time = vid_end_time;
 
     %% "Frame by frame method"; this is how Dhiraj is obtaining SWE for each .avi file 
     % Preallocate variables saved in loop for speed:
@@ -307,7 +308,10 @@ parfor file_i = 1:length(file_names)
         'vol_hfd', 'water_eq_diameter', 'max_maj_axis', 'max_min_axis', ...
         'energy_per_time', 'delta_temp_max', 'delta_temp_mean'};
 
-    diag_table.Num_Particles = size(pbp_table_particles,1);
+    % diag_table.Num_Particles = size(pbp_table_particles,1);
+
+    % Sorts table by Time
+    pbp_table_particles = sortrows(pbp_table_particles, 'initial_time');
 
     %% Post Processing Starts Here
     % Resamples time series at desired interval
@@ -316,10 +320,12 @@ parfor file_i = 1:length(file_names)
     
     % Processes PBP data if particles were present in video file
     if ~isempty(pbp_table_particles)
-        % Sorts table by Time
-        pbp_table_particles = sortrows(pbp_table_particles, 'initial_time');
+        
         % Filters data to find where 0 < mass < .005 to omit residue on plate
-        [g1,g2] = find(pbp_table_particles.mass > 0 & pbp_table_particles.mass < residue_filter); 
+        % [g1,g2] = find(pbp_table_particles.mass > 0 & pbp_table_particles.mass > residue_filter); 
+        % pbp_table_particles = pbp_table_particles(g1,:);
+
+        [g1,g2] = find(pbp_table_particles.evap_time > 4 & pbp_table_particles.evap_time < 500); 
         pbp_table_particles = pbp_table_particles(g1,:);
        
         % Calculate terminal velocity using terminalVelocity function
@@ -335,40 +341,41 @@ parfor file_i = 1:length(file_names)
 
         %% Computes averaged and summed PBP data using retime function
         pbp_table_particles = table2timetable(pbp_table_particles); % Convert to timetable for retime function
-        % Averages PBP data 
-        avg_cols = {'terminal_vel', 'complexity', 'sdi', 'diam'};
-        avg_table = retime(pbp_table_particles(:, avg_cols), 'regular', 'mean', 'TimeStep', time_step);
-        % Sums PBP data
-        sum_cols = {'mass', 'vol_hfd', 'max_area', 'max_circ_area'};
-        sum_table = retime(pbp_table_particles(:, sum_cols), 'regular', 'sum', 'TimeStep', time_step);
-        % Join tables
-        pbp_table_retimed = horzcat(avg_table, sum_table);
+        % % Averages PBP data 
+        % avg_cols = {'terminal_vel', 'complexity', 'sdi', 'diam'};
+        % avg_table = retime(pbp_table_particles(:, avg_cols), 'regular', 'mean', 'TimeStep', time_step);
+        % % Sums PBP data
+        % sum_cols = {'mass', 'vol_hfd', 'max_area', 'max_circ_area'};
+        % sum_table = retime(pbp_table_particles(:, sum_cols), 'regular', 'sum', 'TimeStep', time_step);
+        % % Join tables
+        % pbp_table_retimed = horzcat(avg_table, sum_table);
         
         %% Total SWE per averaging period PBP data
-        pbp_table_retimed.SWE_PBP_mm = 1000 * pbp_table_retimed.mass ./ (rho_water * hp_area); % [mm]
-        pbp_table_retimed.SWE_PBP_accum_mm = cumsum(pbp_table_retimed.SWE_PBP_mm);  % [mm]
-        % Finds difference factor between FBF SWE and PBP SWE and adjusts PBP SWE
-        swe_factor = fbf_table_retimed.SWE_FBF_accum_mm(end) / pbp_table_retimed.SWE_PBP_accum_mm(end);
-        pbp_table_retimed.SWE_PBP_F_mm = pbp_table_retimed.SWE_PBP_mm * swe_factor;                                   
-        pbp_table_retimed.SWE_PBP_F_accum_mm = cumsum(pbp_table_retimed.SWE_PBP_F_mm);            
-        
-        diag_table.SWE_Factor = swe_factor;
+        % pbp_table_retimed.SWE_PBP_mm = 1000 * pbp_table_retimed.mass ./ (rho_water * hp_area); % [mm]
+        % pbp_table_retimed.SWE_PBP_accum_mm = cumsum(pbp_table_retimed.SWE_PBP_mm);  % [mm]
+        % % Finds difference factor between FBF SWE and PBP SWE and adjusts PBP SWE
+        % swe_factor = fbf_table_retimed.SWE_FBF_accum_mm(end) / pbp_table_retimed.SWE_PBP_accum_mm(end);
+        % pbp_table_retimed.SWE_PBP_F_mm = pbp_table_retimed.SWE_PBP_mm * swe_factor;                                   
+        % pbp_table_retimed.SWE_PBP_F_accum_mm = cumsum(pbp_table_retimed.SWE_PBP_F_mm);            
+        % 
+        % diag_table.SWE_Factor = swe_factor;
 
         %% Total SWE for all PBP data
         pbp_table_particles.SWE_PBP_mm = 1000 * pbp_table_particles.mass ./ (rho_water * hp_area); % [mm]
         pbp_table_particles.SWE_PBP_accum_mm = cumsum(pbp_table_particles.SWE_PBP_mm);  % [mm]
         
         % Adjusts PBP SWE
+        swe_factor = fbf_table_retimed.SWE_FBF_accum_mm(end) / pbp_table_particles.SWE_PBP_accum_mm(end);
         pbp_table_particles.SWE_PBP_F_mm = pbp_table_particles.SWE_PBP_mm * swe_factor;                                   
         pbp_table_particles.SWE_PBP_F_accum_mm = cumsum(pbp_table_particles.SWE_PBP_F_mm);            
 
         %% Total Snow per averaging period PBP data
-        % Adjusted density
-        pbp_table_retimed.rho_hfd = pbp_table_retimed.mass ./ pbp_table_retimed.vol_hfd;   % Density from HFD density method [kg/m^3]
-        pbp_table_retimed.snow_PBP_mm = rho_water * (pbp_table_retimed.SWE_PBP_mm ./ pbp_table_retimed.rho_hfd); % [mm]
-        pbp_table_retimed.snow_PBP_acc_mm = cumsum(pbp_table_retimed.snow_PBP_mm); % [mm]
+        % % Adjusted density
+        % pbp_table_retimed.rho_hfd = pbp_table_retimed.mass ./ pbp_table_retimed.vol_hfd;   % Density from HFD density method [kg/m^3]
+        % pbp_table_retimed.snow_PBP_mm = rho_water * (pbp_table_retimed.SWE_PBP_mm ./ pbp_table_retimed.rho_hfd); % [mm]
+        % pbp_table_retimed.snow_PBP_acc_mm = cumsum(pbp_table_retimed.snow_PBP_mm); % [mm]
 
-        % Compare to using mean(rho_hfd)
+        % % Compare to using mean(rho_hfd)
         % pbp_table_retimed.snow_meanPBP_mm = rho_water * (pbp_table_retimed.SWE_PBP_mm ./ pbp_table_retimed.rho_hfd); % [mm]
         % pbp_table_retimed.snow_meanPBP_acc_mm = cumsum(pbp_table_retimed.snow_meanPBP_mm); % [mm]
 
@@ -382,10 +389,10 @@ parfor file_i = 1:length(file_names)
         particle_output_table_all = timetable2table(particle_output_table_all);
         particle_output_table_all.Properties.VariableNames = particle_col_names;
         % Selects a different subset of output variables to be exported for
-        % buckingham pi analysis 
-        buckPi_particle_output_table_all = pbp_table_particles(:, {'rho_hfd', 'mass', 'diam', 'surface_area_eq', 'void_space', 'delta_temp_mean'});
-        buckPi_particle_output_table_all = timetable2table(buckPi_particle_output_table_all);
-        buckPi_particle_output_table_all.Properties.VariableNames = buckPi_particle_col_names;
+        % % buckingham pi analysis 
+        % buckPi_particle_output_table_all = pbp_table_particles(:, {'rho_hfd', 'mass', 'diam', 'surface_area_eq', 'void_space', 'delta_temp_mean'});
+        % buckPi_particle_output_table_all = timetable2table(buckPi_particle_output_table_all);
+        % buckPi_particle_output_table_all.Properties.VariableNames = buckPi_particle_col_names;
         % Loop through each variable and replace NaNs with zeros.
         % NaNs are showing up for some videos because the pbp and fbf tables
         % dont have the same number of time stamps. Replacing Nans is a quick
@@ -394,51 +401,51 @@ parfor file_i = 1:length(file_names)
         for i = 2:length(output_names)
             particle_output_table_all.(output_names{i})(isnan(particle_output_table_all.(output_names{i}))) = 0;
         end
-        output_names = buckPi_particle_output_table_all.Properties.VariableNames;
-        for i = 2:length(output_names)
-            buckPi_particle_output_table_all.(output_names{i})(isnan(buckPi_particle_output_table_all.(output_names{i}))) = 0;
-        end
+        % output_names = buckPi_particle_output_table_all.Properties.VariableNames;
+        % for i = 2:length(output_names)
+        %     buckPi_particle_output_table_all.(output_names{i})(isnan(buckPi_particle_output_table_all.(output_names{i}))) = 0;
+        % end
         % Appends output
         particle_output_table = [particle_output_table; particle_output_table_all(:, particle_col_names)];
-        buckPi_particle_output_table = [buckPi_particle_output_table; buckPi_particle_output_table_all(:, buckPi_particle_col_names)];
+        % buckPi_particle_output_table = [buckPi_particle_output_table; buckPi_particle_output_table_all(:, buckPi_particle_col_names)];
         %% Appends AVERAGED TIME SERIES data for single video to output table
         % video_output_table = synchronize(fbf_table_retimed, pbp_table_retimed);
-        % Selects a subset of output variables to be exported
-        video_output_table = pbp_table_retimed(:, {'terminal_vel', 'complexity', 'sdi', 'rho_hfd', 'SWE_PBP_F_mm', 'snow_PBP_mm'});
-        video_output_table = timetable2table(video_output_table);
-        video_output_table.Properties.VariableNames = ts_col_names;
-        % Loop through each variable and replace NaNs with zeros.
-        % NaNs are showing up for some videos because the pbp and fbf tables
-        % dont have the same number of time stamps. Replacing Nans is a quick
-        % fix but should be further explored.
-        output_names = video_output_table.Properties.VariableNames;
-        for i = 2:length(output_names)
-            video_output_table.(output_names{i})(isnan(video_output_table.(output_names{i}))) = 0;
-        end
-        % Appends output
-        ts_output_table = [ts_output_table; video_output_table(:, ts_col_names)];
-        diag_output_table = [diag_output_table; diag_table(:, diag_col_names)];
+        % % Selects a subset of output variables to be exported
+        % video_output_table = pbp_table_retimed(:, {'terminal_vel', 'complexity', 'sdi', 'rho_hfd', 'SWE_PBP_F_mm', 'snow_PBP_mm'});
+        % video_output_table = timetable2table(video_output_table);
+        % video_output_table.Properties.VariableNames = ts_col_names;
+        % % Loop through each variable and replace NaNs with zeros.
+        % % NaNs are showing up for some videos because the pbp and fbf tables
+        % % dont have the same number of time stamps. Replacing Nans is a quick
+        % % fix but should be further explored.
+        % output_names = video_output_table.Properties.VariableNames;
+        % for i = 2:length(output_names)
+        %     video_output_table.(output_names{i})(isnan(video_output_table.(output_names{i}))) = 0;
+        % end
+        % % Appends output
+        % ts_output_table = [ts_output_table; video_output_table(:, ts_col_names)];
+        % diag_output_table = [diag_output_table; diag_table(:, diag_col_names)];
     end
-end
+% end
 
 %% Sorts table by time and handles duplicates 
-ts_output_table = sortrows(ts_output_table, 'Time');
+% ts_output_table = sortrows(ts_output_table, 'Time');
 particle_output_table = table2timetable(sortrows(particle_output_table, 'Time')); 
-buckPi_particle_output_table = table2timetable(sortrows(buckPi_particle_output_table, 'Time'));
-% Custom function averages some variables and sums others
-customFunction = @(x) [mean(x(:,1:4), 1), sum(x(:,5:6), 1)]; 
-averagedAndSummedValues = splitapply(customFunction, table2array(ts_output_table(:,2:end)), ...
-                                     findgroups(ts_output_table.Time));
-ts_output_table = table2timetable(array2table(averagedAndSummedValues, ...
-                                            'VariableNames', ts_output_table.Properties.VariableNames(2:end)), ...
-                               'RowTimes', unique(ts_output_table.Time));
-
-diag_output_table = sortrows(diag_output_table, 'Start_Time');
+% buckPi_particle_output_table = table2timetable(sortrows(buckPi_particle_output_table, 'Time'));
+% % Custom function averages some variables and sums others
+% customFunction = @(x) [mean(x(:,1:4), 1), sum(x(:,5:6), 1)]; 
+% averagedAndSummedValues = splitapply(customFunction, table2array(ts_output_table(:,2:end)), ...
+%                                      findgroups(ts_output_table.Time));
+% ts_output_table = table2timetable(array2table(averagedAndSummedValues, ...
+%                                             'VariableNames', ts_output_table.Properties.VariableNames(2:end)), ...
+%                                'RowTimes', unique(ts_output_table.Time));
+% 
+% diag_output_table = sortrows(diag_output_table, 'Start_Time');
 %% Cumulatively sums data for SWE and Snow totals
-% Averaged data 
-ts_output_table.SWE_Acc_mm = cumsum(ts_output_table.SWE_mm);
-ts_output_table.Snow_Acc_mm = cumsum(ts_output_table.Snow_mm);
-ts_output_table.Snow_Acc_in = ts_output_table.Snow_Acc_mm * mm_to_inches;
+% % Averaged data 
+% ts_output_table.SWE_Acc_mm = cumsum(ts_output_table.SWE_mm);
+% ts_output_table.Snow_Acc_mm = cumsum(ts_output_table.Snow_mm);
+% ts_output_table.Snow_Acc_in = ts_output_table.Snow_Acc_mm * mm_to_inches;
 
 % Compare to using mean(rho_hfd)
 % total_output_table.meanSnow_Acc_mm = cumsum(total_output_table.meanSnow_mm);
@@ -450,98 +457,55 @@ particle_output_table.Snow_Acc_mm = cumsum(particle_output_table.Snow_mm);
 particle_output_table.Snow_Acc_in = particle_output_table.Snow_Acc_mm * mm_to_inches;
 
 %% Now create an averaged data table using a given snow interval
-snow_depth_avg = 5;
-snow_start = particle_output_table.Snow_Acc_mm(end);
-snow_depth = particle_output_table.Snow_Acc_mm(end)-snow_depth_avg;
-start_row = 0;
-depth_row = start_row+snow_depth_avg;
-snowInterval_table = timetable();
-snowIntervalTableVarNames = {'Time', 'SnowStart', 'SnowDepth', 'Complexity', 'SDI', 'Density_HFD', 'SWE'};
-
-while snow_start >= particle_output_table.Snow_Acc_mm(1)
-    if particle_output_table.Snow_Acc_mm(1) > snow_depth
-        time_row = particle_output_table.Time(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start);
-        time_row = time_row(1);
-        cx_row = mean(particle_output_table.Complexity(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
-        sdi_row = mean(particle_output_table.SDI(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
-        density_row = sum(particle_output_table.Mass(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start))...
-            / sum(particle_output_table.Volume(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
-        swe_row =  sum(particle_output_table.SWE_mm(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
-        new_row = table2timetable(table(time_row, start_row, particle_output_table.Snow_Acc_mm(end), cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames));
-        snowInterval_table = vertcat(snowInterval_table, new_row); 
-        break;
-
-    else
-    time_row = particle_output_table.Time(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start);
-    time_row = time_row(1);
-    cx_row = mean(particle_output_table.Complexity(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
-    sdi_row = mean(particle_output_table.SDI(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
-    density_row = sum(particle_output_table.Mass(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start))...
-        / sum(particle_output_table.Volume(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
-    swe_row =  sum(particle_output_table.SWE_mm(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
-    new_row = table2timetable(table(time_row, start_row, depth_row, cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames));
-    snowInterval_table = vertcat(snowInterval_table, new_row); 
-    end
-
-    snow_start = snow_start - snow_depth_avg;
-    snow_depth = snow_depth - snow_depth_avg;
-    start_row = start_row + snow_depth_avg;
-    depth_row = depth_row + snow_depth_avg;
-end
-
-%% Now create an averaged data table using a given snow interval
-% snowDepthAvg = 5;
-% snowStart = 0
-% snowDepth = 0; 
+% snow_depth_avg = 5;
+% snow_start = particle_output_table.Snow_Acc_mm(end);
+% snow_depth = particle_output_table.Snow_Acc_mm(end)-snow_depth_avg;
+% start_row = 0;
+% depth_row = start_row+snow_depth_avg;
 % snowInterval_table = timetable();
 % snowIntervalTableVarNames = {'Time', 'SnowStart', 'SnowDepth', 'Complexity', 'SDI', 'Density_HFD', 'SWE'};
 % 
-% while snowDepth <= total_output_table_all.Snow_Acc_mm(end)
-% 
-%     snowDepth = snowDepth + snowDepthAvg
-% 
-%     if total_output_table_all.Snow_Acc_mm(end) < snowDepth
-%         time_row = total_output_table_all.Time((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth));
-%         time_row = time_row(end);
-%         snowDepth = total_output_table_all.Snow_Acc_mm(end)
-%         cx_row = mean(total_output_table_all.Complexity((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-%         sdi_row = mean(total_output_table_all.SDI((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-%         density_row = sum(total_output_table_all.Mass((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :))... 
-%             / sum(total_output_table_all.Volume((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-%         swe_row =  mean(total_output_table_all.SWE_mm((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-%         new_row = table2timetable(table(time_row, snowStart, snowDepth, cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames)); 
-%         % new_row = table(horzcat(snowStart, snowDepth, cx_row, sdi_row, density_row));
-%         snowInterval_table = vertcat(snowInterval_table, new_row);
+% while snow_start >= particle_output_table.Snow_Acc_mm(1)
+%     if particle_output_table.Snow_Acc_mm(1) > snow_depth
+%         time_row = particle_output_table.Time(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start);
+%         time_row = time_row(1);
+%         cx_row = mean(particle_output_table.Complexity(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
+%         sdi_row = mean(particle_output_table.SDI(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
+%         density_row = sum(particle_output_table.Mass(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start))...
+%             / sum(particle_output_table.Volume(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
+%         swe_row =  sum(particle_output_table.SWE_mm(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
+%         new_row = table2timetable(table(time_row, start_row, particle_output_table.Snow_Acc_mm(end), cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames));
+%         snowInterval_table = vertcat(snowInterval_table, new_row); 
 %         break;
 % 
 %     else
-% 
-%     time_row = total_output_table_all.Time((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth));
+%     time_row = particle_output_table.Time(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start);
 %     time_row = time_row(1);
-%     cx_row = mean(total_output_table_all.Complexity((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-%     sdi_row = mean(total_output_table_all.SDI((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-%     density_row = sum(total_output_table_all.Mass((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :))...
-%         / sum(total_output_table_all.Volume((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-%     swe_row =  mean(total_output_table_all.SWE_mm((snowStart < total_output_table_all.Snow_Acc_mm) & (total_output_table_all.Snow_Acc_mm < snowDepth), :));
-%     new_row = table2timetable(table(time_row, snowStart, snowDepth, cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames));
-%     % new_row = table(horzcat(snowStart, snowDepth, cx_row, sdi_row, density_row));
+%     cx_row = mean(particle_output_table.Complexity(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
+%     sdi_row = mean(particle_output_table.SDI(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
+%     density_row = sum(particle_output_table.Mass(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start))...
+%         / sum(particle_output_table.Volume(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
+%     swe_row =  sum(particle_output_table.SWE_mm(particle_output_table.Snow_Acc_mm > snow_depth & particle_output_table.Snow_Acc_mm <= snow_start));
+%     new_row = table2timetable(table(time_row, start_row, depth_row, cx_row, sdi_row, density_row, swe_row, 'VariableNames',snowIntervalTableVarNames));
 %     snowInterval_table = vertcat(snowInterval_table, new_row); 
 %     end
 % 
-%     snowStart = snowStart + snowDepthAvg
-% 
+%     snow_start = snow_start - snow_depth_avg;
+%     snow_depth = snow_depth - snow_depth_avg;
+%     start_row = start_row + snow_depth_avg;
+%     depth_row = depth_row + snow_depth_avg;
 % end
 
 %% Saves processed output and diagnostic data for all video files present
 % Gets folder name and saves output as 'folder name'.csv
-start_time = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
+start_time = datestr(particle_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 % Writes out processed data
 writetimetable(particle_output_table, ['DEID_Particle_', start_time, '.csv']);
-writetimetable(ts_output_table, ['DEID_TS_', start_time, '.csv']);
-writetimetable(snowInterval_table, ['DEID_snowAvg_', start_time, '.csv']);
-writetimetable(buckPi_particle_output_table, ['DEID_BuckPi_', start_time, '.csv']); 
-% Writes out diagnostic data
-writetable(diag_output_table, ['Diag_DEID_', start_time,'.csv']);
+% writetimetable(ts_output_table, ['DEID_TS_', start_time, '.csv']);
+% writetimetable(snowInterval_table, ['DEID_snowAvg_', start_time, '.csv']);
+% writetimetable(buckPi_particle_output_table, ['DEID_BuckPi_', start_time, '.csv']); 
+% % Writes out diagnostic data
+% writetable(diag_output_table, ['Diag_DEID_', start_time,'.csv']);
 
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
