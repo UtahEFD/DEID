@@ -25,18 +25,18 @@ mu = 1.5*10^-5;   % Viscosity of air [kg/m*s]
 % DEID specific parameters:
 residue_filter = 0.005; % [kg]
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
-colorbar_kapton_image_indexes = [1 27 383 261]; % Location of Kapton tape in pixel locations
+colorbar_kapton_image_indexes = [97 90 202 138]; % Location of Kapton tape in pixel locations
 colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
 min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
 sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2
 min_h_size = 10; % Minumum Hydrometeor size in pixels 
-minimum_drop_life = 0; % Minimum number of frames a drop has to be visable to be processed
+minimum_drop_life = 30; % Minimum number of frames a drop has to be visable to be processed
 l_constant = 2.594e06; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
 % Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
 % c = hf_rho_coeff
 hf_rho_coeff = 1.01e05; % [K*s*m^-1] 
 
-k_dLv = 1; 
+k_dLv = .001; 
 
 
 %% Move to working directory and identify video files 
@@ -124,7 +124,9 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
     % Enter loop to process images: 
     for frame_ii = 1:num_frames 
         % Get image:    
-        frame = read(vid, frame_ii);  
+        frame = read(vid, frame_ii);
+        % imshow(frame);
+        % datacursormode on
         % Clean image to get plate temperature: 
         frame_gray = im2gray(frame); % Convert frame of interest to gray scale
         frame_gray_cropped_wKapton = imcrop(frame_gray, colorbar_image_indexes);% Crop out colorbar
@@ -162,6 +164,9 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
         sum_h_area_times_dt(frame_ii)=sum(h_area_times_dtemp);         
         % Build large matrix of Hydrometeor data
         h_data{frame_ii} = cat(2, h_centroid, h_area, plate_h_dtemp, h_elipse_area, h_major_axis, h_minor_axis); 
+        % figure()
+        % imshow(frame_gray_cropped);
+        % pause(0.0005)
     end
 
     % Frame by frame SWE calculation
@@ -312,7 +317,32 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
 
     % Sorts table by Time
     pbp_table_particles = sortrows(pbp_table_particles, 'initial_time');
-
+    
+    % Find all time differences less than 7 seconds apart, and sum masses:
+    % pbp_table = table([],[],'VariableNames', {'Time', 'Mass'});
+    % start_time = pbp_table_particles.initial_time(1);
+    % total_mass = pbp_table_particles.mass(1);
+    % 
+    % for i = 2:height(pbp_table_particles)
+    %     time_diff = seconds(pbp_table_particles.initial_time(i) - pbp_table_particles.initial_time(i-1));
+    % 
+    %     if time_diff < 7
+    %         total_mass = total_mass + pbp_table_particles.mass(i);
+    % 
+    %     else
+    % 
+    %         new_row = table(start_time, total_mass, 'VariableNames', {'Time', 'Mass'});
+    %         pbp_table = [pbp_table; new_row];
+    % 
+    %         start_time = pbp_table_particles.initial_time(i);
+    %         total_mass = pbp_table_particles.mass(i);
+    % 
+    %     end
+    % end
+    % 
+    % new_row = table(start_time, total_mass, 'VariableNames', {'Time', 'Mass'});
+    % pbp_table = [pbp_table; new_row];
+    
     %% Post Processing Starts Here
     % Resamples time series at desired interval
     fbf_table_retimed = retime(fbf_table_raw, 'regular', 'sum', 'TimeStep', time_step);
@@ -325,8 +355,8 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
         % [g1,g2] = find(pbp_table_particles.mass > 0 & pbp_table_particles.mass > residue_filter); 
         % pbp_table_particles = pbp_table_particles(g1,:);
 
-        [g1,g2] = find(pbp_table_particles.evap_time > 4 & pbp_table_particles.evap_time < 500); 
-        pbp_table_particles = pbp_table_particles(g1,:);
+        % [g1,g2] = find(pbp_table_particles.evap_time > 12 & pbp_table_particles.evap_time < 500); 
+        % pbp_table_particles = pbp_table_particles(g1,:);
        
         % Calculate terminal velocity using terminalVelocity function
         pbp_table_particles.terminal_vel = terminalVelocity(pbp_table_particles.max_area, pbp_table_particles.max_circ_area, pbp_table_particles.mass);
