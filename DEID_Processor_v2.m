@@ -5,27 +5,26 @@
 % LAST UPDATED: 05/08/2024
                                                                  
 clear, clc, close all
-%% Sets filepath, global variables, and physical constants.
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/test';
+%% Sets filepath, global variables, and physical constants
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
-% Set global varables and constants:
-% Specifies resampling period I apprec
+% specifies resampling period:
 time_interval = 300;  % Seconds
-time_step = seconds(time_interval);     % Datetime step 
-% Unit conversions:
+time_step = seconds(time_interval); % Datetime step 
+% unit conversions:
 mm_to_inches = 1/25.4; % [mm/in]
 pix_to_m_conversion = 3.1750e-04; % Pixel to [m]
 pix_to_m2_conversion = pix_to_m_conversion^2; % Pixel to [m^2]
 k = 3.6e06; % Converts m/s to mm/hr [(mm/hr)*(s/m)]
 hour_in_seconds = 3600;
-% Physical constants:
+% physical constants:
 rho_water = 1000; % Density of water [kg/m^3]
 mu = 1.5*10^-5;   % Viscosity of air [kg/m*s] 
 % DEID specific parameters:
 residue_filter = 0.005; % [kg]
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
-colorbar_kapton_image_indexes = [1 27 383 261]; % Location of Kapton tape in pixel locations
+colorbar_kapton_image_indexes = [1 41 383 261]; % Location of Kapton tape in pixel locations
 colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
 min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
 sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2
@@ -36,7 +35,6 @@ l_constant = 2.594e06; % Latent heat of vaporazation of water, should be a funct
 % Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
 % c = hf_rho_coeff
 hf_rho_coeff = 1.01e05; % [K*s*m^-1] 
-
 
 %% Move to working directory and identify video files 
 % Sets path for .m to run in:
@@ -84,7 +82,6 @@ for file_i = 1:length(file_names)-1
     vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
 end
 
-
 %% Initialize Output Tables
 % Frame by Frame output table 
 % fbf_col_names = {'Time', 'SWE_mm'};
@@ -120,7 +117,7 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
 storm_start = datetime('07-Jan-2024 05:11:00');  
 storm_end = datetime('08-Jan-2024 06:26:37'); 
 storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
-
+file_names = storm_table.file_name; 
 %%
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
@@ -167,15 +164,21 @@ parfor file_i = 1:length(file_names)
     % Enter loop to process images: 
     for frame_ii = 1:num_frames 
         % Get image:    
-        frame = read(vid, frame_ii);  
+        frame = read(vid, frame_ii); 
+        imshow(frame)
         % Clean image to get plate temperature: 
         frame_gray = im2gray(frame); % Convert frame of interest to gray scale
         frame_gray_cropped_wKapton = imcrop(frame_gray, colorbar_image_indexes);% Crop out colorbar
+        imshow(frame_gray_cropped_wKapton)
+        datacursormode on;
         plate_temp(frame_ii) = max(max(double(frame_gray_cropped_wKapton))); % Dhiraj assumes max temperature in image is the plate temperature with Kapton tape
         % Clean orginal image: 
         frame_gray_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
+        imshow(frame_gray_cropped)
         frame_filtered = frame_gray_cropped > min_thres; % Removed below min threshold, on rbg ([0, 255]) scale 
+        imshow(frame_filtered)
         frame_filtered_filled = imfill(frame_filtered, 'Holes'); % Clean up Hydrometeors
+        imshow(frame_filtered_filled)
         % Get Hydrometeor properties: 
         h_geo_prop = regionprops(frame_filtered_filled, 'Centroid', 'Area','BoundingBox'); % Returns the centroid, the area of each blob, and the bounding box (left, top, width, height).
         % If no properties are found, go to next frame: 
@@ -422,11 +425,18 @@ parfor file_i = 1:length(file_names)
     end
 end
 
+%% Call missingTimeFunction to fill gaps between .avi files
+
+[full_storm_data_table] = missingTimeFunction(particle_output_table);
 %% Cumulatively sums data for SWE and Snow totals
 particle_output_table.SWE_Accum_mm = cumsum(particle_output_table.SWE_mm);
-particle_output_table.Snow_Accum_mm = cumsum(particle_output_table.Snow_mm); % [mm]
+particle_output_table.Snow_Accum_mm = cumsum(particle_output_table.Snow_mm);
 
-%% Averaging technique starts here! 
+full_storm_data_table.SWE_Accum_mm = cumsum(full_storm_data_table.SWE_mm);
+full_storm_data_table.Snow_Accum_mm = cumsum(full_storm_data_table.Snow_mm);
+
+
+%% Averaging technique(s) starts here! 
 % particle_output = timetable2table(particle_output_table);
 particle_output_table = table2timetable(particle_output_table);
 %% Computes averaged and summed PBP data using retime function
@@ -441,14 +451,14 @@ sum_table = retime(particle_output_table(:, sum_cols), 'regular', 'sum', 'TimeSt
 pbp_table_retimed = horzcat(avg_table, sum_table);
         
 %% Total SWE per averaging period PBP data
-pbp_table_retimed.SWE_PBP_mm = 1000 * pbp_table_retimed.Mass ./ (rho_water * hp_area(file_i)); % [mm]
+pbp_table_retimed.SWE_PBP_mm = 1000 * pbp_table_retimed.Mass ./ (rho_water * hp_area(1)); % [mm]
 pbp_table_retimed.SWE_PBP_accum_mm = cumsum(pbp_table_retimed.SWE_PBP_mm);  % [mm]
 
 % Finds difference factor between FBF SWE and PBP SWE and adjusts PBP SWE
 % swe_factor = fbf_table_retimed.SWE_FBF_accum_mm(end) / pbp_table_retimed.SWE_PBP_accum_mm(end);
         
 % Adjusts averaged PBP SWE
-pbp_table_retimed.SWE_PBP_F_mm = pbp_table_retimed.SWE_PBP_mm * swe_factor(file_i);                                   
+pbp_table_retimed.SWE_PBP_F_mm = pbp_table_retimed.SWE_PBP_mm * swe_factor(1);                                   
 pbp_table_retimed.SWE_PBP_F_accum_mm = cumsum(pbp_table_retimed.SWE_PBP_F_mm);                   
         
 % diag_table.SWE_Factor = swe_factor     
@@ -502,12 +512,16 @@ ts_output_table.Snow_Accum_in = ts_output_table.Snow_Accum_mm * mm_to_inches;
 
 %% Saves processed output and diagnostic data for all video files present
 % Gets folder name and saves output as 'folder name'.csv
-start_time = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
+startTime = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
+
 % Writes out all particle data table
-writetimetable(particle_output_table, ['DEID_Particle_TEST_', start_time, '.csv']);
+writetimetable(particle_output_table, ['DEID_Particle_TEST_', startTime, '.csv']);
+
+% Writes out particle data table including missing time between .avi files
+writetimetable(full_storm_data_table, ['DEID_missingParticle_TEST_', startTime, '.csv']);
 
 % Writes out time averaged data table 
-writetimetable(ts_output_table, ['DEID_TS_TEST_5min', start_time, '.csv']);
+writetimetable(ts_output_table, ['DEID_TS_TEST_5min', startTime, '.csv']);
 
 % Writes out snow interval ageraged data table
 % writetimetable(snowInterval_table, ['DEID_snowAvg_', start_time, '.csv']);
