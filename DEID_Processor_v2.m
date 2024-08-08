@@ -2,6 +2,7 @@
 % Outputs particle by particle csv file to be post processed by
 % DEID_AVI_Processor.m
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
+% LAST UPDATED: 05/08/2024
                                                                  
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
@@ -23,7 +24,7 @@ mu = 1.5*10^-5;   % Viscosity of air [kg/m*s]
 % DEID specific parameters:
 residue_filter = 0.005; % [kg]
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
-colorbar_kapton_image_indexes = [1 41 383 261]; % Location of Kapton tape in pixel locations
+colorbar_kapton_image_indexes = [1 39 383 261]; % Location of Kapton tape in pixel locations
 colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
 min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
 sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2
@@ -113,8 +114,8 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
 %% Begin DEID video processing:
 
 % if processing a storm, specify storm start and end date:
-storm_start = datetime('07-Jan-2024 05:11:00');  
-storm_end = datetime('08-Jan-2024 06:26:37'); 
+storm_start = datetime('07-Jan-2024 04:33:40');  
+storm_end = datetime('08-Jan-2024 07:26:38'); 
 storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
 file_names = storm_table.file_name; 
 %%
@@ -164,20 +165,14 @@ parfor file_i = 1:length(file_names)
     for frame_ii = 1:num_frames 
         % Get image:    
         frame = read(vid, frame_ii); 
-        imshow(frame)
         % Clean image to get plate temperature: 
         frame_gray = im2gray(frame); % Convert frame of interest to gray scale
         frame_gray_cropped_wKapton = imcrop(frame_gray, colorbar_image_indexes);% Crop out colorbar
-        imshow(frame_gray_cropped_wKapton)
-        datacursormode on;
         plate_temp(frame_ii) = max(max(double(frame_gray_cropped_wKapton))); % Dhiraj assumes max temperature in image is the plate temperature with Kapton tape
         % Clean orginal image: 
         frame_gray_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes); % Back to orginal grayscale image... now remove colorbar and kapton tape from image
-        imshow(frame_gray_cropped)
         frame_filtered = frame_gray_cropped > min_thres; % Removed below min threshold, on rbg ([0, 255]) scale 
-        imshow(frame_filtered)
         frame_filtered_filled = imfill(frame_filtered, 'Holes'); % Clean up Hydrometeors
-        imshow(frame_filtered_filled)
         % Get Hydrometeor properties: 
         h_geo_prop = regionprops(frame_filtered_filled, 'Centroid', 'Area','BoundingBox'); % Returns the centroid, the area of each blob, and the bounding box (left, top, width, height).
         % If no properties are found, go to next frame: 
