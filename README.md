@@ -42,6 +42,13 @@ Modified version of DEID_Processor.m with modification detailed below:
 - Creates table 'start_end_time_table' which includes all video files within directory, their start times, end times, and length of video
 - Specify start and end time of a storm to index directory
 
+#### Fills gaps between .avi files
+- Calls missingTimeFunction.m which does the following:
+  - finds the differences between every particle's timestamps
+  - locates all the times this is greater than 60 seconds
+  - multiples the time difference by average number of particles per second to create a range to average on
+  - takes the average of this number of rows 
+
 #### Time Table Output:
 - Timestamp
 - Terminal Velocity (mean)
