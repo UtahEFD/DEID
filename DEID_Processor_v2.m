@@ -125,7 +125,7 @@ file_names = storm_table.file_name;
 hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
 swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor 
 
-parfor file_i = 1:length(file_names)
+for file_i = 1:length(file_names)
 
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
@@ -394,9 +394,9 @@ parfor file_i = 1:length(file_names)
 
         %% Extract the data points to fill time gap between .avi files 
         % Find the average number of particles that fell per time period:
-        unique_times = unique(pbp_table_particles.initial_time); % Extract unique times
-        times_count = arrayfun(@(x) sum(pbp_table_particles.initial_time ==x), unique_times); % count the number of occurances for each time
-        average_particles = round(mean(times_count)); % Find the average
+        % unique_times = unique(pbp_table_particles.initial_time); % Extract unique times
+        % times_count = arrayfun(@(x) sum(pbp_table_particles.initial_time ==x), unique_times); % count the number of occurances for each time
+        % average_particles = round(mean(times_count)); % Find the average
 
         %% Appends PARTICLE data for single video to output table
         % Selects a subset of output variables to be exported
@@ -416,19 +416,34 @@ parfor file_i = 1:length(file_names)
 
          % Appends output
         particle_output_table = [particle_output_table; particle_output_table_all(:, particle_col_names)];
+        
+        % Go back two minutes and capture corresponding data:
+        final_time = particle_output_table.Time(end);
+        prev_time = final_time - minutes(2);
+        prev_data = particle_output_table(particle_output_table.Time >= prev_time, :);
+
+        % take the sum of each value corresponding to the captured data:
+        new_row = array2table(sum(prev_data{:,2:end}), 'VariableNames', particle_output_table.Properties.VariableNames(2:end));
+
+        % assign a time for the new row:
+        new_row.Time = final_time + seconds(5);
+        % new_row.missingData = true; 
+
+        % now append new row to particle_output_table:
+        particle_output_table = [particle_output_table; new_row];
+        % particle_output_table.missingData(particle_output_table.missingData ~= true) = false;
     end
 end
 
 %% Call missingTimeFunction to fill gaps between .avi files
 
-[full_storm_data_table] = missingTimeFunction(particle_output_table);
+% [full_storm_data_table] = missingTimeFunction(particle_output_table);
 %% Cumulatively sums data for SWE and Snow totals
 particle_output_table.SWE_Accum_mm = cumsum(particle_output_table.SWE_mm);
 particle_output_table.Snow_Accum_mm = cumsum(particle_output_table.Snow_mm);
 
-full_storm_data_table.SWE_Accum_mm = cumsum(full_storm_data_table.SWE_mm);
-full_storm_data_table.Snow_Accum_mm = cumsum(full_storm_data_table.Snow_mm);
-
+% full_storm_data_table.SWE_Accum_mm = cumsum(full_storm_data_table.SWE_mm);
+% full_storm_data_table.Snow_Accum_mm = cumsum(full_storm_data_table.Snow_mm);
 
 %% Averaging technique(s) starts here! 
 % particle_output = timetable2table(particle_output_table);
@@ -512,7 +527,7 @@ startTime = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 writetimetable(particle_output_table, ['DEID_Particle_TEST_', startTime, '.csv']);
 
 % Writes out particle data table including missing time between .avi files
-writetimetable(full_storm_data_table, ['DEID_missingParticle_TEST_', startTime, '.csv']);
+% writetimetable(full_storm_data_table, ['DEID_missingParticle_TEST_', startTime, '.csv']);
 
 % Writes out time averaged data table 
 writetimetable(ts_output_table, ['DEID_TS_TEST_5min', startTime, '.csv']);
