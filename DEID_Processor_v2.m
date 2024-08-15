@@ -96,8 +96,8 @@ ts_output_table = table('Size', [0, length(ts_col_names)], ...
                          'VariableNames', ts_col_names, ...
                          'VariableTypes', ts_col_types);
 % Particles output table
-particle_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Mass', 'Volume', 'Density_HFD', 'Diameter', 'Surface Area', 'Void Space', 'Temp Diff', 'SWE_mm', 'Snow_mm'};
-particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double' ,'double', 'double'};
+particle_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Mass', 'Volume', 'Density_HFD', 'Diameter', 'Surface Area', 'Void Space', 'Temp Diff', 'SWE_mm', 'Snow_mm', 'Missing Data'};
+particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double' ,'double', 'double', 'logical'};
 particle_output_table = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
@@ -122,10 +122,11 @@ file_names = storm_table.file_name;
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
 
+final_particle_output_table = table(); 
 hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
 swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor 
 
-for file_i = 1:length(file_names)
+parfor file_i = 1:length(file_names)
 
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
@@ -392,16 +393,12 @@ for file_i = 1:length(file_names)
         pbp_table_particles.snow_PBP_mm = rho_water * (pbp_table_particles.SWE_PBP_F_mm ./ pbp_table_particles.rho_hfd); % [mm]
         pbp_table_particles.snow_PBP_acc_mm = cumsum(pbp_table_particles.snow_PBP_mm); % [mm]
 
-        %% Extract the data points to fill time gap between .avi files 
-        % Find the average number of particles that fell per time period:
-        % unique_times = unique(pbp_table_particles.initial_time); % Extract unique times
-        % times_count = arrayfun(@(x) sum(pbp_table_particles.initial_time ==x), unique_times); % count the number of occurances for each time
-        % average_particles = round(mean(times_count)); % Find the average
-
         %% Appends PARTICLE data for single video to output table
-        % Selects a subset of output variables to be exported
+        % selects a subset of output variables to be exported:
         particle_output_table_all = pbp_table_particles(:, {'terminal_vel', 'complexity', 'sdi', 'mass', 'vol_hfd', 'rho_hfd', 'diam', 'surface_area_eq', 'void_space', 'delta_temp_mean', 'SWE_PBP_F_mm', 'snow_PBP_mm'});
         particle_output_table_all = timetable2table(particle_output_table_all);
+        % add a flag column to distinguish missing .avi data:
+        particle_output_table_all.missing_data = false(height(particle_output_table_all),1); 
         particle_output_table_all.Properties.VariableNames = particle_col_names;
         
         % Loop through each variable and replace NaNs with zeros.
@@ -417,21 +414,40 @@ for file_i = 1:length(file_names)
          % Appends output
         particle_output_table = [particle_output_table; particle_output_table_all(:, particle_col_names)];
         
+        %% Find an average of previous two minutes of data to fill time gap between .avi files 
+
         % Go back two minutes and capture corresponding data:
-        final_time = particle_output_table.Time(end);
+        final_time = particle_output_table_all.Time(end);
         prev_time = final_time - minutes(2);
-        prev_data = particle_output_table(particle_output_table.Time >= prev_time, :);
+        prev_data = particle_output_table_all(particle_output_table_all.Time >= prev_time, :);
 
-        % take the sum of each value corresponding to the captured data:
-        new_row = array2table(sum(prev_data{:,2:end}), 'VariableNames', particle_output_table.Properties.VariableNames(2:end));
-
-        % assign a time for the new row:
+        % take the mean or sum of each value corresponding to the captured data:
+        termVelocityRow = mean(prev_data.Terminal_Velocity);
+        cxRow = mean(prev_data.Complexity);
+        sdiRow = mean(prev_data.SDI);
+        massRow = mean(prev_data.Mass);
+        volumeRow = mean(prev_data.Volume);
+        densityRow = massRow / volumeRow; 
+        diamRow = mean(prev_data.Diameter);
+        surAreaRow = mean(prev_data.('Surface Area'));
+        voidSpaceRow = mean(prev_data.('Void Space'));
+        tempDiffRow = mean(prev_data.('Temp Diff'));
+        sweRow = sum(prev_data.('SWE_mm'));
+        snowRow = sum(prev_data.('Snow_mm'));
+        % compile into a table
+        new_row = array2table([termVelocityRow, cxRow, sdiRow, massRow, ...
+            volumeRow, densityRow, diamRow, surAreaRow, voidSpaceRow, tempDiffRow, ...
+            sweRow, snowRow], 'VariableNames', particle_output_table_all.Properties.VariableNames(2:(end-1)));
+        % assign a time and logical value for missing data to the new row:
+        new_row.('Missing Data') = true;
         new_row.Time = final_time + seconds(5);
-        % new_row.missingData = true; 
+        % if file_i  == 1
+        %     new_row = new_row(:, [end, 1:end-1]);
+        % end
 
         % now append new row to particle_output_table:
         particle_output_table = [particle_output_table; new_row];
-        % particle_output_table.missingData(particle_output_table.missingData ~= true) = false;
+
     end
 end
 
@@ -446,7 +462,7 @@ particle_output_table.Snow_Accum_mm = cumsum(particle_output_table.Snow_mm);
 % full_storm_data_table.Snow_Accum_mm = cumsum(full_storm_data_table.Snow_mm);
 
 %% Averaging technique(s) starts here! 
-% particle_output = timetable2table(particle_output_table);
+
 particle_output_table = table2timetable(particle_output_table);
 %% Computes averaged and summed PBP data using retime function
         
@@ -524,13 +540,13 @@ ts_output_table.Snow_Accum_in = ts_output_table.Snow_Accum_mm * mm_to_inches;
 startTime = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 
 % Writes out all particle data table
-writetimetable(particle_output_table, ['DEID_Particle_TEST_', startTime, '.csv']);
+writetimetable(particle_output_table, ['DEID_Particle_jan08_', startTime, '.csv']);
 
 % Writes out particle data table including missing time between .avi files
 % writetimetable(full_storm_data_table, ['DEID_missingParticle_TEST_', startTime, '.csv']);
 
 % Writes out time averaged data table 
-writetimetable(ts_output_table, ['DEID_TS_TEST_5min', startTime, '.csv']);
+writetimetable(ts_output_table, ['DEID_TS_jan08_5min', startTime, '.csv']);
 
 % Writes out snow interval ageraged data table
 % writetimetable(snowInterval_table, ['DEID_snowAvg_', start_time, '.csv']);
