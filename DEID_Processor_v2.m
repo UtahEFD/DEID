@@ -7,10 +7,11 @@
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
 working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
 % specifies resampling period:
-time_interval = 300;  % Seconds
+time_interval = 120;  % Seconds
 time_step = seconds(time_interval); % Datetime step 
 % unit conversions:
 mm_to_inches = 1/25.4; % [mm/in]
@@ -101,23 +102,20 @@ particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'doubl
 particle_output_table = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
-% % Diagnostic output table
-% diag_col_names = {'Filename', 'Start_Time','End_Time', 'SWE_Factor', 'Num_Particles'};
-% diag_col_types = {'string', 'datetime', 'datetime', 'double', 'double'};
-% diag_output_table = table('Size', [0, length(diag_col_names)], ...
-%                          'VariableNames', diag_col_names, ...
-%                          'VariableTypes', diag_col_types);
-% diag_table = table('Size', [1, length(diag_col_names)], ...
-%                          'VariableNames', diag_col_names, ...
-%                          'VariableTypes', diag_col_types);
+% Diagnostic output table
+diag_col_names = {'Filename', 'Start_Time','End_Time', 'SWE_Factor', 'Num_Particles'};
+diag_col_types = {'string', 'datetime', 'datetime', 'double', 'double'};
+diag_output_table = table('Size', [0, length(diag_col_names)], ...
+                         'VariableNames', diag_col_names, ...
+                         'VariableTypes', diag_col_types);
 
 %% Begin DEID video processing:
 
-% if processing a storm, specify storm start and end date:
-storm_start = datetime('07-Jan-2024 04:33:40');  
-storm_end = datetime('08-Jan-2024 07:26:38'); 
-storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
-file_names = storm_table.file_name; 
+% % if processing a storm, specify storm start and end date:
+% storm_start = datetime('07-Jan-2024 04:33:40');  
+% storm_end = datetime('08-Jan-2024 07:26:38'); 
+% storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
+% file_names = storm_table.file_name; 
 %%
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
@@ -127,7 +125,9 @@ hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
 swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor 
 
 parfor file_i = 1:length(file_names)
-
+    diag_table = table('Size', [1, length(diag_col_names)], ...
+                         'VariableNames', diag_col_names, ...
+                         'VariableTypes', diag_col_types);
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
     vid=VideoReader(filename);
@@ -148,15 +148,13 @@ parfor file_i = 1:length(file_names)
     vid_start_time = datetime(time_series(1));
 
     % start_end_time_table = tablength(file_names)le(vid_start_time, vid_end_time)
-     
-
     % Get number of frames, preallocate cell for data, and obtain date information:
     h_data = cell(num_frames,1);    % Hydrometeor dat
 
     % Appends diagnostic data to table
-    % diag_table.Filename = filename;
-    % diag_table.Start_Time = vid_start_time;
-    % diag_table.End_Time = vid_end_time;
+    diag_table.Filename = filename;
+    diag_table.Start_Time = vid_start_time;
+    diag_table.End_Time = vid_end_time;
 
     %% "Frame by frame method"; this is how Dhiraj is obtaining SWE for each .avi file 
     % Preallocate variables saved in loop for speed:
@@ -352,7 +350,7 @@ parfor file_i = 1:length(file_names)
     
     pbp_table_particles = table2timetable(pbp_table_particles); % Convert to timetable 
     pbp_table_particles = sortrows(pbp_table_particles, 'initial_time'); % Sort by time 
-    % diag_table.Num_Particles = size(pbp_table_particles,1);
+    diag_table.Num_Particles = size(pbp_table_particles,1);
 
     %% Post Processing Starts Here! 
     % Processes PBP data if particles were present in video file
@@ -540,19 +538,19 @@ ts_output_table.Snow_Accum_in = ts_output_table.Snow_Accum_mm * mm_to_inches;
 startTime = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 
 % Writes out all particle data table
-writetimetable(particle_output_table, ['DEID_Particle_jan08_', startTime, '.csv']);
+writetimetable(particle_output_table, [output_dir, 'DEID_Particle_2min_', startTime, '.csv']);
 
 % Writes out particle data table including missing time between .avi files
 % writetimetable(full_storm_data_table, ['DEID_missingParticle_TEST_', startTime, '.csv']);
 
 % Writes out time averaged data table 
-writetimetable(ts_output_table, ['DEID_TS_jan08_5min', startTime, '.csv']);
+writetimetable(ts_output_table, [output_dir,'DEID_TS_2min_', startTime, '.csv']);
 
 % Writes out snow interval ageraged data table
-% writetimetable(snowInterval_table, ['DEID_snowAvg_', start_time, '.csv']);
+% writetimetable(snowInterval_table, ['DEID_snowAvg_', startTime, '.csv']);
  
 % Writes out diagnostic data table
-% writetable(diag_output_table, ['Diag_DEID_', start_time,'.csv']);
+writetable(diag_output_table, [output_dir,'Diag_DEID_', startTime,'.csv']);
 
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])

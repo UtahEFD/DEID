@@ -6,12 +6,13 @@
                                                                  
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants.
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB/';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/2min/';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
 % Set global varables and constants:
 % Specifies resampling period 
-time_interval = 300;  % Seconds
+time_interval = 120;  % Seconds
 time_step = seconds(time_interval);     % Datetime step 
 % Unit conversions:
 mm_to_inches = 1/25.4; % [mm/in]
@@ -36,7 +37,6 @@ l_constant = 2.594e06; % Latent heat of vaporazation of water, should be a funct
 % Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
 % c = hf_rho_coeff
 hf_rho_coeff = 1.01e05; % [K*s*m^-1] 
-
 
 %% Move to working directory and identify video files 
 % Sets path for .m to run in:
@@ -453,12 +453,12 @@ particle_output_table.Snow_Acc_in = particle_output_table.Snow_Acc_mm * mm_to_in
 % Gets folder name and saves output as 'folder name'.csv
 start_time = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 % Writes out processed data
-writetimetable(particle_output_table, ['DEID_Particle_', start_time, '.csv']);
-writetimetable(ts_output_table, ['DEID_TS_', start_time, '.csv']);
-writetimetable(snowInterval_table, ['DEID_snowAvg_', start_time, '.csv']);
+writetimetable(particle_output_table, [output_dir, 'DEID_Particle_', start_time, '.csv']);
+writetimetable(ts_output_table, [output_dir, 'DEID_TS_', start_time, '.csv']);
+% writetimetable(snowInterval_table, ['DEID_snowAvg_', start_time, '.csv']);
 % writetimetable(buckPi_particle_output_table, ['DEID_BuckPi_', start_time, '.csv']); 
 % Writes out diagnostic data
-writetable(diag_output_table, ['Diag_DEID_', start_time,'.csv']);
+writetable(diag_output_table, [output_dir, 'Diag_DEID_', start_time,'.csv']);
 
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
