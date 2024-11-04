@@ -54,7 +54,6 @@ for file_i = 1:length(directory)
 end
 
 %% Now loop through each file_name to get start and end times 
-
 vid_end_time = NaT(length(file_names), 1);
 vid_start_time = NaT(length(file_names), 1);
 vid_end_start_diff = NaN(length(file_names)-1, 1);
