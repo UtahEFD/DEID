@@ -2,8 +2,7 @@
 % Outputs particle by particle csv file to be post processed by
 % DEID_AVI_Processor.m
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
-% LAST UPDATED: 05/08/2024
-                                                                 
+                                       
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
 working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';
