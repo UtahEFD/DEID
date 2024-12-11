@@ -6,7 +6,8 @@
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
 working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
+% output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/stormData';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
 % specifies resampling period:
@@ -23,8 +24,10 @@ rho_water = 1000; % Density of water [kg/m^3]
 mu = 1.5*10^-5;   % Viscosity of air [kg/m*s] 
 % DEID specific parameters:
 residue_filter = 0.005; % [kg]
+evapTime_filter = 60; 
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
-colorbar_kapton_image_indexes = [1 39 383 261]; % Location of Kapton tape in pixel locations
+crop_index = 41; % use this to specify indices to crop out kapton tape
+colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % Location of Kapton tape in pixel locations
 colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
 min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
 sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2
@@ -110,19 +113,20 @@ diag_output_table = table('Size', [0, length(diag_col_names)], ...
 %% Begin DEID video processing:
 
 % % if processing a storm, specify storm start and end date:
-% storm_start = datetime('07-Jan-2024 04:33:40');  
-% storm_end = datetime('08-Jan-2024 07:26:38'); 
-% storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
-% file_names = storm_table.file_name; 
+storm_start = datetime('04-Jan-2024 12:41:35');  
+storm_end = datetime('05-Jan-2024 15:27:01'); 
+storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
+file_names = storm_table.file_name; 
 %%
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
 
 final_particle_output_table = table(); 
 hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
-swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor 
+swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor
+fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 
-parfor file_i = 1:length(file_names)
+for file_i = 1:length(file_names)
     diag_table = table('Size', [1, length(diag_col_names)], ...
                          'VariableNames', diag_col_names, ...
                          'VariableTypes', diag_col_types);
@@ -209,8 +213,10 @@ parfor file_i = 1:length(file_names)
     SWE_FBF_mm = h_mass_fbf / hp_area(file_i);
     % Find the minimum SWE in all frames within a video, and subtract from
     % SWE (way of handling residue) 
-    % SWE_FBF_mm = SWE_FBF_mm - min(SWE_FBF_mm);
-    SWE_fbf_accumulation = sum(SWE_FBF_mm); 
+    fbf_SWE_min(file_i) = min(SWE_FBF_mm(file_i));
+    SWE_FBF_mm = max(SWE_FBF_mm - fbf_SWE_min(file_i),0) ;
+    SWE_fbf_accumulation = sum(SWE_FBF_mm);
+    % SWE_fbf_accumulation_noSub = sum(SWE_FBF_mm)
     time_series_fbf = time_series(1:length(SWE_FBF_mm));
     
     %% Sorting one frame to others frame ~ Data cleaning of some sorts: 
@@ -331,7 +337,7 @@ parfor file_i = 1:length(file_names)
 
     %% Organizes data into tables used for both output and post processing
     % Handles FBF SWE data
-    fbf_table_raw = table(time_series_fbf', SWE_FBF_mm);
+    fbf_table_raw = table(time_series_fbf', SWE_FBF_mm_sub);
     fbf_table_raw.Properties.VariableNames{'Var1'} = 'Time';
     fbf_table_raw.Time = datetime(fbf_table_raw.Time);
     fbf_table_raw = table2timetable(fbf_table_raw);
@@ -354,9 +360,11 @@ parfor file_i = 1:length(file_names)
     % Processes PBP data if particles were present in video file
     if ~isempty(pbp_table_particles)
 
-        % Filters data to find where 0 < mass < .005 to omit residue on plate
+        % Filters data to find where 0 < mass < .005 and to omit residue on plate
         % Change this to filter on evap time
-        [g1,g2] = find(pbp_table_particles.mass > 0 & pbp_table_particles.mass < residue_filter); 
+        [g1,g2] = find(pbp_table_particles.mass > 0 & ...
+            pbp_table_particles.mass < residue_filter & ...
+            pbp_table_particles.evap_time < evapTime_filter); 
         pbp_table_particles = pbp_table_particles(g1,:);
 
         % Calculate terminal velocity using terminalVelocity function
@@ -530,6 +538,17 @@ ts_output_table.Snow_Accum_mm = cumsum(ts_output_table.Snow_mm);
 ts_output_table.Snow_Accum_in = ts_output_table.Snow_Accum_mm * mm_to_inches;
 
 %% Now create an averaged data table using a given snow interval
+
+%% Now create a summary table with just total SWE, Snow, and average density per .avi 
+        
+        DEID_summary_table = particle_output_table.Time(end);
+        DEID_summary_table = particle_output_table(end, {'Total SWE [mm]', 'Total Snow [mm]'});
+        DEID_summary_table.rho = sum(particle_output_table.Mass) / sum(particle_output_table.Volume);
+        DEID_summary_table.sweRate = DEID_summary_table.('Total SWE [mm]')/hours(seconds(vid_length));
+        DEID_summary_table.snowRate = DEID_summary_table.('Total Snow [mm]')/hours(seconds(vid_length));
+        DEID_summary_table.sdi = mean(particle_output_table.SDI);
+        DEID_summary_table.cx = mean(particle_output_table.Complexity);
+        DEID_summary_table.Properties.VariableNames = summary_col_names;
 
 %% Saves processed output and diagnostic data for all video files present
 % Gets folder name and saves output as 'folder name'.csv
