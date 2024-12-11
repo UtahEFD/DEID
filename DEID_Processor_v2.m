@@ -537,19 +537,6 @@ ts_output_table.SWE_Accum_mm = cumsum(ts_output_table.SWE_mm);
 ts_output_table.Snow_Accum_mm = cumsum(ts_output_table.Snow_mm);
 ts_output_table.Snow_Accum_in = ts_output_table.Snow_Accum_mm * mm_to_inches;
 
-%% Now create an averaged data table using a given snow interval
-
-%% Now create a summary table with just total SWE, Snow, and average density per .avi 
-        
-        DEID_summary_table = particle_output_table.Time(end);
-        DEID_summary_table = particle_output_table(end, {'Total SWE [mm]', 'Total Snow [mm]'});
-        DEID_summary_table.rho = sum(particle_output_table.Mass) / sum(particle_output_table.Volume);
-        DEID_summary_table.sweRate = DEID_summary_table.('Total SWE [mm]')/hours(seconds(vid_length));
-        DEID_summary_table.snowRate = DEID_summary_table.('Total Snow [mm]')/hours(seconds(vid_length));
-        DEID_summary_table.sdi = mean(particle_output_table.SDI);
-        DEID_summary_table.cx = mean(particle_output_table.Complexity);
-        DEID_summary_table.Properties.VariableNames = summary_col_names;
-
 %% Saves processed output and diagnostic data for all video files present
 % Gets folder name and saves output as 'folder name'.csv
 startTime = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
