@@ -58,7 +58,7 @@ directory = dir("*.avi");
 [~,idx] = max([directory.datenum]);
 latest_file =  directory(idx).name; 
 
-% latest_file = 'Atwater_23_24_150.avi'; % when testing
+latest_file = '13122024_012.avi'; % when testing
 %% Initialize Output Tables
 % Frame by Frame output table 
 % fbf_col_names = {'Time', 'SWE_mm'};
@@ -79,8 +79,8 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
 % DEID summary table 
-summary_col_names = {'SWE (mm)', 'Snow (mm)', 'Density (kg*m^-3)', 'SWE Rate [mm/hr]', 'Snow Rate [mm/hr]', 'SDI', 'Complexity'};
-summary_col_types = {'double', 'double', 'double', 'double', 'double', 'double', 'double'};
+summary_col_names = {'Time', 'SWE (mm)', 'Snow (mm)', 'Density (kg*m^-3)', 'SWE Rate [mm/hr]', 'Snow Rate [mm/hr]', 'SDI', 'Complexity'};
+summary_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
 DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
                          'VariableNames', summary_col_names, ...
                          'VariableTypes', summary_col_types);
@@ -498,15 +498,16 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         
         %% Now create a summary table with just total SWE, Snow, and average density per .avi 
         
-        DEID_summary_table = particle_output_table.Time(end);
+        DEID_summary_table = time_series(end);
         DEID_summary_table = particle_output_table(end, {'Total SWE [mm]', 'Total Snow [mm]'});
         DEID_summary_table.rho = sum(particle_output_table.Mass) / sum(particle_output_table.Volume);
         DEID_summary_table.sweRate = DEID_summary_table.('Total SWE [mm]')/hours(seconds(vid_length));
         DEID_summary_table.snowRate = DEID_summary_table.('Total Snow [mm]')/hours(seconds(vid_length));
         DEID_summary_table.sdi = mean(particle_output_table.SDI);
         DEID_summary_table.cx = mean(particle_output_table.Complexity);
+        DEID_summary_table = timetable2table(DEID_summary_table);
         DEID_summary_table.Properties.VariableNames = summary_col_names; 
-        
+        DEID_summary_table = table2timetable(DEID_summary_table);
         %% Save processed output data for all video files present
         
         % Get folder name and saves output as 'folder name'.csv:
@@ -615,8 +616,25 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
     else
         
+        %% Now create a summary table with just total SWE, Snow, and average density per .avi 
+        
+        DEID_summary_table = timetable(time_series(end));
+        DEID_summary_table.swe = 0;
+        DEID_summary_table.snow = 0;
+        DEID_summary_table.rho = 0;
+        DEID_summary_table.sweRate = 0;
+        DEID_summary_table.snowRate = 0;
+        DEID_summary_table.sdi = 0;
+        DEID_summary_table.cx = 0;
+        DEID_summary_table = timetable2table(DEID_summary_table);
+        DEID_summary_table.Properties.VariableNames = summary_col_names; 
+        DEID_summary_table = table2timetable(DEID_summary_table);      
+
+        % Convert all tables to time tables:
+        particle_output_table = table2timetable(particle_output_table);
+        ts_output_table = table2timetable(ts_output_table); 
         % Get folder name and saves output as 'folder name'.csv:
-        start_time = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
+        start_time = datestr(time_series(1), 'yyyy-mm-dd_HH-MM-ss');
         current_time = datestr(now, 'mm-dd-yyyy');
         
         % Writes out all particle data table:
@@ -624,11 +642,6 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         
         % Writes out time averaged data table: 
         writetimetable(ts_output_table, ['DEID_TS_', start_time, '.csv'], 'Delimiter', ',');
-        
-        % Replace all blanks in summary table with 0's to append:
-        for i = 1:width(DEID_summary_table)
-            DEID_summary_table{:,i}(DEID_summary_table{:,i} == 0) = 0;
-        end
         
         % Writes out DEID summary table for current storm:
         writetimetable(DEID_summary_table, 'DEID_totals.csv', 'WriteMode', 'append', 'Delimiter', ',');
@@ -645,8 +658,8 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         end
         fwrite(fid, jsonTable, 'char');
         fclose(fid);
-
-                %% Send each .csv file to chpc
+        
+        %% Send each .csv file to chpc
         
         % DEID storm summary table:
         % Construct the SCP command
