@@ -4,8 +4,8 @@
 
 clear, clc
 %% Sets filepath, global variables, and physical constants.
-working_dir = 'D:\Atwater';
-% working_dir = 'D:\DEID_testing2324';     % For testing
+% working_dir = 'D:\Atwater';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
 
 % Set global varables and constants:
 % specifies resampling period:
@@ -296,7 +296,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
     h_evap_time = cell2mat(h_delta_time) * (1 / vid_fps); % Evaporation time
     h_sph_vol = (3/4) * h_max_area.^(3/2); % Spherical volume
     h_rho_sph = h_mass_pbp ./ h_sph_vol; % Density calculation: spherical assumption
-    h_energy_per_time = h_mass_pbp * l_v ./ (h_max_area .* h_evap_time); % Heat flux method: energy per unit area per time
+    h_energy_per_time = h_mass_pbp * l_vv ./ (h_max_area .* h_evap_time); % Heat flux method: energy per unit area per time
     h_rho_hfd = (hf_rho_coeff * h_mass_pbp) ./ (h_max_area .* h_evap_time .* h_delta_temp_mean); 
     h_vol_hfd = h_mass_pbp ./ h_rho_hfd; % Volume of each snowflakes using mean heat flux method density
     h_initial_time_indexes = h_init_time_ind(1:length(h_mass_pbp));

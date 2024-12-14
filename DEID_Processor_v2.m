@@ -5,8 +5,9 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN2/JAN10';
+% output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/stormData/';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
 
 % specifies resampling period:
@@ -14,8 +15,13 @@ time_interval = 120;  % Seconds
 time_step = seconds(time_interval); % Datetime step 
 % unit conversions:
 mm_to_inches = 1/25.4; % [mm/in]
-pix_to_m_conversion = 3.1750e-04; % Pixel to [m]
-pix_to_m2_conversion = pix_to_m_conversion^2; % Pixel to [m^2]
+% pix to m conversion:
+hotPlateArea_m2 = 0.0130; % measuring from IRBIS 3.1 plus software 
+hotPlateArea_pixels = 110592.00; % measuring from IRBIS 3.1 plus software
+pix_to_m2_conversion = hotPlateArea_m2/hotPlateArea_pixels;
+
+% pix_to_m_conversion = 3.1750e-04; % Pixel to [m]
+% pix_to_m2_conversion = pix_to_m_conversion^2; % Pixel to [m^2]
 k = 3.6e06; % Converts m/s to mm/hr [(mm/hr)*(s/m)]
 hour_in_seconds = 3600;
 % physical constants:
@@ -23,14 +29,16 @@ rho_water = 1000; % Density of water [kg/m^3]
 mu = 1.5*10^-5;   % Viscosity of air [kg/m*s] 
 % DEID specific parameters:
 residue_filter = 0.005; % [kg]
+evapTime_filter = 60;  
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
-colorbar_kapton_image_indexes = [1 39 383 261]; % Location of Kapton tape in pixel locations
+crop_index = 41; % use this to specify indices to crop out kapton tape
+colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % Location of Kapton tape in pixel locations
 colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
 min_thres = 70; % Minimum threshold number in image accepted rbg ([0 255]) scale
 sort_threshold = 20; % This it the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2
 min_h_size = 10; % Minumum Hydrometeor size in pixels 
 minimum_drop_life = 0; % Minimum number of frames a drop has to be visable to be processed
-k_dLv = 0.0035; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
+k_dLv = 0.0030; % Calibration constant, in paper thermal conductivity (k) of water See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
 l_constant = 2.594e06; % Latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
 % Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
 % c = hf_rho_coeff
@@ -53,33 +61,33 @@ for file_i = 1:length(directory)
 end
 
 %% Now loop through each file_name to get start and end times 
-vid_end_time = NaT(length(file_names), 1);
-vid_start_time = NaT(length(file_names), 1);
-vid_end_start_diff = NaN(length(file_names)-1, 1);
-
-parfor file_i = 1:length(file_names)
-    filename = file_names{file_i};
-    vid=VideoReader(filename);
-    % Get necessary metadata for video processing
-    vid_dir = dir(filename);
-    vid_length = vid.Duration;
-    vid_fps = vid.FrameRate;
-    num_frames = vid.NumFrames;
-    % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
-    vid_end_time(file_i) = datetime([vid_dir.date]);
-    time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
-    time_series = flip(time_series);  % Flips time series to be chronologically ordered
-    vid_start_time(file_i) = datetime(time_series(1));
-end
-
-start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
-start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
-start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
-
-% Find difference between end of one video and the start of the next
-for file_i = 1:length(file_names)-1
-    vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
-end
+% vid_end_time = NaT(length(file_names), 1);
+% vid_start_time = NaT(length(file_names), 1);
+% vid_end_start_diff = NaN(length(file_names)-1, 1);
+% 
+% parfor file_i = 1:length(file_names)
+%     filename = file_names{file_i};
+%     vid=VideoReader(filename);
+%     % Get necessary metadata for video processing
+%     vid_dir = dir(filename);
+%     vid_length = vid.Duration;
+%     vid_fps = vid.FrameRate;
+%     num_frames = vid.NumFrames;
+%     % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
+%     vid_end_time(file_i) = datetime([vid_dir.date]);
+%     time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
+%     time_series = flip(time_series);  % Flips time series to be chronologically ordered
+%     vid_start_time(file_i) = datetime(time_series(1));
+% end
+% 
+% start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
+% start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
+% start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
+% 
+% % Find difference between end of one video and the start of the next
+% for file_i = 1:length(file_names)-1
+%     vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
+% end
 
 %% Initialize Output Tables
 % Frame by Frame output table 
@@ -100,6 +108,12 @@ particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'doubl
 particle_output_table = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
+% DEID summary table 
+summary_col_names = {'SWE (mm)', 'Snow (mm)', 'Density (kg*m^-3)', 'SWE Rate [mm/hr]', 'Snow Rate [mm/hr]', 'hp_area[m^2]'};
+summary_col_types = {'double', 'double', 'double', 'double', 'double', 'double'};
+DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
+                         'VariableNames', summary_col_names, ...
+                         'VariableTypes', summary_col_types);
 % Diagnostic output table
 diag_col_names = {'Filename', 'Start_Time','End_Time', 'SWE_Factor', 'Num_Particles'};
 diag_col_types = {'string', 'datetime', 'datetime', 'double', 'double'};
@@ -109,9 +123,9 @@ diag_output_table = table('Size', [0, length(diag_col_names)], ...
 
 %% Begin DEID video processing:
 
-% % if processing a storm, specify storm start and end date:
-% storm_start = datetime('07-Jan-2024 04:33:40');  
-% storm_end = datetime('08-Jan-2024 07:26:38'); 
+% if processing a storm, specify storm start and end date:
+% storm_start = datetime('07-Jan-2024 04:23:40');  
+% storm_end = datetime('08-Jan-2024 07:28:24'); 
 % storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
 % file_names = storm_table.file_name; 
 %%
@@ -120,7 +134,8 @@ diag_output_table = table('Size', [0, length(diag_col_names)], ...
 
 final_particle_output_table = table(); 
 hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
-swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor 
+swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor
+fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 
 parfor file_i = 1:length(file_names)
     diag_table = table('Size', [1, length(diag_col_names)], ...
@@ -209,8 +224,10 @@ parfor file_i = 1:length(file_names)
     SWE_FBF_mm = h_mass_fbf / hp_area(file_i);
     % Find the minimum SWE in all frames within a video, and subtract from
     % SWE (way of handling residue) 
-    % SWE_FBF_mm = SWE_FBF_mm - min(SWE_FBF_mm);
-    SWE_fbf_accumulation = sum(SWE_FBF_mm); 
+    fbf_SWE_min(file_i) = min(SWE_FBF_mm);
+    SWE_FBF_mm = SWE_FBF_mm - fbf_SWE_min(file_i);
+    SWE_fbf_accumulation = sum(SWE_FBF_mm);
+    % SWE_fbf_accumulation_noSub = sum(SWE_FBF_mm)
     time_series_fbf = time_series(1:length(SWE_FBF_mm));
     
     %% Sorting one frame to others frame ~ Data cleaning of some sorts: 
@@ -354,9 +371,11 @@ parfor file_i = 1:length(file_names)
     % Processes PBP data if particles were present in video file
     if ~isempty(pbp_table_particles)
 
-        % Filters data to find where 0 < mass < .005 to omit residue on plate
+        % Filters data to find where 0 < mass < .005 and to omit residue on plate
         % Change this to filter on evap time
-        [g1,g2] = find(pbp_table_particles.mass > 0 & pbp_table_particles.mass < residue_filter); 
+        [g1,g2] = find((pbp_table_particles.mass > 0 & ...
+            pbp_table_particles.mass < residue_filter) | ...
+            pbp_table_particles.evap_time < evapTime_filter); 
         pbp_table_particles = pbp_table_particles(g1,:);
 
         % Calculate terminal velocity using terminalVelocity function
@@ -442,14 +461,24 @@ parfor file_i = 1:length(file_names)
         % end
 
         % now append new row to particle_output_table:
+        particle_output_table_all = [particle_output_table_all; new_row];
         particle_output_table = [particle_output_table; new_row];
 
+        % now create a summary table for each .avi file processed
+        DEID_summary_table = timetable(particle_output_table_all.Time(end-1));
+        DEID_summary_table.('Total SWE [mm]') = sum(particle_output_table_all.('SWE_mm')); 
+        DEID_summary_table.('Total Snow [mm]') = sum(particle_output_table_all.('Snow_mm'));
+        DEID_summary_table.rho = sum(particle_output_table_all.Mass) / sum(particle_output_table_all.Volume);
+        DEID_summary_table.sweRate = DEID_summary_table.('Total SWE [mm]')/hours(seconds(vid_length));
+        DEID_summary_table.snowRate = DEID_summary_table.('Total Snow [mm]')/hours(seconds(vid_length));
+        DEID_summary_table.hpArea = hp_area(file_i);
+        DEID_summary_table.Properties.VariableNames = summary_col_names; 
+        
+        % Writes out DEID summary table
+        writetimetable(DEID_summary_table, [output_dir, 'DEID_totals_jan10_',num2str(crop_index),'.csv'], 'WriteMode', 'append', 'Delimiter', ' ');
     end
 end
 
-%% Call missingTimeFunction to fill gaps between .avi files
-
-% [full_storm_data_table] = missingTimeFunction(particle_output_table);
 %% Cumulatively sums data for SWE and Snow totals
 particle_output_table.SWE_Accum_mm = cumsum(particle_output_table.SWE_mm);
 particle_output_table.Snow_Accum_mm = cumsum(particle_output_table.Snow_mm);
@@ -529,8 +558,11 @@ ts_output_table.SWE_Accum_mm = cumsum(ts_output_table.SWE_mm);
 ts_output_table.Snow_Accum_mm = cumsum(ts_output_table.Snow_mm);
 ts_output_table.Snow_Accum_in = ts_output_table.Snow_Accum_mm * mm_to_inches;
 
-%% Now create an averaged data table using a given snow interval
+%% Sort and re-save DEID_totals 
+DEID_totals = readtimetable([output_dir, 'DEID_totals_jan10_',num2str(crop_index),'.csv']);
+DEID_totals = sortrows(DEID_totals, 'Time');
 
+writetimetable(DEID_totals, [output_dir,'DEID_totals_jan10_',num2str(crop_index),'.csv']);
 %% Saves processed output and diagnostic data for all video files present
 % Gets folder name and saves output as 'folder name'.csv
 startTime = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
