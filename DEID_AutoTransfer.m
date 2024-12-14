@@ -4,8 +4,8 @@
 
 clear, clc
 %% Sets filepath, global variables, and physical constants.
-working_dir = 'D:\Atwater';
-% working_dir = 'D:\DEID_testing2324';     % For testing
+% working_dir = 'D:\Atwater';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
 
 % Set global varables and constants:
 % specifies resampling period:
@@ -58,7 +58,7 @@ directory = dir("*.avi");
 [~,idx] = max([directory.datenum]);
 latest_file =  directory(idx).name; 
 
-% latest_file = 'Atwater_23_24_150.avi'; % when testing
+% latest_file = 'Atwater_23_24_017.avi'; % when testing
 %% Initialize Output Tables
 % Frame by Frame output table 
 % fbf_col_names = {'Time', 'SWE_mm'};
