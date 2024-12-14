@@ -183,8 +183,10 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
     SWE_FBF_mm = h_mass_fbf / hp_area;
     % Find the minimum SWE in all frames within a video, and subtract from
     % SWE (way of handling residue) 
-    % SWE_FBF_mm = SWE_FBF_mm - min(SWE_FBF_mm);
-    SWE_fbf_accumulation = sum(SWE_FBF_mm); 
+    fbf_SWE_min(file_i) = min(SWE_FBF_mm);
+    SWE_FBF_mm = SWE_FBF_mm - fbf_SWE_min(file_i);
+    SWE_fbf_accumulation = sum(SWE_FBF_mm);
+    % SWE_fbf_accumulation_noSub = sum(SWE_FBF_mm)
     time_series_fbf = time_series(1:length(SWE_FBF_mm));
     
     %% Sorting one frame to others frame ~ Data cleaning of some sorts: 
