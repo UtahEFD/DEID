@@ -29,7 +29,8 @@ l_v = 2.32e06; % latent heat of vaporazation of water [J/kg]
 l_vv = 2.594e06; % what is this? l_vv? 
 l_f = 3.34e05; % latent heat of fusion of water [J/kg]
 % DEID specific parameters:
-residue_filter = .005; % [kg]
+residue_filter = 0.005; % [kg]
+evapTime_filter = 60;
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
 crop_index = 55; % use this to specify indices to crop out kapton tape
 colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % Location of Kapton tape in pixel locations
@@ -58,7 +59,7 @@ directory = dir("*.avi");
 [~,idx] = max([directory.datenum]);
 latest_file =  directory(idx).name; 
 
-latest_file = '13122024_012.avi'; % when testing
+% latest_file = '13122024_012.avi'; % when testing
 %% Initialize Output Tables
 % Frame by Frame output table 
 % fbf_col_names = {'Time', 'SWE_mm'};
@@ -329,7 +330,9 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
         % Filters data to find where 0 < mass < .005 to omit residue on plate
         % Change this to filter on evap time
-        [g1,g2] = find(pbp_table_particles.mass > 0 & pbp_table_particles.mass < residue_filter); 
+        [g1,g2] = find((pbp_table_particles.mass > 0 &... 
+            pbp_table_particles.mass < residue_filter) |...
+            pbp_table_particles.evap_time < evapTime_filter); 
         pbp_table_particles = pbp_table_particles(g1,:);
 
         % Calculate terminal velocity using terminalVelocity function
