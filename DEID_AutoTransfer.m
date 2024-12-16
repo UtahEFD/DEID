@@ -4,8 +4,8 @@
 
 clear, clc
 %% Sets filepath, global variables, and physical constants.
-% working_dir = 'D:\Atwater';
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
+working_dir = 'D:\Atwater';
+% working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
 
 % Set global varables and constants:
 % specifies resampling period:
@@ -183,8 +183,8 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
     SWE_FBF_mm = h_mass_fbf / hp_area;
     % Find the minimum SWE in all frames within a video, and subtract from
     % SWE (way of handling residue) 
-    fbf_SWE_min(file_i) = min(SWE_FBF_mm);
-    SWE_FBF_mm = SWE_FBF_mm - fbf_SWE_min(file_i);
+    fbf_SWE_min = min(SWE_FBF_mm);
+    SWE_FBF_mm = SWE_FBF_mm - fbf_SWE_min;
     SWE_fbf_accumulation = sum(SWE_FBF_mm);
     % SWE_fbf_accumulation_noSub = sum(SWE_FBF_mm)
     time_series_fbf = time_series(1:length(SWE_FBF_mm));
