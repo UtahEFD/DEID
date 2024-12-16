@@ -5,7 +5,7 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN2/JAN10';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
 output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/stormData/';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
@@ -61,33 +61,33 @@ for file_i = 1:length(directory)
 end
 
 %% Now loop through each file_name to get start and end times 
-% vid_end_time = NaT(length(file_names), 1);
-% vid_start_time = NaT(length(file_names), 1);
-% vid_end_start_diff = NaN(length(file_names)-1, 1);
-% 
-% parfor file_i = 1:length(file_names)
-%     filename = file_names{file_i};
-%     vid=VideoReader(filename);
-%     % Get necessary metadata for video processing
-%     vid_dir = dir(filename);
-%     vid_length = vid.Duration;
-%     vid_fps = vid.FrameRate;
-%     num_frames = vid.NumFrames;
-%     % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
-%     vid_end_time(file_i) = datetime([vid_dir.date]);
-%     time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
-%     time_series = flip(time_series);  % Flips time series to be chronologically ordered
-%     vid_start_time(file_i) = datetime(time_series(1));
-% end
-% 
-% start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
-% start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
-% start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
-% 
-% % Find difference between end of one video and the start of the next
-% for file_i = 1:length(file_names)-1
-%     vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
-% end
+vid_end_time = NaT(length(file_names), 1);
+vid_start_time = NaT(length(file_names), 1);
+vid_end_start_diff = NaN(length(file_names)-1, 1);
+
+parfor file_i = 1:length(file_names)
+    filename = file_names{file_i};
+    vid=VideoReader(filename);
+    % Get necessary metadata for video processing
+    vid_dir = dir(filename);
+    vid_length = vid.Duration;
+    vid_fps = vid.FrameRate;
+    num_frames = vid.NumFrames;
+    % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
+    vid_end_time(file_i) = datetime([vid_dir.date]);
+    time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
+    time_series = flip(time_series);  % Flips time series to be chronologically ordered
+    vid_start_time(file_i) = datetime(time_series(1));
+end
+
+start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
+start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
+start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
+
+% Find difference between end of one video and the start of the next
+for file_i = 1:length(file_names)-1
+    vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
+end
 
 %% Initialize Output Tables
 % Frame by Frame output table 
@@ -124,10 +124,10 @@ diag_output_table = table('Size', [0, length(diag_col_names)], ...
 %% Begin DEID video processing:
 
 % if processing a storm, specify storm start and end date:
-% storm_start = datetime('07-Jan-2024 04:23:40');  
-% storm_end = datetime('08-Jan-2024 07:28:24'); 
-% storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
-% file_names = storm_table.file_name; 
+storm_start = datetime('05-Feb-2024 06:08:29');  
+storm_end = datetime('06-Feb-2024 10:23:54'); 
+storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
+file_names = storm_table.file_name; 
 %%
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
