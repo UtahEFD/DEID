@@ -59,7 +59,7 @@ directory = dir("*.avi");
 [~,idx] = max([directory.datenum]);
 latest_file =  directory(idx).name; 
 
-latest_file = '13122024_037.avi'; % when testing
+latest_file = '13122024_001.avi'; % when testing
 %% Initialize Output Tables
 % Frame by Frame output table 
 % fbf_col_names = {'Time', 'SWE_mm'};
@@ -336,13 +336,6 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
     %% Post Processing Starts Here! 
     % Processes PBP data if particles were present in video file
     if height(pbp_table_particles)>100
-
-        % % Filters data to find where 0 < mass < .005 to omit residue on plate
-        % % Change this to filter on evap time
-        % [g1,g2] = find((pbp_table_particles.mass > 0 &... 
-        %     pbp_table_particles.mass < residue_filter) |...
-        %     pbp_table_particles.evap_time < evapTime_filter); 
-        % pbp_table_particles = pbp_table_particles(g1,:);
 
         % Calculate terminal velocity using terminalVelocity function
         pbp_table_particles.terminal_vel = terminalVelocity(pbp_table_particles.max_area, pbp_table_particles.max_circ_area, pbp_table_particles.mass);
@@ -628,8 +621,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
     else
         
-        %% Now create a summary table with just total SWE, Snow, and average density per .avi 
-        
+        %% Set summary table to all zeros:
         DEID_summary_table = timetable(time_series(end));
         DEID_summary_table.swe = 0;
         DEID_summary_table.snow = 0;
