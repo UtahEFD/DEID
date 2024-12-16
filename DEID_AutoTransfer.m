@@ -4,7 +4,7 @@
 
 clear, clc
 %% Sets filepath, global variables, and physical constants.
-working_dir = 'D:\Atwater';
+working_dir = 'D:\Atwater\dec14';
 % working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
 
 % Set global varables and constants:
@@ -59,7 +59,7 @@ directory = dir("*.avi");
 [~,idx] = max([directory.datenum]);
 latest_file =  directory(idx).name; 
 
-% latest_file = '13122024_012.avi'; % when testing
+latest_file = '13122024_037.avi'; % when testing
 %% Initialize Output Tables
 % Frame by Frame output table 
 % fbf_col_names = {'Time', 'SWE_mm'};
@@ -326,16 +326,23 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
     pbp_table_particles = sortrows(pbp_table_particles, 'initial_time'); % Sort by time 
     % diag_table.Num_Particles = size(pbp_table_particles,1);
 
+    % Filters data to find where 0 < mass < .005 to omit residue on plate
+    g1 = find((pbp_table_particles.mass > 0 &... 
+        pbp_table_particles.mass < residue_filter) &...
+        (pbp_table_particles.evap_time > 0.07 &... 
+        pbp_table_particles.evap_time < evapTime_filter)); 
+        
+    pbp_table_particles = pbp_table_particles(g1,:);
     %% Post Processing Starts Here! 
     % Processes PBP data if particles were present in video file
-    if ~isempty(pbp_table_particles)
+    if height(pbp_table_particles)>100
 
-        % Filters data to find where 0 < mass < .005 to omit residue on plate
-        % Change this to filter on evap time
-        [g1,g2] = find((pbp_table_particles.mass > 0 &... 
-            pbp_table_particles.mass < residue_filter) |...
-            pbp_table_particles.evap_time < evapTime_filter); 
-        pbp_table_particles = pbp_table_particles(g1,:);
+        % % Filters data to find where 0 < mass < .005 to omit residue on plate
+        % % Change this to filter on evap time
+        % [g1,g2] = find((pbp_table_particles.mass > 0 &... 
+        %     pbp_table_particles.mass < residue_filter) |...
+        %     pbp_table_particles.evap_time < evapTime_filter); 
+        % pbp_table_particles = pbp_table_particles(g1,:);
 
         % Calculate terminal velocity using terminalVelocity function
         pbp_table_particles.terminal_vel = terminalVelocity(pbp_table_particles.max_area, pbp_table_particles.max_circ_area, pbp_table_particles.mass);
