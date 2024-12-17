@@ -6,6 +6,7 @@ clear, clc
 %% Sets filepath, global variables, and physical constants.
 working_dir = 'D:\Atwater\dec14';
 % working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
+output_dir = 'D:\Atwater\evapTime_testing\2frame';
 
 % Set global varables and constants:
 % specifies resampling period:
@@ -30,7 +31,9 @@ l_vv = 2.594e06; % what is this? l_vv?
 l_f = 3.34e05; % latent heat of fusion of water [J/kg]
 % DEID specific parameters:
 residue_filter = 0.005; % [kg]
-evapTime_filter = 60;
+evapTime_min = 2/15;
+evapTime_save = '_two'; 
+evapTime_max = 60;
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
 crop_index = 55; % use this to specify indices to crop out kapton tape
 colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % Location of Kapton tape in pixel locations
@@ -55,11 +58,23 @@ hf_rho_coeff = 1.01e05; % this is the value pulled from Dhiraj's paper using l_v
 cd(working_dir) 
 % Get a list of all video filesin this directory
 directory = dir("*.avi");
+%% When testing: 
+% Initialize an empty cell array to store the file names
+file_names = {};
+% Loop through each item in the input directory
+for file_i = 1:length(directory)
+    % Check if the item is a file (not a folder) and if it ends with .avi
+    if ~directory(file_i).isdir && endsWith(directory(file_i).name, '.avi', 'IgnoreCase', true)
+        % Get the name of the file and append it to the list
+        file_names{end+1} = directory(file_i).name;
+    end
+end
+%% When doing auto transfer: 
 % Find the most recent .avi file in this directory 
-[~,idx] = max([directory.datenum]);
-latest_file =  directory(idx).name; 
 
-latest_file = '13122024_001.avi'; % when testing
+% [~,idx] = max([directory.datenum]);
+% latest_file =  directory(idx).name; 
+
 %% Initialize Output Tables
 % Frame by Frame output table 
 % fbf_col_names = {'Time', 'SWE_mm'};
@@ -80,8 +95,8 @@ particle_output_table = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
 % DEID summary table 
-summary_col_names = {'Time', 'SWE (mm)', 'Snow (mm)', 'Density (kg*m^-3)', 'SWE Rate [mm/hr]', 'Snow Rate [mm/hr]', 'SDI', 'Complexity'};
-summary_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
+summary_col_names = {'Time', 'SWE (mm)', 'Snow (mm)', 'Density (kg*m^-3)', 'SWE Rate [mm/hr]', 'Snow Rate [mm/hr]', 'SDI', 'Complexity', 'fbf SWE min'};
+summary_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
 DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
                          'VariableNames', summary_col_names, ...
                          'VariableTypes', summary_col_types);
@@ -97,15 +112,15 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
 %% Begin DEID video processing:
 
-% for file_i = 1:length(file_names)
+for file_i = 1:length(file_names)
 
-    % filename = file_names{file_i};
-    disp(['Processing File: ', latest_file])
-    vid=VideoReader(latest_file);
+    filename = file_names{file_i};
+    disp(['Processing File: ', filename])
+    vid=VideoReader(filename);
     
     % Creates datetime timeseries for output file
     % Get necessary metadata for video processing
-    vid_dir = dir(latest_file);
+    vid_dir = dir(filename);
     vid_length = vid.Duration;
     vid_fps = vid.FrameRate;
     num_frames = vid.NumFrames;
@@ -329,8 +344,8 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
     % Filters data to find where 0 < mass < .005 to omit residue on plate
     g1 = find((pbp_table_particles.mass > 0 &... 
         pbp_table_particles.mass < residue_filter) &...
-        (pbp_table_particles.evap_time > 0.07 &... 
-        pbp_table_particles.evap_time < evapTime_filter)); 
+        (pbp_table_particles.evap_time > evapTime_min &... 
+        pbp_table_particles.evap_time < evapTime_max)); 
         
     pbp_table_particles = pbp_table_particles(g1,:);
     %% Post Processing Starts Here! 
@@ -510,6 +525,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         DEID_summary_table.snowRate = DEID_summary_table.('Total Snow [mm]')/hours(seconds(vid_length));
         DEID_summary_table.sdi = mean(particle_output_table.SDI);
         DEID_summary_table.cx = mean(particle_output_table.Complexity);
+        DEID_summary_table.fbfSWEmin = fbf_SWE_min; 
         DEID_summary_table = timetable2table(DEID_summary_table);
         DEID_summary_table.Properties.VariableNames = summary_col_names; 
         DEID_summary_table = table2timetable(DEID_summary_table);
@@ -520,38 +536,38 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         current_time = datestr(now, 'mm-dd-yyyy');
         
         % Writes out all particle data table:
-        writetimetable(particle_output_table, ['DEID_Particle_', start_time, '.csv'], 'Delimiter', ',');
+        writetimetable(particle_output_table, [output_dir, '\DEID_Particle_', start_time, evapTime_save,  '.csv'], 'Delimiter', ',');
         
         % Writes out time averaged data table: 
-        writetimetable(ts_output_table, ['DEID_TS_', start_time, '.csv'], 'Delimiter', ',');
+        writetimetable(ts_output_table, [output_dir, '\DEID_TS_', start_time,evapTime_save, '.csv'], 'Delimiter', ',');
         
         % Writes out DEID summary table for current storm:
-        writetimetable(DEID_summary_table, 'DEID_totals.csv', 'WriteMode', 'append', 'Delimiter', ',');
+        writetimetable(DEID_summary_table, [output_dir, '\DEID_totals', evapTime_save, '.csv'], 'WriteMode', 'append', 'Delimiter', ',');
         
         % Writes out DEID summary table for each day of storm:
-        writetimetable(DEID_summary_table, ['DEID_totals_', current_time, '.csv'], 'WriteMode', 'append', 'Delimiter', ',');
+        % writetimetable(DEID_summary_table, [output_dir, '\DEID_totals_', current_time, '.csv'], 'WriteMode', 'append', 'Delimiter', ',');
 
         % Converts DEID summary table to json:
-        jsonPath = 'D:\Atwater\DEID_totals.json';
-        jsonTable = jsonencode(timetable2table(DEID_summary_table));
-        fid = fopen(jsonPath, 'w')
-        if fid == -1
-            error('cannot open file for writing');
-        end
-        fwrite(fid, jsonTable, 'char');
-        fclose(fid);
+        % jsonPath = 'D:\Atwater\DEID_totals.json';
+        % jsonTable = jsonencode(timetable2table(DEID_summary_table));
+        % fid = fopen(jsonPath, 'w')
+        % if fid == -1
+        %     error('cannot open file for writing');
+        % end
+        % fwrite(fid, jsonTable, 'char');
+        % fclose(fid);
         
         %% Send each .csv file to chpc
         
         % DEID storm summary table:
+        % Construct filename:
+        summary_file = sprintf('%s\\DEID_totals%s.csv', output_dir, evapTime_save);
         % Construct the SCP command
-        scpCommand_totals = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s\\DEID_totals.csv" %s@%s:%s', '"Sc0tchT@p3!"', working_dir, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
-        % Execute the SCP command using the system function
-        % system('cd C:\Program Files\PuTTY\')
-        status_totals = system(scpCommand_totals);
+        scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/2frame');
+        status_summary = system(scpCommand_summary);
 
         % Check if the command was successful
-        if status_totals == 0
+        if status_summary == 0
             disp('DEID_totals.csv transferred succesfully');
         else
             disp('Error transferring DEID_totals.csv');
@@ -559,25 +575,21 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
         % DEID storm summary json:
         % Construct the SCP command
-        scpCommand_json = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s\\DEID_totals.json" %s@%s:%s', '"Sc0tchT@p3!"', working_dir, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
-        % Execute the SCP command using the system function
-        % system('cd C:\Program Files\PuTTY\')
-        status_json = system(scpCommand_json);
+        % scpCommand_json = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s\DEID_totals.json" %s@%s:%s', '"Sc0tchT@p3!"', output_dir, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
+        % status_json = system(scpCommand_json);
 
         % Check if the command was successful
-        if status_json == 0
-            disp('DEID_totals.json transferred succesfully');
-        else
-            disp('Error transferring DEID_json.csv');
-        end
+        % if status_json == 0
+        %     disp('DEID_totals.json transferred succesfully');
+        % else
+        %     disp('Error transferring DEID_json.csv');
+        % end
 
         % DEID particle file:
         % Construct filename:
-        particle_file = sprintf('%s\\DEID_Particle_%s.csv', working_dir, start_time);
+        particle_file = sprintf('%s\\DEID_Particle_%s%s.csv', output_dir, start_time, evapTime_save);
         % Construct the SCP command
-        scpCommand_particle = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', particle_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
-        % Execute the SCP command using the system function
-        % system('cd C:\Program Files\PuTTY\')
+        scpCommand_particle = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', particle_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/2frame');
         status_particle = system(scpCommand_particle);
 
         % Check if the command was successful
@@ -589,9 +601,9 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
         % DEID time series file:
         % Construct filename:
-        TS_file = sprintf('%s\\DEID_TS_%s.csv', working_dir, start_time);
+        TS_file = sprintf('%s\\DEID_TS_%s%s.csv', output_dir, start_time, evapTime_save);
         % Construct the SCP command
-        scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
+        scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/2frame');
         % Execute the SCP command using the system function
         % system('cd C:\Program Files\PuTTY\')
         status_TS = system(scpCommand_TS);
@@ -605,19 +617,17 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
         % DEID day summary file:
         % Construct filename:
-        daySummary_file = sprintf('%s\\DEID_totals_%s.csv', working_dir, current_time);
-        % Construct the SCP command
-        scpCommand_daySummary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', daySummary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
-        % Execute the SCP command using the system function
-        % system('cd C:\Program Files\PuTTY\')
-        status_daySummary = system(scpCommand_daySummary);
-
-        % Check if the command was successful
-        if status_daySummary == 0
-            disp(['File ', daySummary_file, ' transferred succesfully.']);
-        else
-            disp(['Error transferring ', daySummary_file, '.']);
-        end
+        % daySummary_file = sprintf('%s\\DEID_totals_%s.csv', output_dir, current_time);
+        % % Construct the SCP command
+        % scpCommand_daySummary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', daySummary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
+        % status_daySummary = system(scpCommand_daySummary);
+        % 
+        % % Check if the command was successful
+        % if status_daySummary == 0
+        %     disp(['File ', daySummary_file, ' transferred succesfully.']);
+        % else
+        %     disp(['Error transferring ', daySummary_file, '.']);
+        % end
 
     else
         
@@ -630,50 +640,53 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         DEID_summary_table.snowRate = 0;
         DEID_summary_table.sdi = 0;
         DEID_summary_table.cx = 0;
+        DEID_summary_table.fbfSWEmin = fbf_SWE_min; 
         DEID_summary_table = timetable2table(DEID_summary_table);
         DEID_summary_table.Properties.VariableNames = summary_col_names; 
-        DEID_summary_table = table2timetable(DEID_summary_table);      
-
-        % Convert all tables to time tables:
-        particle_output_table = table2timetable(particle_output_table);
-        ts_output_table = table2timetable(ts_output_table); 
+        DEID_summary_table = table2timetable(DEID_summary_table);
+        
+        % Convert all tables to time tables if they are tables:
+        if istable(particle_output_table)
+            particle_output_table = table2timetable(particle_output_table);
+            ts_output_table = table2timetable(ts_output_table);
+        end
         % Get folder name and saves output as 'folder name'.csv:
         start_time = datestr(time_series(1), 'yyyy-mm-dd_HH-MM-ss');
         current_time = datestr(now, 'mm-dd-yyyy');
         
         % Writes out all particle data table:
-        writetimetable(particle_output_table, ['DEID_Particle_', start_time, '.csv'], 'Delimiter', ',');
+        writetimetable(particle_output_table, [output_dir, '\DEID_Particle_', start_time, evapTime_save,  '.csv'], 'Delimiter', ',');
         
         % Writes out time averaged data table: 
-        writetimetable(ts_output_table, ['DEID_TS_', start_time, '.csv'], 'Delimiter', ',');
+        writetimetable(ts_output_table, [output_dir, '\DEID_TS_', start_time,evapTime_save, '.csv'], 'Delimiter', ',');
         
         % Writes out DEID summary table for current storm:
-        writetimetable(DEID_summary_table, 'DEID_totals.csv', 'WriteMode', 'append', 'Delimiter', ',');
+        writetimetable(DEID_summary_table, [output_dir, '\DEID_totals', evapTime_save, '.csv'], 'WriteMode', 'append', 'Delimiter', ',');
         
         % Writes out DEID summary table for each day of storm:
-        writetimetable(DEID_summary_table, ['DEID_totals_', current_time, '.csv'], 'WriteMode', 'append', 'Delimiter', ',');
+        % writetimetable(DEID_summary_table, [output_dir, '\DEID_totals_', current_time, '.csv'], 'WriteMode', 'append', 'Delimiter', ',');
 
         % Converts DEID summary table to json:
-        jsonPath = 'D:\Atwater\DEID_totals.json';
-        jsonTable = jsonencode(timetable2table(DEID_summary_table));
-        fid = fopen(jsonPath, 'w')
-        if fid == -1
-            error('cannot open file for writing');
-        end
-        fwrite(fid, jsonTable, 'char');
-        fclose(fid);
+        % jsonPath = 'D:\Atwater\DEID_totals.json';
+        % jsonTable = jsonencode(timetable2table(DEID_summary_table));
+        % fid = fopen(jsonPath, 'w')
+        % if fid == -1
+        %     error('cannot open file for writing');
+        % end
+        % fwrite(fid, jsonTable, 'char');
+        % fclose(fid);
         
         %% Send each .csv file to chpc
         
         % DEID storm summary table:
+        % Construct filename:
+        summary_file = sprintf('%s\\DEID_totals%s.csv', output_dir, evapTime_save);
         % Construct the SCP command
-        scpCommand_totals = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s\\DEID_totals.csv" %s@%s:%s', '"Sc0tchT@p3!"', working_dir, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
-        % Execute the SCP command using the system function
-        % system('cd C:\Program Files\PuTTY\')
-        status_totals = system(scpCommand_totals);
+        scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/2frame');
+        status_summary = system(scpCommand_summary);
 
         % Check if the command was successful
-        if status_totals == 0
+        if status_summary == 0
             disp('DEID_totals.csv transferred succesfully');
         else
             disp('Error transferring DEID_totals.csv');
@@ -681,25 +694,21 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
         % DEID storm summary json:
         % Construct the SCP command
-        scpCommand_json = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s\\DEID_totals.json" %s@%s:%s', '"Sc0tchT@p3!"', working_dir, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
-        % Execute the SCP command using the system function
-        % system('cd C:\Program Files\PuTTY\')
-        status_json = system(scpCommand_json);
+        % scpCommand_json = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s\DEID_totals.json" %s@%s:%s', '"Sc0tchT@p3!"', output_dir, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
+        % status_json = system(scpCommand_json);
 
         % Check if the command was successful
-        if status_json == 0
-            disp('DEID_totals.json transferred succesfully');
-        else
-            disp('Error transferring DEID_json.csv');
-        end
+        % if status_json == 0
+        %     disp('DEID_totals.json transferred succesfully');
+        % else
+        %     disp('Error transferring DEID_json.csv');
+        % end
 
         % DEID particle file:
         % Construct filename:
-        particle_file = sprintf('%s\\DEID_Particle_%s.csv', working_dir, start_time);
+        particle_file = sprintf('%s\\DEID_Particle_%s%s.csv', output_dir, start_time, evapTime_save);
         % Construct the SCP command
-        scpCommand_particle = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', particle_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
-        % Execute the SCP command using the system function
-        % system('cd C:\Program Files\PuTTY\')
+        scpCommand_particle = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', particle_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/2frame');
         status_particle = system(scpCommand_particle);
 
         % Check if the command was successful
@@ -711,9 +720,9 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
         % DEID time series file:
         % Construct filename:
-        TS_file = sprintf('%s\\DEID_TS_%s.csv', working_dir, start_time);
+        TS_file = sprintf('%s\\DEID_TS_%s%s.csv', output_dir, start_time, evapTime_save);
         % Construct the SCP command
-        scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
+        scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/2frame');
         % Execute the SCP command using the system function
         % system('cd C:\Program Files\PuTTY\')
         status_TS = system(scpCommand_TS);
@@ -727,22 +736,22 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
         % DEID day summary file:
         % Construct filename:
-        daySummary_file = sprintf('%s\\DEID_totals_%s.csv', working_dir, current_time);
-        % Construct the SCP command
-        scpCommand_daySummary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', daySummary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
-        % Execute the SCP command using the system function
-        % system('cd C:\Program Files\PuTTY\')
-        status_daySummary = system(scpCommand_daySummary);
-
-        % Check if the command was successful
-        if status_daySummary == 0
-            disp(['File ', daySummary_file, ' transferred succesfully.']);
-        else
-            disp(['Error transferring ', daySummary_file, '.']);
-        end
+        % daySummary_file = sprintf('%s\\DEID_totals_%s.csv', output_dir, current_time);
+        % % Construct the SCP command
+        % scpCommand_daySummary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', daySummary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
+        % status_daySummary = system(scpCommand_daySummary);
+        % 
+        % % Check if the command was successful
+        % if status_daySummary == 0
+        %     disp(['File ', daySummary_file, ' transferred succesfully.']);
+        % else
+        %     disp(['Error transferring ', daySummary_file, '.']);
+        % end
     end
 
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
 
-exit 
+end 
+
+% exit 
