@@ -58,7 +58,11 @@ hf_rho_coeff = 1.01e05; % this is the value pulled from Dhiraj's paper using l_v
 cd(working_dir) 
 % Get a list of all video filesin this directory
 directory = dir("*.avi");
+% Find the most recent .avi file in this directory 
+% [~,idx] = max([directory.datenum]);
+% latest_file =  directory(idx).name;
 %% When testing: 
+% file_names = {'13122024_006.avi', '13122024_007.avi'}; 
 % Initialize an empty cell array to store the file names
 file_names = {};
 % Loop through each item in the input directory
@@ -68,12 +72,7 @@ for file_i = 1:length(directory)
         % Get the name of the file and append it to the list
         file_names{end+1} = directory(file_i).name;
     end
-end
-%% When doing auto transfer: 
-% Find the most recent .avi file in this directory 
-
-% [~,idx] = max([directory.datenum]);
-% latest_file =  directory(idx).name; 
+end 
 
 %% Initialize Output Tables
 % Frame by Frame output table 
@@ -631,7 +630,8 @@ for file_i = 1:length(file_names)
 
     else
         
-        %% Set summary table to all zeros:
+        %% Create blank tables:
+        % summary table:
         DEID_summary_table = timetable(time_series(end));
         DEID_summary_table.swe = 0;
         DEID_summary_table.snow = 0;
@@ -644,7 +644,14 @@ for file_i = 1:length(file_names)
         DEID_summary_table = timetable2table(DEID_summary_table);
         DEID_summary_table.Properties.VariableNames = summary_col_names; 
         DEID_summary_table = table2timetable(DEID_summary_table);
-        
+        % particle table:
+        particle_output_table = table('Size', [0, length(particle_col_names)], ...
+                         'VariableNames', particle_col_names, ...
+                         'VariableTypes', particle_col_types);
+        % time series table:
+        ts_output_table = table('Size', [0, length(ts_col_names)], ...
+                         'VariableNames', ts_col_names, ...
+                         'VariableTypes', ts_col_types);
         % Convert all tables to time tables if they are tables:
         if istable(particle_output_table)
             particle_output_table = table2timetable(particle_output_table);
