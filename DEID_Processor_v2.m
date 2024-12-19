@@ -5,11 +5,11 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/nov05';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
-% output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/stormData/';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/testData';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/stormData';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
+storm_output = '_dec04';
 
 % specifies resampling period:
 time_interval = 120;  % Seconds
@@ -141,8 +141,8 @@ final_particle_output_table = table();
 hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
 swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor
 fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
-
-parfor file_i = 1:length(file_names)
+% parfor
+ for file_i = 1:length(file_names)
     diag_table = table('Size', [1, length(diag_col_names)], ...
                          'VariableNames', diag_col_names, ...
                          'VariableTypes', diag_col_types);
@@ -223,7 +223,7 @@ parfor file_i = 1:length(file_names)
 
     % Frame by frame SWE calculation
     % Use current_frame_gray_cropped to calculate the area of hot plate:
-    hp_area(file_i) = size(frame_gray_cropped,1) * size(frame_gray_cropped,2) * pix_to_m2_conversion;    
+    hp_area(file_i) = size(frame_gray_cropped,1) * size(frame_gray_cropped,2) * pix_to_m2_conversion    
     % hp_area(file_i) = hp_area_temp; % Hotplate Area [m^2]
     h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % mass evaporates in each frame
     SWE_FBF_mm = h_mass_fbf / hp_area(file_i);
@@ -491,7 +491,7 @@ parfor file_i = 1:length(file_names)
         DEID_summary_table = table2timetable(DEID_summary_table); 
         
         % Writes out DEID summary table:
-        writetimetable(DEID_summary_table, [output_dir, '/DEID_totals.csv'], 'WriteMode', 'append', 'Delimiter', ' ');
+        writetimetable(DEID_summary_table, [output_dir, '/DEID_totals', storm_output, '.csv'], 'WriteMode', 'append', 'Delimiter', ' ');
     else
         % Set summary table to all zeros:
         DEID_summary_table = timetable(time_series(end));
@@ -507,7 +507,7 @@ parfor file_i = 1:length(file_names)
         DEID_summary_table.Properties.VariableNames = summary_col_names; 
         DEID_summary_table = table2timetable(DEID_summary_table);
         % Writes out DEID summary table:
-        writetimetable(DEID_summary_table, [output_dir, '/DEID_totals.csv'], 'WriteMode', 'append', 'Delimiter', ' ');
+        writetimetable(DEID_summary_table, [output_dir, '/DEID_totals', storm_output, '.csv'], 'WriteMode', 'append', 'Delimiter', ' ');
     end
 end
 
@@ -588,10 +588,10 @@ ts_output_table.Snow_Accum_mm = cumsum(ts_output_table.Snow_mm);
 ts_output_table.Snow_Accum_in = ts_output_table.Snow_Accum_mm * mm_to_inches;
 
 %% Sort and re-save DEID_totals 
-DEID_totals = readtimetable([output_dir, '/DEID_totals.csv']);
+DEID_totals = readtimetable([output_dir, '/DEID_totals', storm_output, '.csv']);
 DEID_totals = sortrows(DEID_totals, 'Time');
 
-writetimetable(DEID_totals, [output_dir,'/DEID_totals.csv']);
+writetimetable(DEID_totals, [output_dir, '/DEID_totals', storm_output, '.csv']);
 %% Saves processed output and diagnostic data for all video files present
 % Gets folder name and saves output as 'folder name'.csv
 startTime = datestr(ts_output_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
