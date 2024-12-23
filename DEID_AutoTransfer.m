@@ -562,7 +562,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         % Construct filename:
         summary_file = sprintf('%s\\DEID_totals.csv', output_dir);
         % Construct the SCP command
-        scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/16frame');
+        scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
         status_summary = system(scpCommand_summary);
 
         % Check if the command was successful
@@ -588,7 +588,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         % Construct filename:
         particle_file = sprintf('%s\\DEID_Particle_%s.csv', output_dir, start_time);
         % Construct the SCP command
-        scpCommand_particle = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', particle_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/16frame');
+        scpCommand_particle = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', particle_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
         status_particle = system(scpCommand_particle);
 
         % Check if the command was successful
@@ -602,7 +602,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         % Construct filename:
         TS_file = sprintf('%s\\DEID_TS_%s.csv', output_dir, start_time);
         % Construct the SCP command
-        scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/16frame');
+        scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
         % Execute the SCP command using the system function
         % system('cd C:\Program Files\PuTTY\')
         status_TS = system(scpCommand_TS);
@@ -689,7 +689,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         % Construct filename:
         summary_file = sprintf('%s\\DEID_totals.csv', output_dir);
         % Construct the SCP command
-        scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/16frame');
+        scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
         status_summary = system(scpCommand_summary);
 
         % Check if the command was successful
@@ -715,7 +715,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         % Construct filename:
         particle_file = sprintf('%s\\DEID_Particle_%s.csv', output_dir, start_time);
         % Construct the SCP command
-        scpCommand_particle = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', particle_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/16frame');
+        scpCommand_particle = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', particle_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
         status_particle = system(scpCommand_particle);
 
         % Check if the command was successful
@@ -729,7 +729,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         % Construct filename:
         TS_file = sprintf('%s\\DEID_TS_%s.csv', output_dir, start_time);
         % Construct the SCP command
-        scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/evapTime_test/16frame');
+        scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025');
         % Execute the SCP command using the system function
         % system('cd C:\Program Files\PuTTY\')
         status_TS = system(scpCommand_TS);
