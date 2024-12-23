@@ -5,11 +5,11 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
 output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/stormData';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
-storm_output = '_dec04';
+storm_output = '_jan05';
 
 % specifies resampling period:
 time_interval = 120;  % Seconds
@@ -17,12 +17,11 @@ time_step = seconds(time_interval); % Datetime step
 % unit conversions:
 mm_to_inches = 1/25.4; % [mm/in]
 % pix to m conversion:
-hotPlateArea_m2 = 0.0130; % measuring from IRBIS 3.1 plus software 
-hotPlateArea_pixels = 110592.00; % measuring from IRBIS 3.1 plus software
-pix_to_m2_conversion = hotPlateArea_m2/hotPlateArea_pixels;
-
-% pix_to_m_conversion = 3.1750e-04; % Pixel to [m]
-% pix_to_m2_conversion = pix_to_m_conversion^2; % Pixel to [m^2]
+% hotPlateArea_m2 = 0.0130; % measuring from IRBIS 3.1 plus software 
+% hotPlateArea_pixels = 110592.00; % measuring from IRBIS 3.1 plus software
+% pix_to_m2_conversion = hotPlateArea_m2/hotPlateArea_pixels;
+pix_to_m_conversion = 3.1750e-04; % Pixel to [m]
+pix_to_m2_conversion = pix_to_m_conversion^2; % Pixel to [m^2]
 k = 3.6e06; % Converts m/s to mm/hr [(mm/hr)*(s/m)]
 hour_in_seconds = 3600;
 % physical constants:
@@ -66,33 +65,33 @@ end
 % file_names = {'05112024_025.avi'};
 
 %% Now loop through each file_name to get start and end times 
-% vid_end_time = NaT(length(file_names), 1);
-% vid_start_time = NaT(length(file_names), 1);
-% vid_end_start_diff = NaN(length(file_names)-1, 1);
-% 
-% parfor file_i = 1:length(file_names)
-%     filename = file_names{file_i};
-%     vid=VideoReader(filename);
-%     % Get necessary metadata for video processing
-%     vid_dir = dir(filename);
-%     vid_length = vid.Duration;
-%     vid_fps = vid.FrameRate;
-%     num_frames = vid.NumFrames;
-%     % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
-%     vid_end_time(file_i) = datetime([vid_dir.date]);
-%     time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
-%     time_series = flip(time_series);  % Flips time series to be chronologically ordered
-%     vid_start_time(file_i) = datetime(time_series(1));
-% end
-% 
-% start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
-% start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
-% start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
-% 
-% % Find difference between end of one video and the start of the next
-% for file_i = 1:length(file_names)-1
-%     vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
-% end
+vid_end_time = NaT(length(file_names), 1);
+vid_start_time = NaT(length(file_names), 1);
+vid_end_start_diff = NaN(length(file_names)-1, 1);
+
+parfor file_i = 1:length(file_names)
+    filename = file_names{file_i};
+    vid=VideoReader(filename);
+    % Get necessary metadata for video processing
+    vid_dir = dir(filename);
+    vid_length = vid.Duration;
+    vid_fps = vid.FrameRate;
+    num_frames = vid.NumFrames;
+    % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
+    vid_end_time(file_i) = datetime([vid_dir.date]);
+    time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
+    time_series = flip(time_series);  % Flips time series to be chronologically ordered
+    vid_start_time(file_i) = datetime(time_series(1));
+end
+
+start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
+start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
+start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
+
+% Find difference between end of one video and the start of the next
+for file_i = 1:length(file_names)-1
+    vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
+end
 
 %% Initialize Output Tables
 % Frame by Frame output table 
@@ -129,10 +128,10 @@ diag_output_table = table('Size', [0, length(diag_col_names)], ...
 %% Begin DEID video processing:
 
 % if processing a storm, specify storm start and end date:
-% storm_start = datetime('05-Feb-2024 06:08:29');  
-% storm_end = datetime('06-Feb-2024 10:23:54'); 
-% storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
-% file_names = storm_table.file_name; 
+storm_start = datetime('04-Jan-2024 12:42:40');  
+storm_end = datetime('05-Jan-2024 16:05:56'); 
+storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
+file_names = storm_table.file_name; 
 %%
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
@@ -141,8 +140,8 @@ final_particle_output_table = table();
 hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
 swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor
 fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
-% parfor
- for file_i = 1:length(file_names)
+
+ parfor file_i = 1:length(file_names)
     diag_table = table('Size', [1, length(diag_col_names)], ...
                          'VariableNames', diag_col_names, ...
                          'VariableTypes', diag_col_types);
@@ -223,7 +222,7 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 
     % Frame by frame SWE calculation
     % Use current_frame_gray_cropped to calculate the area of hot plate:
-    hp_area(file_i) = size(frame_gray_cropped,1) * size(frame_gray_cropped,2) * pix_to_m2_conversion    
+    hp_area(file_i) = size(frame_gray_cropped,1) * size(frame_gray_cropped,2) * pix_to_m2_conversion;    
     % hp_area(file_i) = hp_area_temp; % Hotplate Area [m^2]
     h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % mass evaporates in each frame
     SWE_FBF_mm = h_mass_fbf / hp_area(file_i);
@@ -376,7 +375,8 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
     g1 = find((pbp_table_particles.mass > 0 & ...
         pbp_table_particles.mass < residue_filter) & ...
         (pbp_table_particles.evap_time > evapTime_min & ...
-        pbp_table_particles.evap_time < evapTime_max)); 
+        pbp_table_particles.evap_time < evapTime_max)); % & ...
+        % pbp_table_particles.rho_hfd < 298) ; 
         
     pbp_table_particles = pbp_table_particles(g1,:);
     %% Post Processing Starts Here! 
@@ -419,7 +419,7 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
         pbp_table_particles.SWE_PBP_F_accum_mm = cumsum(pbp_table_particles.SWE_PBP_F_mm);
         
         %% Total Snow for all PBP data
-        pbp_table_particles.snow_PBP_mm = rho_water * (pbp_table_particles.SWE_PBP_F_mm ./ pbp_table_particles.rho_hfd); % [mm]
+        pbp_table_particles.snow_PBP_mm = rho_water * (pbp_table_particles.SWE_PBP_mm ./ pbp_table_particles.rho_hfd); % [mm]
         pbp_table_particles.snow_PBP_acc_mm = cumsum(pbp_table_particles.snow_PBP_mm); % [mm]
 
         %% Appends PARTICLE data for single video to output table
@@ -492,7 +492,7 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
         
         % Writes out DEID summary table:
         writetimetable(DEID_summary_table, [output_dir, '/DEID_totals', storm_output, '.csv'], 'WriteMode', 'append', 'Delimiter', ' ');
-    else
+     else
         % Set summary table to all zeros:
         DEID_summary_table = timetable(time_series(end));
         DEID_summary_table.swe = 0;
