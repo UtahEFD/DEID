@@ -5,12 +5,12 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/DEC/DEC09_storm';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB/feb20';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
 output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/test';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
-storm_output = '_dec09';
-
+storm_output = '_feb20';
+%%
 % specifies resampling period:
 time_interval = 120;  % Seconds
 time_step = seconds(time_interval); % Datetime step 
@@ -127,9 +127,9 @@ diag_output_table = table('Size', [0, length(diag_col_names)], ...
 
 %% Begin DEID video processing:
 
-% if processing a storm, specify storm start and end date:
-% storm_start = datetime('04-Jan-2024 12:42:40');  
-% storm_end = datetime('05-Jan-2024 16:05:56'); 
+% % if processing a storm, specify storm start and end date:
+% storm_start = datetime('07-Jan-2024 04:30:00');  
+% storm_end = datetime('08-Jan-2024 07:30:00'); 
 % storm_table = start_end_time_table(start_end_time_table.vid_start_time >= storm_start & start_end_time_table.vid_end_time <= storm_end, :); 
 % file_names = storm_table.file_name; 
 %%
