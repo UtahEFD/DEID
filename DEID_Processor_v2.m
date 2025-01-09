@@ -5,11 +5,11 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB/feb20';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/jan08_storm';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
 output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/test';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
-storm_output = '_feb20';
+storm_output = '_jan08';
 %%
 % specifies resampling period:
 time_interval = 120;  % Seconds
@@ -22,7 +22,8 @@ mm_to_inches = 1/25.4; % [mm/in]
 % pix_to_m2_conversion = hotPlateArea_m2/hotPlateArea_pixels;
 pix_to_m_conversion = 3.1750e-04; % Pixel to [m]
 pix_to_m2_conversion = pix_to_m_conversion^2; % Pixel to [m^2]
-k = 3.6e06; % Converts m/s to mm/hr [(mm/hr)*(s/m)]
+c1 = 10^3; % Converts meters to millimeters
+c2 = 3.6e06; % Converts m/s to mm/hr [(mm/hr)*(s/m)]
 hour_in_seconds = 3600;
 % physical constants:
 rho_water = 1000; % Density of water [kg/m^3]
@@ -141,7 +142,7 @@ hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
 swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor
 fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 
- for file_i = 1:length(file_names)
+ parfor file_i = 1:length(file_names)
     diag_table = table('Size', [1, length(diag_col_names)], ...
                          'VariableNames', diag_col_names, ...
                          'VariableTypes', diag_col_types);
@@ -409,8 +410,8 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 
         %% Total SWE for all PBP data
         % is there any reason why 1000 is in the numerator and rho_water is
-        % in the density??
-        pbp_table_particles.SWE_PBP_mm = 1000 * pbp_table_particles.mass ./ (rho_water * hp_area(file_i)); % [mm]
+        % in the denominator?
+        pbp_table_particles.SWE_PBP_mm = c1 * pbp_table_particles.mass ./ (rho_water * hp_area(file_i)); % [mm]
         pbp_table_particles.SWE_PBP_accum_mm = cumsum(pbp_table_particles.SWE_PBP_mm);  % [mm]
      
         % Finds difference factor between FBF SWE and PBP SWE and adjusts PBP SWE
@@ -524,6 +525,7 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 end
 
 %% Cumulatively sums data for SWE and Snow totals
+particle_output_table_all = sortrows(particle_output_table_all, 'Time'); % Sort by time
 particle_output_table_all.SWE_Accum_mm = cumsum(particle_output_table_all.SWE_mm);
 particle_output_table_all.Snow_Accum_mm = cumsum(particle_output_table_all.Snow_mm);
 
