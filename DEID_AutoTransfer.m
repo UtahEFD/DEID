@@ -6,7 +6,7 @@ clear, clc
 %% Sets filepath, global variables, and physical constants.
 working_dir = 'D:\Atwater';
 % working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
-output_dir = 'D:\Atwater\dec26';
+output_dir = 'D:\Atwater\jan03';
 
 % Set global varables and constants:
 % specifies resampling period:
