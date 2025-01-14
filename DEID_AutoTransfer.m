@@ -4,9 +4,9 @@
 
 clear, clc
 %% Sets filepath, global variables, and physical constants.
-working_dir = 'D:\Atwater';
+working_dir = 'D:\Atwater\jan10';
 % working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
-output_dir = 'D:\Atwater\jan06';
+output_dir = 'D:\Atwater\jan10';
 
 % Set global varables and constants:
 % specifies resampling period:
@@ -54,25 +54,29 @@ hf_rho_coeff = 1.01e05; % this is the value pulled from Dhiraj's paper using l_v
 
 
 %% Move to working directory and identify most recent video file
+% % Sets path for .m to run in:
+% cd(working_dir) 
+% % Get a list of all video filesin this directory
+% directory = dir("*.avi");
+% % Find the most recent .avi file in this directory 
+% [~,idx] = max([directory.datenum]);
+% latest_file =  directory(idx).name;
+%% When testing: 
+% Move to working directory and identify video files 
 % Sets path for .m to run in:
 cd(working_dir) 
-% Get a list of all video filesin this directory
-directory = dir("*.avi");
-% Find the most recent .avi file in this directory 
-[~,idx] = max([directory.datenum]);
-latest_file =  directory(idx).name;
-%% When testing: 
-% % file_names = {'13122024_006.avi', '13122024_007.avi'}; 
-% % Initialize an empty cell array to store the file names
-% file_names = {};
-% % Loop through each item in the input directory
-% for file_i = 1:length(directory)
-%     % Check if the item is a file (not a folder) and if it ends with .avi
-%     if ~directory(file_i).isdir && endsWith(directory(file_i).name, '.avi', 'IgnoreCase', true)
-%         % Get the name of the file and append it to the list
-%         file_names{end+1} = directory(file_i).name;
-%     end
-% end 
+% Get a list of all files and folders in this directory
+directory = dir(".");
+% Initialize an empty cell array to store the file names
+file_names = {};
+% Loop through each item in the input directory
+for file_i = 1:length(directory)
+    % Check if the item is a file (not a folder) and if it ends with .avi
+    if ~directory(file_i).isdir && endsWith(directory(file_i).name, '.avi', 'IgnoreCase', true)
+        % Get the name of the file and append it to the list
+        file_names{end+1} = directory(file_i).name;
+    end
+end
 
 %% Initialize Output Tables
 % Frame by Frame output table 
@@ -88,14 +92,14 @@ ts_output_table = table('Size', [0, length(ts_col_names)], ...
                          'VariableNames', ts_col_names, ...
                          'VariableTypes', ts_col_types);
 % Particles output table
-particle_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Mass', 'Volume', 'Density_HFD', 'Diameter', 'Surface Area', 'Void Space', 'Temp Diff', 'SWE [mm]', 'Snow [mm]', 'Total SWE [mm]', 'Total Snow [mm]', 'Missing Data'};
-particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double' ,'double', 'double', 'double', 'double', 'logical'};
+particle_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Mass', 'Volume', 'Density_HFD', 'Diameter', 'Surface Area', 'Void Space', 'Temp Diff', 'SWE [mm]', 'Adjusted Snow [mm]', 'Snow [mm]', 'Total SWE [mm]', 'Total Adjusted Snow [mm]', 'Total Snow [mm]', 'Missing Data'};
+particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double' ,'double', 'double', 'double', 'double', 'double', 'double', 'logical'};
 particle_output_table = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
 % DEID summary table 
-summary_col_names = {'Time', 'SWE (mm)', 'Snow (mm)', 'Density (kg*m^-3)', 'SWE Rate [mm/hr]', 'Snow Rate [mm/hr]', 'SDI', 'Complexity', 'fbf SWE min'};
-summary_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
+summary_col_names = {'Time', 'SWE (mm)', 'Adjusted Snow (mm)', 'Snow (mm)', 'Density (kg*m^-3)', 'SWE Rate [mm/hr]', 'Snow Rate [mm/hr]', 'SDI', 'Complexity', 'fbf SWE min'};
+summary_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
 DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
                          'VariableNames', summary_col_names, ...
                          'VariableTypes', summary_col_types);
@@ -111,9 +115,10 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
 %% Begin DEID video processing:
 
-% for file_i = 1:length(file_names)
+for file_i = 1:length(file_names)
 
-    filename = latest_file;
+    % filename = latest_file;
+    filename = file_names{file_i};
     disp(['Processing File: ', filename])
     vid=VideoReader(filename);
     
@@ -386,12 +391,13 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         pbp_table_particles.SWE_PBP_F_accum_mm = cumsum(pbp_table_particles.SWE_PBP_F_mm);
         
         %% Total Snow for all PBP data
-        pbp_table_particles.snow_PBP_mm = rho_water * (pbp_table_particles.SWE_PBP_F_mm ./ pbp_table_particles.rho_hfd); % [mm]
+        pbp_table_particles.snow_PBP_mm = rho_water * (pbp_table_particles.SWE_PBP_mm ./ pbp_table_particles.rho_hfd); % [mm]
         pbp_table_particles.snow_PBP_acc_mm = cumsum(pbp_table_particles.snow_PBP_mm); % [mm]
-
+        pbp_table_particles.snow_PBP_F_mm = rho_water * (pbp_table_particles.SWE_PBP_F_mm ./ pbp_table_particles.rho_hfd); % [mm]
+        pbp_table_particles.snow_PBP_F_acc_mm = cumsum(pbp_table_particles.snow_PBP_F_mm); % [mm]
         %% Appends PARTICLE data for single video to output table
         % Selects a subset of output variables to be exported
-        particle_output_table = pbp_table_particles(:, {'terminal_vel', 'complexity', 'sdi', 'mass', 'vol_hfd', 'rho_hfd', 'diam', 'surface_area_eq', 'void_space', 'delta_temp_mean', 'SWE_PBP_F_mm', 'snow_PBP_mm', 'SWE_PBP_F_accum_mm', 'snow_PBP_acc_mm'});
+        particle_output_table = pbp_table_particles(:, {'terminal_vel', 'complexity', 'sdi', 'mass', 'vol_hfd', 'rho_hfd', 'diam', 'surface_area_eq', 'void_space', 'delta_temp_mean', 'SWE_PBP_F_mm', 'snow_PBP_F_mm', 'snow_PBP_mm', 'SWE_PBP_F_accum_mm', 'snow_PBP_F_acc_mm', 'snow_PBP_acc_mm'});
         particle_output_table = timetable2table(particle_output_table);
         % add a flag column to distinguish missing .avi data:
         particle_output_table.missing_data = false(height(particle_output_table),1); 
@@ -429,13 +435,15 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         voidSpaceRow = mean(prev_data.('Void Space'));
         tempDiffRow = mean(prev_data.('Temp Diff'));
         sweRow = sum(prev_data.('SWE [mm]'));
+        adjustedSnowRow = sum(prev_data.('Adjusted Snow [mm]'));
         snowRow = sum(prev_data.('Snow [mm]'));
         sweTotal = sweRow + particle_output_table.("Total SWE [mm]")(end);
+        adjustedSnowTotal = adjustedSnowRow + particle_output_table.("Total Adjusted Snow [mm]")(end);
         snowTotal = snowRow + particle_output_table.("Total Snow [mm]")(end);
         % compile into a table
         new_row = array2table([termVelocityRow, cxRow, sdiRow, massRow, ...
             volumeRow, densityRow, diamRow, surAreaRow, voidSpaceRow, tempDiffRow, ...
-            sweRow, snowRow, sweTotal, snowTotal], 'VariableNames', particle_output_table.Properties.VariableNames(2:(end-1)));
+            sweRow, adjustedSnowRow, snowRow, sweTotal, adjustedSnowTotal, snowTotal], 'VariableNames', particle_output_table.Properties.VariableNames(2:(end-1)));
         % assign a time and logical value for missing data to the new row:
         new_row.('Missing Data') = true;
         new_row.Time = final_time + seconds(5);
@@ -518,10 +526,10 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         %% Now create a summary table with just total SWE, Snow, and average density per .avi 
         
         DEID_summary_table = time_series(end);
-        DEID_summary_table = particle_output_table(end, {'Total SWE [mm]', 'Total Snow [mm]'});
+        DEID_summary_table = particle_output_table(end, {'Total SWE [mm]', 'Total Adjusted Snow [mm]', 'Total Snow [mm]'});
         DEID_summary_table.rho = sum(particle_output_table.Mass) / sum(particle_output_table.Volume);
         DEID_summary_table.sweRate = DEID_summary_table.('Total SWE [mm]')/hours(seconds(vid_length));
-        DEID_summary_table.snowRate = DEID_summary_table.('Total Snow [mm]')/hours(seconds(vid_length));
+        DEID_summary_table.adjustedSnowRate = DEID_summary_table.('Total Adjusted Snow [mm]')/hours(seconds(vid_length));
         DEID_summary_table.sdi = mean(particle_output_table.SDI);
         DEID_summary_table.cx = mean(particle_output_table.Complexity);
         DEID_summary_table.fbfSWEmin = fbf_SWE_min; 
@@ -634,10 +642,11 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         % summary table:
         DEID_summary_table = timetable(time_series(end));
         DEID_summary_table.swe = 0;
+        DEID_summary_table.adjustedSnow = 0;
         DEID_summary_table.snow = 0;
         DEID_summary_table.rho = 0;
         DEID_summary_table.sweRate = 0;
-        DEID_summary_table.snowRate = 0;
+        DEID_summary_table.adjustedSnowRate = 0;
         DEID_summary_table.sdi = 0;
         DEID_summary_table.cx = 0;
         DEID_summary_table.fbfSWEmin = fbf_SWE_min; 
@@ -759,6 +768,6 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
 
-% end 
+end 
 
-exit 
+% exit 
