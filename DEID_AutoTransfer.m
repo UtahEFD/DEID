@@ -4,9 +4,9 @@
 
 clear, clc
 %% Sets filepath, global variables, and physical constants.
-working_dir = 'D:\Atwater\jan10';
+working_dir = 'D:\Atwater_24_25';
 % working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
-output_dir = 'D:\Atwater\jan10';
+output_dir = 'D:\Atwater_24_25\jan31';
 
 % Set global varables and constants:
 % specifies resampling period:
@@ -54,29 +54,29 @@ hf_rho_coeff = 1.01e05; % this is the value pulled from Dhiraj's paper using l_v
 
 
 %% Move to working directory and identify most recent video file
-% % Sets path for .m to run in:
-% cd(working_dir) 
-% % Get a list of all video filesin this directory
-% directory = dir("*.avi");
-% % Find the most recent .avi file in this directory 
-% [~,idx] = max([directory.datenum]);
-% latest_file =  directory(idx).name;
-%% When testing: 
-% Move to working directory and identify video files 
 % Sets path for .m to run in:
 cd(working_dir) 
-% Get a list of all files and folders in this directory
-directory = dir(".");
-% Initialize an empty cell array to store the file names
-file_names = {};
-% Loop through each item in the input directory
-for file_i = 1:length(directory)
-    % Check if the item is a file (not a folder) and if it ends with .avi
-    if ~directory(file_i).isdir && endsWith(directory(file_i).name, '.avi', 'IgnoreCase', true)
-        % Get the name of the file and append it to the list
-        file_names{end+1} = directory(file_i).name;
-    end
-end
+% Get a list of all video filesin this directory
+directory = dir("*.avi");
+% Find the most recent .avi file in this directory 
+[~,idx] = max([directory.datenum]);
+latest_file =  directory(idx).name;
+%% When testing: 
+% % Move to working directory and identify video files 
+% % Sets path for .m to run in:
+% cd(working_dir) 
+% % Get a list of all files and folders in this directory
+% directory = dir(".");
+% % Initialize an empty cell array to store the file names
+% file_names = {};
+% % Loop through each item in the input directory
+% for file_i = 1:length(directory)
+%     % Check if the item is a file (not a folder) and if it ends with .avi
+%     if ~directory(file_i).isdir && endsWith(directory(file_i).name, '.avi', 'IgnoreCase', true)
+%         % Get the name of the file and append it to the list
+%         file_names{end+1} = directory(file_i).name;
+%     end
+% end
 
 %% Initialize Output Tables
 % Frame by Frame output table 
@@ -115,10 +115,10 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
 
 %% Begin DEID video processing:
 
-for file_i = 1:length(file_names)
+% for file_i = 1:length(file_names)
 
-    % filename = latest_file;
-    filename = file_names{file_i};
+    filename = latest_file;
+    % filename = file_names{file_i};
     disp(['Processing File: ', filename])
     vid=VideoReader(filename);
     
@@ -768,6 +768,6 @@ for file_i = 1:length(file_names)
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
 
-end 
+% end 
 
-% exit 
+exit 
