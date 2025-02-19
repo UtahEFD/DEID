@@ -4,9 +4,9 @@
 
 clear, clc
 %% Sets filepath, global variables, and physical constants.
-working_dir = 'D:\Atwater_24_25';
+working_dir = 'D:\Atwater';
 % working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
-output_dir = 'D:\Atwater_24_25\jan31';
+output_dir = 'D:\Atwater\feb19';
 
 % Set global varables and constants:
 % specifies resampling period:
@@ -35,7 +35,7 @@ evapTime_min = 1/15;
 % evapTime_save = '_one'; 
 evapTime_max = 60;
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
-crop_index = 55; % use this to specify indices to crop out kapton tape
+crop_index = 43; % use this to specify indices to crop out kapton tape
 colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % Location of Kapton tape in pixel locations
 % [x1 y1 width height] y1 + n, height - n
 colorbar_max_temp = 145; % Max temperature set in colorbar on the physical screen of the tir software
