@@ -455,7 +455,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         diamRow = mean(prev_data.Diameter);
         surAreaRow = mean(prev_data.('Surface Area'));
         voidSpaceRow = mean(prev_data.('Void Space'));
-        PBPsweRow = 1000 * massRow/ (rho_water * hp_area(file_i));
+        PBPsweRow = 1000 * massRow/ (rho_water * hp_area);
         FBFsweRow = PBPsweRow*mean(prev_data.('SWE Factor'));
         PBPsnowRow = rho_water * (PBPsweRow ./ densityHFDrow);
         FBFsnowRow = rho_water * (FBFsweRow ./ densityHFDrow);
@@ -463,7 +463,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         % compile into a table
         new_row = array2table([termVelocityRow, cxRow, sdiRow, massRow, ...
             volumeHFDrow, volumeSPHrow, densityHFDrow, densitySPHrow, diamRow, surAreaRow, voidSpaceRow,...
-            PBPsweRow, FBFsweRow PBPsnowRow, FBFsnowRow, SWEfactorRow], 'VariableNames', particle_output_table_vid.Properties.VariableNames(2:(end-1)));
+            PBPsweRow, FBFsweRow PBPsnowRow, FBFsnowRow, SWEfactorRow], 'VariableNames', particle_output_table.Properties.VariableNames(2:(end-1)));
         % assign a time and logical value for missing data to the new row:
         new_row.('Missing Data') = true;
         new_row.Time = final_time + seconds(5);
@@ -515,7 +515,8 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         %% Sorts table by time and handles duplicates 
         % particle_output_table = table2timetable(sortrows(particle_output_table, 'Time'));
         ts_output_table = sortrows(ts_output_table, 'Time');
-           
+        ts_output_table = table2timetable(ts_output_table); 
+        
         %% Cumulatively sums data for SWE and Snow totals
         % Averaged data 
         ts_output_table.('SWE Total [mm]') = cumsum(ts_output_table.('SWE [mm]'));
@@ -525,15 +526,15 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         %% Now create a summary table with just total SWE, Snow, and average density per .avi 
         
         DEID_summary_table = timetable(time_series(end));
-        DEID_summary_table.cx = mean(particle_output_table_vid.Complexity);
-        DEID_summary_table.sdi = mean(particle_output_table_vid.SDI);
-        DEID_summary_table.rho = sum(particle_output_table_vid.Mass) / sum(particle_output_table_vid.('Volume HFD'));
-        DEID_summary_table.pbpSWE = sum(particle_output_table_vid.('PBP SWE (mm)'));
-        DEID_summary_table.fbfSWE = sum(particle_output_table_vid.('FBF SWE (mm)'));
-        DEID_summary_table.pbpSnow = sum(particle_output_table_vid.('PBP Snow (mm)'));
-        DEID_summary_table.fbfSnow = sum(particle_output_table_vid.('FBF Snow (mm)'));
-        DEID_summary_table.hotPlateArea = hp_area(file_i); 
-        DEID_summary_table.SWEfactor = swe_factor(file_i); 
+        DEID_summary_table.cx = mean(particle_output_table.Complexity);
+        DEID_summary_table.sdi = mean(particle_output_table.SDI);
+        DEID_summary_table.rho = sum(particle_output_table.Mass) / sum(particle_output_table.('Volume HFD'));
+        DEID_summary_table.pbpSWE = sum(particle_output_table.('PBP SWE (mm)'));
+        DEID_summary_table.fbfSWE = sum(particle_output_table.('FBF SWE (mm)'));
+        DEID_summary_table.pbpSnow = sum(particle_output_table.('PBP Snow (mm)'));
+        DEID_summary_table.fbfSnow = sum(particle_output_table.('FBF Snow (mm)'));
+        DEID_summary_table.hotPlateArea = hp_area; 
+        DEID_summary_table.SWEfactor = swe_factor; 
         DEID_summary_table = timetable2table(DEID_summary_table);
         DEID_summary_table.Properties.VariableNames = summary_col_names; 
         DEID_summary_table = table2timetable(DEID_summary_table);
