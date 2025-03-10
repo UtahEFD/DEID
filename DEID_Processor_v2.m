@@ -1,15 +1,15 @@
 %% DEID AVI File Processing Code
-% Outputs particle by particle csv file to be post processed by
+% Outputs particle by particle csclear,v file to be post processed by
 % DEID_AVI_Processor.m
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/mar03_mar07';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
 output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/UDOT';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
-storm_output = 'mar03_mar07';
+storm_output = '_feb_2024';
 %%
 % specifies resampling period:
 time_interval = 600;  % Seconds
