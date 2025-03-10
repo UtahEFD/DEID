@@ -6,7 +6,7 @@ clear, clc
 %% Sets filepath, global variables, and physical constants.
 working_dir = 'D:\Atwater';
 % working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/JAN1';     % For testing
-output_dir = 'D:\Atwater\feb19';
+output_dir = 'D:\Atwater\mar13';
 
 % Set global varables and constants:
 % specifies resampling period:
@@ -652,7 +652,7 @@ DEID_summary_table = table('Size', [0, length(summary_col_names)], ...
         DEID_summary_table.pbpSnow = 0;
         DEID_summary_table.fbfSnow = 0;
         DEID_summary_table.hotPlateArea = hp_area; 
-        DEID_summary_table.SWEfactor = swe_factor; 
+        DEID_summary_table.SWEfactor = 0; 
         DEID_summary_table = timetable2table(DEID_summary_table);
         DEID_summary_table.Properties.VariableNames = summary_col_names; 
         DEID_summary_table = table2timetable(DEID_summary_table);
