@@ -5,11 +5,11 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/mar13';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/mar07_storm';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
 output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/test';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
-storm_output = '_mar13_densityFilter';
+storm_output = '_mar07_2023';
 cd(working_dir)
 %%
 % specifies resampling period:
@@ -108,8 +108,8 @@ ts_output_table = table('Size', [0, length(ts_col_names)], ...
                          'VariableNames', ts_col_names, ...
                          'VariableTypes', ts_col_types);
 % Particles output table
-particle_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Mass', 'Volume HFD', 'Volume Sphere', 'Density HFD', 'Density Sphere', 'Diameter', 'Surface Area', 'Void Space', 'PBP SWE (mm)', 'FBF SWE (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'SWE Factor', 'Missing Data'};
-particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double' ,'double', 'double', 'double', 'double', 'double', 'logical'};
+particle_col_names = {'Time', 'Terminal_Velocity', 'Complexity', 'SDI', 'Evap Time', 'Temp Diff', 'Snowflake Height', 'Mass', 'Volume HFD', 'Volume Sphere', 'Density HFD', 'Density Sphere', 'Diameter', 'Surface Area', 'Void Space', 'PBP SWE (mm)', 'FBF SWE (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'SWE Factor', 'Missing Data'};
+particle_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double' ,'double', 'double', 'double', 'double', 'double', 'logical'};
 particle_output_table_all = table('Size', [0, length(particle_col_names)], ...
                          'VariableNames', particle_col_names, ...
                          'VariableTypes', particle_col_types);
@@ -346,6 +346,7 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
     h_sph_vol = (3/4) * h_max_area.^(3/2); % Spherical volume
     h_rho_sph = h_mass_pbp ./ h_sph_vol; % Density calculation: spherical assumption
     h_energy_per_time = h_mass_pbp * l_constant ./ (h_max_area .* h_evap_time); % Heat flux method: energy per unit area per time
+    h_height = h_evap_time .* h_delta_temp_mean; 
     h_rho_hfd = (hf_rho_coeff * h_mass_pbp) ./ (h_max_area .* h_evap_time .* h_delta_temp_mean); 
     h_vol_hfd = h_mass_pbp ./ h_rho_hfd; % Volume of each snowflakes using mean heat flux method density
     h_initial_time_indexes = h_init_time_ind(1:length(h_mass_pbp));
@@ -362,10 +363,10 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
     % for current testing, ben is abbreivating the list of variables
     % stored:
 
-    pbp_table_particles = table(h_initial_time', h_evap_time', h_mass_pbp', h_diam',  ...
+    pbp_table_particles = table(h_initial_time', h_evap_time', h_delta_temp_mean', h_height', h_mass_pbp', h_diam',  ...
         h_max_area', h_max_circ_area', h_rho_sph', h_rho_hfd',  ... 
         h_vol_hfd', h_sph_vol');
-    pbp_table_particles.Properties.VariableNames = {'initial_time', 'evap_time', 'mass', 'diam',  ...
+    pbp_table_particles.Properties.VariableNames = {'initial_time', 'evap_time', 'delta_temp', 'height', 'mass', 'diam',  ...
         'max_area', 'max_circ_area', 'rho_sph', 'rho_hfd', ... 
         'vol_hfd', 'vol_sph'};
 
@@ -386,8 +387,8 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
     g1 = find((pbp_table_particles.mass > 0 & ...
         pbp_table_particles.mass < residue_filter) & ...
         (pbp_table_particles.evap_time > evapTime_min & ...
-        pbp_table_particles.evap_time < evapTime_max) & ...
-        pbp_table_particles.rho_hfd < 298); 
+        pbp_table_particles.evap_time < evapTime_max)); % & ...
+        % pbp_table_particles.rho_hfd < 298); 
         
     pbp_table_particles = pbp_table_particles(g1,:);
     %% Post Processing Starts Here! 
@@ -445,7 +446,7 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 
         %% Appends PARTICLE data for single video to output table
         % selects a subset of output variables to be exported:
-        particle_output_table_vid = pbp_table_particles(:, {'terminal_vel', 'complexity', 'sdi', 'mass', 'vol_hfd', 'vol_sph', 'rho_hfd', 'rho_sph', 'diam', 'surface_area_eq', 'void_space', 'SWE_PBP_mm', 'SWE_FBF_mm', 'snow_PBP_mm', 'snow_FBF_mm', 'SWEfactor'});
+        particle_output_table_vid = pbp_table_particles(:, {'terminal_vel', 'complexity', 'sdi', 'evap_time', 'delta_temp', 'height', 'mass', 'vol_hfd', 'vol_sph', 'rho_hfd', 'rho_sph', 'diam', 'surface_area_eq', 'void_space', 'SWE_PBP_mm', 'SWE_FBF_mm', 'snow_PBP_mm', 'snow_FBF_mm', 'SWEfactor'});
         particle_output_table_vid = timetable2table(particle_output_table_vid);
         % add a flag column to distinguish missing .avi data:
         particle_output_table_vid.missing_data = false(height(particle_output_table_vid),1); 
@@ -476,6 +477,9 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
         cxRow = mean(prev_data.Complexity);
         sdiRow = mean(prev_data.SDI);
         massRow = mean(prev_data.Mass);
+        evapTimeRow = mean(prev_data.("Evap Time"));
+        deltaTempRow = mean(prev_data.('Temp Diff'));
+        heightRow = mean(prev_data.('Snowflake Height')); 
         volumeHFDrow = mean(prev_data.('Volume HFD'));
         volumeSPHrow = mean(prev_data.('Volume Sphere'));
         densityHFDrow = massRow / volumeHFDrow;
@@ -490,8 +494,10 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
         SWEfactorRow = mean(prev_data.('SWE Factor')); 
         % compile into a table
         new_row = array2table([termVelocityRow, cxRow, sdiRow, massRow, ...
-            volumeHFDrow, volumeSPHrow, densityHFDrow, densitySPHrow, diamRow, surAreaRow, voidSpaceRow,...
-            PBPsweRow, FBFsweRow PBPsnowRow, FBFsnowRow, SWEfactorRow], 'VariableNames', particle_output_table_vid.Properties.VariableNames(2:(end-1)));
+            evapTimeRow, deltaTempRow, heightRow, volumeHFDrow, volumeSPHrow,... 
+            densityHFDrow, densitySPHrow, diamRow, surAreaRow, voidSpaceRow,...
+            PBPsweRow, FBFsweRow PBPsnowRow, FBFsnowRow, SWEfactorRow],... 
+            'VariableNames', particle_output_table_vid.Properties.VariableNames(2:(end-1)));
         % assign a time and logical value for missing data to the new row:
         new_row.('Missing Data') = true;
         new_row.Time = final_time + seconds(5);
