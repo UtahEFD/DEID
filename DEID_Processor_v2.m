@@ -5,11 +5,12 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/mar13';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/UDOT';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/test';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
-storm_output = '_feb_2024';
+storm_output = '_mar13_densityFilter';
+cd(working_dir)
 %%
 % specifies resampling period:
 time_interval = 600;  % Seconds
@@ -29,10 +30,9 @@ hour_in_seconds = 3600;
 rho_water = 1000; % Density of water [kg/m^3]
 mu = 1.5*10^-5;   % Viscosity of air [kg/m*s] 
 % DEID specific parameters:
-residue_filter = 0.005; % [kg]
-evapTime_min = 1/15;
-% evapTime_save = '_two'; 
-evapTime_max = 60;
+residue_filter = 0.005; % max weight of snowflake to process [kg]
+evapTime_min = 1/15; % minimum time a snowflake has to appear on hotplate to be processed
+evapTime_max = 60; % maximum time a snowflake can appear on hotplate to be processed
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
 crop_index = 43; % use this to specify indices to crop out kapton tape
 colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % Location of Kapton tape in pixel locations
@@ -382,12 +382,12 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
     pbp_table_particles = sortrows(pbp_table_particles, 'initial_time'); % Sort by time 
     diag_table.Num_Particles = size(pbp_table_particles,1);
 
-    % Filters data to find where 0 < mass < .005 and to omit residue on plate
+    % Filters data to find where 0 < mass < .005 and 1/15 s < evaporation time < 60 s to omit residue on plate
     g1 = find((pbp_table_particles.mass > 0 & ...
         pbp_table_particles.mass < residue_filter) & ...
         (pbp_table_particles.evap_time > evapTime_min & ...
-        pbp_table_particles.evap_time < evapTime_max)); % & ...
-        % pbp_table_particles.rho_hfd < 298) ; 
+        pbp_table_particles.evap_time < evapTime_max) & ...
+        pbp_table_particles.rho_hfd < 298); 
         
     pbp_table_particles = pbp_table_particles(g1,:);
     %% Post Processing Starts Here! 
