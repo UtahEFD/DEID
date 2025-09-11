@@ -1,15 +1,15 @@
 function sortPos = sortPositions_v2(Prev_Frame_Hydometer_Data, Cur_Frame_Hydometer_Data, dia)
-% Prev_Frame_Hydometer_Data = The hydrometer data from the previous frame
-% in the form Hydrometer_Centroid, Hydrometero_Area,
-% [Plate_Hydrometer_DeltaT, Hydrometer_ellipse_area,Hydrometer_Major_Axis,
-%Hydrometer_Minor_Axis]
-% Cur_Frame_Hydometer_Data = The hydrometer data from the current frame
-% in the form Hydrometer_Centroid, Hydrometero_Area,
-% [Plate_Hydrometer_DeltaT, Hydrometer_ellipse_area,Hydrometer_Major_Axis,
-%Hydrometer_Minor_Axis]
+% **inputs**
+% Prev_Frame_Hydometer_Data = hydrometer data from the previous frame
+% Cur_Frame_Hydometer_Data = hydrometer data from the current frame
+% hydrometer_data = (h_centroid, h_area, plate_h_dtemp, h_elipse_area, h_major_axis, h_minor_axis)
 % dia = Some threshold for the change in the RMS between the centroid and
 % area between succsive images
-% DESSCRIPTION: This function... I'm not really sure yet...
+% **description**
+% match hydrometeors between two consecutive frames of an image sequence, based on their centroid positions.
+% if a hydrometeor in the current frame can be matched to one in the previous frame, it is kept in the same row position.
+% if a hydrometeor cannot be matched (unique centroid), it gets stored separately and re-inserted into current frame array at the first empty rows.
+% i.e the rows of Cur_Frame_Hydometer_Data correspond as much as possible to the same physical hydrometeor across frames.
 
 temp1 = zeros(size(Cur_Frame_Hydometer_Data)); %temporary 1
 temp2 = zeros(size(Cur_Frame_Hydometer_Data)); %temporary 2

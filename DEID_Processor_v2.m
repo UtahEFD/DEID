@@ -5,11 +5,11 @@
                                        
 clear, clc, close all
 %% Sets filepath, global variables, and physical constants
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/mar07_storm';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/DEC/DEC_all';
 % output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/Parsivel_DEID_Comparison/DEID_Data/v2/2min/';
 output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/test';
 % working_dir = 'Z:\DEID\Atwater\JAN\test';     % For use on Snowpack
-storm_output = '_mar07_2023';
+storm_output = '_DEC_2023';
 cd(working_dir)
 %%
 % specifies resampling period:
@@ -63,36 +63,36 @@ for file_i = 1:length(directory)
     end
 end
 %% When testing:
-% file_names = {'05112024_025.avi'};
+file_names = file_names(1:10);
 
 %% Now loop through each file_name to get start and end times 
-% vid_end_time = NaT(length(file_names), 1);
-% vid_start_time = NaT(length(file_names), 1);
-% vid_end_start_diff = NaN(length(file_names)-1, 1);
-% 
-% parfor file_i = 1:length(file_names)
-%     filename = file_names{file_i};
-%     vid=VideoReader(filename);
-%     % Get necessary metadata for video processing
-%     vid_dir = dir(filename);
-%     vid_length = vid.Duration;
-%     vid_fps = vid.FrameRate;
-%     num_frames = vid.NumFrames;
-%     % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
-%     vid_end_time(file_i) = datetime([vid_dir.date]);
-%     time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
-%     time_series = flip(time_series);  % Flips time series to be chronologically ordered
-%     vid_start_time(file_i) = datetime(time_series(1));
-% end
-% 
-% start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
-% start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
-% start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
-% 
-% % Find difference between end of one video and the start of the next
-% for file_i = 1:length(file_names)-1
-%     vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
-% end
+vid_end_time = NaT(length(file_names), 1);
+vid_start_time = NaT(length(file_names), 1);
+vid_end_start_diff = NaN(length(file_names)-1, 1);
+
+parfor file_i = 1:length(file_names)
+    filename = file_names{file_i};
+    vid=VideoReader(filename);
+    % Get necessary metadata for video processing
+    vid_dir = dir(filename);
+    vid_length = vid.Duration;
+    vid_fps = vid.FrameRate;
+    num_frames = vid.NumFrames;
+    % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
+    vid_end_time(file_i) = datetime([vid_dir.date]);
+    time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
+    time_series = flip(time_series);  % Flips time series to be chronologically ordered
+    vid_start_time(file_i) = datetime(time_series(1));
+end
+
+start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
+start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
+start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
+
+% Find difference between end of one video and the start of the next
+for file_i = 1:length(file_names)-1
+    vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
+end
 
 %% Initialize Output Tables
 % Frame by Frame output table 
@@ -142,7 +142,7 @@ hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
 swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor
 fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 
- parfor file_i = 1:length(file_names)
+ for file_i = 1:length(file_names)
     diag_table = table('Size', [1, length(diag_col_names)], ...
                          'VariableNames', diag_col_names, ...
                          'VariableTypes', diag_col_types);
@@ -227,6 +227,7 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
     % hp_area(file_i) = hp_area_temp; % Hotplate Area [m^2]
     h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % mass evaporates in each frame
     SWE_FBF_mm = h_mass_fbf / hp_area(file_i);
+    SWE_FBF_mm = SWE_FBF_mm - min(SWE_FBF_mm); 
     % Find the minimum SWE in all frames within a video, and subtract from
     % SWE (way of handling residue) 
     fbf_SWE_min(file_i) = min(SWE_FBF_mm);
