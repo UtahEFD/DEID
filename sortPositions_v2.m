@@ -21,21 +21,22 @@ N_Hydrometers_Cur_Frame = length(non_zero_Current_Frame); % Number hydrometeros 
 flag = false; %boolean flag..
 kk = 1;
 
-for ii = 1:N_Hydrometers_Cur_Frame % For each hydrometer in current frame.
+for ii = 1:N_Hydrometers_Cur_Frame % for each hydrometer in current frame.
     found = false;
-    for jj = 1:N_Hydrometers_Prev_Frame % For each hydrometer in previous frame.
-        %Here Dhiraj is looking for the rms for the change in the
-        %[centroid, area] between succesive frames
+    for jj = 1:N_Hydrometers_Prev_Frame % for each hydrometer in previous frame.
+        % looks for rms of change in the centroid between succesive frames
         rms_hydrometer_delta_centroid_area = norm(Cur_Frame_Hydometer_Data(non_zero_Current_Frame(ii), 1:2)-...
             Prev_Frame_Hydometer_Data(non_zero_Previous_Frame(jj), 1:2)); 
-        %if it changes less than threshold, the hydrometer is found?
+        % if centroid difference is below threshold (dia), consider it the
+        % same hydrometor and store in temp1; break loop 
         if (rms_hydrometer_delta_centroid_area <= dia)
-            found = true; %set found to true
+            found = true;
             temp1(non_zero_Previous_Frame(jj), :) = Cur_Frame_Hydometer_Data(non_zero_Current_Frame(ii), :);
-            break %leave previous frame loop
+            break 
         end
     end
-    %no hydrometer found between frames
+    % if centroid difference is above threshold, consider it new
+    % hydrometeor and store in temp2
     if found == false
         flag = true;
         temp2(kk, :) = Cur_Frame_Hydometer_Data(non_zero_Current_Frame(ii), :);
@@ -44,7 +45,9 @@ for ii = 1:N_Hydrometers_Cur_Frame % For each hydrometer in current frame.
     
 end
 
-Cur_Frame_Hydometer_Data = temp1;
+Cur_Frame_Hydometer_Data = temp1; % starting with only matched hydrometeors 
+% if there were unmatched (new) hydrometeors, flag=true, inserts into empty
+% rows of cur_frame_hydrometeor_data
 
 if flag == true
     idx = find(sum(Cur_Frame_Hydometer_Data, 2) == 0, kk-1);

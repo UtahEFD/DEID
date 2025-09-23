@@ -32,7 +32,7 @@ mu = 1.5*10^-5;   % Viscosity of air [kg/m*s]
 % DEID specific parameters:
 residue_filter = 0.005; % max weight of snowflake to process [kg]
 evapTime_min = 1/15; % minimum time a snowflake has to appear on hotplate to be processed
-evapTime_max = 60; % maximum time a snowflake can appear on hotplate to be processed
+evapTime_max = 30; % maximum time a snowflake can appear on hotplate to be processed
 colorbar_image_indexes = [1 1 384 288]; % Location of colorbar in pixel locations
 crop_index = 43; % use this to specify indices to crop out kapton tape
 colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % Location of Kapton tape in pixel locations
@@ -63,36 +63,36 @@ for file_i = 1:length(directory)
     end
 end
 %% When testing:
-file_names = file_names(1:10);
+file_names = file_names(1:5);
 
 %% Now loop through each file_name to get start and end times 
-vid_end_time = NaT(length(file_names), 1);
-vid_start_time = NaT(length(file_names), 1);
-vid_end_start_diff = NaN(length(file_names)-1, 1);
-
-parfor file_i = 1:length(file_names)
-    filename = file_names{file_i};
-    vid=VideoReader(filename);
-    % Get necessary metadata for video processing
-    vid_dir = dir(filename);
-    vid_length = vid.Duration;
-    vid_fps = vid.FrameRate;
-    num_frames = vid.NumFrames;
-    % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
-    vid_end_time(file_i) = datetime([vid_dir.date]);
-    time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
-    time_series = flip(time_series);  % Flips time series to be chronologically ordered
-    vid_start_time(file_i) = datetime(time_series(1));
-end
-
-start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
-start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
-start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
-
-% Find difference between end of one video and the start of the next
-for file_i = 1:length(file_names)-1
-    vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
-end
+% vid_end_time = NaT(length(file_names), 1);
+% vid_start_time = NaT(length(file_names), 1);
+% vid_end_start_diff = NaN(length(file_names)-1, 1);
+% 
+% parfor file_i = 1:length(file_names)
+%     filename = file_names{file_i};
+%     vid=VideoReader(filename);
+%     % Get necessary metadata for video processing
+%     vid_dir = dir(filename);
+%     vid_length = vid.Duration;
+%     vid_fps = vid.FrameRate;
+%     num_frames = vid.NumFrames;
+%     % Create a time series of date times starting from (video end time - video duration) and ending at the video end time
+%     vid_end_time(file_i) = datetime([vid_dir.date]);
+%     time_series = datetime(vid_end_time(file_i) - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
+%     time_series = flip(time_series);  % Flips time series to be chronologically ordered
+%     vid_start_time(file_i) = datetime(time_series(1));
+% end
+% 
+% start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
+% start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
+% start_end_time_table.Properties.VariableNames{1} = 'file_name'; 
+% 
+% % Find difference between end of one video and the start of the next
+% for file_i = 1:length(file_names)-1
+%     vid_end_start_diff(file_i) = seconds(start_end_time_table.vid_start_time(file_i+1) - start_end_time_table.vid_end_time(file_i));
+% end
 
 %% Initialize Output Tables
 % Frame by Frame output table 
@@ -140,9 +140,8 @@ diag_output_table = table('Size', [0, length(diag_col_names)], ...
 final_particle_output_table = table(); 
 hp_area = NaN(1, length(file_names)); % Preallocate Hotplate Area [m^2]
 swe_factor = NaN(1, length(file_names)); % Preallocate SWE factor
-fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
 
- for file_i = 1:length(file_names)
+ parfor file_i = 1:length(file_names)
     diag_table = table('Size', [1, length(diag_col_names)], ...
                          'VariableNames', diag_col_names, ...
                          'VariableTypes', diag_col_types);
@@ -224,14 +223,12 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
     % Frame by frame SWE calculation
     % Use current_frame_gray_cropped to calculate the area of hot plate:
     hp_area(file_i) = size(frame_gray_cropped,1) * size(frame_gray_cropped,2) * pix_to_m2_conversion;    
-    % hp_area(file_i) = hp_area_temp; % Hotplate Area [m^2]
     h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % mass evaporates in each frame
-    SWE_FBF_mm = h_mass_fbf / hp_area(file_i);
-    SWE_FBF_mm = SWE_FBF_mm - min(SWE_FBF_mm); 
+    SWE_FBF_mm = h_mass_fbf / hp_area(file_i); 
     % Find the minimum SWE in all frames within a video, and subtract from
     % SWE (way of handling residue) 
-    fbf_SWE_min(file_i) = min(SWE_FBF_mm);
-    SWE_FBF_mm = SWE_FBF_mm - fbf_SWE_min(file_i);
+    SWE_FBF_min = min(SWE_FBF_mm(SWE_FBF_mm ~=0));
+    SWE_FBF_mm = SWE_FBF_mm - SWE_FBF_min;
     SWE_fbf_accumulation = sum(SWE_FBF_mm);
     % SWE_fbf_accumulation_noSub = sum(SWE_FBF_mm)
     time_series_fbf = time_series(1:length(SWE_FBF_mm));
@@ -429,8 +426,8 @@ fbf_SWE_min = NaN(1, length(file_names)); % Preallocate min fbf SWE
         swe_factor(file_i) = sum(fbf_table_raw.SWE_FBF_mm) / sum(pbp_table_particles.SWE_PBP_mm);
         % if swe factor is abnormally high, adjust it to account for
         % residue:
-        if swe_factor(file_i) > 1.95
-            swe_factor(file_i) = 1.95; 
+        if swe_factor(file_i) > 1.5
+            swe_factor(file_i) = 1.5; 
         end
         
         % Adjusts PBP SWE
