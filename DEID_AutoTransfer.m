@@ -7,7 +7,7 @@
 clear, clc
 %% set filepath, global variables, and physical constants.
 working_dir = 'D:\Atwater';
-output_dir = 'D:\Atwater\mar13';
+output_dir = 'D:\Atwater\oct10';
 
 %% global variables and physical constants
 % specifies resampling period:
@@ -436,24 +436,25 @@ avi_summary_table.Properties.VariableNames = {'Time', 'Duration', 'Complexity', 
 avi_summary_table = table2timetable(avi_summary_table);
         
 %% save processed tables
+saveTime = datestr(vid_start_time, 'yyyy-mm-dd_HH-MM-ss');
 
 % unfiltered particle data table:
-writetimetable(pbp_table, [output_dir, '/DEID_unfilteredParticle_', vid_start_time, '.csv']);
+writetimetable(pbp_table, [output_dir, '\DEID_unfilteredParticle_', saveTime, '.csv']);
 
 % filtered particle data table:
-writetimetable(pbp_table_filtered, [output_dir, '/DEID_filteredParticle_', vid_start_time, '.csv']);
+writetimetable(pbp_table_filtered, [output_dir, '\DEID_filteredParticle_', saveTime, '.csv']);
 
 % .avi summary table:
-writetimetable(avi_summary_table, [output_dir, '/DEID_aviTotals.csv'], 'WriteMode', 'append');
+writetimetable(avi_summary_table, [output_dir, '\DEID_aviTotals.csv'], 'WriteMode', 'append');
 
 % time averaged data table 
-writetimetable(pbp_table_retimed, [output_dir,'/DEID_TS_10min_', vid_start_time, '.csv']);
+writetimetable(pbp_table_retimed, [output_dir,'\DEID_TS_10min_', saveTime, '.csv']);
         
 %% send each .csv file to chpc
     
 % DEID summary table:
 % construct filename:
-summary_file = sprintf('%s\\DEID_totals.csv', output_dir);
+summary_file = sprintf('%s\\DEID_aviTotals.csv', output_dir);
 % construct the SCP command
 scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
 status_summary = system(scpCommand_summary);
@@ -466,7 +467,7 @@ end
 
 % DEID unfiltered particle file:
 % construct filename:
-unfilter_file = sprintf('%s\\DEID_unfilteredParticle_%s.csv', output_dir, start_time);
+unfilter_file = sprintf('%s\\DEID_unfilteredParticle_%s.csv', output_dir, saveTime);
 % construct the SCP command
 scpCommand_unfilter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', unfilter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
 status_unfilter = system(scpCommand_unfilter);
@@ -479,7 +480,7 @@ end
 
 % DEID filtered particle file:
 % construct filename:
-filter_file = sprintf('%s\\DEID_filteredParticle_%s.csv', output_dir, start_time);
+filter_file = sprintf('%s\\DEID_filteredParticle_%s.csv', output_dir, saveTime);
 % construct the SCP command
 scpCommand_filter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', filter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
 status_filter = system(scpCommand_filter);
@@ -492,7 +493,7 @@ end
 
 % DEID time series file:
 % construct filename:
-TS_file = sprintf('%s\\DEID_TS_10min_%s.csv', output_dir, start_time);
+TS_file = sprintf('%s\\DEID_TS_10min_%s.csv', output_dir, saveTime);
 % construct the SCP command
 scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
 status_TS = system(scpCommand_TS);
