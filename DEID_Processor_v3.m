@@ -1,13 +1,14 @@
 %% DEID AVI File Processing Code
-% Outputs particle by particle csclear,v file to be post processed by
-% DEID_AVI_Processor.m
+% Outputs filtered, unfiltered, and time-averaged particle-by-particle .csv
+% files for many .avi files using a parallelized for loop. For each .avi file,
+% a summary file is also generated.  
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
                                        
 clear, clc, close all
 %% set filepath, output directory, and file name for saving  
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/DEC/DEC_all';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/test';
-storm_output = '_dec042023_storm';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/feb14';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/testData';
+storm_output = '_allFeb';
 
 %% global variables and physical constants
 % specifies resampling period:
@@ -24,15 +25,15 @@ hour_in_seconds = 3600;
 rho_water = 1000; % density of water [kg/m^3]
 mu = 1.5*10^-5;   % viscosity of air [kg/m*s] 
 % thresholds & filters:
-flagTolerance = 1e-6; % how much the area and temp diff of a given snowflake over its life cycle can change for it to be treated as resiude
-SWEfactor_threshold = 1.5; % maximum value of tolerable SWE factor
 min_thres = 70; % minimum threshold number in image accepted rbg ([0 255]) scale
-residue_filter = 0.005; % max weight of snowflake to process [kg]
-evapTime_min = 1/15; % minimum time a snowflake has to appear on hotplate to be processed
-evapTime_max = 30; % maximum time a snowflake can appear on hotplate to be processed
-minimum_drop_life = 0; % minimum number of frames a drop has to be visable to be processed
+minimum_hydro_area = 2; % the minimum number of pixels a hydrometeor must contain to be analyzed 
 colorbar_max_temp = 145; % max temperature set in colorbar on the physical screen of the tir software
 sort_threshold = 20; % this is the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2. dhiraj calibrated this in the lab. 
+minimum_drop_life = 0; % minimum number of frames a drop has to be visable to be processed
+areaTol = 0; 
+SWEfactor_threshold = 1.5; % maximum value of tolerable SWE factor
+evapTime_min = 1/15; % minimum time a snowflake has to appear on hotplate to be processed
+evapTime_max = 30; % maximum time a snowflake can appear on hotplate to be processed
 % DEID specific parameters:
 colorbar_image_indexes = [1 1 384 288]; % location of colorbar in pixel locations
 crop_index = 43; % use this to specify indices to crop out kapton tape
@@ -42,6 +43,7 @@ l_constant = 2.594e06; % latent heat of vaporazation of water, should be a funct
 % Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
 % c = hf_rho_coeff
 hf_rho_coeff = 1.01e05; % [K*s*m^-1]
+
 %% move to working directory and identify video files 
 % sets path for .m to run in:
 cd(working_dir) 
@@ -60,15 +62,15 @@ for file_i = 1:length(directory)
 end
 file_names = file_names(1:count);
 % **when testing**
-file_names = file_names(1:4);
+file_names = file_names(1:43);
 
 %% initialize output tables
 % time series output table
-ts_col_names = {'Time', 'Complexity', 'SDI', 'Mass', 'Volume', 'Diameter', 'Surface Area', 'Void Space', 'Density [kg/m^3]', 'SWE [mm]','Snow [mm]'};
-ts_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
-ts_output_table = table('Size', [0, length(ts_col_names)], ...
-                         'VariableNames', ts_col_names, ...
-                         'VariableTypes', ts_col_types);
+% ts_col_names = {'Time', 'Complexity', 'SDI', 'Mass', 'Volume', 'Diameter', 'Surface Area', 'Void Space', 'Density [kg/m^3]', 'SWE [mm]','Snow [mm]'};
+% ts_col_types = {'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
+% ts_output_table = table('Size', [0, length(ts_col_names)], ...
+%                          'VariableNames', ts_col_names, ...
+%                          'VariableTypes', ts_col_types);
 % DEID summary table 
 % summary_col_names = {'Time', 'Duration', 'Complexity', 'SDI', 'HFD Density (kg*m^-3)', 'PBP SWE (mm)', 'FBF SWE (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'Hot Plate Area', 'SWE Factor', 'Min FBF Mass'};
 % summary_col_types = {'datetime', 'datetime', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double'};
@@ -77,7 +79,6 @@ ts_output_table = table('Size', [0, length(ts_col_names)], ...
                          % 'VariableTypes', summary_col_types);
  
 %% begin DEID video processing
-
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
 
@@ -85,21 +86,23 @@ ts_output_table = table('Size', [0, length(ts_col_names)], ...
 pbp_table_cell = cell(length(file_names),1);
 pbp_table_filtered_cell = cell(length(file_names),1); 
 avi_summary_table_cell = cell(length(file_names),1);
+pbp_table_retimed_cell = cell(length(file_names),1); 
 
- parfor file_i = 1:length(file_names)
+parfor file_i = 1:length(file_names)
+    try
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
     vid=VideoReader(filename);
     
-    % get metaData for video processing 
+    % get metaData for video processing: 
     vid_dir = dir(filename);
     vid_fps = vid.FrameRate;
     num_frames = vid.NumFrames;
 
-    % gets video start and end date to construct time series
+    % gets video start and end date to construct time series:
     vid_end_time = datetime([vid_dir.date]);
     
-    % create a time series of date times starting from (video end time - video duration) and ending at the video end time
+    % create a time series of date times starting from (video end time - video duration) and ending at the video end time:
     time_series = datetime(vid_end_time - (0:num_frames) * seconds(1/vid_fps), 'Format', 'dd-MMM-yyyy HH:mm:ss.SSS');
     time_series = flip(time_series);  % Flips time series to be chronologically ordered
     vid_start_time = datetime(time_series(1));
@@ -108,15 +111,11 @@ avi_summary_table_cell = cell(length(file_names),1);
     h_data = cell(num_frames,1); 
 
     %% "frame by frame method"; this is how we obtain SWE for each .avi file 
+    
     % preallocate variables saved in loop for speed:
     plate_temp = nan(num_frames,1);
     sum_h_area_times_dt = nan(num_frames,1);
-    % initialize videoWriter for this file:
-    [~, name, ~] = fileparts(filename); 
-    filter_filename = fullfile(output_dir, [name '_filtered.avi']); 
-    filter_avi = VideoWriter(filter_filename);
-    filter_avi.FrameRate = vid.FrameRate; 
-    open(filter_avi); % without opening the file for writing, we can't write any new frames 
+    
     % enter loop to process images: 
     for frame_ii = 1:num_frames     
         frame = read(vid, frame_ii);  
@@ -126,11 +125,7 @@ avi_summary_table_cell = cell(length(file_names),1);
         frame_gray_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes); % back to orginal grayscale image... now remove colorbar and kapton tape from image
         frame_filtered = frame_gray_cropped > min_thres; % removed below min threshold, on rbg ([0, 255]) scale 
         frame_filtered_filled = imfill(frame_filtered, 'Holes'); % clean up Hydrometeors
-        % imshow(frame_filtered_filled)
-        % convert frame_filtered_filled (a logical array) to uint8 for
-        % grayscale video writing: 
-        filter_frameOut = uint8(frame_filtered_filled) * 255;
-        writeVideo(filter_avi, filter_frameOut);
+        frame_filtered_filled = bwareaopen(frame_filtered_filled, minimum_hydro_area); % any hydrometeor whose area is less than minimum_hydro_area (set to 2 pixels) is disgarded
         % get hydrometeor properties: 
         h_geo_prop = regionprops(frame_filtered_filled, 'MajorAxisLength', 'MinorAxisLength', 'Centroid', 'Area','BoundingBox'); % returns the centroid, the area of each blob, and the bounding box (left, top, width, height).
         % if no properties are found, go to next frame: 
@@ -161,21 +156,20 @@ avi_summary_table_cell = cell(length(file_names),1);
         % build large matrix of Hydrometeor data
         h_data{frame_ii} = cat(2, h_centroid, h_area, plate_h_dtemp, h_elipse_area, h_major_axis, h_minor_axis); 
     end
-    close(filter_avi); % closes and effectivley saves the filtered .avi file
     % frame by frame SWE calculation
+    sum_h_area_times_dt(isnan(sum_h_area_times_dt)) =0; % turn all NaN to 0's
     hp_area = size(frame_gray_cropped,1) * size(frame_gray_cropped,2) * pix_to_m2_conversion; % hotplate area     
     h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % total mass evaporates in each frame
     h_mass_fbf_min = min(h_mass_fbf); % we know the plate should be empty when it is not snowing..
     h_mass_fbf = h_mass_fbf - h_mass_fbf_min; % subtract off min mass on a frame to account for any resiude
     SWE_fbf = h_mass_fbf / hp_area; 
     % find the minimum SWE in all frames within a video, and subtract from
-    % SWE (way of handling residue) 
-    fbf_SWE_min = min(SWE_fbf(SWE_fbf ~=0));
-    SWE_fbf = SWE_fbf - fbf_SWE_min; 
+    % SWE (way of handling residue)  
     time_series_fbf = time_series(1:length(SWE_fbf));
     
     %% call sortPositions_v2.m to place snowflakes in the same row across 
     % multiple frames, making tracking possible over time
+    
     % create new cell array for sorted data: 
     h_data_sorted = cell(size(h_data));
     h_data_sorted{1} = h_data{1};
@@ -193,17 +187,14 @@ avi_summary_table_cell = cell(length(file_names),1);
         h_data_sorted, 'UniformOutput', 0);
     
     %% isolating the variables and put them into a matrix to work with
-    
     % For reference: [Hydrometeor_Centroid, Hydrometeor_Area,
     % Plate_Hydrometeor_DeltaT, Hydrometeor_ellipse_area,
     % Hydrometeor_Major_Axis,Hydrometeor_Minor_Axis]
-    
     h_area_final = cellfun(@(x) x(:, 3), h_data_sorted, 'UniformOutput', 0);
     dT_final = cellfun(@(x) x(:, 4), h_data_sorted, 'UniformOutput', 0);
     ellipse_area_final = cellfun(@(x) x(:, 5), h_data_sorted, 'UniformOutput', 0);
     maj_axis_final = cellfun(@(x) x(:, 6), h_data_sorted, 'UniformOutput', 0);
     min_axis_final = cellfun(@(x) x(:, 7), h_data_sorted, 'UniformOutput', 0);
-    
     % convert to matrix: 
     h_area_final = cat(2,h_area_final{:});
     dT_final = cat(2,dT_final{:});
@@ -231,18 +222,23 @@ avi_summary_table_cell = cell(length(file_names),1);
     h_mass_pbp = {}; % hydrometeor calculated mass
 
     % loop over all Hydrometeors for each frame: 
-    % this is where the cleaning occurs!
-
     for h_ii = 1:max_h_obs
-        h_appear_evap_bool = diff(h_area_final(h_ii, :) > 0); %creates an array 
+        h_appear_evap_bool = diff(h_area_final(h_ii, :) > 0); % creates an array 
         % of indices that are booleans. +1 is when snowflake appears and -1
         % when it evaps. this is finding the difference in a logical array!
-
         h_appears_ind = find(h_appear_evap_bool > 0); % finds the index when the hydrometor appears
         if isempty(h_appears_ind)
             continue;
         end
         h_evaps_ind = find(h_appear_evap_bool < 0); % hydrometeor dissapears index
+        
+        % dArea = diff(h_area_final(h_ii,:)); % area changes between consecutive frames
+        % h_appears_ind = find(dArea > 0); % say that a snowflake is appearing when the first positive growth occurs 
+        % if isempty(h_appears_ind)
+        %     continue; % skip if no appearance
+        % end
+        % h_evaps_ind = find(dArea(1:end-1) < 0 & dArea(2:end) > 0); % say that a snowflake dissapears when the change in area goes from negative to positive (shrinking to growing again)
+        
         all_h_appears_ind = cat(2,all_h_appears_ind,h_appears_ind); % concatenate all snowflake arrival indices
         if isempty(h_evaps_ind) % get rid of hydrometeors which do no evaporate completely
             continue; 
@@ -255,7 +251,7 @@ avi_summary_table_cell = cell(length(file_names),1);
         % prepare area of each hydrometeor for temporal intergration: 
         h_area_tmp = h_area_final(h_ii, h_appears_ind(1):h_evaps_ind(end)+1); 
         h_area_tmp_bool = h_area_tmp > 0; % isolate for positive values
-        h_area_tmp_bool = bwareaopen(h_area_tmp_bool, minimum_drop_life); % any hydrometeor which lives for less than 'minimum_Drop_Life' is discarded 
+        % h_area_tmp_bool = bwareaopen(h_area_tmp_bool, minimum_drop_life); % any hydrometeor which lives for less than 'minimum_Drop_Life' is discarded 
         propstemp = regionprops(h_area_tmp_bool, 'PixelIdxList'); % finds how many 'continuous' snowflakes there are: indices of contiguous '1s' 
         % this grabs properties of each snowflake over their 'life': 
             for jj = 1:numel(propstemp)
@@ -271,8 +267,8 @@ avi_summary_table_cell = cell(length(file_names),1);
                 % filtering:
                 hArea_range(end+1) = range(h_area{end}); 
                 deltaTemp_range(end+1) = range(h_delta_temp{end}); 
-                deltaTemp_residue_flags(end+1) = (range(h_delta_temp{end}) < flagTolerance); % flag snowflakes whose delta temp does not change over time
-                hArea_residue_flags(end+1) = (range(h_area{end}) < flagTolerance); % flag snowflakes whose area does not change over time
+                deltaTemp_residue_flags(end+1) = (range(h_delta_temp{end}) == 0); % flag snowflakes whose delta temp does not change over time
+                hArea_residue_flags(end+1) = (range(h_area{end}) <= areaTol); % flag snowflakes whose area does not change over time
                 % multiply the area by the temperature difference for that hydrometeor:
                 h_area_times_dT_pbp = h_area_tmp(propstemp(jj).PixelIdxList) .* h_dT_tmp(propstemp(jj).PixelIdxList);
                 % now integrate (sum over snowflake's life):
@@ -354,21 +350,14 @@ avi_summary_table_cell = cell(length(file_names),1);
     pbp_table.("FBF Snow Accumulation (mm)") = cumsum(pbp_table.("FBF Snow (mm)")); 
     pbp_table.("Missing Data") = false(height(pbp_table),1); % add a flag column to distinguish missing .avi data
 
-    % handles FBF SWE data (used to compute SWE-factor later on)
-    % fbf_table_raw = table(time_series_fbf', SWE_fbf);
-    % fbf_table_raw.Properties.VariableNames{'Var1'} = 'Time';
-    % fbf_table_raw.Time = datetime(fbf_table_raw.Time);
-    % fbf_table_raw = table2timetable(fbf_table_raw);
-
     %% filtering starts here
-    % filters data to find where 0 < mass < .005 and 1/15 s < evaporation time < 60 s to omit residue on plate
-    f1 = find((pbp_table.("Mass (kg)") > 0 & ...
-        pbp_table.("Mass (kg)") < residue_filter) & ...
-        (pbp_table.("Evap Time (s)") > evapTime_min & ...
-        pbp_table.("Evap Time (s)") < evapTime_max) & ...
-        pbp_table.('Delta Temp Flag') ~= 1);
-
-    pbp_table_filtered = pbp_table(f1,:);
+    % filters data for any hydrometeor whose area doesn't change over it's
+    % life cycle, and whose deltaTemp doesn't change over it's life cycle:
+    pbp_table_filtered = pbp_table(pbp_table.('Area Flag') ~= 1 &... 
+        pbp_table.('Delta Temp Flag') ~= 1 &...
+        pbp_table.("Evap Time (s)") > evapTime_min &...
+        pbp_table.("Evap Time (s)") < evapTime_max, :);
+    % re-accumulate totals: 
     pbp_table_filtered.("PBP SWE Accumulation (mm)") = cumsum(pbp_table_filtered.("PBP SWE (mm)"));
     pbp_table_filtered.("FBF SWE Accumulation (mm)") = cumsum(pbp_table_filtered.("FBF SWE (mm)"));
     pbp_table_filtered.("PBP Snow Accumulation (mm)") = cumsum(pbp_table_filtered.("PBP Snow (mm)"));
@@ -442,6 +431,26 @@ avi_summary_table_cell = cell(length(file_names),1);
         avi_summary_table.hotPlateArea = hp_area; 
         avi_summary_table.SWEfactor = SWE_factor; 
         avi_summary_table.minMass = h_mass_fbf_min;
+
+        %% create a table with 10 minute averaged data
+        % data to average 
+        avg_cols = {'Complexity', 'SDI', 'Eff Diameter (m)', 'Max Area (m^2)', 'Evap Time (s)', 'SWE factor'};
+        avg_table = retime(pbp_table_filtered(:, avg_cols), 'regular', 'mean', 'TimeStep', time_step);
+        % data to sum
+        sum_cols = {'Mass (kg)', 'Heat Flux Volume (m^3)'};
+        sum_table = retime(pbp_table_filtered(:, sum_cols), 'regular', 'sum', 'TimeStep', time_step);
+        % join tables
+        pbp_table_retimed = horzcat(avg_table, sum_table);
+        
+        % calculate density:
+        pbp_table_retimed.('Heat Flux Density (kg/m^3)') = pbp_table_retimed.('Mass (kg)')./ pbp_table_retimed.('Heat Flux Volume (m^3)');
+        % calculate SWE:
+        pbp_table_retimed.('FBF SWE (mm)') = (1000 * pbp_table_retimed.('Mass (kg)') ./ (rho_water * hp_area)).*pbp_table_retimed.('SWE factor'); 
+        pbp_table_retimed.('FBF SWE Accumulation (mm)') = cumsum(pbp_table_retimed.('FBF SWE (mm)'));  
+        % calculate snow:
+        pbp_table_retimed.('FBF Snow (mm)') = rho_water * pbp_table_retimed.('FBF SWE (mm)')./ pbp_table_retimed.('Heat Flux Density (kg/m^3)');
+        pbp_table_retimed.('FBF Snow Accumulation (mm)') = cumsum(pbp_table_retimed.('FBF Snow (mm)')); 
+
     else 
         % create a summary table with all 0's
         avi_summary_table = table(pbp_table.Time(1));
@@ -456,6 +465,9 @@ avi_summary_table_cell = cell(length(file_names),1);
         avi_summary_table.hotPlateArea = hp_area;
         avi_summary_table.SWEfactor = SWE_factor;
         avi_summary_table.minMass = h_mass_fbf_min;
+        % create a blank cell for averaged time table if there are no
+        % particles:
+        pbp_table_retimed = [];
     end
     % add variable names     
     % avi_summary_table = timetable2table(avi_summary_table);
@@ -466,6 +478,21 @@ avi_summary_table_cell = cell(length(file_names),1);
     pbp_table_cell{file_i} = pbp_table; 
     pbp_table_filtered_cell{file_i} = pbp_table_filtered;  
     avi_summary_table_cell{file_i} = avi_summary_table; 
+    pbp_table_retimed_cell{file_i} = pbp_table_retimed; 
+    catch ME
+        % Print error info in red text to command window
+        fprintf(2, '\n--- ERROR DETECTED ---\n');
+        fprintf(2, 'File index: %d\n', file_i);
+        fprintf(2, 'Filename: %s\n', file_names{file_i});
+        fprintf(2, 'Error message: %s\n', ME.message);
+
+        % Optional: show first line of stack trace for debugging
+        if ~isempty(ME.stack)
+            fprintf(2, 'Occurred in: %s (line %d)\n', ...
+                ME.stack(1).name, ME.stack(1).line);
+        end
+        fprintf(2, '-----------------------\n\n');
+    end
 
  end
 
@@ -492,26 +519,29 @@ pbp_table_filtered.("FBF Snow Accumulation (mm)") = cumsum(pbp_table_filtered.("
 avi_summary_table = vertcat(avi_summary_table_cell{:});
 avi_summary_table = sortrows(avi_summary_table, 'Time'); % sort by time
 
-% put .avi start times, end times, and lengths into one table:
-% start_end_time_table = table(file_names', vid_start_time, vid_end_time); 
-% start_end_time_table.length = start_end_time_table.vid_end_time - start_end_time_table.vid_start_time; 
-% start_end_time_table.Properties.VariableNames{1} = 'file_name';
+% time averaged data: 
+pbp_table_retimed = vertcat(pbp_table_retimed_cell{:}); 
+pbp_table_retimed = sortrows(pbp_table_retimed, 'Time'); % sort by time 
+pbp_table_retimed.("FBF SWE (mm)")  = fillmissing(pbp_table_retimed.("FBF SWE (mm)"),  'constant', 0);
+pbp_table_retimed.("FBF Snow (mm)") = fillmissing(pbp_table_retimed.("FBF Snow (mm)"), 'constant', 0);
+pbp_table_retimed.("FBF SWE Accumulation (mm)") = cumsum(pbp_table_retimed.("FBF SWE (mm)"));
+pbp_table_retimed.("FBF Snow Accumulation (mm)") = cumsum(pbp_table_retimed.("FBF Snow (mm)"));
 
 %% save processed tables
 
 startTime = datestr(pbp_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 
 % unfiltered particle data table:
-writetimetable(pbp_table, [output_dir, '/DEID_unfilteredParticle_v3_', startTime, '.csv']);
+writetimetable(pbp_table, [output_dir, '/DEID_unfilteredParticle_', startTime, '.csv']);
 
 % filtered particle data table:
-writetimetable(pbp_table_filtered, [output_dir, '/DEID_filteredParticle_v3_', startTime, '.csv']);
+writetimetable(pbp_table_filtered, [output_dir, '/DEID_filteredParticle_', startTime, '.csv']);
 
 % .avi summary table:
-writetimetable(avi_summary_table, [output_dir, '/DEID_aviTotals_v3_', storm_output, '.csv']);
+writetimetable(avi_summary_table, [output_dir, '/DEID_aviTotals_', storm_output, '.csv']);
 
-% Writes out time averaged data table 
-% writetimetable(ts_output_table, [output_dir,'/DEID_TS_10min_', startTime, '.csv']);
+% time averaged data table 
+writetimetable(pbp_table_retimed, [output_dir,'/DEID_TS_10min_', startTime, '.csv']);
 
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
