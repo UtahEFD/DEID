@@ -6,9 +6,9 @@
                                        
 clear, clc, close all
 %% set filepath, output directory, and file name for saving  
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/feb14';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/testData';
-storm_output = '_allFeb';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/mar31';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData';
+storm_output = '_mar3125';
 
 %% global variables and physical constants
 % specifies resampling period:
@@ -31,14 +31,14 @@ colorbar_max_temp = 145; % max temperature set in colorbar on the physical scree
 sort_threshold = 20; % this is the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2. dhiraj calibrated this in the lab. 
 minimum_drop_life = 0; % minimum number of frames a drop has to be visable to be processed
 areaTol = 0; 
-SWEfactor_threshold = 1.5; % maximum value of tolerable SWE factor
+SWEfactor_threshold = 1.85; % maximum value of tolerable SWE factor
 evapTime_min = 1/15; % minimum time a snowflake has to appear on hotplate to be processed
 evapTime_max = 30; % maximum time a snowflake can appear on hotplate to be processed
 % DEID specific parameters:
 colorbar_image_indexes = [1 1 384 288]; % location of colorbar in pixel locations
 crop_index = 43; % use this to specify indices to crop out kapton tape
 colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % location of Kapton tape in pixel locations
-k_dLv = 0.0030; % calibration constant; in paper, thermal conductivity (k) of water. See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
+k_dLv = 0.0035; % calibration constant; in paper, thermal conductivity (k) of water. See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
 l_constant = 2.594e06; % latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
 % Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
 % c = hf_rho_coeff
@@ -62,7 +62,7 @@ for file_i = 1:length(directory)
 end
 file_names = file_names(1:count);
 % **when testing**
-file_names = file_names(1:43);
+% file_names = file_names(1:43);
 
 %% initialize output tables
 % time series output table
@@ -88,7 +88,7 @@ pbp_table_filtered_cell = cell(length(file_names),1);
 avi_summary_table_cell = cell(length(file_names),1);
 pbp_table_retimed_cell = cell(length(file_names),1); 
 
-parfor file_i = 1:length(file_names)
+for file_i = 1:length(file_names)
     try
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
