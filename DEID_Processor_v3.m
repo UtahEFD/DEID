@@ -6,9 +6,9 @@
                                        
 clear, clc, close all
 %% set filepath, output directory, and file name for saving  
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/mar31';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData';
-storm_output = '_mar3125';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/jan05_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/testData/new';
+storm_output = '_jan05storm';
 
 %% global variables and physical constants
 % specifies resampling period:
@@ -62,7 +62,7 @@ for file_i = 1:length(directory)
 end
 file_names = file_names(1:count);
 % **when testing**
-% file_names = file_names(1:43);
+% file_names = file_names(3);
 
 %% initialize output tables
 % time series output table
@@ -88,7 +88,7 @@ pbp_table_filtered_cell = cell(length(file_names),1);
 avi_summary_table_cell = cell(length(file_names),1);
 pbp_table_retimed_cell = cell(length(file_names),1); 
 
-for file_i = 1:length(file_names)
+parfor file_i = 1:length(file_names)
     try
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
@@ -135,15 +135,18 @@ for file_i = 1:length(file_names)
         % build hydrometeor property matrices from regionprops values: 
         h_bounding_box = cat(1,h_geo_prop.BoundingBox); % concat all values to build matrix of bounding box indices
         h_centroid = round(cat(1, h_geo_prop.Centroid)); % concat all values to build matrix of centroids
-        h_major = cat(1,h_geo_prop.MajorAxisLength);
-        h_minor = cat(1,h_geo_prop.MinorAxisLength);
+        h_major = h_bounding_box(:,3); 
+        h_minor = h_bounding_box(:,4); 
+        % h_major = cat(1,h_geo_prop.MajorAxisLength);
+        % h_minor = cat(1,h_geo_prop.MinorAxisLength);
         h_area_pix = cat(1, h_geo_prop.Area); % concat all values to build matrix of Hydrometeor areas in pixels
         % convert hydrometeor areas to m^2 and lengths to m: 
         h_area = h_area_pix .* pix_to_m2_conversion; 
         h_major_axis = h_major * pix_to_m_conversion;
         h_minor_axis = h_minor * pix_to_m_conversion;
         % get the hydrometeor ellipse area: 
-        h_elipse_area = (pi*h_major_axis .* h_minor_axis)/4;
+        h_elipse_area = h_major_axis .* h_minor_axis; 
+        % h_elipse_area = (pi*h_major_axis .* h_minor_axis)/4;
         % difference in temperature of each centroid and the plate:
         h_centroid_i = sub2ind(size(frame_gray_cropped), h_centroid(:, 2), h_centroid(:, 1)); % find the linear index of the centriods in orginal image
         h_centroid_values = double(frame_gray_cropped(h_centroid_i)); % intensities of centroid pixels of snow
@@ -331,13 +334,13 @@ for file_i = 1:length(file_names)
     % store PBP data as table for post processing 
     pbp_table = table(h_initial_time', h_evap_time', ... 
         h_mass_pbp', h_diam',  h_max_area', h_ellipse_area', ... 
-        h_rho_sph', h_rho_hfd', h_vol_hfd', h_vol_sph', ... 
+        surface_area_eq', h_rho_sph', h_rho_hfd', h_vol_hfd', h_vol_sph', ... 
         h_delta_temp_max', h_delta_temp_mean', complexity', ... 
         sdi', SWE_pbp', SWE_fbf_particles', SWE_pbp_accumulated', ... 
         SWE_fbf_accumulated', snow_pbp', snow_fbf', snow_pbp_accumulated', ... 
         snow_fbf_accumulated', SWE_factor_particles', deltaTemp_range', hArea_range', deltaTemp_residue_flags', hArea_residue_flags');
     pbp_table.Properties.VariableNames = {'Time', 'Evap Time (s)', 'Mass (kg)', 'Eff Diameter (m)',  ...
-        'Max Area (m^2)', 'Ellipse Area (m^2)', 'Spherical Density (kg/m^3)', 'Heat Flux Density (kg/m^3)', ... 
+        'Max Area (m^2)', 'Ellipse Area (m^2)', 'Water Droplet Area (m^2)', 'Spherical Density (kg/m^3)', 'Heat Flux Density (kg/m^3)', ... 
         'Heat Flux Volume (m^3)', 'Spherical Volume (m^3)', 'Delta Temp Max', 'Delta Temp Mean', ...
         'Complexity','SDI','PBP SWE (mm)','FBF SWE (mm)', 'PBP SWE Accumulation (mm)', ...
         'FBF SWE Accumulation (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'PBP Snow Accumulation (mm)', ...
@@ -377,6 +380,7 @@ for file_i = 1:length(file_names)
         effDiaRow = mean(prev_data.('Eff Diameter (m)'));
         areaRow =  mean(prev_data.('Max Area (m^2)'));
         ellipseAreaRow = mean(prev_data.("Ellipse Area (m^2)")); 
+        waterDropletAreaRow = mean(prev_data.("Water Droplet Area (m^2)")); 
         volumeHFDrow = sum(prev_data.("Heat Flux Volume (m^3)"));
         volumeSPHrow = sum(prev_data.("Spherical Volume (m^3)"));
         deltaTempMaxRow = mean(prev_data.("Delta Temp Max"));
@@ -396,7 +400,7 @@ for file_i = 1:length(file_names)
         FBFsnowRow = rho_water * (FBFsweRow ./ densityHFDrow); 
         % compile into a timetable
         new_row = table(timeRow,... 
-            evapTimeRow, massRow, effDiaRow, areaRow, ellipseAreaRow, ...
+            evapTimeRow, massRow, effDiaRow, areaRow, ellipseAreaRow, waterDropletAreaRow, ...
             densitySPHrow, densityHFDrow, volumeHFDrow, volumeSPHrow, deltaTempMaxRow, ...
             deltaTempMeanRow, cxRow, sdiRow, PBPsweRow, FBFsweRow, ...
             sum(pbp_table.("PBP SWE (mm)"))+PBPsweRow,...
@@ -406,7 +410,7 @@ for file_i = 1:length(file_names)
             sum(pbp_table.("FBF Snow (mm)"))+FBFsnowRow, SWEfactorRow, ...
             tempRangeRow, aRangeRow, tempFlagRow, aFlagRow, ...
             'VariableNames', {'Time', 'Evap Time (s)', 'Mass (kg)', 'Eff Diameter (m)',  ...
-            'Max Area (m^2)', 'Ellipse Area (m^2)', 'Spherical Density (kg/m^3)', 'Heat Flux Density (kg/m^3)', ... 
+            'Max Area (m^2)', 'Ellipse Area (m^2)', 'Water Droplet Area (m^2)', 'Spherical Density (kg/m^3)', 'Heat Flux Density (kg/m^3)', ... 
             'Heat Flux Volume (m^3)', 'Spherical Volume (m^3)', 'Delta Temp Max', 'Delta Temp Mean', ...
             'Complexity','SDI','PBP SWE (mm)','FBF SWE (mm)', 'PBP SWE Accumulation (mm)', ...
             'FBF SWE Accumulation (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'PBP Snow Accumulation (mm)', ...
