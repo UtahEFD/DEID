@@ -7,8 +7,8 @@
 clear, clc
 %% set filepath, global variables, and physical constants.
 
-working_dir = 'D:\Atwater';
-output_dir = 'D:\Atwater\oct10';
+working_dir = 'D:\Atwater\test';
+output_dir = 'D:\Atwater\test';
 
 %% global variables and physical constants
 
@@ -66,8 +66,11 @@ directory = dir("*.avi");
 
 % find the most recent .avi file in this directory:
 
-[~,idx] = max([directory.datenum]);
-latest_file =  directory(idx).name;
+% [~,idx] = max([directory.datenum]);
+% latest_file =  directory(idx).name;
+
+% when testing:
+latest_file = 'atwater_385.avi';
 
 disp(['Processing File: ', latest_file])
 vid=VideoReader(latest_file);
@@ -143,7 +146,8 @@ for frame_ii = 1:num_frames
     frame_filtered = frame_cropped > min_thres; % removed below min threshold, on rbg ([0, 255]) scale 
     frame_filled = imfill(frame_filtered, 'Holes'); % clean up Hydrometeors
     frame_final = bwareaopen(frame_filled, minimum_hydro_area); % any hydrometeor whose area is less than minimum_hydro_area (set to 2 pixels) is disgarded
-    
+    imshow(frame_final)
+
     % remove centroids that appear more than 1000 times:
 
     props = regionprops(frame_final, 'Area', 'Centroid','PixelIdxList');
@@ -288,18 +292,17 @@ h_data_sorted = cellfun(@(x) cat(1, x, zeros(max_h_obs - size(x, 1), width(h_dat
 
 %% isolating the variables and put them into a matrix to work with
 
-% for reference: [h_centroid(1), h_centroid(2), plate_h_dtemp,... 
-% h_perimeterM, h_area, h_rectAreaM, h_circleAreaM,... 
-% h_PCAellipseAreaM, rect_widthM, rect_heightM, h_majorM]
+% for reference: [h_centroid(1), h_centroid(2), plate_h_dtemp, h_perimeterM, 
+% h_area, h_rectAreaM, h_circleAreaM, rect_widthM, rect_heightM, h_majorM]
 
 dT_fbf = cellfun(@(x) x(:, 3), h_data_sorted, 'UniformOutput', 0);
 perimeter_fbf = cellfun(@(x) x(:, 4), h_data_sorted, 'UniformOutput', 0);
 area_fbf = cellfun(@(x) x(:, 5), h_data_sorted, 'UniformOutput', 0);
 rectArea_fbf = cellfun(@(x) x(:, 6), h_data_sorted, 'UniformOutput', 0);
 circleArea_fbf = cellfun(@(x) x(:, 7), h_data_sorted, 'UniformOutput', 0); 
-rectWidth_fbf = cellfun(@(x) x(:, 9), h_data_sorted, 'UniformOutput', 0);
-rectHeight_fbf = cellfun(@(x) x(:, 10), h_data_sorted, 'UniformOutput', 0);
-h_majorAxis_fbf = cellfun(@(x) x(:, 11), h_data_sorted, 'UniformOutput', 0);
+rectWidth_fbf = cellfun(@(x) x(:, 8), h_data_sorted, 'UniformOutput', 0);
+rectHeight_fbf = cellfun(@(x) x(:, 9), h_data_sorted, 'UniformOutput', 0);
+h_majorAxis_fbf = cellfun(@(x) x(:, 10), h_data_sorted, 'UniformOutput', 0);
 
 % convert to matrix: 
 
@@ -673,84 +676,84 @@ writetimetable(avi_summary_table, [output_dir, '\DEID_aviTotals.csv'], 'WriteMod
 writetimetable(pbp_table_retimed, [output_dir,'\DEID_TS_10min_', saveTime, '.csv']);
         
 %% send each .csv file to chpc
-    
-% DEID summary table:
+% 
+% % DEID summary table:
+% 
+% % construct filename:
+% 
+% summary_file = sprintf('%s\\DEID_aviTotals.csv', output_dir);
+% 
+% % construct the SCP command:
+% 
+% scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
+% status_summary = system(scpCommand_summary);
+% 
+% % check if the command was successful:
+% 
+% if status_summary == 0
+% disp('DEID_totals.csv transferred succesfully');
+% else
+% disp('Error transferring DEID_totals.csv');
+% end
+% 
+% % DEID unfiltered particle file:
+% 
+% % construct filename:
+% 
+% unfilter_file = sprintf('%s\\DEID_unfilteredParticle_%s.csv', output_dir, saveTime);
+% 
+% % construct the SCP command:
+% 
+% scpCommand_unfilter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', unfilter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
+% status_unfilter = system(scpCommand_unfilter);
+% 
+% % check if the command was successful:
+% 
+% if status_unfilter == 0
+%     disp(['File ', unfilter_file, ' transferred succesfully.']);
+% else
+%     disp(['Error transferring ', unfilter_file, '.']);
+% end
+% 
+% % DEID filtered particle file:
+% 
+% % construct filename:
+% 
+% filter_file = sprintf('%s\\DEID_filteredParticle_%s.csv', output_dir, saveTime);
+% 
+% % construct the SCP command:
+% 
+% scpCommand_filter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', filter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
+% status_filter = system(scpCommand_filter);
+% 
+% % check if the command was successful:
+% 
+% if status_filter == 0
+%     disp(['File ', filter_file, ' transferred succesfully.']);
+% else
+%     disp(['Error transferring ', filter_file, '.']);
+% end
+% 
+% % DEID time series file:
+% 
+% % construct filename:
+% 
+% TS_file = sprintf('%s\\DEID_TS_10min_%s.csv', output_dir, saveTime);
+% 
+% % construct the SCP command:
+% 
+% scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
+% status_TS = system(scpCommand_TS);
+% 
+% % check if the command was successful:
+% 
+% if status_TS == 0
+%     disp(['File ', TS_file, ' transferred succesfully.']);
+% else
+%     disp(['Error transferring ', TS_file, '.']);
+% end  
+% 
+% [~, parent_dir, ~] = fileparts(pwd);
+% disp(['Saved Output for: ', parent_dir])
 
-% construct filename:
-
-summary_file = sprintf('%s\\DEID_aviTotals.csv', output_dir);
-
-% construct the SCP command:
-
-scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
-status_summary = system(scpCommand_summary);
-
-% check if the command was successful:
-
-if status_summary == 0
-disp('DEID_totals.csv transferred succesfully');
-else
-disp('Error transferring DEID_totals.csv');
-end
-
-% DEID unfiltered particle file:
-
-% construct filename:
-
-unfilter_file = sprintf('%s\\DEID_unfilteredParticle_%s.csv', output_dir, saveTime);
-
-% construct the SCP command:
-
-scpCommand_unfilter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', unfilter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
-status_unfilter = system(scpCommand_unfilter);
-
-% check if the command was successful:
-
-if status_unfilter == 0
-    disp(['File ', unfilter_file, ' transferred succesfully.']);
-else
-    disp(['Error transferring ', unfilter_file, '.']);
-end
-
-% DEID filtered particle file:
-
-% construct filename:
-
-filter_file = sprintf('%s\\DEID_filteredParticle_%s.csv', output_dir, saveTime);
-
-% construct the SCP command:
-
-scpCommand_filter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', filter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
-status_filter = system(scpCommand_filter);
-
-% check if the command was successful:
-
-if status_filter == 0
-    disp(['File ', filter_file, ' transferred succesfully.']);
-else
-    disp(['Error transferring ', filter_file, '.']);
-end
-
-% DEID time series file:
-
-% construct filename:
-
-TS_file = sprintf('%s\\DEID_TS_10min_%s.csv', output_dir, saveTime);
-
-% construct the SCP command:
-
-scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
-status_TS = system(scpCommand_TS);
-
-% check if the command was successful:
-
-if status_TS == 0
-    disp(['File ', TS_file, ' transferred succesfully.']);
-else
-    disp(['Error transferring ', TS_file, '.']);
-end  
-
-[~, parent_dir, ~] = fileparts(pwd);
-disp(['Saved Output for: ', parent_dir])
-
-exit 
+% exit 
