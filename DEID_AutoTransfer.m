@@ -70,7 +70,7 @@ directory = dir("*.avi");
 % latest_file =  directory(idx).name;
 
 % when testing:
-latest_file = 'atwater_385.avi';
+latest_file = 'atwater_039.avi';
 
 disp(['Processing File: ', latest_file])
 vid=VideoReader(latest_file);
