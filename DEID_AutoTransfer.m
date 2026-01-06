@@ -1,6 +1,7 @@
 %% DEID AVI File Processing Code
 % Outputs a filtered, unfiltered, and time-averaged particle-by-particle .csv
 % file for the most recent .avi file saved on the DEID minimac.
+%% 
 % For each .avi file a summary file is also generated. 
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
 
@@ -9,7 +10,7 @@ clear, clc
 
 working_dir = 'D:\Atwater\test';
 output_dir = 'D:\Atwater\test';
-
+tic
 %% global variables and physical constants
 
 % specifies resampling period:
@@ -146,7 +147,7 @@ for frame_ii = 1:num_frames
     frame_filtered = frame_cropped > min_thres; % removed below min threshold, on rbg ([0, 255]) scale 
     frame_filled = imfill(frame_filtered, 'Holes'); % clean up Hydrometeors
     frame_final = bwareaopen(frame_filled, minimum_hydro_area); % any hydrometeor whose area is less than minimum_hydro_area (set to 2 pixels) is disgarded
-    imshow(frame_final)
+    % imshow(frame_final)
 
     % remove centroids that appear more than 1000 times:
 
@@ -757,3 +758,4 @@ writetimetable(pbp_table_retimed, [output_dir,'\DEID_TS_10min_', saveTime, '.csv
 % disp(['Saved Output for: ', parent_dir])
 
 % exit 
+toc
