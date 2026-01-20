@@ -1,14 +1,18 @@
 %% DEID AVI File Processing Code
+
 % Outputs a filtered, unfiltered, and time-averaged particle-by-particle .csv
-% file for the most recent .avi file saved on the DEID minimac.
-% For each .avi file a summary file is also generated. 
+% file for the most recent .avi file saved on the DEID minimac and sent to chpc.
+
+% For each .avi file a summary file is also generated. summary files are 
+% built over the course of individual storms. 
+
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
 
 clear, clc
 %% set filepath, global variables, and physical constants.
 
-working_dir = 'D:\Atwater\test';
-output_dir = 'D:\Atwater\test';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/jan08_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/test';
 
 %% global variables and physical constants
 
@@ -66,11 +70,11 @@ directory = dir("*.avi");
 
 % find the most recent .avi file in this directory:
 
-% [~,idx] = max([directory.datenum]);
-% latest_file =  directory(idx).name;
+[~,idx] = max([directory.datenum]);
+latest_file =  directory(idx).name;
 
 % when testing:
-latest_file = 'atwater_039.avi';
+% latest_file = 'Atwater_23_24_148.avi';
 
 disp(['Processing File: ', latest_file])
 vid=VideoReader(latest_file);
