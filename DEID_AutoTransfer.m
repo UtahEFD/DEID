@@ -1,19 +1,16 @@
 %% DEID AVI File Processing Code
-
 % Outputs a filtered, unfiltered, and time-averaged particle-by-particle .csv
-% file for the most recent .avi file saved on the DEID minimac and sent to chpc.
-
-% For each .avi file a summary file is also generated. summary files are 
-% built over the course of individual storms. 
-
+% file for the most recent .avi file saved on the DEID minimac.
+%% 
+% For each .avi file a summary file is also generated. 
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
 
 clear, clc
 %% set filepath, global variables, and physical constants.
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/jan08_storm';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/test';
-
+working_dir = 'D:\Atwater\test';
+output_dir = 'D:\Atwater\test';
+tic
 %% global variables and physical constants
 
 % specifies resampling period:
@@ -70,11 +67,11 @@ directory = dir("*.avi");
 
 % find the most recent .avi file in this directory:
 
-[~,idx] = max([directory.datenum]);
-latest_file =  directory(idx).name;
+% [~,idx] = max([directory.datenum]);
+% latest_file =  directory(idx).name;
 
 % when testing:
-% latest_file = 'Atwater_23_24_148.avi';
+latest_file = 'atwater_039.avi';
 
 disp(['Processing File: ', latest_file])
 vid=VideoReader(latest_file);
@@ -150,7 +147,7 @@ for frame_ii = 1:num_frames
     frame_filtered = frame_cropped > min_thres; % removed below min threshold, on rbg ([0, 255]) scale 
     frame_filled = imfill(frame_filtered, 'Holes'); % clean up Hydrometeors
     frame_final = bwareaopen(frame_filled, minimum_hydro_area); % any hydrometeor whose area is less than minimum_hydro_area (set to 2 pixels) is disgarded
-    imshow(frame_final)
+    % imshow(frame_final)
 
     % remove centroids that appear more than 1000 times:
 
@@ -761,3 +758,4 @@ writetimetable(pbp_table_retimed, [output_dir,'\DEID_TS_10min_', saveTime, '.csv
 % disp(['Saved Output for: ', parent_dir])
 
 % exit 
+toc
