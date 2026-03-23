@@ -29,11 +29,11 @@ time_step = seconds(time_interval); % datetime step
 
 % 2025 - present:
 
-% pix_to_m_conversion = .01/40; % m per pix 
+pix_to_m_conversion = .01/40; % m per pix 
 
 % 2023 - 2024:
 
-pix_to_m_conversion = 3.1750e-04; % m per pix
+% pix_to_m_conversion = 3.1750e-04; % m per pix
 
 pix_to_m2_conversion = pix_to_m_conversion^2; % m^2 per pix^2
 c1 = 10^3; % converts meters to millimeters
@@ -76,17 +76,39 @@ hf_rho_coeff = 1.01e05; % [K*s*m^-1]
 cd(working_dir);
 directory = dir("."); 
 
-% call get_sroted_videos to compile list of all valid .avi files and their
-% dates
+% loop through directory items:
 
-[file_names, vid_date, storm_output] = get_sorted_videos(working_dir);
+file_names = cell(1, length(directory));
+vid_date   = cell(1, length(directory));
+count = 0;
+for file_i = 1:length(directory)
+    if ~directory(file_i).isdir && endsWith(directory(file_i).name, '.avi', 'IgnoreCase', true) % check if it's a file and ends with .avi
+        count = count + 1;
+        file_names{count} = directory(file_i).name; % store filename
+        vid_dir = dir(directory(file_i).name);
+        vid_date{count} = datetime(vid_dir.date);  % get timestamp from the file metadata
+    end
+end
+
+% trim unused cells: 
+
+file_names = file_names(1:count);
+vid_date   = vid_date(1:count);
+
+% format vid_date{1} to DD-MM-YYYY for saving summary file:
+
+storm_output = datestr(vid_date{1}, 'dd-mm-yyyy'); 
+
+% sort filenames by date:
+
+[~, sort_idx] = sort([vid_date{:}]);
+file_names = file_names(sort_idx);
 
 % **when testing**
 % file_names = {'March23_2023_01_104.avi'};
 
 
 %% begin DEID video processing
-
 % Parfor loop parallelizes processing by distributing each video file to a
 % Matlab worker on each CPU core. 
 
@@ -194,6 +216,8 @@ parfor file_i = 1:length(file_names)
     %% "frame by frame method"; this is how we obtain SWE for each .avi file
     
     % preallocate variables saved in loop for speed:
+    
+    % fbfTime = tic;
     
     h_data_cells = cell(num_frames,1);
     plate_int = nan(num_frames,1);
@@ -362,12 +386,16 @@ parfor file_i = 1:length(file_names)
     SWE_fbf = h_mass_fbf / hp_area;
 
     time_series_fbf = time_series(1:length(SWE_fbf));
+
+    % toc(fbfTime)
     
-    %% sortPositions_v2.m 
+    %% call sortPositions_v2.m 
     % places snowflakes in the same row across multiple frames, making tracking possible over time
     
     % determine the number of columns in h_data_cells to help pad matrix
-    % with zeros: 
+    % with zeros:
+    
+    % sortPosTime = tic; 
     
     num_cols = [];
 
@@ -428,7 +456,7 @@ parfor file_i = 1:length(file_names)
     %% isolating the variables and put them into a matrix to work with
     
     % for reference: [h_centroid(1), h_centroid(2), plate_h_dtemp,... 
-    % h_perimeterM, h_area, h_rectAreaM, h_majorM]
+    % h_perimeterM, h_area, h_rectAreaM]
     
     dT_fbf = cellfun(@(x) x(:, 3), h_data_sorted, 'UniformOutput', 0);
     perimeter_fbf = cellfun(@(x) x(:, 4), h_data_sorted, 'UniformOutput', 0);
@@ -443,6 +471,8 @@ parfor file_i = 1:length(file_names)
     area_fbf = cat(2,area_fbf{:}); % snowflake area 
     rectArea_fbf = cat(2,rectArea_fbf{:}); % circumscribed rectangle area
     majorAxis_fbf = cat(2,majorAxis_fbf{:}); % major axis of hydrometeor 
+
+    % toc(sortPosTime)
     
     %% "particle by particle method" 
 
@@ -711,7 +741,7 @@ parfor file_i = 1:length(file_names)
         
         pbp_table = [pbp_table; new_row];
 
-        %%  create a summary table with data from each .avi file 
+        %%  create a summary table with actual data 
         
         avi_summary_table = table(pbp_table_filtered.Time(1));
         avi_summary_table.duration = (pbp_table_filtered.Time(end)-pbp_table_filtered.Time(1)); 
