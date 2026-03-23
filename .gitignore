@@ -2,4 +2,5 @@
 *.txt
 *.AVI
 *.asv
+.DS_Store
 debug.log
