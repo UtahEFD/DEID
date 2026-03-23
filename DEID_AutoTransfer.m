@@ -8,9 +8,9 @@
 clear, clc
 %% set filepath, global variables, and physical constants.
 
-working_dir = 'D:\Atwater\test';
-output_dir = 'D:\Atwater\test';
-tic
+working_dir = 'D:\Atwater';
+output_dir = 'D:\Atwater';
+
 %% global variables and physical constants
 
 % specifies resampling period:
@@ -20,36 +20,43 @@ time_step = seconds(time_interval); % datetime step
 
 % unit conversions:
 
-mm_to_inches = 1/25.4; % [mm/in]
+% 2025 - present:
+
 pix_to_m_conversion = .01/40; % m per pix 
+
+% 2023 - 2024:
+%
+% pix_to_m_conversion = 3.1750e-04; % m per pix
+
 pix_to_m2_conversion = pix_to_m_conversion^2; % m^2 per pix^2
 c1 = 10^3; % converts meters to millimeters
-c2 = 3.6e06; % converts m/s to mm/hr [(mm/hr)*(s/m)]
-hour_in_seconds = 3600;
+max_temp = 145; % max temperature set in colorbar on the physical screen of the tir software
+max_int = 255; % maximum intensity that the maximum temperature (145) maps to 
+int_to_temp_conversion = max_temp/max_int; % we know that 145 C maps to 255 intensity value in greyscale 
 
 % physical constants:
 
 rho_water = 1000; % density of water [kg/m^3]
-mu = 1.5*10^-5;   % viscosity of air [kg/m*s] 
+% mu = 1.5*10^-5;   % viscosity of air [kg/m*s] 
 
 % thresholds & filters:
 
 min_thres = 70; % minimum threshold number in image accepted rbg ([0 255]) scale
 minimum_hydro_area = 2; % the minimum number of pixels a hydrometeor must contain to be analyzed 
-colorbar_max_temp = 145; % max temperature set in colorbar on the physical screen of the tir software
-sort_threshold = 20; % this is the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2. dhiraj calibrated this in the lab. ß
+sort_threshold = 20; % this is the RMS threshold between succesive images of snowflakes used in the sortPostitions_v2. dhiraj calibrated this in the lab. 
+% minimum_drop_life = 0; % minimum number of frames a drop has to be visable to be processed
 areaTol = 0; 
 SWEfactor_threshold = 1.85; % maximum value of tolerable SWE factor
 evapTime_min = 1/15; % minimum time a snowflake has to appear on hotplate to be processed
 evapTime_max = 30; % maximum time a snowflake can appear on hotplate to be processed 
-noiseThresh = 1000; % # of times a centroid can appear in an .avi file to be considered real 
+% noiseThresh = 999; % # of times a centroid can appear in an .avi file to be considered real 
 
 % DEID specific parameters:
 
 colorbar_image_indexes = [1 1 384 288]; % location of colorbar in pixel locations
 crop_index = 43; % use this to specify indices to crop out kapton tape
 colorbar_kapton_image_indexes = [1 (colorbar_image_indexes(2)+crop_index) 383 (colorbar_image_indexes(4)-crop_index)]; % location of Kapton tape in pixel locations
-k_dLv = 0.0035; % calibration constant; in paper, thermal conductivity (k) of water. See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
+k_dLv = 0.002; % calibration constant; in paper, thermal conductivity (k) of water. See sect 4.1 in Dihiraj's paper -> (k/d(_eff))/Latent heat of vaporazation [units?]
 l_constant = 2.594e06; % latent heat of vaporazation of water, should be a function of tempertaure (Look at Stull textbook) [J/kg]
 % Eqn. (13) in Dhiraj's density paper: c = (L_vv) / (L_ff*C_melt)
 % c = hf_rho_coeff
@@ -67,11 +74,11 @@ directory = dir("*.avi");
 
 % find the most recent .avi file in this directory:
 
-% [~,idx] = max([directory.datenum]);
-% latest_file =  directory(idx).name;
+[~,idx] = max([directory.datenum]);
+latest_file =  directory(idx).name;
 
 % when testing:
-latest_file = 'atwater_039.avi';
+% latest_file = 'atwater_055.avi';
 
 disp(['Processing File: ', latest_file])
 vid=VideoReader(latest_file);
@@ -93,56 +100,57 @@ time_series = flip(time_series);  % Flips time series to be chronologically orde
 vid_start_time = datetime(time_series(1));
 
 %% identify noisy hydrometeors using centroids:
-
-% store full video in CHPC RAM:
-
-frames = cell(num_frames,1);
-
-for ii = 1:num_frames
-    frames{ii} = read(vid,ii);
-end
-
-% collect all centroids:
-
-allCentroids = [];
-
-for ii = 1:num_frames
-    frame_gray = im2gray(frames{ii});
-    frame_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes);
-    frame_filtered = frame_cropped > min_thres;
-    frame_filled   = imfill(frame_filtered,'holes');
-    frame_cleaned  = bwareaopen(frame_filled, minimum_hydro_area);
-
-    allProps = regionprops(frame_cleaned,'Centroid');
-    if ~isempty(allProps)
-        allCentroids = [allCentroids; cat(1,allProps.Centroid)];
-    end
-
-end
-
-% identify noisy centroids:
-
-[uniqueC,~,idxC] = unique(allCentroids,'rows');
-counts = accumarray(idxC,1);
-noiseMask   = counts > noiseThresh;
-noiseCentroids = uniqueC(noiseMask,:);
+% 
+% % store full video in CHPC RAM:
+% 
+% frames = cell(num_frames,1);
+% 
+% for ii = 1:num_frames
+%     frames{ii} = read(vid,ii);
+% end
+% 
+% % collect all centroids:
+% 
+% allCentroids = [];
+% 
+% for ii = 1:num_frames
+%     frame_gray = im2gray(frames{ii});
+%     frame_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes);
+%     frame_filtered = frame_cropped > min_thres;
+%     frame_filled   = imfill(frame_filtered,'holes');
+%     frame_cleaned  = bwareaopen(frame_filled, minimum_hydro_area);
+% 
+%     allProps = regionprops(frame_cleaned,'Centroid');
+%     if ~isempty(allProps)
+%         allCentroids = [allCentroids; cat(1,allProps.Centroid)];
+%     end
+% 
+% end
+% 
+% % identify noisy centroids:
+% 
+% [uniqueC,~,idxC] = unique(allCentroids,'rows');
+% counts = accumarray(idxC,1);
+% noiseMask   = counts > noiseThresh;
+% noiseCentroids = uniqueC(noiseMask,:);
 
 %% "frame by frame method"; this is how we obtain SWE for each .avi file
 
 % preallocate variables saved in loop for speed:
 
 h_data_cells = cell(num_frames,1);
-plate_temp = nan(num_frames,1);
-noisyA = cell(num_frames,1); 
+plate_int = nan(num_frames,1);
+% noisyA = cell(num_frames,1); 
 sum_h_area_times_dt = nan(num_frames,1);
 
 % enter loop to process images: 
 
 for frame_ii = 1:num_frames     
-    frame = frames{frame_ii};  
+    % frame = frames{frame_ii};  
+    frame = read(vid, frame_ii);
     frame_gray = im2gray(frame); % convert frame of interest to gray scale
     frame_gray_cropped_wKapton = imcrop(frame_gray, colorbar_image_indexes);% crop out colorbar
-    plate_temp(frame_ii) = max(max(double(frame_gray_cropped_wKapton))); % this assumes max temperature in image is the plate temperature with Kapton tape 
+    plate_int(frame_ii) = max(max(double(frame_gray_cropped_wKapton))); % this assumes max temperature in image is the plate temperature with Kapton tape 
     frame_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes); % back to orginal grayscale image... now remove colorbar and kapton tape from image
     frame_filtered = frame_cropped > min_thres; % removed below min threshold, on rbg ([0, 255]) scale 
     frame_filled = imfill(frame_filtered, 'Holes'); % clean up Hydrometeors
@@ -150,33 +158,33 @@ for frame_ii = 1:num_frames
     % imshow(frame_final)
 
     % remove centroids that appear more than 1000 times:
-
-    props = regionprops(frame_final, 'Area', 'Centroid','PixelIdxList');
-
-    if ~isempty(props)
-
-        frame_centroids = cat(1, props.Centroid); % collect centroids of particles on frame 
-        frame_area = cat(1, props.Area); % collect areas of particles on frame 
-
-    if isempty(noiseCentroids)
-
-        isNoise = false(size(frame_centroids,1),1); % basically do nothing
-
-    else
-
-        isNoise = ismember(frame_centroids, noiseCentroids, 'rows'); % logical array identifying which centroids on the frame are noisy ones 
-
-    end
-
-        noisyA{frame_ii} = sum(frame_area(isNoise, :)); % store area to subtract from hpArea later 
-
-        % black out noisy hydrometeors:
-
-        for k = find(isNoise)'
-            frame_final(props(k).PixelIdxList) = 0;
-        end
-
-    end
+    %
+    % props = regionprops(frame_final, 'Area', 'Centroid','PixelIdxList');
+    % 
+    % if ~isempty(props)
+    % 
+    %     frame_centroids = cat(1, props.Centroid); % collect centroids of particles on frame 
+    %     frame_area = cat(1, props.Area); % collect areas of particles on frame 
+    % 
+    % if isempty(noiseCentroids)
+    % 
+    %     isNoise = false(size(frame_centroids,1),1); % basically do nothing
+    % 
+    % else
+    % 
+    %     isNoise = ismember(frame_centroids, noiseCentroids, 'rows'); % logical array identifying which centroids on the frame are noisy ones 
+    % 
+    % end
+    % 
+    %     noisyA{frame_ii} = sum(frame_area(isNoise, :)); % store area to subtract from hpArea later 
+    % 
+    %     % black out noisy hydrometeors:
+    % 
+    %     for k = find(isNoise)'
+    %         frame_final(props(k).PixelIdxList) = 0;
+    %     end
+    % 
+    % end
 
     % now continue on to get hydrometeor properties: 
 
@@ -216,9 +224,9 @@ for frame_ii = 1:num_frames
     % difference in temperature of each centroid and the plate:
 
     h_centroid_i = sub2ind(size(frame_cropped), h_centroid(:, 2), h_centroid(:, 1)); % find the linear index of the centriods in orginal image
-    h_centroid_values = double(frame_cropped(h_centroid_i)); % intensities of centroid pixels of snow
-    plate_h_dtemp = colorbar_max_temp - (h_centroid_values .* (colorbar_max_temp / plate_temp(frame_ii)));
-    
+    snowflake_int = double(frame_cropped(h_centroid_i)); % intensities of centroid pixels of snow
+    plate_h_dtemp = (plate_int(frame_ii)* int_to_temp_conversion) - (snowflake_int .* int_to_temp_conversion); 
+
     % product of hydrometeor area with the temp difference:
 
     h_area_times_dtemp = h_area .* plate_h_dtemp;         
@@ -236,7 +244,7 @@ end
 % frame by frame SWE calculation:
 
 sum_h_area_times_dt(isnan(sum_h_area_times_dt)) =0; % turn all NaN to 0's
-hp_area = ((size(frame_cropped,1) * size(frame_cropped,2)) - mean([noisyA{:}])) * pix_to_m2_conversion; % hotplate area     
+hp_area = (size(frame_cropped,1) * size(frame_cropped,2)) * pix_to_m2_conversion; % hotplate area - to subtract noisy areas: - mean(noisyA)     
 h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % total mass evaporates in each frame
 h_mass_fbf_min = min(h_mass_fbf); % we know the plate should be empty when it is not snowing..
 h_mass_fbf = h_mass_fbf - h_mass_fbf_min; % subtract off min mass on a frame to account for any resiude
@@ -328,11 +336,6 @@ h_delta_temp = {}; % hydrometeor delta temp over time
 h_perimeter = {}; % hydrometeor perimeter over time
 h_area = {}; % hydrometeor area over time
 h_rectArea = {}; % circumscribed rectangle area
-h_circleArea = {}; % circumscribed circle area
-h_ellipseArea = {}; % circumscribed ellipse area 
-h_rectWidth = {}; % circumscribed rectangle width
-h_rectHeight = {}; % circumscribed rectangle height
-h_majorAxis = {}; % hydrometeor max axis length  
 
 deltaTemp_range = []; % difference between max and min values of hydrometeor deltaTemp
 deltaTemp_residue_flags = []; % flags for when deltaTemp does not change
@@ -370,11 +373,7 @@ for h_ii = 1:max_h_obs
     h_perimeter_tmp = perimeter_fbf(h_ii, h_appears_ind(1):h_evaps_ind(end)+1);
     h_area_tmp = area_fbf(h_ii, h_appears_ind(1):h_evaps_ind(end)+1);
     h_rectArea_tmp = rectArea_fbf(h_ii, h_appears_ind(1):h_evaps_ind(end)+1);
-    h_circleArea_tmp = circleArea_fbf(h_ii, h_appears_ind(1):h_evaps_ind(end)+1);  
-    h_rectWidth_tmp = rectWidth_fbf(h_ii,h_appears_ind(1):h_evaps_ind(end)+1);
-    h_rectHeight_tmp = rectHeight_fbf(h_ii, h_appears_ind(1):h_evaps_ind(end)+1);
-    h_majorAxis_tmp = h_majorAxis_fbf(h_ii, h_appears_ind(1):h_evaps_ind(end)+1);
-    
+        
     % isolate for positive values:
 
     h_area_tmp_bool = h_area_tmp > 0; 
@@ -390,10 +389,6 @@ for h_ii = 1:max_h_obs
             h_area{end+1} = h_area_tmp(propstemp(jj).PixelIdxList); % hydrometeor area over time            
             h_perimeter{end+1} = max(h_perimeter_tmp(propstemp(jj).PixelIdxList)); % max hydrometeor perimeter over time
             h_rectArea{end+1} = max(h_rectArea_tmp(propstemp(jj).PixelIdxList)); % max rectangle area over time
-            h_circleArea{end+1} = max(h_circleArea_tmp(propstemp(jj).PixelIdxList)); % max circle area over time 
-            h_rectWidth{end+1} = max(h_rectWidth_tmp(propstemp(jj).PixelIdxList)); % max rectangle width over time
-            h_rectHeight{end+1} = max(h_rectHeight_tmp(propstemp(jj).PixelIdxList)); % max rectangle height over time
-            h_majorAxis{end+1} = max(h_majorAxis_tmp(propstemp(jj).PixelIdxList)); % max major axis over time
             h_max_area{end+1} = max(h_area_tmp(propstemp(jj).PixelIdxList)); % max snowflake area over time
             h_delta_time{end+1} = numel(propstemp(jj).PixelIdxList); % time of snowflake's life 
             h_delta_temp_max{end+1} = max(h_dT_tmp(propstemp(jj).PixelIdxList)); % max temperature difference between snowflake and plate 
@@ -424,10 +419,6 @@ h_delta_temp = cell2mat(h_delta_temp);
 h_perimeter = cell2mat(h_perimeter); 
 h_area = cell2mat(h_area);
 h_rectArea=cell2mat(h_rectArea);
-h_circleArea = cell2mat(h_circleArea);
-h_rectWidth=cell2mat(h_rectWidth); 
-h_rectHeight=cell2mat(h_rectHeight); 
-h_majorAxis = cell2mat(h_majorAxis);
 
 h_mass_pbp=cell2mat(h_mass_pbp); % hydrometeor mass
 h_max_area=cell2mat(h_max_area); % actual area
@@ -438,7 +429,6 @@ h_delta_temp_mean=cell2mat(h_delta_temp_mean); % temperature diffrence between p
 
 h_mass_pbp = h_mass_pbp / vid_fps; 
 h_dEff = ((4/pi) * h_max_area).^(1/2); % convert area to diameter of hydrometeor
-h_circlePerimeter = pi*h_dEff; % circumscribed circle perimeter around a hydrometeor 
 h_evap_time = cell2mat(h_delta_time) * (1 / vid_fps); % evaporation time
 h_vol_sph = (3/4) * h_max_area.^(3/2); % spherical volume
 h_rho_sph = h_mass_pbp ./ h_vol_sph; % density calculation: spherical assumption
@@ -462,15 +452,20 @@ sdi = h_max_area ./ eqWaterDrop_area ; % SDI (See CRST Morrison et al. 2023)
 
 SWE_pbp = c1 * h_mass_pbp ./ (rho_water * hp_area); % [mm]
 SWE_factor = sum(SWE_fbf) / sum(SWE_pbp); % swe factor is used to adjust pbp SWE 
+
 if SWE_factor > SWEfactor_threshold
     SWE_factor = SWEfactor_threshold; % if swe factor is abnormally high, adjust it to account for residue:
 end
+
 SWE_fbf_particles = SWE_pbp * SWE_factor; % adjusted SWE_pbp is effectivley SWE_fbf
 SWE_factor_particles = SWE_fbf_particles ./ SWE_pbp; % now calculate SWE factor for all particles
+
 SWE_pbp_accumulated = cumsum(SWE_pbp); % accumulated SWE_pbp
 SWE_fbf_accumulated = cumsum(SWE_fbf_particles); % accumulated SWE_fbf    
+
 snow_pbp = rho_water * (SWE_pbp ./ h_rho_hfd); % [mm]
 snow_pbp_accumulated = cumsum(snow_pbp); % [mm]
+
 snow_fbf = rho_water * (SWE_fbf_particles ./ h_rho_hfd); % [mm]
 snow_fbf_accumulated = cumsum(snow_fbf); % [mm]
 
@@ -565,12 +560,12 @@ if height(pbp_table_filtered) > 0
         sum(pbp_table.("FBF Snow (mm)"))+FBFsnowRow, SWEfactorRow, ...
         tempRangeRow, aRangeRow, tempFlagRow, aFlagRow, ...
         'VariableNames', {'Time', 'Evap Time (s)', 'Mass (kg)', 'Eff Diameter (m)',  ...
-    'Perimeter (m)', 'Snowflake Area (m^2)', 'Rectangle Area (m^2)', ... 
-    'Water Droplet Area (m^2)', 'Spherical Density (kg/m^3)', 'Heat Flux Density (kg/m^3)', ... 
-    'Heat Flux Volume (m^3)', 'Spherical Volume (m^3)', 'Delta Temp Max', 'Delta Temp Mean', ...
-    'Complexity', 'SDI','PBP SWE (mm)','FBF SWE (mm)', 'PBP SWE Accumulation (mm)', ...
-    'FBF SWE Accumulation (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'PBP Snow Accumulation (mm)', ...
-    'FBF Snow Accumulation (mm)', 'SWE factor', 'Delta Temp Range', 'Area Range', 'Delta Temp Flag', 'Area Flag'});
+            'Perimeter (m)', 'Snowflake Area (m^2)', 'Rectangle Area (m^2)', ... 
+            'Water Droplet Area (m^2)', 'Spherical Density (kg/m^3)', 'Heat Flux Density (kg/m^3)', ... 
+            'Heat Flux Volume (m^3)', 'Spherical Volume (m^3)', 'Delta Temp Max', 'Delta Temp Mean', ...
+            'Complexity', 'SDI','PBP SWE (mm)','FBF SWE (mm)', 'PBP SWE Accumulation (mm)', ...
+            'FBF SWE Accumulation (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'PBP Snow Accumulation (mm)', ...
+            'FBF Snow Accumulation (mm)', 'SWE factor', 'Delta Temp Range', 'Area Range', 'Delta Temp Flag', 'Area Flag'});
     
     % assign a time and logical value for missing data to the new row:
     
@@ -584,7 +579,7 @@ if height(pbp_table_filtered) > 0
     
     pbp_table = [pbp_table; new_row];
 
-    %%  create a summary table 
+    %%  create a summary table with actual data 
     
     avi_summary_table = table(pbp_table_filtered.Time(1));
     avi_summary_table.duration = (pbp_table_filtered.Time(end)-pbp_table_filtered.Time(1)); 
@@ -617,23 +612,30 @@ if height(pbp_table_filtered) > 0
     
     % calculate density:
     
-    pbp_table_retimed.('Heat Flux Density (kg/m^3)') = pbp_table_retimed.('Mass (kg)')./ pbp_table_retimed.('Heat Flux Volume (m^3)');
+    pbp_table_retimed.('Density (kg/m^3)') = pbp_table_retimed.('Mass (kg)')./ pbp_table_retimed.('Heat Flux Volume (m^3)');
     
     % calculate SWE:
     
     pbp_table_retimed.('FBF SWE (mm)') = (1000 * pbp_table_retimed.('Mass (kg)') ./ (rho_water * hp_area)).*pbp_table_retimed.('SWE factor'); 
     pbp_table_retimed.('FBF SWE Accumulation (mm)') = cumsum(pbp_table_retimed.('FBF SWE (mm)'));  
     
+    pbp_table_retimed.('PBP SWE (mm)') = (1000 * pbp_table_retimed.('Mass (kg)') ./ (rho_water * hp_area)); 
+    pbp_table_retimed.('PBP SWE Accumulation (mm)') = cumsum(pbp_table_retimed.('PBP SWE (mm)'));  
+    
+
     % calculate snow:
     
-    pbp_table_retimed.('FBF Snow (mm)') = rho_water * pbp_table_retimed.('FBF SWE (mm)')./ pbp_table_retimed.('Heat Flux Density (kg/m^3)');
-    pbp_table_retimed.('FBF Snow Accumulation (mm)') = cumsum(pbp_table_retimed.('FBF Snow (mm)')); 
+    pbp_table_retimed.('FBF Snow (mm)') = rho_water * pbp_table_retimed.('FBF SWE (mm)')./ pbp_table_retimed.('Density (kg/m^3)');
+    pbp_table_retimed.('FBF Snow Accumulation (mm)') = cumsum(pbp_table_retimed.('FBF Snow (mm)'));
+
+    pbp_table_retimed.('PBP Snow (mm)') = rho_water * pbp_table_retimed.('PBP SWE (mm)')./ pbp_table_retimed.('Density (kg/m^3)');
+    pbp_table_retimed.('PBP Snow Accumulation (mm)') = cumsum(pbp_table_retimed.('PBP Snow (mm)'));
 
 else 
     % create a summary table with all 0's:
     
-    avi_summary_table = table(pbp_table.Time(1));
-    avi_summary_table.duration = (pbp_table.Time(end)-pbp_table.Time(1)); 
+    avi_summary_table = table(NaT);
+    avi_summary_table.duration = seconds(NaN); 
     avi_summary_table.rectCx = 0;
     avi_summary_table.sdi = 0;
     avi_summary_table.rho = 0;
@@ -653,7 +655,7 @@ end
 
 % add variable names:  
 
-avi_summary_table.Properties.VariableNames = {'Time', 'Duration', 'Complexity', 'SDI', 'HFD Density (kg*m^-3)', 'PBP SWE (mm)', 'FBF SWE (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'Hot Plate Area', 'SWE Factor', 'Min FBF Mass'}; 
+avi_summary_table.Properties.VariableNames = {'Time', 'Duration', 'Complexity', 'SDI', 'Density (kg*m^-3)', 'PBP SWE (mm)', 'FBF SWE (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'Hot Plate Area', 'SWE Factor', 'Min FBF Mass'}; 
 avi_summary_table = table2timetable(avi_summary_table);
         
 %% save processed tables
@@ -677,85 +679,84 @@ writetimetable(avi_summary_table, [output_dir, '\DEID_aviTotals.csv'], 'WriteMod
 writetimetable(pbp_table_retimed, [output_dir,'\DEID_TS_10min_', saveTime, '.csv']);
         
 %% send each .csv file to chpc
-% 
-% % DEID summary table:
-% 
-% % construct filename:
-% 
-% summary_file = sprintf('%s\\DEID_aviTotals.csv', output_dir);
-% 
-% % construct the SCP command:
-% 
-% scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
-% status_summary = system(scpCommand_summary);
-% 
-% % check if the command was successful:
-% 
-% if status_summary == 0
-% disp('DEID_totals.csv transferred succesfully');
-% else
-% disp('Error transferring DEID_totals.csv');
-% end
-% 
-% % DEID unfiltered particle file:
-% 
-% % construct filename:
-% 
-% unfilter_file = sprintf('%s\\DEID_unfilteredParticle_%s.csv', output_dir, saveTime);
-% 
-% % construct the SCP command:
-% 
-% scpCommand_unfilter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', unfilter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
-% status_unfilter = system(scpCommand_unfilter);
-% 
-% % check if the command was successful:
-% 
-% if status_unfilter == 0
-%     disp(['File ', unfilter_file, ' transferred succesfully.']);
-% else
-%     disp(['Error transferring ', unfilter_file, '.']);
-% end
-% 
-% % DEID filtered particle file:
-% 
-% % construct filename:
-% 
-% filter_file = sprintf('%s\\DEID_filteredParticle_%s.csv', output_dir, saveTime);
-% 
-% % construct the SCP command:
-% 
-% scpCommand_filter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', filter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
-% status_filter = system(scpCommand_filter);
-% 
-% % check if the command was successful:
-% 
-% if status_filter == 0
-%     disp(['File ', filter_file, ' transferred succesfully.']);
-% else
-%     disp(['Error transferring ', filter_file, '.']);
-% end
-% 
-% % DEID time series file:
-% 
-% % construct filename:
-% 
-% TS_file = sprintf('%s\\DEID_TS_10min_%s.csv', output_dir, saveTime);
-% 
-% % construct the SCP command:
-% 
-% scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
-% status_TS = system(scpCommand_TS);
-% 
-% % check if the command was successful:
-% 
-% if status_TS == 0
-%     disp(['File ', TS_file, ' transferred succesfully.']);
-% else
-%     disp(['Error transferring ', TS_file, '.']);
-% end  
-% 
-% [~, parent_dir, ~] = fileparts(pwd);
-% disp(['Saved Output for: ', parent_dir])
 
-% exit 
-toc
+% DEID summary table:
+
+% construct filename:
+
+summary_file = sprintf('%s\\DEID_aviTotals.csv', output_dir);
+
+% construct the SCP command:
+
+scpCommand_summary = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', summary_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
+status_summary = system(scpCommand_summary);
+
+% check if the command was successful:
+
+if status_summary == 0
+disp('DEID_totals.csv transferred succesfully');
+else
+disp('Error transferring DEID_totals.csv');
+end
+
+% DEID unfiltered particle file:
+
+% construct filename:
+
+unfilter_file = sprintf('%s\\DEID_unfilteredParticle_%s.csv', output_dir, saveTime);
+
+% construct the SCP command:
+
+scpCommand_unfilter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', unfilter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
+status_unfilter = system(scpCommand_unfilter);
+
+% check if the command was successful:
+
+if status_unfilter == 0
+    disp(['File ', unfilter_file, ' transferred succesfully.']);
+else
+    disp(['Error transferring ', unfilter_file, '.']);
+end
+
+% DEID filtered particle file:
+
+% construct filename:
+
+filter_file = sprintf('%s\\DEID_filteredParticle_%s.csv', output_dir, saveTime);
+
+% construct the SCP command:
+
+scpCommand_filter = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', filter_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
+status_filter = system(scpCommand_filter);
+
+% check if the command was successful:
+
+if status_filter == 0
+    disp(['File ', filter_file, ' transferred succesfully.']);
+else
+    disp(['Error transferring ', filter_file, '.']);
+end
+
+% DEID time series file:
+
+% construct filename:
+
+TS_file = sprintf('%s\\DEID_TS_10min_%s.csv', output_dir, saveTime);
+
+% construct the SCP command:
+
+scpCommand_TS = sprintf('"C:\\Program Files\\PuTTY\\pscp.exe" -pw %s "%s" %s@%s:%s', '"Sc0tchT@p3!"', TS_file, 'u6022893', 'notchpeak2.chpc.utah.edu', '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026');
+status_TS = system(scpCommand_TS);
+
+% check if the command was successful:
+
+if status_TS == 0
+    disp(['File ', TS_file, ' transferred succesfully.']);
+else
+    disp(['Error transferring ', TS_file, '.']);
+end  
+
+[~, parent_dir, ~] = fileparts(pwd);
+disp(['Saved Output for: ', parent_dir])
+
+exit 
