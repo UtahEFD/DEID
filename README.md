@@ -11,12 +11,12 @@ The code is designed to process multiple video files efficiently using parallel 
 
 ## 📁 Repository Structure
 
+```
 repo/
 ├── main/
 │   ├── run_deid_processing.m        % main script (call function)
 │   ├── DEID_Calibrator.m            % used for calibrating k/d coefficient 
 │   └── DEID_AutoTransfer.m          % preforms all the same functions as 'run_deid_processsing.m' but for single .avi files recorded in real time
-│
 ├── functions/
 │   ├── append_gap_row_and_summary.m
 │   ├── build_avi_summary_table.m
@@ -27,11 +27,9 @@ repo/
 │   ├── retime_pbp_filtered.m
 │   ├── sort_h_data_cells.m
 │   └── sortPositions_v2.m
-│
 ├── legacy/
 │   ├── old_script/         % previous versions of scripts
 │   └── dhiraj_script/      % original code developed by Dhiraj Singh
-│
 ├── README.md
 └── .gitignore
 
@@ -108,3 +106,4 @@ Ben Silberman
 Dhiraj Singh
 Travis Morrison
 Alex Blackmer
+```
