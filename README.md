@@ -14,9 +14,9 @@ The code is designed to process multiple video files efficiently using parallel 
 ```
 repo/
 ├── main/
-│   ├── run_deid_processing.m        % main script (call function)
-│   ├── DEID_Calibrator.m            % used for calibrating k/d coefficient 
-│   └── DEID_AutoTransfer.m          % preforms all the same functions as 'run_deid_processsing.m' but for single .avi files recorded in real time
+│   ├── run_deid_processing.m                 % main script (call function)
+│   ├── DEID_Calibrator.m                     % used for calibrating k/d coefficient 
+│   └── DEID_AutoTransfer.m                   % performs all the same functions as 'run_deid_processing.m' but for single .avi files recorded in real time
 ├── functions/
 │   ├── append_gap_row_and_summary.m
 │   ├── build_avi_summary_table.m
@@ -28,8 +28,15 @@ repo/
 │   ├── sort_h_data_cells.m
 │   └── sortPositions_v2.m
 ├── legacy/
-│   ├── old_script/         % previous versions of scripts
-│   └── dhiraj_script/      % original code developed by Dhiraj Singh
+│   ├── old_script/                            % previous versions of scripts
+│   └── dhiraj_script/                         % original code developed by Dhiraj Singh
+├── example_data/
+│   └── DEID_sampleVideo.avi                   % a cropped (~35MB) video file used for testing
+├── example_output/
+│   ├── unfiltered_particle_table.csv          % unfiltered particle-by-particle data file
+│   ├── filtered_particle_table.csv            % filtered particle-by-particle data file
+│   ├── timeAveraged_particle_table.csv        % time averaged particle data file; filtered data 
+│   └── summary_table.csv                      % appended summary of each avi file 
 ├── README.md
 └── .gitignore
 ```
@@ -43,9 +50,30 @@ repo/
 - Image Processing Toolbox
 - Parallel Computing Toolbox (for `parfor`)
 
-### Set Paths
+---
 
-Open:
+### ⚡ Quick Start (Using Sample Data)
+
+A small example video is included in the repository: 
+
+example_data/DEID_sampleVideo.avi
+
+Set your directories:
+
+working_dir = 'example_data';
+output_dir  = 'example_output';
+
+Then run:
+
+run('main/run_deid_processing.m')
+
+This will generate example output files in:
+
+example_output/ 
+
+### 🏃 Running with Your Own Data
+
+Open: 
 
 main/run_deid_processing.m
 
