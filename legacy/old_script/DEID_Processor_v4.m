@@ -99,7 +99,7 @@ avi_summary_table_cell = cell(length(file_names),1);
 
 % parpool(5); 
 
-parfor file_i = 1:15% length(file_names)
+parfor file_i = 1:length(file_names)
     
     filename = file_names{file_i};
     disp(['Processing File: ', filename])

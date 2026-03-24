@@ -84,7 +84,7 @@ pbp_table_cell = cell(length(file_names),1);
 pbp_table_filtered_cell = cell(length(file_names),1);
 avi_summary_table_cell = cell(length(file_names),1);
 
-parfor file_i = 1:15
+parfor file_i = 1:length(file_names);
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
     
