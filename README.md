@@ -1,86 +1,110 @@
-# DEID (Differential Emissivity Imaging Device)
-This respository includes the DEID code base and associated documentation. 
-The DEID is a new evaporation-based optical and thermal instrument designed to measure  mass, size, density, and type (i.e., snow, rain, and mixtures) of individual hydrometeors.
-This code base is used to extract hydrometeor properties from the DEID thermal camera video. Analysis of output data is done independently.
+# DEID Video Processing Pipeline
 
-## **DEID_Processor.m**
-The primary Matlab script that derives hydrometeor and bulk properties. Takes in DEID video files in AVI format and outputs both a time series of bulk hydrometeor properties as well as each individual particle recorded by DEID. 
+This repository contains a MATLAB-based pipeline for processing `.avi` video files recorded by the Differential Emissivity Imaging Disdrometer (DEID) of hydrometeors and computing Snow Water Equivalent (SWE) using two approaches:
 
-#### Time Series Output:
-The time series takes an input 'time_interval' to average / sum particle values. Default set to 300 seconds. 
-- Timestamp
-- Terminal Velocity (mean)
-- Complexity (mean)
-- SDI (mean)
-- Density (mean)
-- SWE (total)
-- Snow (total)
+- Frame-by-frame (FBF) method  
+- Particle-by-particle (PBP) method  
 
-#### Particle Table Output:
-Measures all paramaters that fall on DEID hotplate across a given .avi file. 
-- Timestamp
-- Terminal Velocity
-- Complexity
-- SDI
-- Mass
-- Volume
-- Density
-- SWE
-- Snow
-- SWE 
-- Snow
+The code is designed to process multiple video files efficiently using parallel computing (`parfor`).
 
-#### Diagnostic Table Output:
-Used to check outputs being calculated in code. This can be adjusted to check any desired output. Currently checks:
-- SWE factor
-- Number of particles
+---
 
-## **DEID_Processor_v2.m**
-Modified version of DEID_Processor.m with modification detailed below:
+## 📁 Repository Structure
 
-#### Start/End Video Time Table:
-- Creates table 'start_end_time_table' which includes all video files within directory, their start times, end times, and length of video
-- Specify start and end time of a storm to index directory
+repo/
+├── main/
+│   ├── run_deid_processing.m        % main script (call function)
+│   ├── DEID_Calibrator.m            % used for calibrating k/d coefficient 
+│   └── DEID_AutoTransfer.m          % preforms all the same functions as 'run_deid_processsing.m' but for single .avi files recorded in real time
+│
+├── functions/
+│   ├── append_gap_row_and_summary.m
+│   ├── build_avi_summary_table.m
+│   ├── fbf_method.m
+│   ├── get_sorted_videos.m
+│   ├── pbp_method.m
+│   ├── process_one_video.m
+│   ├── retime_pbp_filtered.m
+│   ├── sort_h_data_cells.m
+│   └── sortPositions_v2.m
+│
+├── legacy/
+│   ├── old_script/         % previous versions of scripts
+│   └── dhiraj_script/      % original code developed by Dhiraj Singh
+│
+├── README.md
+└── .gitignore
 
-#### Fills gaps between .avi files
-- Calls missingTimeFunction.m which does the following:
-  - finds the differences between every particle's timestamps
-  - locates all the times this is greater than 60 seconds
-  - multiples the time difference by average number of particles per second to create a range to average on
-  - takes the average of this number of rows 
+---
 
-#### Time Table Output:
-- Timestamp
-- Terminal Velocity (mean)
-- Complexity (mean)
-- SDI (mean) 
-- Mass (total) 
-- Volume (total)
-- Density (mean)
-- Effective Diameter (mean)
-- Surface Area (mean)
-- Void Space (mean)
-- Temperature Difference (plate and snowflake)
-- SWE (total)
-- Snow (total)
+## 🚀 Getting Started
 
-#### Particle Table Output:
-- Timestamp
-- Terminal Velocity
-- Complexity
-- SDI
-- Mass
-- Volume
-- Density
-- Effective Diameter
-- Surface Area
-- Void Space
-- Temperature Difference (plate and snowflake)
-- SWE
-- Snow 
+### Requirements
 
-## **sortPositions_v2.m**
-Helper function for DEID_Processor script to sort positions of hydrometeors on hotplate surface.
+- MATLAB (R2021a or newer recommended)
+- Image Processing Toolbox
+- Parallel Computing Toolbox (for `parfor`)
 
-## **terminalVelocity.m**
-Helper function for DEID_Processor script to computer terminal velocity of each hydrometeor. 
+### Set Paths
+
+Open:
+
+main/run_deid_processing.m
+
+Set your directories:
+
+working_dir = 'path/to/avi/files';
+output_dir  = 'path/to/save/results';
+
+Begin processing code: 
+
+run('main/run_deid_processing.m')
+
+## ⚙️ What the Code Does
+
+### For each .avi file, the pipeline:
+
+1. Frame-by-frame processing
+    - Converts frames to grayscale
+    - Identifies hydrometeors
+    - Computes area–temperature products
+    - Calculates SWE (FBF method)
+2. Tracking and sorting
+    - Matches hydrometeors across frames
+    - Organizes data into consistent structures
+3. Particle-by-particle analysis
+    - Tracks individual hydrometeors through time
+    - Computes mass, density, evaporation time, and SWE contribution
+4. Filtering and corrections
+    - Removes noisy or non-physical particles
+    - Applies SWE correction factor
+5. Output generation
+    - Particle-level data tables
+    - Filtered datasets
+    - Per-video summary tables
+    - Time-averaged SWE results
+
+## 📊 Outputs
+
+The pipeline generates:
+
+    - Particle-by-particle tables: 'DEID_unfilteredParticle_YYYY-MM-DD_HH-MM-SS'
+    - Filtered particle-by-particle tables: 'DEID_filteredParticle_YYYY-MM-DD_HH-MM-SS.csv'
+    - Per-video summary tables: 'DEID_aviTotals_DD-MM-YYYY.csv'
+    - Time-averaged data: 'DEID_TS_MMmin_YYYY-MM-DD_HH-MM-SS.csv'
+
+All outputs are saved to the specified output_dir.
+
+## 🧪 Notes
+
+    - Input .avi files are not stored in this repository; located on the University of Utah's Center for High Performance Computing (CHPC)
+    - Data can be made available upon request 
+    - Output files are saved externally and are not tracked by Git; also located on CHPC and can be made available upon request
+    - The legacy/ folder contains older versions for reference
+
+## 👤 Authors
+
+Ben Silberman 
+Dhiraj Singh
+Travis Morrison
+Alex Blackmer
