@@ -15,8 +15,8 @@ clear, clc, close all
 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB/allFEB';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/processedData/test2';
+working_dir = '/uufs/chpc.utah.edu/common/home/u6022893/dataProcessingCode/example_data';
+output_dir = '/uufs/chpc.utah.edu/common/home/u6022893/dataProcessingCode/example_output';
 
 %% global variables and physical constants
 
