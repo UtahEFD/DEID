@@ -13,9 +13,9 @@ else
 end
 
 if height(pbp_table_filtered) > 0
-    final_time = pbp_table.Time(end);
+    final_time = pbp_table_filtered.Time(end);
     prev_time = final_time - minutes(2);
-    prev_data = pbp_table(pbp_table.Time >= prev_time, :);
+    prev_data = pbp_table_filtered(pbp_table_filtered.Time >= prev_time, :);
 
     timeRow = final_time + seconds(5);
     evapTimeRow = mean(prev_data.("Evap Time (s)"));
@@ -37,6 +37,7 @@ if height(pbp_table_filtered) > 0
     aRangeRow = NaN;
     tempFlagRow = NaN;
     aFlagRow = NaN;
+
     densityHFDrow = massRow / volumeHFDrow;
     densitySPHrow = massRow / volumeSPHrow;
     PBPsweRow = 1000 * massRow / (rho_water * hp_area);
@@ -64,11 +65,20 @@ if height(pbp_table_filtered) > 0
 
     new_row.('Missing Data') = true;
     new_row = table2timetable(new_row);
+
+    % append the gap row to both tables
     pbp_table = [pbp_table; new_row];
+    pbp_table_filtered = [pbp_table_filtered; new_row];
 
-% create a summary table with data from each .avi file
+    % recompute cumulative columns on the filtered table so they match the filtered rows
+    pbp_table_filtered.("PBP SWE Accumulation (mm)") = cumsum(pbp_table_filtered.("PBP SWE (mm)"));
+    pbp_table_filtered.("FBF SWE Accumulation (mm)") = cumsum(pbp_table_filtered.("FBF SWE (mm)"));
+    pbp_table_filtered.("PBP Snow Accumulation (mm)") = cumsum(pbp_table_filtered.("PBP Snow (mm)"));
+    pbp_table_filtered.("FBF Snow Accumulation (mm)") = cumsum(pbp_table_filtered.("FBF Snow (mm)"));
 
+    % create a summary table with data from each .avi file
     avi_summary_table = build_avi_summary_table(pbp_table_filtered, hp_area, SWEfactorRow, h_mass_fbf_min);
+
 else
     avi_summary_table = table(NaT);
     avi_summary_table.duration = seconds(NaN);
@@ -85,4 +95,5 @@ else
     avi_summary_table.Properties.VariableNames = {'Time', 'Duration', 'Complexity', 'SDI', 'Density (kg*m^-3)', 'PBP SWE (mm)', 'FBF SWE (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', 'Hot Plate Area', 'SWE Factor', 'Min FBF Mass'};
     avi_summary_table = table2timetable(avi_summary_table);
 end
+
 end

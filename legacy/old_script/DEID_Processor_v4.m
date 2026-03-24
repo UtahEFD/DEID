@@ -16,7 +16,7 @@ clear, clc, close all
 %% set filepath, output directory, and file name for saving  
 
 working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB/allFEB';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/processedData/202402';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/processedData/test1';
 
 %% global variables and physical constants
 
@@ -99,7 +99,7 @@ avi_summary_table_cell = cell(length(file_names),1);
 
 % parpool(5); 
 
-parfor file_i = 1:length(file_names)
+parfor file_i = 1:15% length(file_names)
     
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
@@ -634,21 +634,14 @@ parfor file_i = 1:length(file_names)
         pbp_table.("Evap Time (s)") > evapTime_min &...
         pbp_table.("Evap Time (s)") < evapTime_max, :);
 
-    % re-accumulate totals: 
-
-    pbp_table_filtered.("PBP SWE Accumulation (mm)") = cumsum(pbp_table_filtered.("PBP SWE (mm)"));
-    pbp_table_filtered.("FBF SWE Accumulation (mm)") = cumsum(pbp_table_filtered.("FBF SWE (mm)"));
-    pbp_table_filtered.("PBP Snow Accumulation (mm)") = cumsum(pbp_table_filtered.("PBP Snow (mm)"));
-    pbp_table_filtered.("FBF Snow Accumulation (mm)") = cumsum(pbp_table_filtered.("FBF Snow (mm)"));
-    
     if height(pbp_table_filtered) > 0
         %% average last two minutes of data to account for time gap between .avi files 
         
         % grab last two minutes of data:
 
-        final_time = pbp_table.Time(end);
+        final_time = pbp_table_filtered.Time(end);
         prev_time = final_time - minutes(2);
-        prev_data = pbp_table(pbp_table.Time >= prev_time, :);
+        prev_data = pbp_table_filtered(pbp_table_filtered.Time >= prev_time, :);
     
         % take the mean or sum of each value corresponding to the captured data:
 
@@ -710,6 +703,15 @@ parfor file_i = 1:length(file_names)
         % now append new row to particle_output_table:
         
         pbp_table = [pbp_table; new_row];
+        pbp_table_filtered = [pbp_table_filtered; new_row];
+
+        % re-accumulate totals: 
+
+        pbp_table_filtered.("PBP SWE Accumulation (mm)") = cumsum(pbp_table_filtered.("PBP SWE (mm)"));
+        pbp_table_filtered.("FBF SWE Accumulation (mm)") = cumsum(pbp_table_filtered.("FBF SWE (mm)"));
+        pbp_table_filtered.("PBP Snow Accumulation (mm)") = cumsum(pbp_table_filtered.("PBP Snow (mm)"));
+        pbp_table_filtered.("FBF Snow Accumulation (mm)") = cumsum(pbp_table_filtered.("FBF Snow (mm)"));
+    
 
         %%  create a summary table with data from each .avi file 
         
