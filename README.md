@@ -21,7 +21,10 @@ repo/
 │   ├── append_gap_row_and_summary.m
 │   ├── build_avi_summary_table.m
 │   ├── fbf_method.m
+│   ├── get_deid_params.m                     % call parameters specific to DEID
+│   ├── get_physical_constants.m              % call physical constants and any unit conversions 
 │   ├── get_sorted_videos.m
+│   ├── get_thresholds.m                      % call thresholds used for filtering and cleaning data 
 │   ├── pbp_method.m
 │   ├── process_one_video.m
 │   ├── retime_pbp_filtered.m
