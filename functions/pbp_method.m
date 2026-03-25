@@ -1,7 +1,7 @@
 function pbp_table = pbp_method( ...
     dT_fbf, perimeter_fbf, area_fbf, rectArea_fbf, majorAxis_fbf, max_h_obs, ...
-    areaTol, k_dLv, vid_fps, time_series, hp_area, c1, SWE_fbf, ...
-    SWEfactor_threshold, l_constant, hf_rho_coeff, rho_water)
+    areaTol, k_dLv, vid_fps, time_series, hp_area, mmPerM, SWE_fbf, ...
+    SWEfactor_threshold, hf_rho_coeff, rho_water)
 
 %% "particle by particle method"
 
@@ -132,7 +132,7 @@ sdi = h_max_area ./ eqWaterDrop_area ; % SDI (See CRST Morrison et al. 2023)
 
 % SWE and snow calculations:
 
-SWE_pbp = c1 * h_mass_pbp ./ (rho_water * hp_area); % [mm]
+SWE_pbp = mmPerM * h_mass_pbp ./ (rho_water * hp_area); % [mm]
 SWE_factor = sum(SWE_fbf) / sum(SWE_pbp); % swe factor is used to adjust pbp SWE 
 
 if SWE_factor > SWEfactor_threshold

@@ -1,6 +1,6 @@
 function [SWE_fbf, time_series_fbf, h_data_cells, hp_area, h_mass_fbf_min] = fbf_method( ...
     vid, num_frames, frame_cropped_ref, colorbar_image_indexes, colorbar_kapton_image_indexes, ...
-    min_thres, minimum_hydro_area, pix_to_m_conversion, pix_to_m2_conversion, ...
+    min_thres, minimum_hydro_area, mPerPix, m2PerPix2, ...
     int_to_temp_conversion, k_dLv, vid_fps, time_series)
 
 %% "frame by frame method"; this is how we obtain SWE for each .avi file
@@ -127,11 +127,11 @@ for frame_ii = 1:num_frames
     
     % convert to length scales: 
 
-    rect_widthM = rect_widthPix * pix_to_m_conversion;
-    rect_heightM = rect_heightPix * pix_to_m_conversion;
-    h_perimeterM = h_perimeterPix * pix_to_m_conversion; 
-    h_area = h_areaPix .* pix_to_m2_conversion; 
-    h_majorM = h_majorPix * pix_to_m_conversion;
+    rect_widthM = rect_widthPix * mPerPix;
+    rect_heightM = rect_heightPix * mPerPix;
+    h_perimeterM = h_perimeterPix * mPerPix; 
+    h_area = h_areaPix .* m2PerPix2; 
+    h_majorM = h_majorPix * mPerPix;
     % h_minorM = h_minorPix * pix_to_m_conversion;
 
     % calculate circumscribed areas: 
@@ -162,7 +162,7 @@ end
 % frame by frame SWE calculation:
 
 sum_h_area_times_dt(isnan(sum_h_area_times_dt)) =0; % turn all NaN to 0's
-hp_area = numel(frame_cropped_ref) * pix_to_m2_conversion; % hotplate area - to subtract noisy areas: - mean(noisyA)        
+hp_area = numel(frame_cropped_ref) * m2PerPix2; % hotplate area - to subtract noisy areas: - mean(noisyA)        
 h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % total mass evaporates in each frame
 h_mass_fbf_min = min(h_mass_fbf); % we know the plate should be empty when it is not snowing..
 h_mass_fbf = h_mass_fbf - h_mass_fbf_min; % subtract off min mass on a frame to account for any resiude
