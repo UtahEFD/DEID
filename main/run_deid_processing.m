@@ -15,8 +15,8 @@ clear, clc, close all
 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB/allFEB';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/processedData/test2';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/JAN/jan05_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/jan05_storm';
 
 %% load parameter structures
 
@@ -88,7 +88,7 @@ hp_area = avi_summary_table.("Hot Plate Area")(1);
 %% time average data here:
 
 if ~isempty(pbp_table_filtered)
-    pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, rho_water, hp_area);
+    pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, phys.rho_water, hp_area);
 else
     pbp_table_retimed = timetable();
 end
