@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # DEID Video Processing Pipeline
 
 This repository contains a MATLAB-based pipeline for processing `.avi` video files recorded by the Differential Emissivity Imaging Disdrometer (DEID) of hydrometeors and computing Snow Water Equivalent (SWE) using two approaches:
