@@ -1,11 +1,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+## 📄 License
 
+This project is licensed under the MIT License – see the LICENSE file for details.
 # DEID Video Processing Pipeline
 
-This repository contains a MATLAB-based pipeline for processing `.avi` video files recorded by the Differential Emissivity Imaging Disdrometer (DEID) of hydrometeors and computing Snow Water Equivalent (SWE) using two approaches:
+This repository contains a MATLAB-based pipeline for processing `.avi` video files recorded by the Differential Emissivity Imaging Disdrometer (DEID). Using the DEID, we measure hydrometeor properties including density, area, and diameter, while collecting storm properties such as Snow Water Equivalence (SWE) and Precipitation Intensity (PI). We use two approaches:
 
 - Frame-by-frame (FBF) method  
 - Particle-by-particle (PBP) method  
+
+The FBF method analyzes `.avi` files frame-by-frame. For each frame, all hydrometeors are identified and quantified collectively. The PBP method tracks and quantifies individual hydrometeors across all frames where they are present. The FBF method provides the most accurate SWE measurements, while the PBP method provides accurate particle density measurements.   
 
 The code is designed to process multiple video files efficiently using parallel computing (`parfor`).
 
@@ -17,18 +21,17 @@ The code is designed to process multiple video files efficiently using parallel 
 repo/
 ├── main/
 │   ├── run_deid_processing.m                 % main script (call function)
-│   ├── DEID_Calibrator.m                     % used for calibrating k/d coefficient 
-│   └── DEID_AutoTransfer.m                   % performs all the same functions as 'run_deid_processing.m' but for single .avi files recorded in real time
+│   └── DEID_Calibrator.m                     % used for calibrating k/d coefficient 
 ├── functions/
 │   ├── append_gap_row_and_summary.m
 │   ├── build_avi_summary_table.m
 │   ├── fbf_method.m
-│   ├── get_deid_params.m                     % call parameters specific to DEID
+│   ├── get_deid_params.m                     % load parameters specific to DEID
 │   ├── get_physical_constants.m              % call physical constants and any unit conversions 
 │   ├── get_sorted_videos.m
 │   ├── get_thresholds.m                      % call thresholds used for filtering and cleaning data 
 │   ├── pbp_method.m
-│   ├── process_one_video.m
+│   ├── process_one_video.m                   
 │   ├── retime_pbp_filtered.m
 │   ├── sort_h_data_cells.m
 │   └── sortPositions_v2.m
@@ -40,7 +43,7 @@ repo/
 ├── example_output/
 │   ├── unfiltered_particle_table.csv          % unfiltered particle-by-particle data file
 │   ├── filtered_particle_table.csv            % filtered particle-by-particle data file
-│   ├── timeAveraged_particle_table.csv        % time averaged particle data file; filtered data 
+│   ├── timeAveraged_particle_table.csv        % time-averaged particle data file; filtered data 
 │   └── summary_table.csv                      % appended summary of each avi file 
 ├── README.md
 └── .gitignore
@@ -72,7 +75,7 @@ Then run:
 
 run('main/run_deid_processing.m')
 
-This will generate example output files in:
+Outputs will be saved to:
 
 example_output/ 
 
@@ -128,14 +131,14 @@ All outputs are saved to the specified output_dir.
 
 ## 🧪 Notes
 
-    - Input .avi files are not stored in this repository; located on the University of Utah's Center for High Performance Computing (CHPC)
-    - Data can be made available upon request 
-    - Output files are saved externally and are not tracked by Git; also located on CHPC and can be made available upon request
-    - The legacy/ folder contains older versions for reference
+    - Input `.avi` files are stored on the University of Utah CHPC and are not included in this repository  
+    - Data and outputs can be made available upon request  
+    - Output files are not tracked by Git  
+    - The `legacy/` folder contains older versions for reference  
 
 ## 👤 Authors
 
-Ben Silberman 
-Dhiraj Singh
-Travis Morrison
-Alex Blackmer
+Ben Silberman<br> 
+Dhiraj Singh<br>
+Travis Morrison<br>
+Alex Blackmer<br>
