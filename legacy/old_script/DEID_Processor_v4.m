@@ -15,8 +15,8 @@ clear, clc, close all
 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/FEB/allFEB';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/processedData/test1';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/mar07_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/mar0723_storm/archive';
 
 %% global variables and physical constants
 
@@ -639,9 +639,9 @@ parfor file_i = 1:length(file_names)
         
         % grab last two minutes of data:
 
-        final_time = pbp_table_filtered.Time(end);
+        final_time = pbp_table.Time(end);
         prev_time = final_time - minutes(2);
-        prev_data = pbp_table_filtered(pbp_table_filtered.Time >= prev_time, :);
+        prev_data = pbp_table(pbp_table.Time >= prev_time, :);
     
         % take the mean or sum of each value corresponding to the captured data:
 
@@ -830,9 +830,10 @@ hp_area = avi_summary_table.("Hot Plate Area")(1);
 
 % time average data here:
 
-% call function to retime
-
-pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, rho_water, hp_area);
+%% call function to retime
+sigma_ice = 124;
+rho_ice = 917;
+pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, rho_water, rho_ice, sigma_ice, hp_area);
 
 %% save processed tables
 

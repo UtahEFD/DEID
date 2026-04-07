@@ -1,4 +1,4 @@
-function pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, rho_water, hp_area)
+function pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, rho_water, rho_ice, sigma_ice, hp_area)
 
 % RETIME_PBP_FILTERED  Retime a filtered particle timetable to a regular grid
 %
@@ -30,8 +30,8 @@ function pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, 
 % Input checks / quick exits
 % -----------------------
 
-if nargin < 4
-    error('All four inputs required: pbp_table_filtered, time_step, rho_water, hp_area');
+if nargin < 6
+    error('All six inputs required: pbp_table_filtered, time_step, rho_water, hp_area, rho_ice, sigma_ice');
 end
 
 % If empty input, return empty timetable
@@ -61,7 +61,7 @@ end
 % Define columns
 % -----------------------
 
-avg_cols = {'Complexity','SDI','Eff Diameter (m)', 'Major Axis (m)', 'Snowflake Area (m^2)','Evap Time (s)','SWE factor'};
+avg_cols = {'Complexity','SDI', 'Eff Diameter (m)', 'Major Axis (m)', 'Snowflake Area (m^2)','Evap Time (s)','SWE factor'};
 sum_cols = {'Mass (kg)','Heat Flux Volume (m^3)'};
 
 % Add missing columns as NaN so retime doesn't fail (keeps schema consistent)
@@ -103,6 +103,19 @@ density = NaN(size(mass));
 validMask = ~isnan(mass) & ~isnan(heatVol) & (heatVol ~= 0);
 density(validMask) = mass(validMask) ./ heatVol(validMask);
 pbp_table_retimed.('Density (kg/m^3)') = density;
+
+% Time-averaged shear strength
+rho_snow = density;   % bulk snow density
+SDI = pbp_table_retimed.('SDI');
+Cx = pbp_table_retimed.('Complexity');
+
+shear_strength = NaN(size(rho_snow));
+validShear = ~isnan(SDI) & ~isnan(rho_snow) & (rho_ice ~= 0);
+
+shear_strength(validShear) = sigma_ice .* SDI(validShear) .* ...
+                             (rho_snow(validShear) ./ rho_ice) .^ Cx(validShear);
+
+pbp_table_retimed.('Shear Strength') = shear_strength;
 
 % Ensure SWE factor present
 if ~ismember('SWE factor', pbp_table_retimed.Properties.VariableNames)

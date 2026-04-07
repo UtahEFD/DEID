@@ -15,8 +15,8 @@ clear, clc, close all
 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/MAR/apr01_storm';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/apr0125_storm';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/mar07_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/mar0723_storm/test_1min';
 
 %% load parameter structures
 
@@ -58,7 +58,8 @@ parfor file_i = 1:length(file_names)
         thresh.min_thres, thresh.minimum_hydro_area, thresh.sort_threshold, thresh.areaTol, ...
         thresh.SWEfactor_threshold, thresh.evapTime_min, thresh.evapTime_max, ...
         phys.mPerPix, phys.m2PerPix2, phys.int_to_temp_conversion, ...
-        deid.k_dLv, deid.hf_rho_coeff, phys.rho_water, phys.mmPerM);
+        deid.k_dLv, deid.hf_rho_coeff, phys.rho_water, phys.rho_ice, phys.sigma_ice, ...
+        phys.mmPerM);
 
     pbp_table_cell{file_i} = pbp_table;
     pbp_table_filtered_cell{file_i} = pbp_table_filtered;
@@ -88,7 +89,7 @@ hp_area = avi_summary_table.("Hot Plate Area")(1);
 %% time average data here:
 
 if ~isempty(pbp_table_filtered)
-    pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, phys.rho_water, hp_area);
+    pbp_table_retimed = retime_pbp_filtered(pbp_table_filtered, time_step, phys.rho_water, phys.rho_ice, phys.sigma_ice, hp_area);
 else
     pbp_table_retimed = timetable();
 end
