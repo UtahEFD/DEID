@@ -10,8 +10,25 @@ clear, clc, close all
 % delete(gcp('nocreate')); 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/Users/benji/Documents/atwater/deidDataProcessing/example_data';
-output_dir = '/Users/benji/Documents/atwater/test';
+repo_dir = fileparts(fileparts(fileparts(mfilename('fullpath'))));
+addpath(fullfile(repo_dir, 'functions'));
+
+working_dir = fullfile(repo_dir, 'example_data');
+output_dir = fullfile(repo_dir, 'example_output', 'legacy_old');
+
+working_dir_override = getenv('DEID_LEGACY_WORKING_DIR');
+if ~isempty(working_dir_override)
+    working_dir = working_dir_override;
+end
+
+output_dir_override = getenv('DEID_LEGACY_OUTPUT_DIR');
+if ~isempty(output_dir_override)
+    output_dir = output_dir_override;
+end
+
+if ~exist(output_dir, 'dir')
+    mkdir(output_dir);
+end
 
 storm_output = 'test_old';
 
@@ -108,6 +125,17 @@ for file_i = 1:length(file_names)
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
     vid=VideoReader(filename);
+
+    % define a stable cropped image for hot-plate area, even when the first
+    % frame has no hydrometeor detections:
+
+    tmp = readFrame(vid);
+    tmpg = im2gray(tmp);
+    frame_cropped_ref = imcrop(tmpg, colorbar_kapton_image_indexes);
+
+    % restart reader so indexed reads below start from the first frame:
+
+    vid = VideoReader(filename);
     
     % get metaData for video processing: 
 
@@ -248,59 +276,46 @@ for file_i = 1:length(file_names)
         end
 
         % PCA-BASED CIRCUMSCRIBED ELLIPSE AREA PER HYDROMETEOR
-        % 
-        % h_PCAellipseAreaM = zeros(length(h_geo_prop),1);
-        % 
-        % for ii = 1:length(h_geo_prop)
-        % 
-        %     % extract pixel coordinates of hydrometeor:
-        % 
-        %     pixList = h_geo_prop(ii).PixelIdxList;
-        %     [r, c] = ind2sub(size(frame_final), pixList);
-        %     pts = [c, r];  % nx2 array of pixel coordinates for each hydrometeor 
-        % 
-        %     % center the points:
-        %     C    = mean(pts,1);   % centroid of hydrometeor in pixel coordinates 
-        %     pts0 = pts - C;       % centered coordinates of pixels 
-        % 
-        %     % covariance + eigen decomposition:
-        %     Sigma    = cov(double(pts0));
-        %     [V, D]   = eig(Sigma);
-        % 
-        %     % sort eigenvectors to ensure major & minor axes:
-        %     [~, idx] = sort(diag(D), 'descend');
-        %     V = V(:, idx);
-        %     D = diag(sort(diag(D), 'descend'));
-        % 
-        %     % rotate points into PCA basis:
-        %     ptsRot = pts0 * V;
-        % 
-        %     % first: maximum absolute extent in PCA axes (inscribed semi-axes):
-        %     a0_pix = max(abs(ptsRot(:,1)));   % initial semi-major axis
-        %     b0_pix = max(abs(ptsRot(:,2)));   % initial semi-minor axis
-        % 
-        %     % scale ellipse so it CIRCUMSCRIBES all points:
-        %     normVals = (ptsRot(:,1)/a0_pix).^2 + (ptsRot(:,2)/b0_pix).^2;
-        %     s        = sqrt(max(normVals));   % >= 1
-        % 
-        %     % final circumscribing semi-axes (keep same variable names):
-        %     a_pix = s * a0_pix + 0.5;
-        %     b_pix = s * b0_pix + 0.5;
-        % 
-        %     % area of ellipse (pixel units) using circumscribing semi-axes:
-        %     ellipse_area_pix = pi * a_pix * b_pix;
-        % 
-        %     % convert to m^2:
-        %     h_PCAellipseAreaM(ii) = ellipse_area_pix * pix_to_m2_conversion;
-        % 
-        %     % checking complexity:
-        %     areaPix = numel(pixList); 
-        %     Cx_pix = ellipse_area_pix / areaPix;
-        %     if Cx_pix < 1
-        %         fprintf('Frame %d, hydro %d: Cx_pix = %.3f\n', frame_ii, ii, Cx_pix);
-        %     end
-        % 
-        % end
+
+        h_PCAellipseAreaM = zeros(length(h_geo_prop),1);
+
+        for ii = 1:length(h_geo_prop)
+            pixList = h_geo_prop(ii).PixelIdxList;
+            [r, c] = ind2sub(size(frame_final), pixList);
+            pts = double([c, r]);
+            pts0 = pts - mean(pts,1);
+
+            if size(pts0,1) < 2 || all(abs(pts0(:)) < eps)
+                ellipse_area_pix = numel(pixList);
+            else
+                Sigma = cov(pts0);
+                if any(~isfinite(Sigma(:))) || all(abs(Sigma(:)) < eps)
+                    V = eye(2);
+                else
+                    [V, D] = eig(Sigma);
+                    [~, idx] = sort(diag(D), 'descend');
+                    V = V(:, idx);
+                end
+
+                ptsRot = pts0 * V;
+                a0_pix = max(abs(ptsRot(:,1)));
+                b0_pix = max(abs(ptsRot(:,2)));
+
+                % Pixel-thin particles are common after thresholding. Keep
+                % a finite half-pixel minor axis so the PCA area is usable.
+                a0_pix = max(a0_pix, 0.5);
+                b0_pix = max(b0_pix, 0.5);
+
+                normVals = (ptsRot(:,1)./a0_pix).^2 + (ptsRot(:,2)./b0_pix).^2;
+                s = max(1, sqrt(max(normVals)));
+                a_pix = s * a0_pix + 0.5;
+                b_pix = s * b0_pix + 0.5;
+
+                ellipse_area_pix = pi * a_pix * b_pix;
+            end
+
+            h_PCAellipseAreaM(ii) = ellipse_area_pix * pix_to_m2_conversion;
+        end
 
         
         % build hydrometeor property matrices from regionprops values: 
@@ -351,7 +366,7 @@ for file_i = 1:length(file_names)
     % frame by frame SWE calculation:
 
     sum_h_area_times_dt(isnan(sum_h_area_times_dt)) =0; % turn all NaN to 0's
-    hp_area = ((size(frame_cropped,1) * size(frame_cropped,2)) - mean([noisyA{:}])) * pix_to_m2_conversion; % hotplate area     
+    hp_area = numel(frame_cropped_ref) * pix_to_m2_conversion; % hotplate area     
     h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % total mass evaporates in each frame
     h_mass_fbf_min = min(h_mass_fbf); % we know the plate should be empty when it is not snowing..
     h_mass_fbf = h_mass_fbf - h_mass_fbf_min; % subtract off min mass on a frame to account for any resiude
@@ -361,6 +376,10 @@ for file_i = 1:length(file_names)
     % SWE (way of handling residue):
 
     time_series_fbf = time_series(1:length(SWE_fbf));
+
+    detected_hydrometeor_obs = sum(cellfun(@(x) size(x, 1), h_data_cells));
+    fprintf('Detected %d hydrometeor observations across %d frames in %s.\n', ...
+        detected_hydrometeor_obs, num_frames, filename);
     
     %% call sortPositions_v2.m 
     % places snowflakes in the same row across multiple frames, making tracking possible over time
@@ -822,6 +841,17 @@ for file_i = 1:length(file_names)
 
 % unfiltered particle data:
 
+valid_pbp = ~cellfun(@isempty, pbp_table_cell);
+if ~any(valid_pbp)
+    warning('No hydrometeors were detected in any input video. No legacy output files were written.');
+    return
+end
+
+pbp_table_cell = pbp_table_cell(valid_pbp);
+pbp_table_filtered_cell = pbp_table_filtered_cell(valid_pbp);
+avi_summary_table_cell = avi_summary_table_cell(valid_pbp);
+pbp_table_retimed_cell = pbp_table_retimed_cell(valid_pbp);
+
 pbp_table = vertcat(pbp_table_cell{:});
 pbp_table = sortrows(pbp_table, 'Time'); % sort by time
 pbp_table.("PBP SWE Accumulation (mm)") = cumsum(pbp_table.("PBP SWE (mm)"));
@@ -845,12 +875,17 @@ avi_summary_table = sortrows(avi_summary_table, 'Time'); % sort by time
 
 % time averaged data: 
 
-pbp_table_retimed = vertcat(pbp_table_retimed_cell{:}); 
-pbp_table_retimed = sortrows(pbp_table_retimed, 'Time'); % sort by time 
-pbp_table_retimed.("FBF SWE (mm)")  = fillmissing(pbp_table_retimed.("FBF SWE (mm)"),  'constant', 0);
-pbp_table_retimed.("FBF Snow (mm)") = fillmissing(pbp_table_retimed.("FBF Snow (mm)"), 'constant', 0);
-pbp_table_retimed.("FBF SWE Accumulation (mm)") = cumsum(pbp_table_retimed.("FBF SWE (mm)"));
-pbp_table_retimed.("FBF Snow Accumulation (mm)") = cumsum(pbp_table_retimed.("FBF Snow (mm)"));
+valid_retimed = ~cellfun(@isempty, pbp_table_retimed_cell);
+if any(valid_retimed)
+    pbp_table_retimed = vertcat(pbp_table_retimed_cell{valid_retimed}); 
+    pbp_table_retimed = sortrows(pbp_table_retimed, 'Time'); % sort by time 
+    pbp_table_retimed.("FBF SWE (mm)")  = fillmissing(pbp_table_retimed.("FBF SWE (mm)"),  'constant', 0);
+    pbp_table_retimed.("FBF Snow (mm)") = fillmissing(pbp_table_retimed.("FBF Snow (mm)"), 'constant', 0);
+    pbp_table_retimed.("FBF SWE Accumulation (mm)") = cumsum(pbp_table_retimed.("FBF SWE (mm)"));
+    pbp_table_retimed.("FBF Snow Accumulation (mm)") = cumsum(pbp_table_retimed.("FBF Snow (mm)"));
+else
+    pbp_table_retimed = timetable();
+end
 
 %% save processed tables
 
@@ -870,7 +905,9 @@ writetimetable(avi_summary_table, [output_dir, '/DEID__old_aviTotals_', storm_ou
 
 % time averaged data table:
 
-writetimetable(pbp_table_retimed, [output_dir,'/DEID_old_TS_10min_', startTime, '.csv']);
+if ~isempty(pbp_table_retimed)
+    writetimetable(pbp_table_retimed, [output_dir,'/DEID_old_TS_10min_', startTime, '.csv']);
+end
 
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
