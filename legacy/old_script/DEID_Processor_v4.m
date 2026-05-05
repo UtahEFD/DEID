@@ -15,8 +15,8 @@ clear, clc, close all
 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/mar07_storm';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/mar0723_storm/archive';
+working_dir = '/uufs/chpc.utah.edu/common/home/u6022893/dataProcessingCode/example_data';
+output_dir = '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/test';
 
 %% global variables and physical constants
 
@@ -336,8 +336,9 @@ parfor file_i = 1:length(file_names)
 
         h_centroid_i = sub2ind(size(frame_cropped), h_centroid(:, 2), h_centroid(:, 1)); % find the linear index of the centriods in orginal image
         snowflake_int = double(frame_cropped(h_centroid_i)); % intensities of centroid pixels of snow
-        plate_h_dtemp = (plate_int(frame_ii)* int_to_temp_conversion) - (snowflake_int .* int_to_temp_conversion); 
-        
+        % plate_h_dtemp = (plate_int(frame_ii)* int_to_temp_conversion) - (snowflake_int .* int_to_temp_conversion); 
+        plate_h_dtemp = max_temp - (snowflake_int .* (max_temp / plate_int(frame_ii)));
+
         % product of hydrometeor area with the temp difference:
 
         h_area_times_dtemp = h_area .* plate_h_dtemp;         
@@ -841,19 +842,19 @@ startTime = datestr(pbp_table_retimed.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 
 % unfiltered particle data table:
 
-writetimetable(pbp_table, [output_dir, '/DEID_unfilteredParticle_', startTime, '.csv']);
+writetimetable(pbp_table, [output_dir, '/DEID_old_unfilteredParticle_', startTime, '.csv']);
 
 % filtered particle data table:
 
-writetimetable(pbp_table_filtered, [output_dir, '/DEID_filteredParticle_', startTime, '.csv']);
+writetimetable(pbp_table_filtered, [output_dir, '/DEID_old_filteredParticle_', startTime, '.csv']);
 
 % .avi summary table:
 
-writetimetable(avi_summary_table, [output_dir, '/DEID_aviTotals_', storm_output, '.csv']);
+writetimetable(avi_summary_table, [output_dir, '/DEID_old_aviTotals_', storm_output, '.csv']);
 
 % time averaged data table:
 
-writetimetable(pbp_table_retimed, [output_dir,'/DEID_TS_10min_', startTime, '.csv']);
+writetimetable(pbp_table_retimed, [output_dir,'/DEID_old_TS_10min_', startTime, '.csv']);
 
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
