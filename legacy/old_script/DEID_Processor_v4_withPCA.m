@@ -7,13 +7,13 @@
 % AUTHOR : Dhiraj Singh, Benjamin Silberman, Travis Morrison, Alex Blackmer
                                        
 clear, clc, close all
-delete(gcp('nocreate')); 
+% delete(gcp('nocreate')); 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/DEC/dec04_storm';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/dec0423_storm';
+working_dir = '/Users/benji/Documents/atwater/deidDataProcessing/example_data';
+output_dir = '/Users/benji/Documents/atwater/test';
 
-storm_output = '_dec0425';
+storm_output = 'test_old';
 
 %% global variables and physical constants
 
@@ -858,19 +858,19 @@ startTime = datestr(pbp_table.Time(1), 'yyyy-mm-dd_HH-MM-ss');
 
 % unfiltered particle data table:
 
-writetimetable(pbp_table, [output_dir, '/DEID_unfilteredParticle_', startTime, '.csv']);
+writetimetable(pbp_table, [output_dir, '/DEID_old_unfilteredParticle_', startTime, '.csv']);
 
 % filtered particle data table:
 
-writetimetable(pbp_table_filtered, [output_dir, '/DEID_filteredParticle_', startTime, '.csv']);
+writetimetable(pbp_table_filtered, [output_dir, '/DEID_old_filteredParticle_', startTime, '.csv']);
 
 % .avi summary table:
 
-writetimetable(avi_summary_table, [output_dir, '/DEID_aviTotals_', storm_output, '.csv']);
+writetimetable(avi_summary_table, [output_dir, '/DEID__old_aviTotals_', storm_output, '.csv']);
 
 % time averaged data table:
 
-writetimetable(pbp_table_retimed, [output_dir,'/DEID_TS_10min_', startTime, '.csv']);
+writetimetable(pbp_table_retimed, [output_dir,'/DEID_old_TS_10min_', startTime, '.csv']);
 
 [~, parent_dir, ~] = fileparts(pwd);
 disp(['Saved Output for: ', parent_dir])
