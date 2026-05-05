@@ -9,7 +9,7 @@ thresh.areaTol = 0;
 thresh.SWEfactor_threshold = 1.85;
 
 thresh.evapTime_min = 1/15;
-thresh.evapTime_max = 30;
+thresh.evapTime_max = 15;
 
 thresh.noiseThresh = 999;
 

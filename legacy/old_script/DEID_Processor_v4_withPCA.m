@@ -10,8 +10,9 @@ clear, clc, close all
 delete(gcp('nocreate')); 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/dec04';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/dec04';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/Atwater/DEC/dec04_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/dec0423_storm';
+
 storm_output = '_dec0425';
 
 %% global variables and physical constants
@@ -101,8 +102,8 @@ pbp_table_filtered_cell = cell(length(file_names),1);
 avi_summary_table_cell = cell(length(file_names),1);
 pbp_table_retimed_cell = cell(length(file_names),1); 
 
-parpool(15); 
-parfor file_i = 1:length(file_names)
+% parpool(15); 
+for file_i = 1:length(file_names)
 
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
@@ -125,65 +126,65 @@ parfor file_i = 1:length(file_names)
     vid_start_time = datetime(time_series(1));
 
     %% identify noisy hydrometeors using centroids:
-    
-    % store full video in CHPC RAM:
-
-    frames = cell(num_frames,1);
-    
-    for ii = 1:num_frames
-        frames{ii} = read(vid,ii);
-    end
-    
-    % collect all centroids:
-
-    allCentroids = [];
-    
-    for ii = 1:num_frames
-        frame_gray = im2gray(frames{ii});
-        frame_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes);
-        frame_filtered = frame_cropped > min_thres;
-        frame_filled   = imfill(frame_filtered,'holes');
-        frame_cleaned  = bwareaopen(frame_filled, minimum_hydro_area);
-    
-        allProps = regionprops(frame_cleaned,'Centroid');
-        if ~isempty(allProps)
-            allCentroids = [allCentroids; cat(1,allProps.Centroid)];
-        end
-
-    end
-
-    % if the video file is blank, skip entirely:
     % 
-    % if isempty(allCentroids)
+    % % store full video in CHPC RAM:
     % 
-    %     warning('Video %s contains no detectable hydrometeors. Skipping.', filename);
+    % frames = cell(num_frames,1);
     % 
-    %     pbp_table = timetable();
-    %     pbp_table_filtered = timetable();
-    %     avi_summary_table = timetable();
-    %     pbp_table_retimed = timetable();
+    % for ii = 1:num_frames
+    %     frames{ii} = read(vid,ii);
+    % end
     % 
-    %     pbp_table_cell{file_i} = pbp_table;
-    %     pbp_table_filtered_cell{file_i} = pbp_table_filtered;
-    %     avi_summary_table_cell{file_i} = avi_summary_table;
-    %     pbp_table_retimed_cell{file_i} = pbp_table_retimed;
+    % % collect all centroids:
     % 
-    %     continue
+    % allCentroids = [];
+    % 
+    % for ii = 1:num_frames
+    %     frame_gray = im2gray(frames{ii});
+    %     frame_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes);
+    %     frame_filtered = frame_cropped > min_thres;
+    %     frame_filled   = imfill(frame_filtered,'holes');
+    %     frame_cleaned  = bwareaopen(frame_filled, minimum_hydro_area);
+    % 
+    %     allProps = regionprops(frame_cleaned,'Centroid');
+    %     if ~isempty(allProps)
+    %         allCentroids = [allCentroids; cat(1,allProps.Centroid)];
+    %     end
     % 
     % end
-    
-    % identify noisy centroids:
-
-    [uniqueC,~,idxC] = unique(allCentroids,'rows');
-    counts = accumarray(idxC,1);
-    noiseMask   = counts > noiseThresh;
-    noiseCentroids = uniqueC(noiseMask,:);
-    
-    %% optional: view ten most repeated centroids:
-    % [counts_sorted, sortIdx] = sort(counts, 'descend');
-    % top_centroids = uniqueC(sortIdx(1:15), :);
-    % top_counts = counts_sorted(1:15);
-    % table([top_centroids, top_counts])
+    % 
+    % % if the video file is blank, skip entirely:
+    % % 
+    % % if isempty(allCentroids)
+    % % 
+    % %     warning('Video %s contains no detectable hydrometeors. Skipping.', filename);
+    % % 
+    % %     pbp_table = timetable();
+    % %     pbp_table_filtered = timetable();
+    % %     avi_summary_table = timetable();
+    % %     pbp_table_retimed = timetable();
+    % % 
+    % %     pbp_table_cell{file_i} = pbp_table;
+    % %     pbp_table_filtered_cell{file_i} = pbp_table_filtered;
+    % %     avi_summary_table_cell{file_i} = avi_summary_table;
+    % %     pbp_table_retimed_cell{file_i} = pbp_table_retimed;
+    % % 
+    % %     continue
+    % % 
+    % % end
+    % 
+    % % identify noisy centroids:
+    % 
+    % [uniqueC,~,idxC] = unique(allCentroids,'rows');
+    % counts = accumarray(idxC,1);
+    % noiseMask   = counts > noiseThresh;
+    % noiseCentroids = uniqueC(noiseMask,:);
+    % 
+    % %% optional: view ten most repeated centroids:
+    % % [counts_sorted, sortIdx] = sort(counts, 'descend');
+    % % top_centroids = uniqueC(sortIdx(1:15), :);
+    % % top_counts = counts_sorted(1:15);
+    % % table([top_centroids, top_counts])
 
     %% "frame by frame method"; this is how we obtain SWE for each .avi file
     
@@ -191,13 +192,14 @@ parfor file_i = 1:length(file_names)
 
     h_data_cells = cell(num_frames,1);
     plate_temp = nan(num_frames,1);
-    noisyA = cell(num_frames,1); 
+    % noisyA = cell(num_frames,1); 
     sum_h_area_times_dt = nan(num_frames,1);
     
     % enter loop to process images: 
     
     for frame_ii = 1:num_frames     
-        frame = frames{frame_ii};  
+        frame = read(vid, frame_ii);
+        % frame = frames{frame_ii};  
         frame_gray = im2gray(frame); % convert frame of interest to gray scale
         frame_gray_cropped_wKapton = imcrop(frame_gray, colorbar_image_indexes);% crop out colorbar
         plate_temp(frame_ii) = max(max(double(frame_gray_cropped_wKapton))); % this assumes max temperature in image is the plate temperature with Kapton tape 
@@ -207,33 +209,33 @@ parfor file_i = 1:length(file_names)
         frame_final = bwareaopen(frame_filled, minimum_hydro_area); % any hydrometeor whose area is less than minimum_hydro_area (set to 2 pixels) is disgarded
         
         % remove centroids that appear more than num_frames/4 times:
-
-        props = regionprops(frame_final, 'Area', 'Centroid','PixelIdxList');
-
-        if ~isempty(props)
-
-            frame_centroids = cat(1, props.Centroid); % collect centroids of particles on frame 
-            frame_area = cat(1, props.Area); % collect areas of particles on frame 
-
-        if isempty(noiseCentroids)
-
-            isNoise = false(size(frame_centroids,1),1); % basically do nothing
-
-        else
-
-            isNoise = ismember(frame_centroids, noiseCentroids, 'rows'); % logical array identifying which centroids on the frame are noisy ones 
-
-        end
-
-            noisyA{frame_ii} = sum(frame_area(isNoise, :)); % store area to subtract from hpArea later 
-
-            % black out noisy hydrometeors:
-
-            for k = find(isNoise)'
-                frame_final(props(k).PixelIdxList) = 0;
-            end
-    
-        end
+        % 
+        % props = regionprops(frame_final, 'Area', 'Centroid','PixelIdxList');
+        % 
+        % if ~isempty(props)
+        % 
+        %     frame_centroids = cat(1, props.Centroid); % collect centroids of particles on frame 
+        %     frame_area = cat(1, props.Area); % collect areas of particles on frame 
+        % 
+        % if isempty(noiseCentroids)
+        % 
+        %     isNoise = false(size(frame_centroids,1),1); % basically do nothing
+        % 
+        % else
+        % 
+        %     isNoise = ismember(frame_centroids, noiseCentroids, 'rows'); % logical array identifying which centroids on the frame are noisy ones 
+        % 
+        % end
+        % 
+        %     noisyA{frame_ii} = sum(frame_area(isNoise, :)); % store area to subtract from hpArea later 
+        % 
+        %     % black out noisy hydrometeors:
+        % 
+        %     for k = find(isNoise)'
+        %         frame_final(props(k).PixelIdxList) = 0;
+        %     end
+        % 
+        % end
 
         % now continue on to get hydrometeor properties: 
 
@@ -246,59 +248,59 @@ parfor file_i = 1:length(file_names)
         end
 
         % PCA-BASED CIRCUMSCRIBED ELLIPSE AREA PER HYDROMETEOR
-        
-        h_PCAellipseAreaM = zeros(length(h_geo_prop),1);
-        
-        for ii = 1:length(h_geo_prop)
-        
-            % extract pixel coordinates of hydrometeor:
-            
-            pixList = h_geo_prop(ii).PixelIdxList;
-            [r, c] = ind2sub(size(frame_final), pixList);
-            pts = [c, r];  % nx2 array of pixel coordinates for each hydrometeor 
-        
-            % center the points:
-            C    = mean(pts,1);   % centroid of hydrometeor in pixel coordinates 
-            pts0 = pts - C;       % centered coordinates of pixels 
-        
-            % covariance + eigen decomposition:
-            Sigma    = cov(double(pts0));
-            [V, D]   = eig(Sigma);
-
-            % sort eigenvectors to ensure major & minor axes:
-            [~, idx] = sort(diag(D), 'descend');
-            V = V(:, idx);
-            D = diag(sort(diag(D), 'descend'));
-        
-            % rotate points into PCA basis:
-            ptsRot = pts0 * V;
-        
-            % first: maximum absolute extent in PCA axes (inscribed semi-axes):
-            a0_pix = max(abs(ptsRot(:,1)));   % initial semi-major axis
-            b0_pix = max(abs(ptsRot(:,2)));   % initial semi-minor axis
-        
-            % scale ellipse so it CIRCUMSCRIBES all points:
-            normVals = (ptsRot(:,1)/a0_pix).^2 + (ptsRot(:,2)/b0_pix).^2;
-            s        = sqrt(max(normVals));   % >= 1
-        
-            % final circumscribing semi-axes (keep same variable names):
-            a_pix = s * a0_pix + 0.5;
-            b_pix = s * b0_pix + 0.5;
-        
-            % area of ellipse (pixel units) using circumscribing semi-axes:
-            ellipse_area_pix = pi * a_pix * b_pix;
-        
-            % convert to m^2:
-            h_PCAellipseAreaM(ii) = ellipse_area_pix * pix_to_m2_conversion;
-
-            % checking complexity:
-            areaPix = numel(pixList); 
-            Cx_pix = ellipse_area_pix / areaPix;
-            if Cx_pix < 1
-                fprintf('Frame %d, hydro %d: Cx_pix = %.3f\n', frame_ii, ii, Cx_pix);
-            end
-        
-        end
+        % 
+        % h_PCAellipseAreaM = zeros(length(h_geo_prop),1);
+        % 
+        % for ii = 1:length(h_geo_prop)
+        % 
+        %     % extract pixel coordinates of hydrometeor:
+        % 
+        %     pixList = h_geo_prop(ii).PixelIdxList;
+        %     [r, c] = ind2sub(size(frame_final), pixList);
+        %     pts = [c, r];  % nx2 array of pixel coordinates for each hydrometeor 
+        % 
+        %     % center the points:
+        %     C    = mean(pts,1);   % centroid of hydrometeor in pixel coordinates 
+        %     pts0 = pts - C;       % centered coordinates of pixels 
+        % 
+        %     % covariance + eigen decomposition:
+        %     Sigma    = cov(double(pts0));
+        %     [V, D]   = eig(Sigma);
+        % 
+        %     % sort eigenvectors to ensure major & minor axes:
+        %     [~, idx] = sort(diag(D), 'descend');
+        %     V = V(:, idx);
+        %     D = diag(sort(diag(D), 'descend'));
+        % 
+        %     % rotate points into PCA basis:
+        %     ptsRot = pts0 * V;
+        % 
+        %     % first: maximum absolute extent in PCA axes (inscribed semi-axes):
+        %     a0_pix = max(abs(ptsRot(:,1)));   % initial semi-major axis
+        %     b0_pix = max(abs(ptsRot(:,2)));   % initial semi-minor axis
+        % 
+        %     % scale ellipse so it CIRCUMSCRIBES all points:
+        %     normVals = (ptsRot(:,1)/a0_pix).^2 + (ptsRot(:,2)/b0_pix).^2;
+        %     s        = sqrt(max(normVals));   % >= 1
+        % 
+        %     % final circumscribing semi-axes (keep same variable names):
+        %     a_pix = s * a0_pix + 0.5;
+        %     b_pix = s * b0_pix + 0.5;
+        % 
+        %     % area of ellipse (pixel units) using circumscribing semi-axes:
+        %     ellipse_area_pix = pi * a_pix * b_pix;
+        % 
+        %     % convert to m^2:
+        %     h_PCAellipseAreaM(ii) = ellipse_area_pix * pix_to_m2_conversion;
+        % 
+        %     % checking complexity:
+        %     areaPix = numel(pixList); 
+        %     Cx_pix = ellipse_area_pix / areaPix;
+        %     if Cx_pix < 1
+        %         fprintf('Frame %d, hydro %d: Cx_pix = %.3f\n', frame_ii, ii, Cx_pix);
+        %     end
+        % 
+        % end
 
         
         % build hydrometeor property matrices from regionprops values: 
