@@ -14,7 +14,7 @@ repo_dir = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 addpath(fullfile(repo_dir, 'functions'));
 
 working_dir = fullfile(repo_dir, 'example_data');
-output_dir = fullfile(repo_dir, 'example_output', 'legacy_old');
+output_dir = '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/test';  % fullfile(repo_dir, 'example_output', 'legacy_old');
 
 working_dir_override = getenv('DEID_LEGACY_WORKING_DIR');
 if ~isempty(working_dir_override)
@@ -154,65 +154,65 @@ for file_i = 1:length(file_names)
     vid_start_time = datetime(time_series(1));
 
     %% identify noisy hydrometeors using centroids:
+
+    % store full video in CHPC RAM:
+
+    frames = cell(num_frames,1);
+
+    for ii = 1:num_frames
+        frames{ii} = read(vid,ii);
+    end
+
+    % collect all centroids:
+
+    allCentroids = [];
+
+    for ii = 1:num_frames
+        frame_gray = im2gray(frames{ii});
+        frame_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes);
+        frame_filtered = frame_cropped > min_thres;
+        frame_filled   = imfill(frame_filtered,'holes');
+        frame_cleaned  = bwareaopen(frame_filled, minimum_hydro_area);
+
+        allProps = regionprops(frame_cleaned,'Centroid');
+        if ~isempty(allProps)
+            allCentroids = [allCentroids; cat(1,allProps.Centroid)];
+        end
+
+    end
+
+    % if the video file is blank, skip entirely:
     % 
-    % % store full video in CHPC RAM:
+    % if isempty(allCentroids)
     % 
-    % frames = cell(num_frames,1);
+    %     warning('Video %s contains no detectable hydrometeors. Skipping.', filename);
     % 
-    % for ii = 1:num_frames
-    %     frames{ii} = read(vid,ii);
+    %     pbp_table = timetable();
+    %     pbp_table_filtered = timetable();
+    %     avi_summary_table = timetable();
+    %     pbp_table_retimed = timetable();
+    % 
+    %     pbp_table_cell{file_i} = pbp_table;
+    %     pbp_table_filtered_cell{file_i} = pbp_table_filtered;
+    %     avi_summary_table_cell{file_i} = avi_summary_table;
+    %     pbp_table_retimed_cell{file_i} = pbp_table_retimed;
+    % 
+    %     continue
+    % 
     % end
-    % 
-    % % collect all centroids:
-    % 
-    % allCentroids = [];
-    % 
-    % for ii = 1:num_frames
-    %     frame_gray = im2gray(frames{ii});
-    %     frame_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes);
-    %     frame_filtered = frame_cropped > min_thres;
-    %     frame_filled   = imfill(frame_filtered,'holes');
-    %     frame_cleaned  = bwareaopen(frame_filled, minimum_hydro_area);
-    % 
-    %     allProps = regionprops(frame_cleaned,'Centroid');
-    %     if ~isempty(allProps)
-    %         allCentroids = [allCentroids; cat(1,allProps.Centroid)];
-    %     end
-    % 
-    % end
-    % 
-    % % if the video file is blank, skip entirely:
-    % % 
-    % % if isempty(allCentroids)
-    % % 
-    % %     warning('Video %s contains no detectable hydrometeors. Skipping.', filename);
-    % % 
-    % %     pbp_table = timetable();
-    % %     pbp_table_filtered = timetable();
-    % %     avi_summary_table = timetable();
-    % %     pbp_table_retimed = timetable();
-    % % 
-    % %     pbp_table_cell{file_i} = pbp_table;
-    % %     pbp_table_filtered_cell{file_i} = pbp_table_filtered;
-    % %     avi_summary_table_cell{file_i} = avi_summary_table;
-    % %     pbp_table_retimed_cell{file_i} = pbp_table_retimed;
-    % % 
-    % %     continue
-    % % 
-    % % end
-    % 
-    % % identify noisy centroids:
-    % 
-    % [uniqueC,~,idxC] = unique(allCentroids,'rows');
-    % counts = accumarray(idxC,1);
-    % noiseMask   = counts > noiseThresh;
-    % noiseCentroids = uniqueC(noiseMask,:);
-    % 
-    % %% optional: view ten most repeated centroids:
-    % % [counts_sorted, sortIdx] = sort(counts, 'descend');
-    % % top_centroids = uniqueC(sortIdx(1:15), :);
-    % % top_counts = counts_sorted(1:15);
-    % % table([top_centroids, top_counts])
+
+    % identify noisy centroids:
+
+    [uniqueC,~,idxC] = unique(allCentroids,'rows');
+    counts = accumarray(idxC,1);
+    noiseMask   = counts > noiseThresh;
+    noiseCentroids = uniqueC(noiseMask,:);
+
+    %% optional: view ten most repeated centroids:
+    % [counts_sorted, sortIdx] = sort(counts, 'descend');
+    % top_centroids = uniqueC(sortIdx(1:15), :);
+    % top_counts = counts_sorted(1:15);
+    % table([top_centroids, top_counts])
 
     %% "frame by frame method"; this is how we obtain SWE for each .avi file
     
@@ -220,7 +220,7 @@ for file_i = 1:length(file_names)
 
     h_data_cells = cell(num_frames,1);
     plate_temp = nan(num_frames,1);
-    % noisyA = cell(num_frames,1); 
+    noisyA = cell(num_frames,1); 
     sum_h_area_times_dt = nan(num_frames,1);
     
     % enter loop to process images: 
@@ -237,33 +237,33 @@ for file_i = 1:length(file_names)
         frame_final = bwareaopen(frame_filled, minimum_hydro_area); % any hydrometeor whose area is less than minimum_hydro_area (set to 2 pixels) is disgarded
         
         % remove centroids that appear more than num_frames/4 times:
-        % 
-        % props = regionprops(frame_final, 'Area', 'Centroid','PixelIdxList');
-        % 
-        % if ~isempty(props)
-        % 
-        %     frame_centroids = cat(1, props.Centroid); % collect centroids of particles on frame 
-        %     frame_area = cat(1, props.Area); % collect areas of particles on frame 
-        % 
-        % if isempty(noiseCentroids)
-        % 
-        %     isNoise = false(size(frame_centroids,1),1); % basically do nothing
-        % 
-        % else
-        % 
-        %     isNoise = ismember(frame_centroids, noiseCentroids, 'rows'); % logical array identifying which centroids on the frame are noisy ones 
-        % 
-        % end
-        % 
-        %     noisyA{frame_ii} = sum(frame_area(isNoise, :)); % store area to subtract from hpArea later 
-        % 
-        %     % black out noisy hydrometeors:
-        % 
-        %     for k = find(isNoise)'
-        %         frame_final(props(k).PixelIdxList) = 0;
-        %     end
-        % 
-        % end
+
+        props = regionprops(frame_final, 'Area', 'Centroid','PixelIdxList');
+
+        if ~isempty(props)
+
+            frame_centroids = cat(1, props.Centroid); % collect centroids of particles on frame 
+            frame_area = cat(1, props.Area); % collect areas of particles on frame 
+
+        if isempty(noiseCentroids)
+
+            isNoise = false(size(frame_centroids,1),1); % basically do nothing
+
+        else
+
+            isNoise = ismember(frame_centroids, noiseCentroids, 'rows'); % logical array identifying which centroids on the frame are noisy ones 
+
+        end
+
+            noisyA{frame_ii} = sum(frame_area(isNoise, :)); % store area to subtract from hpArea later 
+
+            % black out noisy hydrometeors:
+
+            for k = find(isNoise)'
+                frame_final(props(k).PixelIdxList) = 0;
+            end
+
+        end
 
         % now continue on to get hydrometeor properties: 
 
