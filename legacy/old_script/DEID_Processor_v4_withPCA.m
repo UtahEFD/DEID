@@ -39,9 +39,14 @@ storm_output = 'test_old';
 time_interval = 600;  % seconds
 time_step = seconds(time_interval); % datetime step 
 
-% unit conversions:
+% 2025 - present:
 
-pix_to_m_conversion = .01/40; % m per pix 
+% pix_to_m_conversion = .01/40; % m per pix 
+
+% 2023 - 2024:
+
+pix_to_m_conversion = 3.1750e-04; % m per pix
+
 pix_to_m2_conversion = pix_to_m_conversion^2; % m^2 per pix^2
 c1 = 10^3; % converts meters to millimeters
 
