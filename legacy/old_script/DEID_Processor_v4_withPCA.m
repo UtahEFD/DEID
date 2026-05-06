@@ -10,25 +10,8 @@ clear, clc, close all
 % delete(gcp('nocreate')); 
 %% set filepath, output directory, and file name for saving  
 
-repo_dir = fileparts(fileparts(fileparts(mfilename('fullpath'))));
-addpath(fullfile(repo_dir, 'functions'));
-
-working_dir = fullfile(repo_dir, 'example_data');
-output_dir = '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/test';  % fullfile(repo_dir, 'example_output', 'legacy_old');
-
-working_dir_override = getenv('DEID_LEGACY_WORKING_DIR');
-if ~isempty(working_dir_override)
-    working_dir = working_dir_override;
-end
-
-output_dir_override = getenv('DEID_LEGACY_OUTPUT_DIR');
-if ~isempty(output_dir_override)
-    output_dir = output_dir_override;
-end
-
-if ~exist(output_dir, 'dir')
-    mkdir(output_dir);
-end
+working_dir = '/uufs/chpc.utah.edu/common/home/u6022893/dataProcessingCode/example_data';
+output_dir = '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/test';
 
 storm_output = 'test_old';
 
@@ -231,8 +214,8 @@ for file_i = 1:length(file_names)
     % enter loop to process images: 
     
     for frame_ii = 1:num_frames     
-        frame = read(vid, frame_ii);
-        % frame = frames{frame_ii};  
+        % frame = read(vid, frame_ii);
+        frame = frames{frame_ii};  
         frame_gray = im2gray(frame); % convert frame of interest to gray scale
         frame_gray_cropped_wKapton = imcrop(frame_gray, colorbar_image_indexes);% crop out colorbar
         plate_temp(frame_ii) = max(max(double(frame_gray_cropped_wKapton))); % this assumes max temperature in image is the plate temperature with Kapton tape 
@@ -470,8 +453,7 @@ for file_i = 1:length(file_names)
     area_fbf = cat(2,area_fbf{:}); % snowflake area 
     rectArea_fbf = cat(2,rectArea_fbf{:}); % circumscribed rectangle area 
     circleArea_fbf = cat(2,circleArea_fbf{:}); % circumscribed circle area using majorAxis as D 
-    ellipseArea_fbf = cat(2, ellipseArea_fbf{:}); % circumscribed ellipse area using PCA 
-    ellipseArea_fbf(isnan(ellipseArea_fbf)) = 0; 
+    ellipseArea_fbf = cat(2,ellipseArea_fbf{:}); % circumscribed ellipse area
     rectWidth_fbf = cat(2,rectWidth_fbf{:}); % circumscribed rectangle width
     rectHeight_fbf = cat(2,rectHeight_fbf{:}); % circumscribed rectangle height 
     h_majorAxis_fbf = cat(2, h_majorAxis_fbf{:}); % hydrometeor major axis 
