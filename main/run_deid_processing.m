@@ -15,8 +15,8 @@ clear, clc, close all
 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/u6022893/dataProcessingCode/example_data';
-output_dir = '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/test';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/MAR/apr01_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/apr0125_storm';
 
 %% load parameter structures
 
@@ -45,7 +45,7 @@ pbp_table_cell = cell(length(file_names),1);
 pbp_table_filtered_cell = cell(length(file_names),1);
 avi_summary_table_cell = cell(length(file_names),1);
 
-for file_i = 1:length(file_names)
+parfor file_i = 1:length(file_names)
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
     

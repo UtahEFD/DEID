@@ -12,7 +12,7 @@ deid.colorbar_kapton_image_indexes = [ ...
 ];
 
 % calibration constants
-deid.k_dLv = 0.002;
+deid.k_dLv = 0.003;
 
 % Singh et al. (2024)
 deid.hf_rho_coeff = 1.01e05; % [K*s*m^-1]

@@ -115,7 +115,7 @@ validShear = ~isnan(SDI) & ~isnan(rho_snow) & (rho_ice ~= 0);
 shear_strength(validShear) = sigma_ice .* SDI(validShear) .* ...
                              (rho_snow(validShear) ./ rho_ice) .^ Cx(validShear);
 
-pbp_table_retimed.('Shear Strength') = shear_strength;
+pbp_table_retimed.('Shear Strength (Pa)') = shear_strength;
 
 % Ensure SWE factor present
 if ~ismember('SWE factor', pbp_table_retimed.Properties.VariableNames)
