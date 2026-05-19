@@ -23,11 +23,16 @@ end
 %         pbp_table_filtered.Time <= final_time, :);
 
 if height(pbp_table) > 0
-    final_time = pbp_table.Time(end);
-    prev_time = final_time - gapFillWindow;
-    prev_data = pbp_table( ...
-        pbp_table.Time >= prev_time & ...
-        pbp_table.Time <= final_time, :);
+    if height(pbp_table_filtered) > 0
+        final_time = pbp_table_filtered.Time(end);
+        prev_time = final_time - gapFillWindow;
+        prev_data = pbp_table_filtered( ...
+            pbp_table_filtered.Time >= prev_time & ...
+            pbp_table_filtered.Time <= final_time, :);
+    else
+        final_time = pbp_table.Time(end);
+        prev_data = timetable();
+    end
 
     timeRow = final_time + seconds(30);
 
@@ -46,20 +51,41 @@ if height(pbp_table) > 0
     cx1Row = mean(prev_data.("Complexity"));
     sdiRow = mean(prev_data.SDI);
     SWEfactorRow = mean(prev_data.("SWE factor"));
+    k_dRow = mean(prev_data.("k/d calibrated"));
 
     tempRangeRow = NaN;
     aRangeRow = NaN;
     tempFlagRow = NaN;
     aFlagRow = NaN;
 
-    densityHFDrow = massRow / volumeHFDrow;
-    densitySPHrow = massRow / volumeSPHrow;
-    shearStrengthRow = sigma_ice * sdiRow * ((densityHFDrow / rho_ice) ^ cx1Row);
+    if volumeHFDrow > 0
+        densityHFDrow = massRow / volumeHFDrow;
+    else
+        densityHFDrow = 0;
+    end
+
+    if volumeSPHrow > 0
+        densitySPHrow = massRow / volumeSPHrow;
+    else
+        densitySPHrow = 0;
+    end
+
+    if densityHFDrow > 0 && ~isnan(sdiRow) && ~isnan(cx1Row)
+        shearStrengthRow = sigma_ice * sdiRow * ((densityHFDrow / rho_ice) ^ cx1Row);
+    else
+        shearStrengthRow = 0;
+    end
 
     PBPsweRow = 1000 * massRow / (rho_water * hp_area);
     FBFsweRow = PBPsweRow * SWEfactorRow;
-    PBPsnowRow = rho_water * (PBPsweRow ./ densityHFDrow);
-    FBFsnowRow = rho_water * (FBFsweRow ./ densityHFDrow);
+
+    if densityHFDrow > 0
+        PBPsnowRow = rho_water * (PBPsweRow / densityHFDrow);
+        FBFsnowRow = rho_water * (FBFsweRow / densityHFDrow);
+    else
+        PBPsnowRow = 0;
+        FBFsnowRow = 0;
+    end
 
     new_row = table(timeRow, ...
         evapTimeRow, massRow, majAxisRow, effDiaRow, perRow, areaRow, rectAreaRow, waterDropletAreaRow, ...
@@ -70,7 +96,7 @@ if height(pbp_table) > 0
         PBPsnowRow, FBFsnowRow, ...
         sum(pbp_table.("PBP Snow (mm)")) + PBPsnowRow, ...
         sum(pbp_table.("FBF Snow (mm)")) + FBFsnowRow, SWEfactorRow, ...
-        tempRangeRow, aRangeRow, tempFlagRow, aFlagRow, ...
+        tempRangeRow, aRangeRow, tempFlagRow, aFlagRow, k_dRow, ...
         'VariableNames', {'Time', 'Evap Time (s)', 'Mass (kg)', 'Major Axis (m)', 'Eff Diameter (m)', ...
         'Perimeter (m)', 'Snowflake Area (m^2)', 'Rectangle Area (m^2)', ...
         'Water Droplet Area (m^2)', 'Spherical Density (kg/m^3)', 'Heat Flux Density (kg/m^3)', ...
@@ -78,7 +104,7 @@ if height(pbp_table) > 0
         'Complexity', 'SDI', 'Shear Strength (Pa)', 'PBP SWE (mm)', 'FBF SWE (mm)', ...
         'PBP SWE Accumulation (mm)', 'FBF SWE Accumulation (mm)', 'PBP Snow (mm)', 'FBF Snow (mm)', ...
         'PBP Snow Accumulation (mm)', 'FBF Snow Accumulation (mm)', 'SWE factor', ...
-        'Delta Temp Range', 'Area Range', 'Delta Temp Flag', 'Area Flag'});
+        'Delta Temp Range', 'Area Range', 'Delta Temp Flag', 'Area Flag', 'k/d calibrated'});
 
     new_row.('Missing Data') = true;
     new_row = table2timetable(new_row);

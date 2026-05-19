@@ -1,4 +1,4 @@
-function [dT_fbf, perimeter_fbf, area_fbf, rectArea_fbf, majorAxis_fbf, h_data_sorted, max_h_obs] = ...
+function [dT_fbf, perimeter_fbf, area_fbf, rectArea_fbf, majorAxis_fbf, h_data_sorted, max_h_obs, k_dLv_calibrate] = ...
     sort_h_data_cells(h_data_cells, num_frames, sort_threshold, filename)
 
 %% call sortPositions_v2.m
@@ -20,6 +20,7 @@ if isempty(num_cols)
     majorAxis_fbf = [];
     h_data_sorted = {};
     max_h_obs = [];
+    k_dLv_calibrate = []; 
     return
 end
 
@@ -56,10 +57,12 @@ perimeter_fbf = cellfun(@(x) x(:, 4), h_data_sorted, 'UniformOutput', 0);
 area_fbf = cellfun(@(x) x(:, 5), h_data_sorted, 'UniformOutput', 0);
 rectArea_fbf = cellfun(@(x) x(:, 6), h_data_sorted, 'UniformOutput', 0);
 majorAxis_fbf = cellfun(@(x) x(:, 7), h_data_sorted, 'UniformOutput', 0);
+k_dLv_calibrate = cellfun(@(x) x(:, 8), h_data_sorted, 'UniformOutput', 0);
 
 dT_fbf = cat(2,dT_fbf{:});
 perimeter_fbf = cat(2, perimeter_fbf{:});
 area_fbf = cat(2,area_fbf{:});
 rectArea_fbf = cat(2,rectArea_fbf{:});
 majorAxis_fbf = cat(2,majorAxis_fbf{:});
+k_dLv_calibrate = cat(2, k_dLv_calibrate{:}); 
 end

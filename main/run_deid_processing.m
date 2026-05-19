@@ -15,8 +15,8 @@ clear, clc, close all
 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/MAR/apr01_storm';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/apr0125_storm';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/mar07_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/mar0723_storm';
 
 %% load parameter structures
 
@@ -44,16 +44,20 @@ time_step = seconds(600);
 pbp_table_cell = cell(length(file_names),1);
 pbp_table_filtered_cell = cell(length(file_names),1);
 avi_summary_table_cell = cell(length(file_names),1);
+plate_temp_cell = cell(length(file_names),1);
+back_temp_cell = cell(length(file_names),1);
+k_dLv_cell = cell(length(file_names),1);
+time_fbf_cell = cell(length(file_names),1);
 
 parfor file_i = 1:length(file_names)
     filename = file_names{file_i};
     disp(['Processing File: ', filename])
-    
+
     % CALL process_one_video - the per-video worker function that will call
     % help functions
 
-    [pbp_table, pbp_table_filtered, avi_summary_table] = process_one_video( ...
-        filename, working_dir, ...
+    [pbp_table, pbp_table_filtered, avi_summary_table, plate_temp_fbf, back_temp_fbf, k_dLv_calibrate_fbf, time_series_fbf] = process_one_video( ...
+        filename, working_dir, deid.kapton_indexes, ...
         deid.colorbar_image_indexes, deid.colorbar_kapton_image_indexes, ...
         thresh.min_thres, thresh.minimum_hydro_area, thresh.sort_threshold, thresh.areaTol, ...
         thresh.SWEfactor_threshold, thresh.evapTime_min, thresh.evapTime_max, ...
@@ -64,6 +68,10 @@ parfor file_i = 1:length(file_names)
     pbp_table_cell{file_i} = pbp_table;
     pbp_table_filtered_cell{file_i} = pbp_table_filtered;
     avi_summary_table_cell{file_i} = avi_summary_table;
+    plate_temp_cell{file_i} = plate_temp_fbf;
+    back_temp_cell{file_i} = back_temp_fbf;
+    k_dLv_cell{file_i} = k_dLv_calibrate_fbf;
+    time_fbf_cell{file_i} = time_series_fbf;
 end
 
 %% now put back into one large time table:
@@ -93,6 +101,43 @@ if ~isempty(pbp_table_filtered)
 else
     pbp_table_retimed = timetable();
 end
+
+%% storm-level FBF diagnostic plot:
+
+all_time_fbf   = [time_fbf_cell{:}];
+all_plate_temp = vertcat(plate_temp_cell{:});
+all_back_temp  = vertcat(back_temp_cell{:});
+all_k_dLv      = vertcat(k_dLv_cell{:});
+
+[all_time_fbf, sort_idx] = sort(all_time_fbf);
+all_plate_temp = all_plate_temp(sort_idx);
+all_back_temp  = all_back_temp(sort_idx);
+all_k_dLv      = all_k_dLv(sort_idx);
+
+fig = figure('Visible', 'off');
+
+subplot(3,1,1)
+plot(all_time_fbf, all_back_temp, 'b.', 'MarkerSize', 3)
+ylabel('Temp (°C)')
+title('Background Temperature')
+grid on
+
+subplot(3,1,2)
+plot(all_time_fbf, all_plate_temp, 'r.', 'MarkerSize', 3)
+ylabel('Temp (°C)')
+title('Plate Temperature')
+grid on
+
+subplot(3,1,3)
+plot(all_time_fbf, all_k_dLv, 'k.', 'MarkerSize', 3)
+ylabel('k/d Coefficient')
+xlabel('Time')
+title('K/D Coefficient')
+grid on
+
+sgtitle(['Per-Frame Summary: ', storm_output], 'Interpreter', 'none')
+saveas(fig, fullfile(output_dir, ['DEID_fbf_diagnostics_', storm_output, '.png']));
+close(fig);
 
 %% save processed tables:
 
