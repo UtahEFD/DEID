@@ -15,18 +15,26 @@ clear, clc, close all
 
 %% set filepath, output directory, and file name for saving  
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/MAR/apr01_storm';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/apr0125_storm';
+working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/CLN/mar07_storm';
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/mar0723_storm';
 
 %% load parameter structures
 
-phys   = get_physical_constants();
+if contains(working_dir, 'snowflake3')
+    sensor = 'snowflake3';
+elseif contains(working_dir, 'snowflake4')
+    sensor = 'snowflake4';
+else
+    error('Could not determine sensor from working_dir. Path must contain "snowflake3" or "snowflake4".');
+end
+
+phys   = get_physical_constants(sensor);
 thresh = get_thresholds();
 deid   = get_deid_params();
 
 %% move to working directory and identify video files
 
-cd(working_dir);
+% cd(working_dir);
 
 % CALL get_sorted_videos: this returns all .avi file in the directory and
 % sorts in time order 
@@ -52,11 +60,11 @@ parfor file_i = 1:length(file_names)
     % CALL process_one_video - the per-video worker function that will call
     % help functions
 
-    [pbp_table, pbp_table_filtered, avi_summary_table] = process_one_video( ...
-        filename, working_dir, ...
-        deid.colorbar_image_indexes, deid.colorbar_kapton_image_indexes, ...
+    [pbp_table, pbp_table_filtered, avi_summary_table, time_series_fbf] = process_one_video( ...
+        filename, working_dir, deid.colorbar_image_indexes,...
+        deid.final_crop_indexes, ...
         thresh.min_thres, thresh.minimum_hydro_area, thresh.sort_threshold, thresh.areaTol, ...
-        thresh.SWEfactor_threshold, thresh.evapTime_min, thresh.evapTime_max, ...
+        thresh.SWEfactor_threshold, thresh.evapTime_min, thresh.evapTime_max, thresh.dT_min, ...
         phys.mPerPix, phys.m2PerPix2, phys.int_to_temp_conversion, ...
         deid.k_dLv, deid.hf_rho_coeff, phys.rho_water, phys.rho_ice, phys.sigma_ice, ...
         phys.mmPerM);

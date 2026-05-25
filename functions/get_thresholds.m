@@ -6,10 +6,12 @@ thresh.sort_threshold = 20;
 thresh.minimum_drop_life = 0;
 
 thresh.areaTol = 0;
-thresh.SWEfactor_threshold = 1.85;
+thresh.SWEfactor_threshold = 2;
 
 thresh.evapTime_min = 1/15;
-thresh.evapTime_max = 15;
+thresh.evapTime_max = 30;
+
+thresh.dT_min = 50;
 
 thresh.noiseThresh = 999;
 

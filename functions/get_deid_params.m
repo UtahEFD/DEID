@@ -1,15 +1,8 @@
 function deid = get_deid_params()
 
-deid.colorbar_image_indexes = [1 1 384 288];
+deid.colorbar_image_indexes = [1 1 383 288];
 
-deid.crop_index = 43;
-
-deid.colorbar_kapton_image_indexes = [ ...
-    1, ...
-    (deid.colorbar_image_indexes(2) + deid.crop_index), ...
-    383, ...
-    (deid.colorbar_image_indexes(4) - deid.crop_index) ...
-];
+deid.final_crop_indexes = [30 30 340 240];
 
 % calibration constants
 deid.k_dLv = 0.003;

@@ -1,9 +1,14 @@
-function phys = get_physical_constants()
+function phys = get_physical_constants(sensor)
 
 % UNIT CONVERSIONS
 
-phys.mPerPix = .01/40; % (2025 - present)
-% phys.mPerPix = 3.1750e-04; % (2023 - 2024)
+if strcmp(sensor, 'snowflake3')
+    phys.mPerPix = 3.1750e-04;
+elseif strcmp(sensor, 'snowflake4')
+    phys.mPerPix = 0.01/40;
+else
+    error('get_physical_constants: unknown sensor "%s". Expected "snowflake3" or "snowflake4".', sensor);
+end
 
 phys.m2PerPix2 = phys.mPerPix^2;
 phys.mmPerM = 1e3;

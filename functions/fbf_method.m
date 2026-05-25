@@ -1,28 +1,30 @@
-function [SWE_fbf, time_series_fbf, h_data_cells, hp_area, h_mass_fbf_min] = fbf_method( ...
-    vid, num_frames, frame_cropped_ref, colorbar_image_indexes, colorbar_kapton_image_indexes, ...
+function [SWE_fbf, time_series_fbf, h_data_cells, hp_area, h_mass_fbf_min, plate_temp] = fbf_method( ...
+    vid, num_frames, frame_cropped_ref, final_crop_indexes, ...
     min_thres, minimum_hydro_area, mPerPix, m2PerPix2, ...
-    int_to_temp_conversion, k_dLv, vid_fps, time_series)
+    int_to_temp_conversion, colorbar_image_indexes, k_dLv, vid_fps, time_series)
 
 %% "frame by frame method"; this is how we obtain SWE for each .avi file
 
 h_data_cells = cell(num_frames,1);
-plate_int = nan(num_frames,1);
 sum_h_area_times_dt = nan(num_frames,1);
+plate_temps = nan(num_frames,1);
 
-for frame_ii = 1:num_frames     
+for frame_ii = 1:num_frames
     % frame = frames{frame_ii};
     frame = read(vid, frame_ii);
     frame_gray = im2gray(frame); % convert frame of interest to gray scale
-    frame_gray_cropped_wKapton = imcrop(frame_gray, colorbar_image_indexes);% crop out colorbar
-    plate_int(frame_ii) = max(max(double(frame_gray_cropped_wKapton))); % this assumes max temperature in image is the plate temperature with Kapton tape 
-    frame_cropped = imcrop(frame_gray, colorbar_kapton_image_indexes); % back to orginal grayscale image... now remove colorbar and kapton tape from image
+    frame_noCB = imcrop(frame_gray, colorbar_image_indexes);
+    plate_int = double(max(frame_noCB(:)));
+    plate_temp = plate_int * int_to_temp_conversion;
+    plate_temps(frame_ii) = plate_temp;
+    frame_cropped = imcrop(frame_gray, final_crop_indexes); % remove colorbar and kapton tape from image
     frame_filtered = frame_cropped > min_thres; % removed below min threshold, on rbg ([0, 255]) scale 
     frame_filled = imfill(frame_filtered, 'Holes'); % clean up Hydrometeors
     frame_final = bwareaopen(frame_filled, minimum_hydro_area); % any hydrometeor whose area is less than minimum_hydro_area (set to 2 pixels) is disgarded
 
     % now continue on to get hydrometeor properties: 
 
-    h_geo_prop = regionprops(frame_final, 'PixelIdxList', 'MajorAxisLength', 'MinorAxisLength', 'Centroid', 'Area', 'BoundingBox', 'Perimeter'); % returns the centroid, the area , and the bounding box (left, top, width, height) of each blob
+    h_geo_prop = regionprops(frame_final, 'MajorAxisLength', 'MinorAxisLength', 'Centroid', 'Area', 'BoundingBox', 'Perimeter'); % returns the centroid, the area , and the bounding box (left, top, width, height) of each blob
     
     % if no properties are found, go to next frame: 
 
@@ -59,7 +61,7 @@ for frame_ii = 1:num_frames
 
     h_centroid_i = sub2ind(size(frame_cropped), h_centroid(:, 2), h_centroid(:, 1)); % find the linear index of the centriods in orginal image
     snowflake_int = double(frame_cropped(h_centroid_i)); % intensities of centroid pixels of snow
-    plate_h_dtemp = (plate_int(frame_ii)* int_to_temp_conversion) - (snowflake_int .* int_to_temp_conversion); 
+    plate_h_dtemp = plate_temp - (snowflake_int .* int_to_temp_conversion);
     
     % product of hydrometeor area with the temp difference:
 
@@ -84,4 +86,5 @@ h_mass_fbf_min = min(h_mass_fbf); % we know the plate should be empty when it is
 h_mass_fbf = h_mass_fbf - h_mass_fbf_min; % subtract off min mass on a frame to account for any resiude
 SWE_fbf = h_mass_fbf / hp_area;
 time_series_fbf = time_series(1:length(SWE_fbf));
+plate_temp = mean(plate_temps, 'omitnan');
 end
