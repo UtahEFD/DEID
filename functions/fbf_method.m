@@ -24,7 +24,7 @@ for frame_ii = 1:num_frames
 
     % now continue on to get hydrometeor properties: 
 
-    h_geo_prop = regionprops(frame_final, 'MajorAxisLength', 'MinorAxisLength', 'Centroid', 'Area', 'BoundingBox', 'Perimeter'); % returns the centroid, the area , and the bounding box (left, top, width, height) of each blob
+    h_geo_prop = regionprops(frame_final, 'PixelIdxList', 'MajorAxisLength', 'MinorAxisLength', 'Centroid', 'Area', 'BoundingBox', 'Perimeter'); % returns the centroid, the area , and the bounding box (left, top, width, height) of each blob
     
     % if no properties are found, go to next frame: 
 
@@ -58,14 +58,27 @@ for frame_ii = 1:num_frames
     % h_circleAreaM = (pi * h_majorM.^2)/4; % circumscribed circle using major axis 
     
     % difference in temperature of each centroid and the plate:
+    % NOTE: centroid of an irregular blob can fall on a warm background pixel, causing dT -> 0.
+    % Replaced below with per-pixel mean dT.
+    % h_centroid_i = sub2ind(size(frame_cropped), h_centroid(:, 2), h_centroid(:, 1)); % find the linear index of the centriods in orginal image
+    % snowflake_int = double(frame_cropped(h_centroid_i)); % intensities of centroid pixels of snow
+    % plate_h_dtemp = plate_temp - (snowflake_int .* int_to_temp_conversion);
 
-    h_centroid_i = sub2ind(size(frame_cropped), h_centroid(:, 2), h_centroid(:, 1)); % find the linear index of the centriods in orginal image
-    snowflake_int = double(frame_cropped(h_centroid_i)); % intensities of centroid pixels of snow
-    plate_h_dtemp = plate_temp - (snowflake_int .* int_to_temp_conversion);
-    
-    % product of hydrometeor area with the temp difference:
+    % mean temperature difference between plate and each hydrometeor,
+    % computed over all pixels in each blob (clipped to >= 0 to prevent
+    % non-physical negative dT from warm centroid pixels):
 
-    h_area_times_dtemp = h_area .* plate_h_dtemp;         
+    num_blobs = numel(h_geo_prop);
+    plate_h_dtemp = zeros(num_blobs, 1);
+    for b = 1:num_blobs
+        pix_int = double(frame_cropped(h_geo_prop(b).PixelIdxList));
+        pix_dT  = plate_temp - pix_int .* int_to_temp_conversion;
+        plate_h_dtemp(b) = mean(max(pix_dT, 0));
+    end
+
+    % product of hydrometeor area with the mean temp difference:
+    % h_area_times_dtemp = h_area .* plate_h_dtemp;  % (original centroid-based line kept for reference)
+    h_area_times_dtemp = h_area .* plate_h_dtemp;
     
     % sum the product of individual area and temp. diff in each frame:
     % **this is how we obtain hydrometeor mass using fbf method**
@@ -83,7 +96,7 @@ sum_h_area_times_dt(isnan(sum_h_area_times_dt)) =0; % turn all NaN to 0's
 hp_area = numel(frame_cropped_ref) * m2PerPix2; % hotplate area - to subtract noisy areas: - mean(noisyA)        
 h_mass_fbf = (k_dLv*sum_h_area_times_dt) / vid_fps; % total mass evaporates in each frame
 h_mass_fbf_min = min(h_mass_fbf); % we know the plate should be empty when it is not snowing..
-h_mass_fbf = h_mass_fbf - h_mass_fbf_min; % subtract off min mass on a frame to account for any resiude
+% h_mass_fbf = h_mass_fbf - h_mass_fbf_min; % subtract off min mass on a frame to account for any resiude
 SWE_fbf = h_mass_fbf / hp_area;
 time_series_fbf = time_series(1:length(SWE_fbf));
 plate_temp = mean(plate_temps, 'omitnan');

@@ -11,7 +11,7 @@ thresh.SWEfactor_threshold = 2;
 thresh.evapTime_min = 1/15;
 thresh.evapTime_max = 30;
 
-thresh.dT_min = 50;
+thresh.dT_min = 5;
 
 thresh.noiseThresh = 999;
 
