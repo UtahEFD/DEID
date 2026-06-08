@@ -62,7 +62,7 @@ end
 % -----------------------
 
 avg_cols = {'Complexity','SDI', 'Eff Diameter (m)', 'Major Axis (m)', 'Snowflake Area (m^2)','Evap Time (s)','SWE factor'};
-sum_cols = {'Mass (kg)','Heat Flux Volume (m^3)'};
+sum_cols = {'Mass (kg)','Heat Flux Volume (m^3)','FBF SWE (mm)','FBF Snow (mm)'};
 
 % Add missing columns as NaN so retime doesn't fail (keeps schema consistent)
 allCols = [avg_cols, sum_cols];
@@ -123,15 +123,18 @@ if ~ismember('SWE factor', pbp_table_retimed.Properties.VariableNames)
 end
 swe_factor = pbp_table_retimed.('SWE factor');
 
-% PBP / FBF SWE per bin (NaN if missing inputs)
+% PBP SWE per bin (NaN if missing inputs)
 PBP_SWE = NaN(size(mass));
-FBF_SWE = NaN(size(mass));
-validMass = ~isnan(mass) & ~isnan(swe_factor) & (hp_area ~= 0);
+validMass = ~isnan(density) & (hp_area ~= 0);
 if any(validMass)
     PBP_SWE(validMass) = (1000 .* mass(validMass) ./ (rho_water * hp_area));
-    FBF_SWE(validMass) = PBP_SWE(validMass) .* swe_factor(validMass);
 end
 pbp_table_retimed.('PBP SWE (mm)') = PBP_SWE;
+
+% FBF SWE: sum directly from per-particle values rather than sum(mass)*mean(SWE_factor),
+% which is only exact when all particles in a bin share the same SWE factor.
+FBF_SWE = pbp_table_retimed.('FBF SWE (mm)');
+FBF_SWE(isnan(density)) = NaN;   % retime 'sum' puts 0 in empty bins; restore NaN
 pbp_table_retimed.('FBF SWE (mm)') = FBF_SWE;
 
 % -----------------------
@@ -144,16 +147,17 @@ pbp_table_retimed.('PBP SWE Accumulation (mm)') = cumsum(PBP_SWE_contrib);
 pbp_table_retimed.('FBF SWE Accumulation (mm)') = cumsum(FBF_SWE_contrib);
 
 % Snow per bin (requires density)
-FBF_Snow = NaN(size(FBF_SWE));
+% PBP Snow: recomputing from bin-level sum(mass)/density is mathematically exact
+% (equals sum of per-particle values), so we keep the bin-level formula.
 PBP_Snow = NaN(size(PBP_SWE));
-validFBF = ~isnan(FBF_SWE) & ~isnan(density) & (density ~= 0);
 validPBP = ~isnan(PBP_SWE) & ~isnan(density) & (density ~= 0);
-
-FBF_Snow(validFBF) = rho_water .* FBF_SWE(validFBF) ./ density(validFBF);
 PBP_Snow(validPBP) = rho_water .* PBP_SWE(validPBP) ./ density(validPBP);
-
-pbp_table_retimed.('FBF Snow (mm)') = FBF_Snow;
 pbp_table_retimed.('PBP Snow (mm)') = PBP_Snow;
+
+% FBF Snow: sum directly from per-particle values for the same reason as FBF SWE.
+FBF_Snow = pbp_table_retimed.('FBF Snow (mm)');
+FBF_Snow(isnan(density)) = NaN;   % restore NaN in empty bins
+pbp_table_retimed.('FBF Snow (mm)') = FBF_Snow;
 
 % Snow accumulations (NaN -> 0 for contribution)
 FBF_Snow_contrib = FBF_Snow; FBF_Snow_contrib(isnan(FBF_Snow_contrib)) = 0;
