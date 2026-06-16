@@ -27,7 +27,7 @@ function [file_names, vid_date, storm_output] = get_sorted_videos(working_dir)
     for file_i = 1:length(directory)
         name = directory(file_i).name;
 
-        if ~directory(file_i).isdir && endsWith(name, '.avi', 'IgnoreCase', true)
+        if ~directory(file_i).isdir && endsWith(name, '.avi', 'IgnoreCase', true) && ~startsWith(name, '._')
             count = count + 1;
 
             file_names{count} = name;

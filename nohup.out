@@ -1,0 +1,3631 @@
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb10
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb10 at Tue Jun  9 12:39:49 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb11
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb11 at Tue Jun  9 12:39:49 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb12
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb12 at Tue Jun  9 12:39:49 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb13
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb13 at Tue Jun  9 12:39:49 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb16
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb16 at Tue Jun  9 12:39:49 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb17
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb17 at Tue Jun  9 12:39:49 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb18
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb18 at Tue Jun  9 12:39:49 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb24
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb24 at Tue Jun  9 12:39:49 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2025_2026/FEB/feb25
+Time: Tue Jun  9 12:39:49 MDT 2026
+========================================
+main/run_deid_batch.sh: line 20: matlab: command not found
+Finished: feb25 at Tue Jun  9 12:39:49 MDT 2026
+All subdirectories processed.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan01
+Time: Thu Jun 11 16:02:57 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC26_2022_01_276.avi
+Processing File: DEC26_2022_01_296.avi
+Processing File: DEC26_2022_01_273.avi
+Processing File: DEC26_2022_01_277.avi
+Processing File: DEC26_2022_01_288.avi
+Processing File: DEC26_2022_01_300.avi
+Processing File: DEC26_2022_01_289.avi
+Processing File: DEC26_2022_01_292.avi
+Processing File: DEC26_2022_01_293.avi
+Processing File: DEC26_2022_01_299.avi
+Processing File: DEC26_2022_01_282.avi
+Processing File: DEC26_2022_01_290.avi
+Processing File: DEC26_2022_01_298.avi
+Processing File: DEC26_2022_01_275.avi
+Processing File: DEC26_2022_01_287.avi
+Processing File: DEC26_2022_01_283.avi
+Processing File: DEC26_2022_01_272.avi
+Processing File: DEC26_2022_01_274.avi
+Processing File: DEC26_2022_01_295.avi
+Processing File: DEC26_2022_01_286.avi
+Processing File: DEC26_2022_01_280.avi
+Processing File: DEC26_2022_01_284.avi
+Processing File: DEC26_2022_01_291.avi
+Processing File: DEC26_2022_01_285.avi
+Processing File: DEC26_2022_01_279.avi
+Processing File: DEC26_2022_01_281.avi
+Processing File: DEC26_2022_01_297.avi
+Processing File: DEC26_2022_01_278.avi
+Processing File: DEC26_2022_01_294.avi
+Saved Output for: main
+Finished: jan01 at Thu Jun 11 16:08:59 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan03
+Time: Thu Jun 11 16:08:59 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC26_2022_01_331.avi
+Processing File: DEC26_2022_01_333.avi
+Processing File: DEC26_2022_01_335.avi
+Processing File: DEC26_2022_01_330.avi
+Processing File: DEC26_2022_01_334.avi
+Processing File: DEC26_2022_01_332.avi
+Saved Output for: main
+Finished: jan03 at Thu Jun 11 16:12:36 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan05
+Time: Thu Jun 11 16:12:36 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC15_2022_01_035.avi
+Processing File: DEC15_2022_01_039.avi
+Processing File: DEC15_2022_01_034.avi
+Processing File: DEC15_2022_01_040.avi
+Processing File: DEC15_2022_01_038.avi
+Processing File: DEC15_2022_01_032.avi
+Processing File: DEC15_2022_01_031.avi
+Processing File: DEC15_2022_01_025.avi
+Processing File: DEC15_2022_01_030.avi
+Processing File: DEC15_2022_01_027.avi
+Processing File: DEC15_2022_01_037.avi
+Processing File: DEC15_2022_01_028.avi
+Processing File: DEC15_2022_01_029.avi
+Processing File: DEC15_2022_01_033.avi
+Processing File: DEC15_2022_01_036.avi
+Processing File: DEC15_2022_01_024.avi
+Processing File: DEC15_2022_01_026.avi
+Saved Output for: main
+Finished: jan05 at Thu Jun 11 16:15:54 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan06
+Time: Thu Jun 11 16:15:54 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC15_2022_01_045.avi
+Processing File: DEC15_2022_01_056.avi
+Processing File: DEC15_2022_01_061.avi
+Processing File: DEC15_2022_01_048.avi
+Processing File: DEC15_2022_01_052.avi
+Processing File: DEC15_2022_01_060.avi
+Processing File: DEC15_2022_01_043.avi
+Processing File: DEC15_2022_01_058.avi
+Processing File: DEC15_2022_01_059.avi
+Processing File: DEC15_2022_01_067.avi
+Processing File: DEC15_2022_01_047.avi
+Processing File: DEC15_2022_01_055.avi
+Processing File: DEC15_2022_01_062.avi
+Processing File: DEC15_2022_01_050.avi
+Processing File: DEC15_2022_01_051.avi
+Processing File: DEC15_2022_01_063.avi
+Processing File: DEC15_2022_01_042.avi
+Processing File: DEC15_2022_01_054.avi
+Processing File: DEC15_2022_01_072.avi
+Processing File: DEC15_2022_01_053.avi
+Processing File: DEC15_2022_01_044.avi
+Processing File: DEC15_2022_01_065.avi
+Processing File: DEC15_2022_01_049.avi
+Processing File: DEC15_2022_01_057.avi
+Processing File: DEC15_2022_01_041.avi
+Processing File: DEC15_2022_01_066.avi
+Processing File: DEC15_2022_01_064.avi
+Processing File: DEC15_2022_01_068.avi
+Processing File: DEC15_2022_01_046.avi
+Processing File: DEC15_2022_01_071.avi
+Processing File: DEC15_2022_01_070.avi
+Processing File: DEC15_2022_01_069.avi
+Processing File: DEC15_2022_01_074.avi
+Processing File: DEC15_2022_01_076.avi
+Processing File: DEC15_2022_01_075.avi
+Processing File: DEC15_2022_01_073.avi
+Processing File: DEC15_2022_01_077.avi
+Processing File: DEC15_2022_01_080.avi
+Processing File: DEC15_2022_01_081.avi
+Processing File: DEC15_2022_01_079.avi
+Processing File: DEC15_2022_01_083.avi
+Processing File: DEC15_2022_01_084.avi
+Processing File: DEC15_2022_01_082.avi
+Processing File: DEC15_2022_01_087.avi
+Processing File: DEC15_2022_01_088.avi
+Processing File: DEC15_2022_01_078.avi
+Processing File: DEC15_2022_01_085.avi
+Processing File: DEC15_2022_01_086.avi
+Saved Output for: main
+Finished: jan06 at Thu Jun 11 16:23:15 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan09
+Time: Thu Jun 11 16:23:15 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC15_2022_01_147.avi
+Processing File: DEC15_2022_01_166.avi
+Processing File: DEC15_2022_01_157.avi
+Processing File: DEC15_2022_01_164.avi
+Processing File: DEC15_2022_01_144.avi
+Processing File: DEC15_2022_01_161.avi
+Processing File: DEC15_2022_01_142.avi
+Processing File: DEC15_2022_01_158.avi
+Processing File: DEC15_2022_01_151.avi
+Processing File: DEC15_2022_01_160.avi
+Processing File: DEC15_2022_01_156.avi
+Processing File: DEC15_2022_01_148.avi
+Processing File: DEC15_2022_01_154.avi
+Processing File: DEC15_2022_01_146.avi
+Processing File: DEC15_2022_01_149.avi
+Processing File: DEC15_2022_01_163.avi
+Processing File: DEC15_2022_01_159.avi
+Processing File: DEC15_2022_01_153.avi
+Processing File: DEC15_2022_01_141.avi
+Processing File: DEC15_2022_01_150.avi
+Processing File: DEC15_2022_01_140.avi
+Processing File: DEC15_2022_01_143.avi
+Processing File: DEC15_2022_01_155.avi
+Processing File: DEC15_2022_01_145.avi
+Processing File: DEC15_2022_01_152.avi
+Processing File: DEC15_2022_01_162.avi
+Processing File: DEC15_2022_01_165.avi
+Saved Output for: main
+Finished: jan09 at Thu Jun 11 16:27:06 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan10
+Time: Thu Jun 11 16:27:06 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC15_2022_01_172.avi
+Processing File: DEC15_2022_01_192.avi
+Processing File: Alta_Collins_StudyPlot _197.avi
+Processing File: DEC15_2022_01_188.avi
+Processing File: DEC15_2022_01_170.avi
+Processing File: DEC15_2022_01_183.avi
+Processing File: DEC15_2022_01_176.avi
+Processing File: DEC15_2022_01_186.avi
+Processing File: DEC15_2022_01_187.avi
+Processing File: Alta_Collins_StudyPlot _193.avi
+Processing File: DEC15_2022_01_191.avi
+Processing File: DEC15_2022_01_185.avi
+Processing File: DEC15_2022_01_177.avi
+Processing File: DEC15_2022_01_175.avi
+Processing File: DEC15_2022_01_173.avi
+Processing File: DEC15_2022_01_179.avi
+Processing File: Alta_Collins_StudyPlot _195.avi
+Processing File: DEC15_2022_01_180.avi
+Processing File: Alta_Collins_StudyPlot _196.avi
+Processing File: DEC15_2022_01_182.avi
+Processing File: DEC15_2022_01_169.avi
+Processing File: DEC15_2022_01_174.avi
+Processing File: DEC15_2022_01_167.avi
+Processing File: Alta_Collins_StudyPlot _194.avi
+Processing File: DEC15_2022_01_184.avi
+Processing File: DEC15_2022_01_178.avi
+Processing File: DEC15_2022_01_190.avi
+Processing File: DEC15_2022_01_189.avi
+Processing File: DEC15_2022_01_168.avi
+Processing File: DEC15_2022_01_181.avi
+Processing File: DEC15_2022_01_193.avi
+Processing File: DEC15_2022_01_171.avi
+Processing File: Alta_Collins_StudyPlot _208.avi
+Processing File: Alta_Collins_StudyPlot _213.avi
+Processing File: Alta_Collins_StudyPlot _207.avi
+Processing File: Alta_Collins_StudyPlot _212.avi
+Processing File: Alta_Collins_StudyPlot _209.avi
+Processing File: Alta_Collins_StudyPlot _198.avi
+Processing File: Alta_Collins_StudyPlot _200.avi
+Processing File: Alta_Collins_StudyPlot _199.avi
+Processing File: Alta_Collins_StudyPlot _211.avi
+Processing File: Alta_Collins_StudyPlot _210.avi
+Processing File: Alta_Collins_StudyPlot _206.avi
+Processing File: Alta_Collins_StudyPlot _201.avi
+Processing File: Alta_Collins_StudyPlot _202.avi
+Processing File: Alta_Collins_StudyPlot _205.avi
+Processing File: Alta_Collins_StudyPlot _204.avi
+Processing File: Alta_Collins_StudyPlot _203.avi
+Saved Output for: main
+Finished: jan10 at Thu Jun 11 16:34:41 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan11
+Time: Thu Jun 11 16:34:41 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_003.avi
+Processing File: Alta_Collins_StudyPlot_004.avi
+Processing File: Alta_Collins_StudyPlot_001.avi
+Processing File: Alta_Collins_StudyPlot_002.avi
+Processing File: Alta_Collins_StudyPlot_005.avi
+Saved Output for: main
+Finished: jan11 at Thu Jun 11 16:38:17 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan14
+Time: Thu Jun 11 16:38:17 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_069.avi
+Processing File: Alta_Collins_StudyPlot_061.avi
+Processing File: Alta_Collins_StudyPlot_063.avi
+Processing File: Alta_Collins_StudyPlot_062.avi
+Processing File: Alta_Collins_StudyPlot_068.avi
+Processing File: Alta_Collins_StudyPlot_067.avi
+Processing File: Alta_Collins_StudyPlot_066.avi
+Processing File: Alta_Collins_StudyPlot_064.avi
+Processing File: Alta_Collins_StudyPlot_065.avi
+Saved Output for: main
+Finished: jan14 at Thu Jun 11 16:40:39 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan15
+Time: Thu Jun 11 16:40:39 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_075.avi
+Processing File: Alta_Collins_StudyPlot_098.avi
+Processing File: Alta_Collins_StudyPlot_088.avi
+Processing File: Alta_Collins_StudyPlot_097.avi
+Processing File: Alta_Collins_StudyPlot_080.avi
+Processing File: Alta_Collins_StudyPlot_078.avi
+Processing File: Alta_Collins_StudyPlot_079.avi
+Processing File: Alta_Collins_StudyPlot_081.avi
+Processing File: Alta_Collins_StudyPlot_083.avi
+Processing File: Alta_Collins_StudyPlot_070.avi
+Processing File: Alta_Collins_StudyPlot_093.avi
+Processing File: Alta_Collins_StudyPlot_077.avi
+Processing File: Alta_Collins_StudyPlot_099.avi
+Processing File: Alta_Collins_StudyPlot_087.avi
+Processing File: Alta_Collins_StudyPlot_074.avi
+Processing File: Alta_Collins_StudyPlot_084.avi
+Processing File: Alta_Collins_StudyPlot_096.avi
+Processing File: Alta_Collins_StudyPlot_095.avi
+Processing File: Alta_Collins_StudyPlot_072.avi
+Processing File: Alta_Collins_StudyPlot_094.avi
+Processing File: Alta_Collins_StudyPlot_076.avi
+Processing File: Alta_Collins_StudyPlot_090.avi
+Processing File: Alta_Collins_StudyPlot_092.avi
+Processing File: Alta_Collins_StudyPlot_089.avi
+Processing File: Alta_Collins_StudyPlot_071.avi
+Processing File: Alta_Collins_StudyPlot_082.avi
+Processing File: Alta_Collins_StudyPlot_091.avi
+Processing File: Alta_Collins_StudyPlot_073.avi
+Processing File: Alta_Collins_StudyPlot_100.avi
+Processing File: Alta_Collins_StudyPlot_085.avi
+Processing File: Alta_Collins_StudyPlot_086.avi
+Processing File: Alta_Collins_StudyPlot_101.avi
+Processing File: Alta_Collins_StudyPlot_104.avi
+Processing File: Alta_Collins_StudyPlot_103.avi
+Processing File: Alta_Collins_StudyPlot_109.avi
+Processing File: Alta_Collins_StudyPlot_105.avi
+Processing File: Alta_Collins_StudyPlot_108.avi
+Processing File: Alta_Collins_StudyPlot_106.avi
+Processing File: Alta_Collins_StudyPlot_107.avi
+Processing File: Alta_Collins_StudyPlot_102.avi
+Saved Output for: main
+Finished: jan15 at Thu Jun 11 16:47:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan16
+Time: Thu Jun 11 16:47:14 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_112.avi
+Processing File: Alta_Collins_StudyPlot_136.avi
+Processing File: Alta_Collins_StudyPlot_125.avi
+Processing File: Alta_Collins_StudyPlot_119.avi
+Processing File: Alta_Collins_StudyPlot_118.avi
+Processing File: Alta_Collins_StudyPlot_134.avi
+Processing File: Alta_Collins_StudyPlot_123.avi
+Processing File: Alta_Collins_StudyPlot_124.avi
+Processing File: Alta_Collins_StudyPlot_115.avi
+Processing File: Alta_Collins_StudyPlot_113.avi
+Processing File: Alta_Collins_StudyPlot_135.avi
+Processing File: Alta_Collins_StudyPlot_121.avi
+Processing File: Alta_Collins_StudyPlot_111.avi
+Processing File: Alta_Collins_StudyPlot_132.avi
+Processing File: Alta_Collins_StudyPlot_122.avi
+Processing File: Alta_Collins_StudyPlot_117.avi
+Processing File: Alta_Collins_StudyPlot_120.avi
+Processing File: Alta_Collins_StudyPlot_133.avi
+Processing File: Alta_Collins_StudyPlot_114.avi
+Processing File: Alta_Collins_StudyPlot_127.avi
+Processing File: Alta_Collins_StudyPlot_126.avi
+Processing File: Alta_Collins_StudyPlot_130.avi
+Processing File: Alta_Collins_StudyPlot_129.avi
+Processing File: Alta_Collins_StudyPlot_110.avi
+Processing File: Alta_Collins_StudyPlot_128.avi
+Processing File: Alta_Collins_StudyPlot_137.avi
+Processing File: Alta_Collins_StudyPlot_116.avi
+Processing File: Alta_Collins_StudyPlot_131.avi
+Saved Output for: main
+Finished: jan16 at Thu Jun 11 16:52:56 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan17
+Time: Thu Jun 11 16:52:56 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_156.avi
+Processing File: Alta_Collins_StudyPlot_160.avi
+Processing File: Alta_Collins_StudyPlot_145.avi
+Processing File: Alta_Collins_StudyPlot_138.avi
+Processing File: Alta_Collins_StudyPlot_152.avi
+Processing File: Alta_Collins_StudyPlot_146.avi
+Processing File: Alta_Collins_StudyPlot_163.avi
+Processing File: Alta_Collins_StudyPlot_149.avi
+Processing File: Alta_Collins_StudyPlot_143.avi
+Processing File: Alta_Collins_StudyPlot_154.avi
+Processing File: Alta_Collins_StudyPlot_147.avi
+Processing File: Alta_Collins_StudyPlot_144.avi
+Processing File: Alta_Collins_StudyPlot_142.avi
+Processing File: Alta_Collins_StudyPlot_155.avi
+Processing File: Alta_Collins_StudyPlot_141.avi
+Processing File: Alta_Collins_StudyPlot_139.avi
+Processing File: Alta_Collins_StudyPlot_159.avi
+Processing File: Alta_Collins_StudyPlot_151.avi
+Processing File: Alta_Collins_StudyPlot_150.avi
+Processing File: Alta_Collins_StudyPlot_157.avi
+Processing File: Alta_Collins_StudyPlot_148.avi
+Processing File: Alta_Collins_StudyPlot_161.avi
+Processing File: Alta_Collins_StudyPlot_153.avi
+Processing File: Alta_Collins_StudyPlot_162.avi
+Processing File: Alta_Collins_StudyPlot_140.avi
+Processing File: Alta_Collins_StudyPlot_158.avi
+Saved Output for: main
+Finished: jan17 at Thu Jun 11 16:59:22 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan18
+Time: Thu Jun 11 16:59:22 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_169.avi
+Processing File: Alta_Collins_StudyPlot_168.avi
+Processing File: Alta_Collins_StudyPlot_165.avi
+Processing File: Alta_Collins_StudyPlot_164.avi
+Processing File: Alta_Collins_StudyPlot_166.avi
+Processing File: Alta_Collins_StudyPlot_167.avi
+Processing File: Alta_Collins_StudyPlot_170.avi
+Saved Output for: main
+Finished: jan18 at Thu Jun 11 17:03:28 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan24
+Time: Thu Jun 11 17:03:28 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_701.avi
+Processing File: Alta_Collins_StudyPlot_712.avi
+Processing File: Alta_Collins_StudyPlot_713.avi
+Processing File: Alta_Collins_StudyPlot_686.avi
+Processing File: Alta_Collins_StudyPlot_697.avi
+Processing File: Alta_Collins_StudyPlot_689.avi
+Processing File: Alta_Collins_StudyPlot_696.avi
+Processing File: Alta_Collins_StudyPlot_692.avi
+Processing File: Alta_Collins_StudyPlot_704.avi
+Processing File: Alta_Collins_StudyPlot_714.avi
+Processing File: Alta_Collins_StudyPlot_709.avi
+Processing File: Alta_Collins_StudyPlot_688.avi
+Processing File: Alta_Collins_StudyPlot_694.avi
+Processing File: Alta_Collins_StudyPlot_707.avi
+Processing File: Alta_Collins_StudyPlot_690.avi
+Processing File: Alta_Collins_StudyPlot_699.avi
+Processing File: Alta_Collins_StudyPlot_695.avi
+Processing File: Alta_Collins_StudyPlot_711.avi
+Processing File: Alta_Collins_StudyPlot_687.avi
+Processing File: Alta_Collins_StudyPlot_703.avi
+Processing File: Alta_Collins_StudyPlot_683.avi
+Processing File: Alta_Collins_StudyPlot_710.avi
+Processing File: Alta_Collins_StudyPlot_691.avi
+Processing File: Alta_Collins_StudyPlot_708.avi
+Processing File: Alta_Collins_StudyPlot_705.avi
+Processing File: Alta_Collins_StudyPlot_700.avi
+Processing File: Alta_Collins_StudyPlot_684.avi
+Processing File: Alta_Collins_StudyPlot_706.avi
+Processing File: Alta_Collins_StudyPlot_693.avi
+Processing File: Alta_Collins_StudyPlot_685.avi
+Processing File: Alta_Collins_StudyPlot_702.avi
+Processing File: Alta_Collins_StudyPlot_698.avi
+Processing File: Alta_Collins_StudyPlot_727.avi
+Processing File: Alta_Collins_StudyPlot_736.avi
+Processing File: Alta_Collins_StudyPlot_731.avi
+Processing File: Alta_Collins_StudyPlot_734.avi
+Processing File: Alta_Collins_StudyPlot_735.avi
+Processing File: Alta_Collins_StudyPlot_740.avi
+Processing File: Alta_Collins_StudyPlot_720.avi
+Processing File: Alta_Collins_StudyPlot_741.avi
+Processing File: Alta_Collins_StudyPlot_719.avi
+Processing File: Alta_Collins_StudyPlot_732.avi
+Processing File: Alta_Collins_StudyPlot_746.avi
+Processing File: Alta_Collins_StudyPlot_726.avi
+Processing File: Alta_Collins_StudyPlot_733.avi
+Processing File: Alta_Collins_StudyPlot_737.avi
+Processing File: Alta_Collins_StudyPlot_738.avi
+Processing File: Alta_Collins_StudyPlot_723.avi
+Processing File: Alta_Collins_StudyPlot_725.avi
+Processing File: Alta_Collins_StudyPlot_724.avi
+Processing File: Alta_Collins_StudyPlot_729.avi
+Processing File: Alta_Collins_StudyPlot_721.avi
+Processing File: Alta_Collins_StudyPlot_728.avi
+Processing File: Alta_Collins_StudyPlot_739.avi
+Processing File: Alta_Collins_StudyPlot_743.avi
+Processing File: Alta_Collins_StudyPlot_718.avi
+Processing File: Alta_Collins_StudyPlot_730.avi
+Processing File: Alta_Collins_StudyPlot_745.avi
+Processing File: Alta_Collins_StudyPlot_744.avi
+Processing File: Alta_Collins_StudyPlot_716.avi
+Processing File: Alta_Collins_StudyPlot_722.avi
+Processing File: Alta_Collins_StudyPlot_717.avi
+Processing File: Alta_Collins_StudyPlot_742.avi
+Processing File: Alta_Collins_StudyPlot_715.avi
+Processing File: Alta_Collins_StudyPlot_751.avi
+Processing File: Alta_Collins_StudyPlot_750.avi
+Processing File: Alta_Collins_StudyPlot_747.avi
+Processing File: Alta_Collins_StudyPlot_752.avi
+Processing File: Alta_Collins_StudyPlot_749.avi
+Processing File: Alta_Collins_StudyPlot_748.avi
+Processing File: Alta_Collins_StudyPlot_757.avi
+Processing File: Alta_Collins_StudyPlot_759.avi
+Processing File: Alta_Collins_StudyPlot_753.avi
+Processing File: Alta_Collins_StudyPlot_768.avi
+Processing File: Alta_Collins_StudyPlot_756.avi
+Processing File: Alta_Collins_StudyPlot_767.avi
+Processing File: Alta_Collins_StudyPlot_754.avi
+Processing File: Alta_Collins_StudyPlot_758.avi
+Processing File: Alta_Collins_StudyPlot_760.avi
+Processing File: Alta_Collins_StudyPlot_755.avi
+Processing File: Alta_Collins_StudyPlot_761.avi
+Processing File: Alta_Collins_StudyPlot_769.avi
+Processing File: Alta_Collins_StudyPlot_763.avi
+Processing File: Alta_Collins_StudyPlot_764.avi
+Processing File: Alta_Collins_StudyPlot_762.avi
+Processing File: Alta_Collins_StudyPlot_766.avi
+Processing File: Alta_Collins_StudyPlot_773.avi
+Processing File: Alta_Collins_StudyPlot_771.avi
+Processing File: Alta_Collins_StudyPlot_765.avi
+Processing File: Alta_Collins_StudyPlot_772.avi
+Processing File: Alta_Collins_StudyPlot_770.avi
+Saved Output for: main
+Finished: jan24 at Thu Jun 11 17:08:16 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan25
+Time: Thu Jun 11 17:08:16 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_797.avi
+Processing File: Alta_Collins_StudyPlot_787.avi
+Processing File: Alta_Collins_StudyPlot_791.avi
+Processing File: Alta_Collins_StudyPlot_775.avi
+Processing File: Alta_Collins_StudyPlot_795.avi
+Processing File: Alta_Collins_StudyPlot_792.avi
+Processing File: Alta_Collins_StudyPlot_788.avi
+Processing File: Alta_Collins_StudyPlot_774.avi
+Processing File: Alta_Collins_StudyPlot_789.avi
+Processing File: Alta_Collins_StudyPlot_798.avi
+Processing File: Alta_Collins_StudyPlot_801.avi
+Processing File: Alta_Collins_StudyPlot_796.avi
+Processing File: Alta_Collins_StudyPlot_800.avi
+Processing File: Alta_Collins_StudyPlot_777.avi
+Processing File: Alta_Collins_StudyPlot_786.avi
+Processing File: Alta_Collins_StudyPlot_783.avi
+Processing File: Alta_Collins_StudyPlot_782.avi
+Processing File: Alta_Collins_StudyPlot_779.avi
+Processing File: Alta_Collins_StudyPlot_799.avi
+Processing File: Alta_Collins_StudyPlot_793.avi
+Processing File: Alta_Collins_StudyPlot_778.avi
+Processing File: Alta_Collins_StudyPlot_780.avi
+Processing File: Alta_Collins_StudyPlot_781.avi
+Processing File: Alta_Collins_StudyPlot_794.avi
+Processing File: Alta_Collins_StudyPlot_790.avi
+Processing File: Alta_Collins_StudyPlot_785.avi
+Processing File: Alta_Collins_StudyPlot_784.avi
+Processing File: Alta_Collins_StudyPlot_776.avi
+Saved Output for: main
+Finished: jan25 at Thu Jun 11 17:10:31 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan26
+Time: Thu Jun 11 17:10:31 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_870.avi
+Processing File: Alta_Collins_StudyPlot_879.avi
+Processing File: Alta_Collins_StudyPlot_891.avi
+Processing File: Alta_Collins_StudyPlot_894.avi
+Processing File: Alta_Collins_StudyPlot_882.avi
+Processing File: Alta_Collins_StudyPlot_869.avi
+Processing File: Alta_Collins_StudyPlot_876.avi
+Processing File: Alta_Collins_StudyPlot_871.avi
+Processing File: Alta_Collins_StudyPlot_884.avi
+Processing File: Alta_Collins_StudyPlot_872.avi
+Processing File: Alta_Collins_StudyPlot_878.avi
+Processing File: Alta_Collins_StudyPlot_873.avi
+Processing File: Alta_Collins_StudyPlot_893.avi
+Processing File: Alta_Collins_StudyPlot_881.avi
+Processing File: Alta_Collins_StudyPlot_874.avi
+Processing File: Alta_Collins_StudyPlot_888.avi
+Processing File: Alta_Collins_StudyPlot_875.avi
+Processing File: Alta_Collins_StudyPlot_890.avi
+Processing File: Alta_Collins_StudyPlot_889.avi
+Processing File: Alta_Collins_StudyPlot_883.avi
+Processing File: Alta_Collins_StudyPlot_877.avi
+Processing File: Alta_Collins_StudyPlot_886.avi
+Processing File: Alta_Collins_StudyPlot_885.avi
+Processing File: Alta_Collins_StudyPlot_892.avi
+Processing File: Alta_Collins_StudyPlot_868.avi
+Processing File: Alta_Collins_StudyPlot_887.avi
+Processing File: Alta_Collins_StudyPlot_880.avi
+Saved Output for: main
+Finished: jan26 at Thu Jun 11 17:12:31 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan27
+Time: Thu Jun 11 17:12:31 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_988.avi
+Processing File: Alta_Collins_StudyPlot_1003.avi
+Processing File: Alta_Collins_StudyPlot_1006.avi
+Processing File: Alta_Collins_StudyPlot_1018.avi
+Processing File: Alta_Collins_StudyPlot_1011.avi
+Processing File: Alta_Collins_StudyPlot_989.avi
+Processing File: Alta_Collins_StudyPlot_998.avi
+Processing File: Alta_Collins_StudyPlot_991.avi
+Processing File: Alta_Collins_StudyPlot_996.avi
+Processing File: Alta_Collins_StudyPlot_1013.avi
+Processing File: Alta_Collins_StudyPlot_1017.avi
+Processing File: Alta_Collins_StudyPlot_1004.avi
+Processing File: Alta_Collins_StudyPlot_1012.avi
+Processing File: Alta_Collins_StudyPlot_1008.avi
+Processing File: Alta_Collins_StudyPlot_1014.avi
+Processing File: Alta_Collins_StudyPlot_1016.avi
+Processing File: Alta_Collins_StudyPlot_1007.avi
+Processing File: Alta_Collins_StudyPlot_1015.avi
+Processing File: Alta_Collins_StudyPlot_990.avi
+Processing File: Alta_Collins_StudyPlot_987.avi
+Processing File: Alta_Collins_StudyPlot_993.avi
+Processing File: Alta_Collins_StudyPlot_1009.avi
+Processing File: Alta_Collins_StudyPlot_995.avi
+Processing File: Alta_Collins_StudyPlot_1000.avi
+Processing File: Alta_Collins_StudyPlot_1005.avi
+Processing File: Alta_Collins_StudyPlot_1001.avi
+Processing File: Alta_Collins_StudyPlot_997.avi
+Processing File: Alta_Collins_StudyPlot_999.avi
+Processing File: Alta_Collins_StudyPlot_1002.avi
+Processing File: Alta_Collins_StudyPlot_1010.avi
+Processing File: Alta_Collins_StudyPlot_992.avi
+Processing File: Alta_Collins_StudyPlot_994.avi
+Processing File: Alta_Collins_StudyPlot_1029.avi
+Processing File: Alta_Collins_StudyPlot_1039.avi
+Processing File: Alta_Collins_StudyPlot_1028.avi
+Processing File: Alta_Collins_StudyPlot_1031.avi
+Processing File: Alta_Collins_StudyPlot_1050.avi
+Processing File: Alta_Collins_StudyPlot_1033.avi
+Processing File: Alta_Collins_StudyPlot_1049.avi
+Processing File: Alta_Collins_StudyPlot_1026.avi
+Processing File: Alta_Collins_StudyPlot_1023.avi
+Processing File: Alta_Collins_StudyPlot_1024.avi
+Processing File: Alta_Collins_StudyPlot_1046.avi
+Processing File: Alta_Collins_StudyPlot_1021.avi
+Processing File: Alta_Collins_StudyPlot_1030.avi
+Processing File: Alta_Collins_StudyPlot_1045.avi
+Processing File: Alta_Collins_StudyPlot_1040.avi
+Processing File: Alta_Collins_StudyPlot_1038.avi
+Processing File: Alta_Collins_StudyPlot_1037.avi
+Processing File: Alta_Collins_StudyPlot_1035.avi
+Processing File: Alta_Collins_StudyPlot_1043.avi
+Processing File: Alta_Collins_StudyPlot_1034.avi
+Processing File: Alta_Collins_StudyPlot_1044.avi
+Processing File: Alta_Collins_StudyPlot_1019.avi
+Processing File: Alta_Collins_StudyPlot_1022.avi
+Processing File: Alta_Collins_StudyPlot_1036.avi
+Processing File: Alta_Collins_StudyPlot_1042.avi
+Processing File: Alta_Collins_StudyPlot_1020.avi
+Processing File: Alta_Collins_StudyPlot_1027.avi
+Processing File: Alta_Collins_StudyPlot_1025.avi
+Processing File: Alta_Collins_StudyPlot_1032.avi
+Processing File: Alta_Collins_StudyPlot_1041.avi
+Processing File: Alta_Collins_StudyPlot_1048.avi
+Processing File: Alta_Collins_StudyPlot_1047.avi
+Processing File: Alta_Collins_StudyPlot_1051.avi
+Saved Output for: main
+Finished: jan27 at Thu Jun 11 17:17:23 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan28
+Time: Thu Jun 11 17:17:23 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_1070.avi
+Processing File: Alta_Collins_StudyPlot_1067.avi
+Processing File: Alta_Collins_StudyPlot_1068.avi
+Processing File: Alta_Collins_StudyPlot_1054.avi
+Processing File: Alta_Collins_StudyPlot_1078.avi
+Processing File: Alta_Collins_StudyPlot_1076.avi
+Processing File: Alta_Collins_StudyPlot_1059.avi
+Processing File: Alta_Collins_StudyPlot_1056.avi
+Processing File: Alta_Collins_StudyPlot_1074.avi
+Processing File: Alta_Collins_StudyPlot_1084.avi
+Processing File: Alta_Collins_StudyPlot_1072.avi
+Processing File: Alta_Collins_StudyPlot_1064.avi
+Processing File: Alta_Collins_StudyPlot_1060.avi
+Processing File: Alta_Collins_StudyPlot_1077.avi
+Processing File: Alta_Collins_StudyPlot_1066.avi
+Processing File: Alta_Collins_StudyPlot_1057.avi
+Processing File: Alta_Collins_StudyPlot_1080.avi
+Processing File: Alta_Collins_StudyPlot_1075.avi
+Processing File: Alta_Collins_StudyPlot_1058.avi
+Processing File: Alta_Collins_StudyPlot_1069.avi
+Processing File: Alta_Collins_StudyPlot_1065.avi
+Processing File: Alta_Collins_StudyPlot_1079.avi
+Processing File: Alta_Collins_StudyPlot_1063.avi
+Processing File: Alta_Collins_StudyPlot_1071.avi
+Processing File: Alta_Collins_StudyPlot_1083.avi
+Processing File: Alta_Collins_StudyPlot_1053.avi
+Processing File: Alta_Collins_StudyPlot_1081.avi
+Processing File: Alta_Collins_StudyPlot_1082.avi
+Processing File: Alta_Collins_StudyPlot_1061.avi
+Processing File: Alta_Collins_StudyPlot_1062.avi
+Processing File: Alta_Collins_StudyPlot_1055.avi
+Processing File: Alta_Collins_StudyPlot_1073.avi
+Processing File: Alta_Collins_StudyPlot_1091.avi
+Processing File: Alta_Collins_StudyPlot_1092.avi
+Processing File: Alta_Collins_StudyPlot_1090.avi
+Processing File: Alta_Collins_StudyPlot_1088.avi
+Processing File: Alta_Collins_StudyPlot_1094.avi
+Processing File: Alta_Collins_StudyPlot_1085.avi
+Processing File: Alta_Collins_StudyPlot_1093.avi
+Processing File: Alta_Collins_StudyPlot_1087.avi
+Processing File: Alta_Collins_StudyPlot_1086.avi
+Processing File: Alta_Collins_StudyPlot_1089.avi
+Saved Output for: main
+Finished: jan28 at Thu Jun 11 17:20:28 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/JAN/jan29
+Time: Thu Jun 11 17:20:28 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_1187.avi
+Processing File: Alta_Collins_StudyPlot_1163.avi
+Processing File: Alta_Collins_StudyPlot_1165.avi
+Processing File: Alta_Collins_StudyPlot_1190.avi
+Processing File: Alta_Collins_StudyPlot_1185.avi
+Processing File: Alta_Collins_StudyPlot_1191.avi
+Processing File: Alta_Collins_StudyPlot_1162.avi
+Processing File: Alta_Collins_StudyPlot_1177.avi
+Processing File: Alta_Collins_StudyPlot_1182.avi
+Processing File: Alta_Collins_StudyPlot_1172.avi
+Processing File: Alta_Collins_StudyPlot_1173.avi
+Processing File: Alta_Collins_StudyPlot_1166.avi
+Processing File: Alta_Collins_StudyPlot_1169.avi
+Processing File: Alta_Collins_StudyPlot_1171.avi
+Processing File: Alta_Collins_StudyPlot_1189.avi
+Processing File: Alta_Collins_StudyPlot_1170.avi
+Processing File: Alta_Collins_StudyPlot_1168.avi
+Processing File: Alta_Collins_StudyPlot_1186.avi
+Processing File: Alta_Collins_StudyPlot_1175.avi
+Processing File: Alta_Collins_StudyPlot_1176.avi
+Processing File: Alta_Collins_StudyPlot_1174.avi
+Processing File: Alta_Collins_StudyPlot_1179.avi
+Processing File: Alta_Collins_StudyPlot_1192.avi
+Processing File: Alta_Collins_StudyPlot_1161.avi
+Processing File: Alta_Collins_StudyPlot_1181.avi
+Processing File: Alta_Collins_StudyPlot_1167.avi
+Processing File: Alta_Collins_StudyPlot_1180.avi
+Processing File: Alta_Collins_StudyPlot_1184.avi
+Processing File: Alta_Collins_StudyPlot_1183.avi
+Processing File: Alta_Collins_StudyPlot_1178.avi
+Processing File: Alta_Collins_StudyPlot_1188.avi
+Processing File: Alta_Collins_StudyPlot_1164.avi
+Processing File: Alta_Collins_StudyPlot_1195.avi
+Processing File: Alta_Collins_StudyPlot_1198.avi
+Processing File: Alta_Collins_StudyPlot_1200.avi
+Processing File: Alta_Collins_StudyPlot_1208.avi
+Processing File: Alta_Collins_StudyPlot_1201.avi
+Processing File: Alta_Collins_StudyPlot_1194.avi
+Processing File: Alta_Collins_StudyPlot_1193.avi
+Processing File: Alta_Collins_StudyPlot_1199.avi
+Processing File: Alta_Collins_StudyPlot_1206.avi
+Processing File: Alta_Collins_StudyPlot_1203.avi
+Processing File: Alta_Collins_StudyPlot_1205.avi
+Processing File: Alta_Collins_StudyPlot_1202.avi
+Processing File: Alta_Collins_StudyPlot_1204.avi
+Processing File: Alta_Collins_StudyPlot_1197.avi
+Processing File: Alta_Collins_StudyPlot_1209.avi
+Processing File: Alta_Collins_StudyPlot_1207.avi
+Processing File: Alta_Collins_StudyPlot_1196.avi
+Processing File: Alta_Collins_StudyPlot_1210.avi
+Saved Output for: main
+Finished: jan29 at Thu Jun 11 17:23:46 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb05
+Time: Thu Jun 11 17:28:12 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_1857.avi
+Processing File: Alta_Collins_StudyPlot_1846.avi
+Processing File: Alta_Collins_StudyPlot_1843.avi
+Processing File: Alta_Collins_StudyPlot_1837.avi
+Processing File: Alta_Collins_StudyPlot_1841.avi
+Processing File: Alta_Collins_StudyPlot_1861.avi
+Processing File: Alta_Collins_StudyPlot_1850.avi
+Processing File: Alta_Collins_StudyPlot_1853.avi
+Processing File: Alta_Collins_StudyPlot_1839.avi
+Processing File: Alta_Collins_StudyPlot_1845.avi
+Processing File: Alta_Collins_StudyPlot_1840.avi
+Processing File: Alta_Collins_StudyPlot_1852.avi
+Processing File: Alta_Collins_StudyPlot_1832.avi
+Processing File: Alta_Collins_StudyPlot_1854.avi
+Processing File: Alta_Collins_StudyPlot_1851.avi
+Processing File: Alta_Collins_StudyPlot_1848.avi
+Processing File: Alta_Collins_StudyPlot_1833.avi
+Processing File: Alta_Collins_StudyPlot_1842.avi
+Processing File: Alta_Collins_StudyPlot_1838.avi
+Processing File: Alta_Collins_StudyPlot_1847.avi
+Processing File: Alta_Collins_StudyPlot_1835.avi
+Processing File: Alta_Collins_StudyPlot_1863.avi
+Processing File: Alta_Collins_StudyPlot_1856.avi
+Processing File: Alta_Collins_StudyPlot_1834.avi
+Processing File: Alta_Collins_StudyPlot_1862.avi
+Processing File: Alta_Collins_StudyPlot_1860.avi
+Processing File: Alta_Collins_StudyPlot_1859.avi
+Processing File: Alta_Collins_StudyPlot_1844.avi
+Processing File: Alta_Collins_StudyPlot_1855.avi
+Processing File: Alta_Collins_StudyPlot_1836.avi
+Processing File: Alta_Collins_StudyPlot_1858.avi
+Processing File: Alta_Collins_StudyPlot_1849.avi
+Processing File: Alta_Collins_StudyPlot_1864.avi
+Processing File: Alta_Collins_StudyPlot_1869.avi
+Processing File: Alta_Collins_StudyPlot_1866.avi
+Processing File: Alta_Collins_StudyPlot_1865.avi
+Processing File: Alta_Collins_StudyPlot_1868.avi
+Processing File: Alta_Collins_StudyPlot_1867.avi
+Processing File: Alta_Collins_StudyPlot_1873.avi
+Processing File: Alta_Collins_StudyPlot_1872.avi
+Processing File: Alta_Collins_StudyPlot_1871.avi
+Processing File: Alta_Collins_StudyPlot_1876.avi
+Processing File: Alta_Collins_StudyPlot_1880.avi
+Processing File: Alta_Collins_StudyPlot_1879.avi
+Processing File: Alta_Collins_StudyPlot_1881.avi
+Processing File: Alta_Collins_StudyPlot_1877.avi
+Processing File: Alta_Collins_StudyPlot_1870.avi
+Processing File: Alta_Collins_StudyPlot_1884.avi
+Processing File: Alta_Collins_StudyPlot_1874.avi
+Processing File: Alta_Collins_StudyPlot_1878.avi
+Processing File: Alta_Collins_StudyPlot_1883.avi
+Processing File: Alta_Collins_StudyPlot_1875.avi
+Processing File: Alta_Collins_StudyPlot_1882.avi
+Saved Output for: main
+Finished: feb05 at Thu Jun 11 17:31:29 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb06
+Time: Thu Jun 11 17:31:29 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_1912.avi
+Processing File: Alta_Collins_StudyPlot_1905.avi
+Processing File: Alta_Collins_StudyPlot_1888.avi
+Processing File: Alta_Collins_StudyPlot_1893.avi
+Processing File: Alta_Collins_StudyPlot_1909.avi
+Processing File: Alta_Collins_StudyPlot_1910.avi
+Processing File: Alta_Collins_StudyPlot_1892.avi
+Processing File: Alta_Collins_StudyPlot_1913.avi
+Processing File: Alta_Collins_StudyPlot_1896.avi
+Processing File: Alta_Collins_StudyPlot_1897.avi
+Processing File: Alta_Collins_StudyPlot_1886.avi
+Processing File: Alta_Collins_StudyPlot_1915.avi
+Processing File: Alta_Collins_StudyPlot_1907.avi
+Processing File: Alta_Collins_StudyPlot_1889.avi
+Processing File: Alta_Collins_StudyPlot_1894.avi
+Processing File: Alta_Collins_StudyPlot_1911.avi
+Processing File: Alta_Collins_StudyPlot_1890.avi
+Processing File: Alta_Collins_StudyPlot_1887.avi
+Processing File: Alta_Collins_StudyPlot_1900.avi
+Processing File: Alta_Collins_StudyPlot_1902.avi
+Processing File: Alta_Collins_StudyPlot_1914.avi
+Processing File: Alta_Collins_StudyPlot_1898.avi
+Processing File: Alta_Collins_StudyPlot_1901.avi
+Processing File: Alta_Collins_StudyPlot_1904.avi
+Processing File: Alta_Collins_StudyPlot_1899.avi
+Processing File: Alta_Collins_StudyPlot_1885.avi
+Processing File: Alta_Collins_StudyPlot_1916.avi
+Processing File: Alta_Collins_StudyPlot_1917.avi
+Processing File: Alta_Collins_StudyPlot_1903.avi
+Processing File: Alta_Collins_StudyPlot_1908.avi
+Processing File: Alta_Collins_StudyPlot_1906.avi
+Processing File: Alta_Collins_StudyPlot_1891.avi
+Processing File: Alta_Collins_StudyPlot_1928.avi
+Processing File: Alta_Collins_StudyPlot_1927.avi
+Processing File: Alta_Collins_StudyPlot_1920.avi
+Processing File: Alta_Collins_StudyPlot_1931.avi
+Processing File: Alta_Collins_StudyPlot_1936.avi
+Processing File: Alta_Collins_StudyPlot_1930.avi
+Processing File: Alta_Collins_StudyPlot_1942.avi
+Processing File: Alta_Collins_StudyPlot_1918.avi
+Processing File: Alta_Collins_StudyPlot_1935.avi
+Processing File: Alta_Collins_StudyPlot_1929.avi
+Processing File: Alta_Collins_StudyPlot_1922.avi
+Processing File: Alta_Collins_StudyPlot_1944.avi
+Processing File: Alta_Collins_StudyPlot_1921.avi
+Processing File: Alta_Collins_StudyPlot_1933.avi
+Processing File: Alta_Collins_StudyPlot_1924.avi
+Processing File: Alta_Collins_StudyPlot_1941.avi
+Processing File: Alta_Collins_StudyPlot_1943.avi
+Processing File: Alta_Collins_StudyPlot_1925.avi
+Processing File: Alta_Collins_StudyPlot_1938.avi
+Processing File: Alta_Collins_StudyPlot_1926.avi
+Processing File: Alta_Collins_StudyPlot_1947.avi
+Processing File: Alta_Collins_StudyPlot_1932.avi
+Processing File: Alta_Collins_StudyPlot_1945.avi
+Processing File: Alta_Collins_StudyPlot_1939.avi
+Processing File: Alta_Collins_StudyPlot_1937.avi
+Processing File: Alta_Collins_StudyPlot_1923.avi
+Processing File: Alta_Collins_StudyPlot_1940.avi
+Processing File: Alta_Collins_StudyPlot_1934.avi
+Processing File: Alta_Collins_StudyPlot_1948.avi
+Processing File: Alta_Collins_StudyPlot_1919.avi
+Processing File: Alta_Collins_StudyPlot_1949.avi
+Processing File: Alta_Collins_StudyPlot_1946.avi
+Processing File: Alta_Collins_StudyPlot_1950.avi
+Saved Output for: main
+Finished: feb06 at Thu Jun 11 17:35:39 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb14
+Time: Thu Jun 11 17:35:39 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Alta_Collins_StudyPlot_463.avi
+Processing File: Alta_Collins_StudyPlot_448.avi
+Processing File: Alta_Collins_StudyPlot_450.avi
+Processing File: Alta_Collins_StudyPlot_473.avi
+Processing File: Alta_Collins_StudyPlot_449.avi
+Processing File: Alta_Collins_StudyPlot_453.avi
+Processing File: Alta_Collins_StudyPlot_455.avi
+Processing File: Alta_Collins_StudyPlot_459.avi
+Processing File: Alta_Collins_StudyPlot_454.avi
+Processing File: Alta_Collins_StudyPlot_472.avi
+Processing File: Alta_Collins_StudyPlot_467.avi
+Processing File: Alta_Collins_StudyPlot_464.avi
+Processing File: Alta_Collins_StudyPlot_468.avi
+Processing File: Alta_Collins_StudyPlot_462.avi
+Processing File: Alta_Collins_StudyPlot_476.avi
+Processing File: Alta_Collins_StudyPlot_475.avi
+Processing File: Alta_Collins_StudyPlot_451.avi
+Processing File: Alta_Collins_StudyPlot_461.avi
+Processing File: Alta_Collins_StudyPlot_474.avi
+Processing File: Alta_Collins_StudyPlot_470.avi
+Processing File: Alta_Collins_StudyPlot_452.avi
+Processing File: Alta_Collins_StudyPlot_457.avi
+Processing File: Alta_Collins_StudyPlot_471.avi
+Processing File: Alta_Collins_StudyPlot_479.avi
+Processing File: Alta_Collins_StudyPlot_465.avi
+Processing File: Alta_Collins_StudyPlot_478.avi
+Processing File: Alta_Collins_StudyPlot_456.avi
+Processing File: Alta_Collins_StudyPlot_477.avi
+Processing File: Alta_Collins_StudyPlot_466.avi
+Processing File: Alta_Collins_StudyPlot_458.avi
+Processing File: Alta_Collins_StudyPlot_469.avi
+Processing File: Alta_Collins_StudyPlot_460.avi
+Processing File: Alta_Collins_StudyPlot_495.avi
+Processing File: Alta_Collins_StudyPlot_494.avi
+Processing File: Alta_Collins_StudyPlot_506.avi
+Processing File: Alta_Collins_StudyPlot_504.avi
+Processing File: Alta_Collins_StudyPlot_509.avi
+Processing File: Alta_Collins_StudyPlot_493.avi
+Processing File: Alta_Collins_StudyPlot_500.avi
+Processing File: Alta_Collins_StudyPlot_492.avi
+Processing File: Alta_Collins_StudyPlot_503.avi
+Processing File: Alta_Collins_StudyPlot_490.avi
+Processing File: Alta_Collins_StudyPlot_496.avi
+Processing File: Alta_Collins_StudyPlot_499.avi
+Processing File: Alta_Collins_StudyPlot_497.avi
+Processing File: Alta_Collins_StudyPlot_510.avi
+Processing File: Alta_Collins_StudyPlot_482.avi
+Processing File: Alta_Collins_StudyPlot_507.avi
+Processing File: Alta_Collins_StudyPlot_502.avi
+Processing File: Alta_Collins_StudyPlot_498.avi
+Processing File: Alta_Collins_StudyPlot_511.avi
+Processing File: Alta_Collins_StudyPlot_505.avi
+Processing File: Alta_Collins_StudyPlot_508.avi
+Processing File: Alta_Collins_StudyPlot_501.avi
+Processing File: Alta_Collins_StudyPlot_484.avi
+Processing File: Alta_Collins_StudyPlot_483.avi
+Processing File: Alta_Collins_StudyPlot_481.avi
+Processing File: Alta_Collins_StudyPlot_491.avi
+Processing File: Alta_Collins_StudyPlot_480.avi
+Processing File: Alta_Collins_StudyPlot_489.avi
+Processing File: Alta_Collins_StudyPlot_488.avi
+Processing File: Alta_Collins_StudyPlot_485.avi
+Processing File: Alta_Collins_StudyPlot_486.avi
+Processing File: Alta_Collins_StudyPlot_487.avi
+Processing File: Alta_Collins_StudyPlot_512.avi
+Processing File: Alta_Collins_StudyPlot_515.avi
+{Error using VideoReader/initReader (line 732)
+Could not read file due to an unexpected error. Reason: Unable to initialize
+the video properties
+
+Error in audiovideo.internal.IVideoReader (line 136)
+            initReader(obj, fileName, currentTime);
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in VideoReader (line 104)
+            obj@audiovideo.internal.IVideoReader(varargin{:});
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in process_one_video (line 12)
+vid = VideoReader(full_filename);
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in run_deid_processing (line 61)
+parfor file_i = 1:length(file_names)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in run (line 112)
+evalin('caller', strcat(scriptStem, ';'));
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+Finished: feb14 at Thu Jun 11 17:39:15 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb21
+Time: Thu Jun 11 17:39:15 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_010.avi
+Processing File: Feb21_2023_01_015.avi
+Processing File: Feb21_2023_01_001.avi
+Processing File: Feb21_2023_01_004.avi
+Processing File: Feb21_2023_01_012.avi
+Processing File: Feb21_2023_01_013.avi
+Processing File: Feb21_2023_01_002.avi
+Processing File: Feb21_2023_01_005.avi
+Processing File: Feb21_2023_01_007.avi
+Processing File: Feb21_2023_01_003.avi
+Processing File: Feb21_2023_01_006.avi
+Processing File: Feb21_2023_01_014.avi
+Processing File: Feb21_2023_01_008.avi
+Processing File: Feb21_2023_01_009.avi
+Processing File: Feb21_2023_01_011.avi
+Processing File: Feb21_2023_01_000.avi
+Saved Output for: main
+Finished: feb21 at Thu Jun 11 17:41:32 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb22
+Time: Thu Jun 11 17:41:32 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_016.avi
+Processing File: Feb21_2023_01_035.avi
+Processing File: Feb21_2023_01_040.avi
+Processing File: Feb21_2023_01_020.avi
+Processing File: Feb21_2023_01_030.avi
+Processing File: Feb21_2023_01_034.avi
+Processing File: Feb21_2023_01_047.avi
+Processing File: Feb21_2023_01_041.avi
+Processing File: Feb21_2023_01_021.avi
+Processing File: Feb21_2023_01_036.avi
+Processing File: Feb21_2023_01_025.avi
+Processing File: Feb21_2023_01_024.avi
+Processing File: Feb21_2023_01_037.avi
+Processing File: Feb21_2023_01_043.avi
+Processing File: Feb21_2023_01_038.avi
+Processing File: Feb21_2023_01_039.avi
+Processing File: Feb21_2023_01_028.avi
+Processing File: Feb21_2023_01_046.avi
+Processing File: Feb21_2023_01_042.avi
+Processing File: Feb21_2023_01_027.avi
+Processing File: Feb21_2023_01_029.avi
+Processing File: Feb21_2023_01_023.avi
+Processing File: Feb21_2023_01_026.avi
+Processing File: Feb21_2023_01_017.avi
+Processing File: Feb21_2023_01_031.avi
+Processing File: Feb21_2023_01_022.avi
+Processing File: Feb21_2023_01_032.avi
+Processing File: Feb21_2023_01_033.avi
+Processing File: Feb21_2023_01_045.avi
+Processing File: Feb21_2023_01_044.avi
+Processing File: Feb21_2023_01_018.avi
+Processing File: Feb21_2023_01_048.avi
+Processing File: Feb21_2023_01_077.avi
+Processing File: Feb21_2023_01_069.avi
+Processing File: Feb21_2023_01_072.avi
+Processing File: Feb21_2023_01_075.avi
+Processing File: Feb21_2023_01_076.avi
+Processing File: Feb21_2023_01_074.avi
+Processing File: Feb21_2023_01_079.avi
+Processing File: Feb21_2023_01_071.avi
+Processing File: Feb21_2023_01_060.avi
+Processing File: Feb21_2023_01_073.avi
+Processing File: Feb21_2023_01_070.avi
+Processing File: Feb21_2023_01_053.avi
+Processing File: Feb21_2023_01_078.avi
+Processing File: Feb21_2023_01_080.avi
+Processing File: Feb21_2023_01_067.avi
+Processing File: Feb21_2023_01_061.avi
+Processing File: Feb21_2023_01_068.avi
+Processing File: Feb21_2023_01_059.avi
+Processing File: Feb21_2023_01_054.avi
+Processing File: Feb21_2023_01_052.avi
+Processing File: Feb21_2023_01_066.avi
+Processing File: Feb21_2023_01_051.avi
+Processing File: Feb21_2023_01_058.avi
+Processing File: Feb21_2023_01_055.avi
+Processing File: Feb21_2023_01_050.avi
+Processing File: Feb21_2023_01_064.avi
+Processing File: Feb21_2023_01_065.avi
+Processing File: Feb21_2023_01_057.avi
+Processing File: Feb21_2023_01_062.avi
+Processing File: Feb21_2023_01_063.avi
+Processing File: Feb21_2023_01_056.avi
+Processing File: Feb21_2023_01_088.avi
+Processing File: Feb21_2023_01_081.avi
+Processing File: Feb21_2023_01_083.avi
+Processing File: Feb21_2023_01_082.avi
+Processing File: Feb21_2023_01_089.avi
+Processing File: Feb21_2023_01_096.avi
+Processing File: Feb21_2023_01_085.avi
+Processing File: Feb21_2023_01_092.avi
+Processing File: Feb21_2023_01_100.avi
+Processing File: Feb21_2023_01_091.avi
+Processing File: Feb21_2023_01_084.avi
+Processing File: Feb21_2023_01_099.avi
+Processing File: Feb21_2023_01_093.avi
+Processing File: Feb21_2023_01_086.avi
+Processing File: Feb21_2023_01_087.avi
+Processing File: Feb21_2023_01_098.avi
+Processing File: Feb21_2023_01_095.avi
+Processing File: Feb21_2023_01_094.avi
+Processing File: Feb21_2023_01_103.avi
+Processing File: Feb21_2023_01_101.avi
+Processing File: Feb21_2023_01_105.avi
+Processing File: Feb21_2023_01_090.avi
+Processing File: Feb21_2023_01_097.avi
+Processing File: Feb21_2023_01_104.avi
+Processing File: Feb21_2023_01_102.avi
+Processing File: Feb21_2023_01_107.avi
+Processing File: Feb21_2023_01_106.avi
+Processing File: Feb21_2023_01_049.avi
+Saved Output for: main
+Finished: feb22 at Thu Jun 11 17:48:41 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb23
+Time: Thu Jun 11 17:48:41 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_120.avi
+Processing File: Feb21_2023_01_117.avi
+Processing File: Feb21_2023_01_132.avi
+Processing File: Feb21_2023_01_109.avi
+Processing File: Feb21_2023_01_111.avi
+Processing File: Feb21_2023_01_113.avi
+Processing File: Feb21_2023_01_123.avi
+Processing File: Feb21_2023_01_108.avi
+Processing File: Feb21_2023_01_122.avi
+Processing File: Feb21_2023_01_115.avi
+Processing File: Feb21_2023_01_130.avi
+Processing File: Feb21_2023_01_118.avi
+Processing File: Feb21_2023_01_138.avi
+Processing File: Feb21_2023_01_131.avi
+Processing File: Feb21_2023_01_135.avi
+Processing File: Feb21_2023_01_129.avi
+Processing File: Feb21_2023_01_114.avi
+Processing File: Feb21_2023_01_134.avi
+Processing File: Feb21_2023_01_124.avi
+Processing File: Feb21_2023_01_137.avi
+Processing File: Feb21_2023_01_121.avi
+Processing File: Feb21_2023_01_119.avi
+Processing File: Feb21_2023_01_110.avi
+Processing File: Feb21_2023_01_128.avi
+Processing File: Feb21_2023_01_133.avi
+Processing File: Feb21_2023_01_139.avi
+Processing File: Feb21_2023_01_116.avi
+Processing File: Feb21_2023_01_125.avi
+Processing File: Feb21_2023_01_112.avi
+Processing File: Feb21_2023_01_136.avi
+Processing File: Feb21_2023_01_127.avi
+Processing File: Feb21_2023_01_126.avi
+Processing File: Feb21_2023_01_162.avi
+Processing File: Feb21_2023_01_156.avi
+Processing File: Feb21_2023_01_161.avi
+Processing File: Feb21_2023_01_160.avi
+Processing File: Feb21_2023_01_144.avi
+Processing File: Feb21_2023_01_143.avi
+Processing File: Feb21_2023_01_164.avi
+Processing File: Feb21_2023_01_141.avi
+Processing File: Feb21_2023_01_140.avi
+Processing File: Feb21_2023_01_142.avi
+Processing File: Feb21_2023_01_165.avi
+Processing File: Feb21_2023_01_163.avi
+Processing File: Feb21_2023_01_168.avi
+Processing File: Feb21_2023_01_155.avi
+Processing File: Feb21_2023_01_159.avi
+Processing File: Feb21_2023_01_157.avi
+Processing File: Feb21_2023_01_145.avi
+Processing File: Feb21_2023_01_167.avi
+Processing File: Feb21_2023_01_148.avi
+Processing File: Feb21_2023_01_152.avi
+Processing File: Feb21_2023_01_146.avi
+Processing File: Feb21_2023_01_158.avi
+Processing File: Feb21_2023_01_170.avi
+Processing File: Feb21_2023_01_166.avi
+Processing File: Feb21_2023_01_154.avi
+Processing File: Feb21_2023_01_169.avi
+Processing File: Feb21_2023_01_147.avi
+Processing File: Feb21_2023_01_151.avi
+Processing File: Feb21_2023_01_149.avi
+Processing File: Feb21_2023_01_153.avi
+Processing File: Feb21_2023_01_171.avi
+Processing File: Feb21_2023_01_150.avi
+Processing File: Feb21_2023_01_183.avi
+Processing File: Feb21_2023_01_177.avi
+Processing File: Feb21_2023_01_179.avi
+Processing File: Feb21_2023_01_175.avi
+Processing File: Feb21_2023_01_173.avi
+Processing File: Feb21_2023_01_178.avi
+Processing File: Feb21_2023_01_188.avi
+Processing File: Feb21_2023_01_176.avi
+Processing File: Feb21_2023_01_174.avi
+Processing File: Feb21_2023_01_172.avi
+Processing File: Feb21_2023_01_181.avi
+Processing File: Feb21_2023_01_182.avi
+Processing File: Feb21_2023_01_193.avi
+Processing File: Feb21_2023_01_194.avi
+Processing File: Feb21_2023_01_180.avi
+Processing File: Feb21_2023_01_184.avi
+Processing File: Feb21_2023_01_186.avi
+Processing File: Feb21_2023_01_196.avi
+Processing File: Feb21_2023_01_187.avi
+Processing File: Feb21_2023_01_191.avi
+Processing File: Feb21_2023_01_189.avi
+Processing File: Feb21_2023_01_185.avi
+Processing File: Feb21_2023_01_192.avi
+Processing File: Feb21_2023_01_200.avi
+Processing File: Feb21_2023_01_197.avi
+Processing File: Feb21_2023_01_195.avi
+Processing File: Feb21_2023_01_199.avi
+Processing File: Feb21_2023_01_190.avi
+Processing File: Feb21_2023_01_198.avi
+Saved Output for: main
+Finished: feb23 at Thu Jun 11 17:54:55 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb24
+Time: Thu Jun 11 17:54:55 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_213.avi
+Processing File: Feb21_2023_01_221.avi
+Processing File: Feb21_2023_01_220.avi
+Processing File: Feb21_2023_01_210.avi
+Processing File: Feb21_2023_01_231.avi
+Processing File: Feb21_2023_01_216.avi
+Processing File: Feb21_2023_01_203.avi
+Processing File: Feb21_2023_01_212.avi
+Processing File: Feb21_2023_01_218.avi
+Processing File: Feb21_2023_01_204.avi
+Processing File: Feb21_2023_01_227.avi
+Processing File: Feb21_2023_01_208.avi
+Processing File: Feb21_2023_01_232.avi
+Processing File: Feb21_2023_01_223.avi
+Processing File: Feb21_2023_01_215.avi
+Processing File: Feb21_2023_01_225.avi
+Processing File: Feb21_2023_01_205.avi
+Processing File: Feb21_2023_01_202.avi
+Processing File: Feb21_2023_01_207.avi
+Processing File: Feb21_2023_01_224.avi
+Processing File: Feb21_2023_01_230.avi
+Processing File: Feb21_2023_01_219.avi
+Processing File: Feb21_2023_01_226.avi
+Processing File: Feb21_2023_01_214.avi
+Processing File: Feb21_2023_01_209.avi
+Processing File: Feb21_2023_01_217.avi
+Processing File: Feb21_2023_01_201.avi
+Processing File: Feb21_2023_01_228.avi
+Processing File: Feb21_2023_01_229.avi
+Processing File: Feb21_2023_01_206.avi
+Processing File: Feb21_2023_01_222.avi
+Processing File: Feb21_2023_01_211.avi
+Processing File: Feb21_2023_01_245.avi
+Processing File: Feb21_2023_01_246.avi
+Processing File: Feb21_2023_01_244.avi
+Processing File: Feb21_2023_01_239.avi
+Processing File: Feb21_2023_01_240.avi
+Processing File: Feb21_2023_01_241.avi
+Processing File: Feb21_2023_01_238.avi
+Processing File: Feb21_2023_01_242.avi
+Processing File: Feb21_2023_01_248.avi
+Processing File: Feb21_2023_01_236.avi
+Processing File: Feb21_2023_01_243.avi
+Processing File: Feb21_2023_01_235.avi
+Processing File: Feb21_2023_01_252.avi
+Processing File: Feb21_2023_01_247.avi
+Processing File: Feb21_2023_01_249.avi
+Processing File: Feb21_2023_01_251.avi
+Processing File: Feb21_2023_01_253.avi
+Processing File: Feb21_2023_01_264.avi
+Processing File: Feb21_2023_01_260.avi
+Processing File: Feb21_2023_01_234.avi
+Processing File: Feb21_2023_01_255.avi
+Processing File: Feb21_2023_01_256.avi
+Processing File: Feb21_2023_01_250.avi
+Processing File: Feb21_2023_01_258.avi
+Processing File: Feb21_2023_01_233.avi
+Processing File: Feb21_2023_01_262.avi
+Processing File: Feb21_2023_01_254.avi
+Processing File: Feb21_2023_01_263.avi
+Processing File: Feb21_2023_01_237.avi
+Processing File: Feb21_2023_01_257.avi
+Processing File: Feb21_2023_01_261.avi
+Processing File: Feb21_2023_01_259.avi
+Processing File: Feb21_2023_01_281.avi
+Processing File: Feb21_2023_01_267.avi
+Processing File: Feb21_2023_01_277.avi
+Processing File: Feb21_2023_01_265.avi
+Processing File: Feb21_2023_01_283.avi
+Processing File: Feb21_2023_01_280.avi
+Processing File: Feb21_2023_01_266.avi
+Processing File: Feb21_2023_01_272.avi
+Processing File: Feb21_2023_01_268.avi
+Processing File: Feb21_2023_01_270.avi
+Processing File: Feb21_2023_01_273.avi
+Processing File: Feb21_2023_01_269.avi
+Processing File: Feb21_2023_01_286.avi
+Processing File: Feb21_2023_01_285.avi
+Processing File: Feb21_2023_01_282.avi
+Processing File: Feb21_2023_01_276.avi
+Processing File: Feb21_2023_01_287.avi
+Processing File: Feb21_2023_01_290.avi
+Processing File: Feb21_2023_01_275.avi
+Processing File: Feb21_2023_01_274.avi
+Processing File: Feb21_2023_01_271.avi
+Processing File: Feb21_2023_01_292.avi
+Processing File: Feb21_2023_01_278.avi
+Processing File: Feb21_2023_01_279.avi
+Processing File: Feb21_2023_01_288.avi
+Processing File: Feb21_2023_01_291.avi
+Processing File: Feb21_2023_01_289.avi
+Processing File: Feb21_2023_01_284.avi
+Saved Output for: main
+Finished: feb24 at Thu Jun 11 18:00:59 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb25
+Time: Thu Jun 11 18:00:59 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_296.avi
+Processing File: Feb21_2023_01_306.avi
+Processing File: Feb21_2023_01_321.avi
+Processing File: Feb21_2023_01_304.avi
+Processing File: Feb21_2023_01_310.avi
+Processing File: Feb21_2023_01_297.avi
+Processing File: Feb21_2023_01_301.avi
+Processing File: Feb21_2023_01_295.avi
+Processing File: Feb21_2023_01_302.avi
+Processing File: Feb21_2023_01_307.avi
+Processing File: Feb21_2023_01_312.avi
+Processing File: Feb21_2023_01_299.avi
+Processing File: Feb21_2023_01_308.avi
+Processing File: Feb21_2023_01_320.avi
+Processing File: Feb21_2023_01_315.avi
+Processing File: Feb21_2023_01_317.avi
+Processing File: Feb21_2023_01_294.avi
+Processing File: Feb21_2023_01_318.avi
+Processing File: Feb21_2023_01_298.avi
+Processing File: Feb21_2023_01_323.avi
+Processing File: Feb21_2023_01_303.avi
+Processing File: Feb21_2023_01_319.avi
+Processing File: Feb21_2023_01_309.avi
+Processing File: Feb21_2023_01_322.avi
+Processing File: Feb21_2023_01_293.avi
+Processing File: Feb21_2023_01_314.avi
+Processing File: Feb21_2023_01_313.avi
+Processing File: Feb21_2023_01_300.avi
+Processing File: Feb21_2023_01_324.avi
+Processing File: Feb21_2023_01_311.avi
+Processing File: Feb21_2023_01_305.avi
+Processing File: Feb21_2023_01_316.avi
+Processing File: Feb21_2023_01_327.avi
+Processing File: Feb21_2023_01_331.avi
+Processing File: Feb21_2023_01_335.avi
+Processing File: Feb21_2023_01_340.avi
+Processing File: Feb21_2023_01_337.avi
+Processing File: Feb21_2023_01_334.avi
+Processing File: Feb21_2023_01_328.avi
+Processing File: Feb21_2023_01_333.avi
+Processing File: Feb21_2023_01_325.avi
+Processing File: Feb21_2023_01_338.avi
+Processing File: Feb21_2023_01_326.avi
+Processing File: Feb21_2023_01_329.avi
+Processing File: Feb21_2023_01_336.avi
+Processing File: Feb21_2023_01_332.avi
+Processing File: Feb21_2023_01_342.avi
+Processing File: Feb21_2023_01_339.avi
+Processing File: Feb21_2023_01_330.avi
+Processing File: Feb21_2023_01_343.avi
+Processing File: Feb21_2023_01_354.avi
+Processing File: Feb21_2023_01_347.avi
+Processing File: Feb21_2023_01_348.avi
+Processing File: Feb21_2023_01_346.avi
+Processing File: Feb21_2023_01_350.avi
+Processing File: Feb21_2023_01_356.avi
+Processing File: Feb21_2023_01_349.avi
+Processing File: Feb21_2023_01_351.avi
+Processing File: Feb21_2023_01_344.avi
+Processing File: Feb21_2023_01_355.avi
+Processing File: Feb21_2023_01_353.avi
+Processing File: Feb21_2023_01_341.avi
+Processing File: Feb21_2023_01_345.avi
+Processing File: Feb21_2023_01_352.avi
+Processing File: Feb21_2023_01_360.avi
+Processing File: Feb21_2023_01_376.avi
+Processing File: Feb21_2023_01_366.avi
+Processing File: Feb21_2023_01_357.avi
+Processing File: Feb21_2023_01_363.avi
+Processing File: Feb21_2023_01_377.avi
+Processing File: Feb21_2023_01_381.avi
+Processing File: Feb21_2023_01_371.avi
+Processing File: Feb21_2023_01_375.avi
+Processing File: Feb21_2023_01_374.avi
+Processing File: Feb21_2023_01_358.avi
+Processing File: Feb21_2023_01_362.avi
+Processing File: Feb21_2023_01_370.avi
+Processing File: Feb21_2023_01_384.avi
+Processing File: Feb21_2023_01_365.avi
+Processing File: Feb21_2023_01_359.avi
+Processing File: Feb21_2023_01_379.avi
+Processing File: Feb21_2023_01_383.avi
+Processing File: Feb21_2023_01_364.avi
+Processing File: Feb21_2023_01_361.avi
+Processing File: Feb21_2023_01_378.avi
+Processing File: Feb21_2023_01_368.avi
+Processing File: Feb21_2023_01_372.avi
+Processing File: Feb21_2023_01_369.avi
+Processing File: Feb21_2023_01_373.avi
+Processing File: Feb21_2023_01_380.avi
+Processing File: Feb21_2023_01_367.avi
+Processing File: Feb21_2023_01_382.avi
+Saved Output for: main
+Finished: feb25 at Thu Jun 11 18:06:17 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb26
+Time: Thu Jun 11 18:06:17 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_398.avi
+Processing File: Feb21_2023_01_393.avi
+Processing File: Feb21_2023_01_402.avi
+Processing File: Feb21_2023_01_415.avi
+Processing File: Feb21_2023_01_408.avi
+Processing File: Feb21_2023_01_389.avi
+Processing File: Feb21_2023_01_403.avi
+Processing File: Feb21_2023_01_391.avi
+Processing File: Feb21_2023_01_404.avi
+Processing File: Feb21_2023_01_392.avi
+Processing File: Feb21_2023_01_400.avi
+Processing File: Feb21_2023_01_407.avi
+Processing File: Feb21_2023_01_387.avi
+Processing File: Feb21_2023_01_388.avi
+Processing File: Feb21_2023_01_385.avi
+Processing File: Feb21_2023_01_413.avi
+Processing File: Feb21_2023_01_411.avi
+Processing File: Feb21_2023_01_394.avi
+Processing File: Feb21_2023_01_416.avi
+Processing File: Feb21_2023_01_405.avi
+Processing File: Feb21_2023_01_410.avi
+Processing File: Feb21_2023_01_406.avi
+Processing File: Feb21_2023_01_409.avi
+Processing File: Feb21_2023_01_412.avi
+Processing File: Feb21_2023_01_399.avi
+Processing File: Feb21_2023_01_395.avi
+Processing File: Feb21_2023_01_390.avi
+Processing File: Feb21_2023_01_396.avi
+Processing File: Feb21_2023_01_414.avi
+Processing File: Feb21_2023_01_401.avi
+Processing File: Feb21_2023_01_386.avi
+Processing File: Feb21_2023_01_397.avi
+Processing File: Feb21_2023_01_417.avi
+Processing File: Feb21_2023_01_433.avi
+Processing File: Feb21_2023_01_437.avi
+Processing File: Feb21_2023_01_442.avi
+Processing File: Feb21_2023_01_438.avi
+Processing File: Feb21_2023_01_421.avi
+Processing File: Feb21_2023_01_427.avi
+Processing File: Feb21_2023_01_430.avi
+Processing File: Feb21_2023_01_425.avi
+Processing File: Feb21_2023_01_424.avi
+Processing File: Feb21_2023_01_439.avi
+Processing File: Feb21_2023_01_432.avi
+Processing File: Feb21_2023_01_429.avi
+Processing File: Feb21_2023_01_443.avi
+Processing File: Feb21_2023_01_426.avi
+Processing File: Feb21_2023_01_436.avi
+Processing File: Feb21_2023_01_419.avi
+Processing File: Feb21_2023_01_431.avi
+Processing File: Feb21_2023_01_418.avi
+Processing File: Feb21_2023_01_420.avi
+Processing File: Feb21_2023_01_441.avi
+Processing File: Feb21_2023_01_434.avi
+Processing File: Feb21_2023_01_423.avi
+Processing File: Feb21_2023_01_435.avi
+Processing File: Feb21_2023_01_440.avi
+Processing File: Feb21_2023_01_445.avi
+Processing File: Feb21_2023_01_428.avi
+Processing File: Feb21_2023_01_422.avi
+Processing File: Feb21_2023_01_446.avi
+Processing File: Feb21_2023_01_444.avi
+Processing File: Feb21_2023_01_447.avi
+Processing File: Feb21_2023_01_448.avi
+Processing File: Feb21_2023_01_451.avi
+Processing File: Feb21_2023_01_453.avi
+Processing File: Feb21_2023_01_459.avi
+Processing File: Feb21_2023_01_469.avi
+Processing File: Feb21_2023_01_452.avi
+Processing File: Feb21_2023_01_455.avi
+Processing File: Feb21_2023_01_467.avi
+Processing File: Feb21_2023_01_458.avi
+Processing File: Feb21_2023_01_463.avi
+Processing File: Feb21_2023_01_456.avi
+Processing File: Feb21_2023_01_460.avi
+Processing File: Feb21_2023_01_450.avi
+Processing File: Feb21_2023_01_464.avi
+Processing File: Feb21_2023_01_472.avi
+Processing File: Feb21_2023_01_473.avi
+Processing File: Feb21_2023_01_461.avi
+Processing File: Feb21_2023_01_449.avi
+Processing File: Feb21_2023_01_474.avi
+Processing File: Feb21_2023_01_462.avi
+Processing File: Feb21_2023_01_470.avi
+Processing File: Feb21_2023_01_454.avi
+Processing File: Feb21_2023_01_477.avi
+Processing File: Feb21_2023_01_468.avi
+Processing File: Feb21_2023_01_475.avi
+Processing File: Feb21_2023_01_457.avi
+Processing File: Feb21_2023_01_471.avi
+Processing File: Feb21_2023_01_465.avi
+Processing File: Feb21_2023_01_466.avi
+Processing File: Feb21_2023_01_476.avi
+Saved Output for: main
+Finished: feb26 at Thu Jun 11 18:12:00 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb27
+Time: Thu Jun 11 18:12:00 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_503.avi
+Processing File: Feb21_2023_01_479.avi
+Processing File: Feb21_2023_01_493.avi
+Processing File: Feb21_2023_01_508.avi
+Processing File: Feb21_2023_01_490.avi
+Processing File: Feb21_2023_01_504.avi
+Processing File: Feb21_2023_01_501.avi
+Processing File: Feb21_2023_01_492.avi
+Processing File: Feb21_2023_01_509.avi
+Processing File: Feb21_2023_01_494.avi
+Processing File: Feb21_2023_01_483.avi
+Processing File: Feb21_2023_01_495.avi
+Processing File: Feb21_2023_01_487.avi
+Processing File: Feb21_2023_01_505.avi
+Processing File: Feb21_2023_01_480.avi
+Processing File: Feb21_2023_01_502.avi
+Processing File: Feb21_2023_01_489.avi
+Processing File: Feb21_2023_01_497.avi
+Processing File: Feb21_2023_01_486.avi
+Processing File: Feb21_2023_01_484.avi
+Processing File: Feb21_2023_01_482.avi
+Processing File: Feb21_2023_01_491.avi
+Processing File: Feb21_2023_01_485.avi
+Processing File: Feb21_2023_01_498.avi
+Processing File: Feb21_2023_01_506.avi
+Processing File: Feb21_2023_01_481.avi
+Processing File: Feb21_2023_01_499.avi
+Processing File: Feb21_2023_01_500.avi
+Processing File: Feb21_2023_01_488.avi
+Processing File: Feb21_2023_01_496.avi
+Processing File: Feb21_2023_01_507.avi
+Processing File: Feb21_2023_01_478.avi
+Processing File: Feb21_2023_01_532.avi
+Processing File: Feb21_2023_01_526.avi
+Processing File: Feb21_2023_01_528.avi
+Processing File: Feb21_2023_01_510.avi
+Processing File: Feb21_2023_01_529.avi
+Processing File: Feb21_2023_01_533.avi
+Processing File: Feb21_2023_01_518.avi
+Processing File: Feb21_2023_01_535.avi
+Processing File: Feb21_2023_01_530.avi
+Processing File: Feb21_2023_01_537.avi
+Processing File: Feb21_2023_01_538.avi
+Processing File: Feb21_2023_01_536.avi
+Processing File: Feb21_2023_01_527.avi
+Processing File: Feb21_2023_01_522.avi
+Processing File: Feb21_2023_01_534.avi
+Processing File: Feb21_2023_01_516.avi
+Processing File: Feb21_2023_01_540.avi
+Processing File: Feb21_2023_01_531.avi
+Processing File: Feb21_2023_01_521.avi
+Processing File: Feb21_2023_01_539.avi
+Processing File: Feb21_2023_01_541.avi
+Processing File: Feb21_2023_01_511.avi
+Processing File: Feb21_2023_01_515.avi
+Processing File: Feb21_2023_01_525.avi
+Processing File: Feb21_2023_01_514.avi
+Processing File: Feb21_2023_01_512.avi
+Processing File: Feb21_2023_01_520.avi
+Processing File: Feb21_2023_01_513.avi
+Processing File: Feb21_2023_01_517.avi
+Processing File: Feb21_2023_01_524.avi
+Processing File: Feb21_2023_01_519.avi
+Processing File: Feb21_2023_01_523.avi
+Processing File: Feb21_2023_01_543.avi
+Processing File: Feb21_2023_01_546.avi
+Processing File: Feb21_2023_01_545.avi
+Processing File: Feb21_2023_01_554.avi
+Processing File: Feb21_2023_01_542.avi
+Processing File: Feb21_2023_01_555.avi
+Processing File: Feb21_2023_01_548.avi
+Processing File: Feb21_2023_01_544.avi
+Processing File: Feb21_2023_01_547.avi
+Processing File: Feb21_2023_01_560.avi
+Processing File: Feb21_2023_01_556.avi
+Processing File: Feb21_2023_01_549.avi
+Processing File: Feb21_2023_01_565.avi
+Processing File: Feb21_2023_01_550.avi
+Processing File: Feb21_2023_01_568.avi
+Processing File: Feb21_2023_01_564.avi
+Processing File: Feb21_2023_01_559.avi
+Processing File: Feb21_2023_01_551.avi
+Processing File: Feb21_2023_01_569.avi
+Processing File: Feb21_2023_01_566.avi
+Processing File: Feb21_2023_01_557.avi
+Processing File: Feb21_2023_01_563.avi
+Processing File: Feb21_2023_01_567.avi
+Processing File: Feb21_2023_01_553.avi
+Processing File: Feb21_2023_01_558.avi
+Processing File: Feb21_2023_01_561.avi
+Processing File: Feb21_2023_01_552.avi
+Processing File: Feb21_2023_01_562.avi
+Saved Output for: main
+Finished: feb27 at Thu Jun 11 18:20:31 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/FEB/feb28
+Time: Thu Jun 11 18:20:31 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_584.avi
+Processing File: Feb21_2023_01_597.avi
+Processing File: Feb21_2023_01_582.avi
+Processing File: Feb21_2023_01_599.avi
+Processing File: Feb21_2023_01_588.avi
+Processing File: Feb21_2023_01_598.avi
+Processing File: Feb21_2023_01_572.avi
+Processing File: Feb21_2023_01_590.avi
+Processing File: Feb21_2023_01_575.avi
+Processing File: Feb21_2023_01_571.avi
+Processing File: Feb21_2023_01_577.avi
+Processing File: Feb21_2023_01_595.avi
+Processing File: Feb21_2023_01_573.avi
+Processing File: Feb21_2023_01_583.avi
+Processing File: Feb21_2023_01_579.avi
+Processing File: Feb21_2023_01_594.avi
+Processing File: Feb21_2023_01_585.avi
+Processing File: Feb21_2023_01_596.avi
+Processing File: Feb21_2023_01_576.avi
+Processing File: Feb21_2023_01_601.avi
+Processing File: Feb21_2023_01_587.avi
+Processing File: Feb21_2023_01_586.avi
+Processing File: Feb21_2023_01_591.avi
+Processing File: Feb21_2023_01_600.avi
+Processing File: Feb21_2023_01_592.avi
+Processing File: Feb21_2023_01_589.avi
+Processing File: Feb21_2023_01_578.avi
+Processing File: Feb21_2023_01_570.avi
+Processing File: Feb21_2023_01_580.avi
+Processing File: Feb21_2023_01_581.avi
+Processing File: Feb21_2023_01_574.avi
+Processing File: Feb21_2023_01_593.avi
+Processing File: Feb21_2023_01_632.avi
+Processing File: Feb21_2023_01_633.avi
+Processing File: Feb21_2023_01_630.avi
+Processing File: Feb21_2023_01_627.avi
+Processing File: Feb21_2023_01_621.avi
+Processing File: Feb21_2023_01_629.avi
+Processing File: Feb21_2023_01_631.avi
+Processing File: Feb21_2023_01_623.avi
+Processing File: Feb21_2023_01_622.avi
+Processing File: Feb21_2023_01_626.avi
+Processing File: Feb21_2023_01_625.avi
+Processing File: Feb21_2023_01_604.avi
+Processing File: Feb21_2023_01_609.avi
+Processing File: Feb21_2023_01_611.avi
+Processing File: Feb21_2023_01_603.avi
+Processing File: Feb21_2023_01_624.avi
+Processing File: Feb21_2023_01_610.avi
+Processing File: Feb21_2023_01_607.avi
+Processing File: Feb21_2023_01_628.avi
+Processing File: Feb21_2023_01_606.avi
+Processing File: Feb21_2023_01_605.avi
+Processing File: Feb21_2023_01_608.avi
+Processing File: Feb21_2023_01_620.avi
+Processing File: Feb21_2023_01_613.avi
+Processing File: Feb21_2023_01_612.avi
+Processing File: Feb21_2023_01_614.avi
+Processing File: Feb21_2023_01_617.avi
+Processing File: Feb21_2023_01_616.avi
+Processing File: Feb21_2023_01_619.avi
+Processing File: Feb21_2023_01_602.avi
+Processing File: Feb21_2023_01_618.avi
+Processing File: Feb21_2023_01_615.avi
+Processing File: Feb21_2023_01_634.avi
+Processing File: Feb21_2023_01_638.avi
+Processing File: Feb21_2023_01_642.avi
+Processing File: Feb21_2023_01_635.avi
+Processing File: Feb21_2023_01_637.avi
+Processing File: Feb21_2023_01_636.avi
+Processing File: Feb21_2023_01_641.avi
+Processing File: Feb21_2023_01_640.avi
+Processing File: Feb21_2023_01_639.avi
+Processing File: Feb21_2023_01_643.avi
+Processing File: Feb21_2023_01_644.avi
+Processing File: Feb21_2023_01_649.avi
+Processing File: Feb21_2023_01_645.avi
+Processing File: Feb21_2023_01_646.avi
+Processing File: Feb21_2023_01_647.avi
+Processing File: Feb21_2023_01_656.avi
+Processing File: Feb21_2023_01_648.avi
+Processing File: Feb21_2023_01_652.avi
+Processing File: Feb21_2023_01_650.avi
+Processing File: Feb21_2023_01_651.avi
+Processing File: Feb21_2023_01_654.avi
+Processing File: Feb21_2023_01_653.avi
+Processing File: Feb21_2023_01_658.avi
+Processing File: Feb21_2023_01_657.avi
+Processing File: Feb21_2023_01_655.avi
+Processing File: Feb21_2023_01_659.avi
+Processing File: Feb21_2023_01_660.avi
+Processing File: Feb21_2023_01_661.avi
+Saved Output for: main
+Finished: feb28 at Thu Jun 11 18:26:52 MDT 2026
+All subdirectories processed.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar03
+Time: Thu Jun 11 18:29:07 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_872.avi
+Processing File: Feb21_2023_01_854.avi
+Processing File: Feb21_2023_01_855.avi
+Processing File: Feb21_2023_01_874.avi
+Processing File: Feb21_2023_01_876.avi
+Processing File: Feb21_2023_01_851.avi
+Processing File: Feb21_2023_01_857.avi
+Processing File: Feb21_2023_01_862.avi
+Processing File: Feb21_2023_01_849.avi
+Processing File: Feb21_2023_01_861.avi
+Processing File: Feb21_2023_01_875.avi
+Processing File: Feb21_2023_01_879.avi
+Processing File: Feb21_2023_01_850.avi
+Processing File: Feb21_2023_01_866.avi
+Processing File: Feb21_2023_01_877.avi
+Processing File: Feb21_2023_01_870.avi
+Processing File: Feb21_2023_01_848.avi
+Processing File: Feb21_2023_01_867.avi
+Processing File: Feb21_2023_01_864.avi
+Processing File: Feb21_2023_01_869.avi
+Processing File: Feb21_2023_01_871.avi
+Processing File: Feb21_2023_01_873.avi
+Processing File: Feb21_2023_01_878.avi
+Processing File: Feb21_2023_01_853.avi
+Processing File: Feb21_2023_01_852.avi
+Processing File: Feb21_2023_01_858.avi
+Processing File: Feb21_2023_01_865.avi
+Processing File: Feb21_2023_01_863.avi
+Processing File: Feb21_2023_01_859.avi
+Processing File: Feb21_2023_01_868.avi
+Processing File: Feb21_2023_01_856.avi
+Processing File: Feb21_2023_01_860.avi
+Processing File: Feb21_2023_01_897.avi
+Processing File: Feb21_2023_01_887.avi
+Processing File: Feb21_2023_01_910.avi
+Processing File: Feb21_2023_01_901.avi
+Processing File: Feb21_2023_01_911.avi
+Processing File: Feb21_2023_01_909.avi
+Processing File: Feb21_2023_01_904.avi
+Processing File: Feb21_2023_01_908.avi
+Processing File: Feb21_2023_01_896.avi
+Processing File: Feb21_2023_01_893.avi
+Processing File: Feb21_2023_01_905.avi
+Processing File: Feb21_2023_01_898.avi
+Processing File: Feb21_2023_01_884.avi
+Processing File: Feb21_2023_01_888.avi
+Processing File: Feb21_2023_01_889.avi
+Processing File: Feb21_2023_01_880.avi
+Processing File: Feb21_2023_01_882.avi
+Processing File: Feb21_2023_01_903.avi
+Processing File: Feb21_2023_01_900.avi
+Processing File: Feb21_2023_01_907.avi
+Processing File: Feb21_2023_01_899.avi
+Processing File: Feb21_2023_01_885.avi
+Processing File: Feb21_2023_01_891.avi
+Processing File: Feb21_2023_01_883.avi
+Processing File: Feb21_2023_01_902.avi
+Processing File: Feb21_2023_01_892.avi
+Processing File: Feb21_2023_01_894.avi
+Processing File: Feb21_2023_01_906.avi
+Processing File: Feb21_2023_01_895.avi
+Processing File: Feb21_2023_01_886.avi
+Processing File: Feb21_2023_01_881.avi
+Processing File: Feb21_2023_01_890.avi
+Processing File: Feb21_2023_01_912.avi
+Saved Output for: main
+Finished: mar03 at Thu Jun 11 18:34:01 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar04
+Time: Thu Jun 11 18:34:01 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_998.avi
+Processing File: Feb21_2023_01_1010.avi
+Processing File: Feb21_2023_01_1011.avi
+Processing File: Feb21_2023_01_1016.avi
+Processing File: Feb21_2023_01_992.avi
+Processing File: Feb21_2023_01_1006.avi
+Processing File: Feb21_2023_01_1009.avi
+Processing File: Feb21_2023_01_994.avi
+Processing File: Feb21_2023_01_1000.avi
+Processing File: Feb21_2023_01_1022.avi
+Processing File: Feb21_2023_01_996.avi
+Processing File: Feb21_2023_01_1014.avi
+Processing File: Feb21_2023_01_1013.avi
+Processing File: Feb21_2023_01_995.avi
+Processing File: Feb21_2023_01_993.avi
+Processing File: Feb21_2023_01_1017.avi
+Processing File: Feb21_2023_01_999.avi
+Processing File: Feb21_2023_01_1001.avi
+Processing File: Feb21_2023_01_1015.avi
+Processing File: Feb21_2023_01_1018.avi
+Processing File: Feb21_2023_01_1005.avi
+Processing File: Feb21_2023_01_1008.avi
+Processing File: Feb21_2023_01_1004.avi
+Processing File: Feb21_2023_01_1023.avi
+Processing File: Feb21_2023_01_1002.avi
+Processing File: Feb21_2023_01_1020.avi
+Processing File: Feb21_2023_01_1012.avi
+Processing File: Feb21_2023_01_1003.avi
+Processing File: Feb21_2023_01_1007.avi
+Processing File: Feb21_2023_01_997.avi
+Processing File: Feb21_2023_01_1019.avi
+Processing File: Feb21_2023_01_1021.avi
+Processing File: Feb21_2023_01_1024.avi
+Processing File: Feb21_2023_01_1026.avi
+Processing File: Feb21_2023_01_1025.avi
+Processing File: Feb21_2023_01_1027.avi
+Processing File: Feb21_2023_01_1028.avi
+Processing File: Feb21_2023_01_1029.avi
+Processing File: Feb21_2023_01_1030.avi
+Saved Output for: main
+Finished: mar04 at Thu Jun 11 18:39:03 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar05
+Time: Thu Jun 11 18:39:03 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_1051.avi
+Processing File: Feb21_2023_01_1044.avi
+Processing File: Feb21_2023_01_1047.avi
+Processing File: Feb21_2023_01_1032.avi
+Processing File: Feb21_2023_01_1056.avi
+Processing File: Feb21_2023_01_1061.avi
+Processing File: Feb21_2023_01_1045.avi
+Processing File: Feb21_2023_01_1057.avi
+Processing File: Feb21_2023_01_1043.avi
+Processing File: Feb21_2023_01_1042.avi
+Processing File: Feb21_2023_01_1046.avi
+Processing File: Feb21_2023_01_1031.avi
+Processing File: Feb21_2023_01_1039.avi
+Processing File: Feb21_2023_01_1033.avi
+Processing File: Feb21_2023_01_1036.avi
+Processing File: Feb21_2023_01_1058.avi
+Processing File: Feb21_2023_01_1054.avi
+Processing File: Feb21_2023_01_1038.avi
+Processing File: Feb21_2023_01_1055.avi
+Processing File: Feb21_2023_01_1049.avi
+Processing File: Feb21_2023_01_1059.avi
+Processing File: Feb21_2023_01_1048.avi
+Processing File: Feb21_2023_01_1035.avi
+Processing File: Feb21_2023_01_1040.avi
+Processing File: Feb21_2023_01_1050.avi
+Processing File: Feb21_2023_01_1062.avi
+Processing File: Feb21_2023_01_1041.avi
+Processing File: Feb21_2023_01_1052.avi
+Processing File: Feb21_2023_01_1053.avi
+Processing File: Feb21_2023_01_1034.avi
+Processing File: Feb21_2023_01_1060.avi
+Processing File: Feb21_2023_01_1037.avi
+Processing File: Feb21_2023_01_1065.avi
+Processing File: Feb21_2023_01_1093.avi
+Processing File: Feb21_2023_01_1087.avi
+Processing File: Feb21_2023_01_1089.avi
+Processing File: Feb21_2023_01_1086.avi
+Processing File: Feb21_2023_01_1067.avi
+Processing File: Feb21_2023_01_1064.avi
+Processing File: Feb21_2023_01_1066.avi
+Processing File: Feb21_2023_01_1092.avi
+Processing File: Feb21_2023_01_1091.avi
+Processing File: Feb21_2023_01_1090.avi
+Processing File: Feb21_2023_01_1083.avi
+Processing File: Feb21_2023_01_1071.avi
+Processing File: Feb21_2023_01_1084.avi
+Processing File: Feb21_2023_01_1085.avi
+Processing File: Feb21_2023_01_1094.avi
+Processing File: Feb21_2023_01_1080.avi
+Processing File: Feb21_2023_01_1073.avi
+Processing File: Feb21_2023_01_1079.avi
+Processing File: Feb21_2023_01_1070.avi
+Processing File: Feb21_2023_01_1081.avi
+Processing File: Feb21_2023_01_1082.avi
+Processing File: Feb21_2023_01_1069.avi
+Processing File: Feb21_2023_01_1063.avi
+Processing File: Feb21_2023_01_1074.avi
+Processing File: Feb21_2023_01_1078.avi
+Processing File: Feb21_2023_01_1096.avi
+Processing File: Mar05_2023_02.avi
+Processing File: Feb21_2023_01_1097.avi
+Processing File: Feb21_2023_01_1098.avi
+Processing File: Feb21_2023_01_1100.avi
+Processing File: Mar05_2023_06.avi
+Processing File: Mar05_2023_03.avi
+Processing File: Mar05_2023_01.avi
+Processing File: Feb21_2023_01_1099.avi
+Processing File: Mar05_2023_00.avi
+Processing File: Mar05_2023_07.avi
+Processing File: Mar05_2023_11.avi
+Processing File: Feb21_2023_01_1095.avi
+Processing File: Mar05_2023_04.avi
+Processing File: Feb21_2023_01_1068.avi
+Processing File: Mar05_2023_09.avi
+Processing File: Mar05_2023_05.avi
+Processing File: Feb21_2023_01_1077.avi
+Processing File: Mar05_2023_12.avi
+Processing File: Mar05_2023_08.avi
+Processing File: Mar05_2023_10.avi
+Processing File: Feb21_2023_01_1072.avi
+Processing File: Mar05_2023_14.avi
+Processing File: Mar05_2023_13.avi
+Processing File: Mar05_2023_15.avi
+Processing File: Feb21_2023_01_1076.avi
+Processing File: Mar05_2023_16.avi
+Processing File: Mar05_2023_18.avi
+Processing File: Mar05_2023_17.avi
+Processing File: Mar05_2023_19.avi
+Processing File: Mar05_2023_20.avi
+Processing File: Mar05_2023_22.avi
+Processing File: Mar05_2023_21.avi
+Processing File: Feb21_2023_01_1075.avi
+Processing File: Feb21_2023_01_1088.avi
+Saved Output for: main
+Finished: mar05 at Thu Jun 11 18:47:41 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar06
+Time: Thu Jun 11 18:47:41 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Mar06_2023_05.avi
+Processing File: Mar06_2023_03.avi
+Processing File: Mar06_2023_22.avi
+Processing File: Mar06_2023_19.avi
+Processing File: Mar06_2023_30.avi
+Processing File: Mar06_2023_21.avi
+Processing File: Mar06_2023_08.avi
+Processing File: Mar06_2023_06.avi
+Processing File: Mar06_2023_01.avi
+Processing File: Mar06_2023_11.avi
+Processing File: Mar06_2023_13.avi
+Processing File: Mar06_2023_07.avi
+Processing File: Mar06_2023_10.avi
+Processing File: Mar06_2023_12.avi
+Processing File: Mar06_2023_26.avi
+Processing File: Mar06_2023_20.avi
+Processing File: Mar06_2023_16.avi
+Processing File: Mar06_2023_04.avi
+Processing File: Mar06_2023_15.avi
+Processing File: Mar06_2023_29.avi
+Processing File: Mar06_2023_14.avi
+Processing File: Mar06_2023_18.avi
+Processing File: Mar06_2023_31.avi
+Processing File: Mar05_2023_23.avi
+Processing File: Mar06_2023_09.avi
+Processing File: Mar06_2023_28.avi
+Processing File: Mar06_2023_23.avi
+Processing File: Mar06_2023_24.avi
+Processing File: Mar06_2023_25.avi
+Processing File: Mar06_2023_02.avi
+Processing File: Mar06_2023_27.avi
+Processing File: Mar06_2023_17.avi
+Processing File: Feb21_2023_01_1182.avi
+Processing File: Feb21_2023_01_1187.avi
+Processing File: Feb21_2023_01_1180.avi
+Processing File: Feb21_2023_01_1181.avi
+Processing File: Feb21_2023_01_1179.avi
+Processing File: Feb21_2023_01_1183.avi
+Processing File: Feb21_2023_01_1186.avi
+Processing File: Feb21_2023_01_1169.avi
+Processing File: Feb21_2023_01_1178.avi
+Processing File: Feb21_2023_01_1184.avi
+Processing File: Feb21_2023_01_1175.avi
+Processing File: Feb21_2023_01_1185.avi
+Processing File: Feb21_2023_01_1174.avi
+Processing File: Feb21_2023_01_1170.avi
+Processing File: Feb21_2023_01_1173.avi
+Processing File: Feb21_2023_01_1168.avi
+Processing File: Mar06_2023_38.avi
+Processing File: Feb21_2023_01_1177.avi
+Processing File: Feb21_2023_01_1172.avi
+Processing File: Feb21_2023_01_1171.avi
+Processing File: Feb21_2023_01_1166.avi
+Processing File: Feb21_2023_01_1167.avi
+Processing File: Feb21_2023_01_1176.avi
+Processing File: Feb21_2023_01_1163.avi
+Processing File: Feb21_2023_01_1165.avi
+Processing File: Feb21_2023_01_1164.avi
+Processing File: Mar06_2023_37.avi
+Processing File: Mar06_2023_36.avi
+Processing File: Mar06_2023_35.avi
+Processing File: Feb21_2023_01_1190.avi
+Processing File: Feb21_2023_01_1192.avi
+Processing File: Mar06_2023_33.avi
+Processing File: Feb21_2023_01_1196.avi
+Processing File: Feb21_2023_01_1191.avi
+Processing File: Feb21_2023_01_1188.avi
+Processing File: Feb21_2023_01_1197.avi
+Processing File: Feb21_2023_01_1195.avi
+Processing File: Mar06_2023_32.avi
+Processing File: Feb21_2023_01_1194.avi
+Processing File: Mar06_2023_34.avi
+Processing File: Feb21_2023_01_1189.avi
+Processing File: Feb21_2023_01_1200.avi
+Processing File: Feb21_2023_01_1198.avi
+Processing File: Feb21_2023_01_1193.avi
+Processing File: Feb21_2023_01_1199.avi
+Processing File: Feb21_2023_01_1201.avi
+Processing File: Feb21_2023_01_1202.avi
+Processing File: Feb21_2023_01_1205.avi
+Processing File: Feb21_2023_01_1207.avi
+Processing File: Feb21_2023_01_1203.avi
+Processing File: Feb21_2023_01_1206.avi
+Processing File: Feb21_2023_01_1210.avi
+Processing File: Feb21_2023_01_1204.avi
+Processing File: Feb21_2023_01_1209.avi
+Processing File: Feb21_2023_01_1208.avi
+Processing File: Feb21_2023_01_1212.avi
+Processing File: Feb21_2023_01_1213.avi
+Processing File: Feb21_2023_01_1211.avi
+Processing File: Feb21_2023_01_1214.avi
+Processing File: Feb21_2023_01_1215.avi
+Saved Output for: main
+Finished: mar06 at Thu Jun 11 18:54:02 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar07
+Time: Thu Jun 11 18:54:02 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_1216.avi
+Saved Output for: main
+Finished: mar07 at Thu Jun 11 18:55:22 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar08
+Time: Thu Jun 11 18:55:22 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Feb21_2023_01_1310.avi
+Processing File: Feb21_2023_01_1312.avi
+Processing File: Feb21_2023_01_1316.avi
+Processing File: Feb21_2023_01_1311.avi
+Processing File: Feb21_2023_01_1334.avi
+Processing File: Feb21_2023_01_1329.avi
+Processing File: Feb21_2023_01_1315.avi
+Processing File: Feb21_2023_01_1317.avi
+Processing File: Feb21_2023_01_1333.avi
+Processing File: Feb21_2023_01_1337.avi
+Processing File: Feb21_2023_01_1319.avi
+Processing File: Feb21_2023_01_1331.avi
+Processing File: Feb21_2023_01_1330.avi
+Processing File: Feb21_2023_01_1322.avi
+Processing File: Feb21_2023_01_1325.avi
+Processing File: Feb21_2023_01_1339.avi
+Processing File: Feb21_2023_01_1318.avi
+Processing File: Feb21_2023_01_1324.avi
+Processing File: Feb21_2023_01_1320.avi
+Processing File: Feb21_2023_01_1323.avi
+Processing File: Feb21_2023_01_1335.avi
+Processing File: Feb21_2023_01_1326.avi
+Processing File: Feb21_2023_01_1338.avi
+Processing File: Feb21_2023_01_1314.avi
+Processing File: Feb21_2023_01_1336.avi
+Processing File: Feb21_2023_01_1313.avi
+Processing File: Feb21_2023_01_1332.avi
+Processing File: Feb21_2023_01_1328.avi
+Processing File: Feb21_2023_01_1327.avi
+Processing File: Feb21_2023_01_1308.avi
+Processing File: Feb21_2023_01_1321.avi
+Processing File: Feb21_2023_01_1309.avi
+Processing File: Feb21_2023_01_1341.avi
+Processing File: Feb21_2023_01_1342.avi
+Processing File: Feb21_2023_01_1340.avi
+Saved Output for: main
+Finished: mar08 at Thu Jun 11 18:58:13 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar15
+Time: Thu Jun 11 18:58:13 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: March_15_2023_01_000.avi
+Processing File: March_15_2023_01_002.avi
+Processing File: March_15_2023_01_001.avi
+Processing File: March_15_2023_01_003.avi
+Saved Output for: main
+Finished: mar15 at Thu Jun 11 19:01:51 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar19
+Time: Thu Jun 11 19:01:51 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: March19_2023_01.avi
+Processing File: March19_2023_03.avi
+Processing File: March19_2023_05.avi
+Processing File: March19_2023_04.avi
+Processing File: March19_2023_02.avi
+Saved Output for: main
+Finished: mar19 at Thu Jun 11 19:04:54 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar20
+Time: Thu Jun 11 19:04:54 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: March20_2023_21.avi
+Processing File: March20_2023_17.avi
+Processing File: March20_2023_105.avi
+Processing File: March20_2023_103.avi
+Processing File: March20_2023_02.avi
+Processing File: March20_2023_100.avi
+Processing File: March20_2023_13.avi
+Processing File: March20_2023_03.avi
+Processing File: March20_2023_102.avi
+Processing File: March20_2023_104.avi
+Processing File: March20_2023_06.avi
+Processing File: March20_2023_19.avi
+Processing File: March20_2023_12.avi
+Processing File: March20_2023_10.avi
+Processing File: March20_2023_05.avi
+Processing File: March20_2023_16.avi
+Processing File: March20_2023_20.avi
+Processing File: March20_2023_01.avi
+Processing File: March20_2023_15.avi
+Processing File: March20_2023_09.avi
+Processing File: March20_2023_107.avi
+Processing File: March20_2023_07.avi
+Processing File: March20_2023_08.avi
+Processing File: March20_2023_106.avi
+Processing File: March20_2023_11.avi
+Processing File: March20_2023_101.avi
+Processing File: March20_2023_04.avi
+Processing File: March20_2023_14.avi
+Processing File: March19_2023_06.avi
+Processing File: March20_2023_18.avi
+Saved Output for: main
+Finished: mar20 at Thu Jun 11 19:14:12 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar21
+Time: Thu Jun 11 19:14:12 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC15_2022_01_056.avi
+Processing File: March20_2023_108.avi
+Processing File: DEC15_2022_01_055.avi
+Saved Output for: main
+Finished: mar21 at Thu Jun 11 19:18:01 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar22
+Time: Thu Jun 11 19:18:01 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC15_2022_01_058.avi
+Processing File: DEC15_2022_01_063.avi
+Processing File: DEC15_2022_01_059.avi
+Processing File: DEC15_2022_01_061.avi
+Processing File: DEC15_2022_01_062.avi
+Processing File: DEC15_2022_01_057.avi
+Processing File: DEC15_2022_01_064.avi
+Processing File: DEC15_2022_01_060.avi
+Saved Output for: main
+Finished: mar22 at Thu Jun 11 19:21:37 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar23
+Time: Thu Jun 11 19:21:37 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: DEC15_2022_01_067.avi
+Processing File: DEC15_2022_01_065.avi
+Processing File: DEC15_2022_01_072.avi
+Processing File: DEC15_2022_01_070.avi
+Processing File: DEC15_2022_01_075.avi
+Processing File: DEC15_2022_01_071.avi
+Processing File: DEC15_2022_01_066.avi
+Processing File: DEC15_2022_01_068.avi
+Processing File: DEC15_2022_01_077.avi
+Processing File: DEC15_2022_01_074.avi
+Processing File: DEC15_2022_01_073.avi
+Processing File: DEC15_2022_01_076.avi
+Processing File: DEC15_2022_01_069.avi
+Saved Output for: main
+Finished: mar23 at Thu Jun 11 19:24:55 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar24
+Time: Thu Jun 11 19:24:55 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: March23_2023_01_112.avi
+Processing File: March23_2023_01_111.avi
+Processing File: March23_2023_01_104.avi
+Processing File: March23_2023_01_093.avi
+Processing File: March23_2023_01_092.avi
+Processing File: March23_2023_01_090.avi
+Processing File: March23_2023_01_114.avi
+Processing File: March23_2023_01_108.avi
+Processing File: March23_2023_01_091.avi
+Processing File: March23_2023_01_105.avi
+Processing File: March23_2023_01_096.avi
+Processing File: March23_2023_01_095.avi
+Processing File: March24_2023_05.avi
+Processing File: March23_2023_01_107.avi
+Processing File: March23_2023_01_109.avi
+Processing File: March23_2023_01_094.avi
+Processing File: March24_2023_04.avi
+Processing File: March23_2023_01_106.avi
+Processing File: March24_2023_03.avi
+Processing File: March24_2023_06.avi
+Processing File: March23_2023_01_113.avi
+Processing File: March24_2023_02.avi
+Processing File: March24_2023_01.avi
+Processing File: March24_2023_00.avi
+Processing File: March23_2023_01_110.avi
+Saved Output for: main
+Finished: mar24 at Thu Jun 11 19:33:04 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar25
+Time: Thu Jun 11 19:33:04 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: March25_2023_01_122.avi
+Processing File: March23_2023_01_115.avi
+Processing File: March23_2023_01_117.avi
+Processing File: March25_2023_01_123.avi
+Processing File: March25_2023_01_118.avi
+Processing File: March23_2023_01_118.avi
+Processing File: March25_2023_01_120.avi
+Processing File: March25_2023_01_121.avi
+Processing File: March25_2023_01_119.avi
+Saved Output for: main
+Finished: mar25 at Thu Jun 11 19:36:53 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar26
+Time: Thu Jun 11 19:36:53 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: March25_2023_01_138.avi
+Saved Output for: main
+Finished: mar26 at Thu Jun 11 19:39:44 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2022_2023/CLN/MAR/mar27
+Time: Thu Jun 11 19:39:44 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: March26_2023_01_152.avi
+Processing File: March26_2023_01_144.avi
+Processing File: March26_2023_01_145.avi
+Processing File: March26_2023_01_151.avi
+Processing File: March26_2023_01_141.avi
+Processing File: March26_2023_01_147.avi
+Processing File: March26_2023_01_153.avi
+Processing File: March26_2023_01_149.avi
+Processing File: March26_2023_01_143.avi
+Processing File: March26_2023_01_150.avi
+Processing File: March26_2023_01_146.avi
+Processing File: March26_2023_01_140.avi
+Processing File: March26_2023_01_148.avi
+Processing File: March26_2023_01_142.avi
+Saved Output for: main
+Finished: mar27 at Thu Jun 11 19:43:45 MDT 2026
+All subdirectories processed.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan04
+Time: Mon Jun 15 16:38:42 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan04 at Mon Jun 15 16:38:42 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan05
+Time: Mon Jun 15 16:38:42 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan05 at Mon Jun 15 16:38:42 MDT 2026
+Skipping jan05_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan06
+Time: Mon Jun 15 16:38:42 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan06 at Mon Jun 15 16:38:42 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan07
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan07 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan08
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan08 at Mon Jun 15 16:38:43 MDT 2026
+Skipping jan08_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan09
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan09 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan10
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan10 at Mon Jun 15 16:38:43 MDT 2026
+Skipping jan10_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan11
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan11 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan12
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan12 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan13
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan13 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan14
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan14 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan15
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan15 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan16
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan16 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan17
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan17 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan18
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan18 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan19
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan19 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan24
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan24 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan25
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan25 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan26
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan26 at Mon Jun 15 16:38:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan27
+Time: Mon Jun 15 16:38:43 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: jan27 at Mon Jun 15 16:38:43 MDT 2026
+All subdirectories processed.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb02
+Time: Mon Jun 15 16:44:13 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb02 at Mon Jun 15 16:44:13 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb03
+Time: Mon Jun 15 16:44:13 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb03 at Mon Jun 15 16:44:13 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb04
+Time: Mon Jun 15 16:44:13 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb04 at Mon Jun 15 16:44:13 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb05
+Time: Mon Jun 15 16:44:13 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb05 at Mon Jun 15 16:44:13 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb06
+Time: Mon Jun 15 16:44:13 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb06 at Mon Jun 15 16:44:13 MDT 2026
+Skipping feb06_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb07
+Time: Mon Jun 15 16:44:13 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb07 at Mon Jun 15 16:44:13 MDT 2026
+Skipping feb07_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb08
+Time: Mon Jun 15 16:44:13 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb08 at Mon Jun 15 16:44:13 MDT 2026
+Skipping feb08_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb09
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb09 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb10
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb10 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb11
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb11 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb14
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb14 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb15
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb15 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb16
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb16 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb17
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb17 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb18
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb18 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb19
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb19 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb20
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb20 at Mon Jun 15 16:44:14 MDT 2026
+Skipping feb20_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb21
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb21 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb26
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb26 at Mon Jun 15 16:44:14 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb27
+Time: Mon Jun 15 16:44:14 MDT 2026
+========================================
+main/run_deid_batch.sh: line 30: matlab: command not found
+Finished: feb27 at Mon Jun 15 16:44:14 MDT 2026
+All subdirectories processed.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb02
+Time: Mon Jun 15 16:46:24 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: feb02_storm16.avi
+Processing File: feb02_storm17.avi
+Processing File: feb02_storm8.avi
+Processing File: feb02_storm4.avi
+Processing File: feb02_storm6.avi
+Processing File: feb02_storm3.avi
+Processing File: feb02_storm11.avi
+Processing File: feb02_storm12.avi
+Processing File: feb02_storm13.avi
+Processing File: feb02_storm9.avi
+Processing File: feb02_storm5.avi
+Processing File: feb02_storm7.avi
+Processing File: feb02_storm14.avi
+Processing File: feb02_storm1.avi
+Processing File: feb02_storm15.avi
+Processing File: feb02_storm2.avi
+Saved Output for: main
+Finished: feb02 at Mon Jun 15 16:49:00 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb03
+Time: Mon Jun 15 16:49:00 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_108.avi
+Processing File: Atwater_23_24_104.avi
+Processing File: Atwater_23_24_102.avi
+Processing File: Atwater_23_24_101.avi
+Processing File: Atwater_23_24_106.avi
+Processing File: Atwater_23_24_109.avi
+Processing File: Atwater_23_24_105.avi
+Processing File: Atwater_23_24_107.avi
+Processing File: Atwater_23_24_103.avi
+Saved Output for: main
+Finished: feb03 at Mon Jun 15 16:51:32 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb04
+Time: Mon Jun 15 16:51:32 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_114.avi
+Processing File: Atwater_23_24_110.avi
+Processing File: Atwater_23_24_117.avi
+Processing File: Atwater_23_24_119.avi
+Processing File: Atwater_23_24_124.avi
+Processing File: Atwater_23_24_115.avi
+Processing File: Atwater_23_24_121.avi
+Processing File: Atwater_23_24_118.avi
+Processing File: Atwater_23_24_123.avi
+Processing File: Atwater_23_24_111.avi
+Processing File: Atwater_23_24_122.avi
+Processing File: Atwater_23_24_116.avi
+Processing File: Atwater_23_24_113.avi
+Processing File: Atwater_23_24_120.avi
+Processing File: Atwater_23_24_112.avi
+Saved Output for: main
+Finished: feb04 at Mon Jun 15 16:54:06 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb05
+Time: Mon Jun 15 16:54:07 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_158.avi
+Processing File: Atwater_23_24_128.avi
+Processing File: Atwater_23_24_127.avi
+Processing File: Atwater_23_24_131.avi
+Processing File: Atwater_23_24_132.avi
+Processing File: Atwater_23_24_163.avi
+Processing File: Atwater_23_24_162.avi
+Processing File: Atwater_23_24_126.avi
+Processing File: Atwater_23_24_125.avi
+Processing File: Atwater_23_24_136.avi
+Processing File: Atwater_23_24_152.avi
+Processing File: Atwater_23_24_156.avi
+Processing File: Atwater_23_24_160.avi
+Processing File: Atwater_23_24_157.avi
+Processing File: Atwater_23_24_159.avi
+Processing File: Atwater_23_24_153.avi
+Processing File: Atwater_23_24_138.avi
+Processing File: Atwater_23_24_133.avi
+Processing File: Atwater_23_24_135.avi
+Processing File: Atwater_23_24_134.avi
+Processing File: Atwater_23_24_161.avi
+Processing File: Atwater_23_24_155.avi
+Processing File: Atwater_23_24_130.avi
+Processing File: Atwater_23_24_167.avi
+Processing File: Atwater_23_24_151.avi
+Processing File: Atwater_23_24_129.avi
+Processing File: Atwater_23_24_139.avi
+Processing File: Atwater_23_24_137.avi
+Processing File: Atwater_23_24_154.avi
+Processing File: Atwater_23_24_166.avi
+Processing File: Atwater_23_24_164.avi
+Processing File: Atwater_23_24_165.avi
+Processing File: Atwater_23_24_142.avi
+Processing File: Atwater_23_24_178.avi
+Processing File: Atwater_23_24_169.avi
+Processing File: Atwater_23_24_176.avi
+Processing File: Atwater_23_24_168.avi
+Processing File: Atwater_23_24_173.avi
+Processing File: Atwater_23_24_171.avi
+Processing File: Atwater_23_24_174.avi
+Processing File: Atwater_23_24_140.avi
+Processing File: Atwater_23_24_143.avi
+Processing File: Atwater_23_24_170.avi
+Processing File: Atwater_23_24_180.avi
+Processing File: Atwater_23_24_172.avi
+Processing File: Atwater_23_24_182.avi
+Processing File: Atwater_23_24_141.avi
+Processing File: Atwater_23_24_181.avi
+Processing File: Atwater_23_24_175.avi
+Processing File: Atwater_23_24_177.avi
+Processing File: Atwater_23_24_179.avi
+Processing File: Atwater_23_24_183.avi
+Saved Output for: main
+Finished: feb05 at Mon Jun 15 17:01:08 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb06
+Time: Mon Jun 15 17:01:08 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_186.avi
+Processing File: Atwater_23_24_199.avi
+Processing File: Atwater_23_24_188.avi
+Processing File: Atwater_23_24_190.avi
+Processing File: Atwater_23_24_211.avi
+Processing File: Atwater_23_24_206.avi
+Processing File: Atwater_23_24_208.avi
+Processing File: Atwater_23_24_196.avi
+Processing File: Atwater_23_24_192.avi
+Processing File: Atwater_23_24_197.avi
+Processing File: Atwater_23_24_194.avi
+Processing File: Atwater_23_24_193.avi
+Processing File: Atwater_23_24_189.avi
+Processing File: Atwater_23_24_195.avi
+Processing File: Atwater_23_24_191.avi
+Processing File: Atwater_23_24_209.avi
+Processing File: Atwater_23_24_201.avi
+Processing File: Atwater_23_24_200.avi
+Processing File: Atwater_23_24_214.avi
+Processing File: Atwater_23_24_215.avi
+Processing File: Atwater_23_24_185.avi
+Processing File: Atwater_23_24_212.avi
+Processing File: Atwater_23_24_204.avi
+Processing File: Atwater_23_24_213.avi
+Processing File: Atwater_23_24_187.avi
+Processing File: Atwater_23_24_202.avi
+Processing File: Atwater_23_24_205.avi
+Processing File: Atwater_23_24_210.avi
+Processing File: Atwater_23_24_207.avi
+Processing File: Atwater_23_24_184.avi
+Processing File: Atwater_23_24_203.avi
+Processing File: Atwater_23_24_198.avi
+Processing File: Atwater_23_24_230.avi
+Processing File: Atwater_23_24_216.avi
+Processing File: Atwater_23_24_217.avi
+Processing File: Atwater_23_24_228.avi
+Processing File: Atwater_23_24_224.avi
+Processing File: Atwater_23_24_229.avi
+Processing File: Atwater_23_24_221.avi
+Processing File: Atwater_23_24_218.avi
+Processing File: Atwater_23_24_225.avi
+Processing File: Atwater_23_24_219.avi
+Processing File: Atwater_23_24_227.avi
+Processing File: Atwater_23_24_226.avi
+Processing File: Atwater_23_24_220.avi
+Processing File: Atwater_23_24_222.avi
+Processing File: Atwater_23_24_223.avi
+Saved Output for: main
+Finished: feb06 at Mon Jun 15 17:09:36 MDT 2026
+Skipping feb06_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb07
+Time: Mon Jun 15 17:09:36 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_253.avi
+Processing File: Atwater_23_24_261.avi
+Processing File: Atwater_23_24_256.avi
+Processing File: Atwater_23_24_232.avi
+Processing File: Atwater_23_24_244.avi
+Processing File: Atwater_23_24_237.avi
+Processing File: Atwater_23_24_252.avi
+Processing File: Atwater_23_24_245.avi
+Processing File: Atwater_23_24_250.avi
+Processing File: Atwater_23_24_247.avi
+Processing File: Atwater_23_24_243.avi
+Processing File: Atwater_23_24_239.avi
+Processing File: Atwater_23_24_231.avi
+Processing File: Atwater_23_24_254.avi
+Processing File: Atwater_23_24_241.avi
+Processing File: Atwater_23_24_259.avi
+Processing File: Atwater_23_24_246.avi
+Processing File: Atwater_23_24_234.avi
+Processing File: Atwater_23_24_260.avi
+Processing File: Atwater_23_24_251.avi
+Processing File: Atwater_23_24_248.avi
+Processing File: Atwater_23_24_262.avi
+Processing File: Atwater_23_24_236.avi
+Processing File: Atwater_23_24_257.avi
+Processing File: Atwater_23_24_240.avi
+Processing File: Atwater_23_24_249.avi
+Processing File: Atwater_23_24_233.avi
+Processing File: Atwater_23_24_242.avi
+Processing File: Atwater_23_24_255.avi
+Processing File: Atwater_23_24_238.avi
+Processing File: Atwater_23_24_258.avi
+Processing File: Atwater_23_24_235.avi
+Processing File: Atwater_23_24_275.avi
+Processing File: Atwater_23_24_265.avi
+Processing File: Atwater_23_24_277.avi
+Processing File: Atwater_23_24_274.avi
+Processing File: Atwater_23_24_279.avi
+Processing File: Atwater_23_24_270.avi
+Processing File: Atwater_23_24_278.avi
+Processing File: Atwater_23_24_263.avi
+Processing File: Atwater_23_24_267.avi
+Processing File: Atwater_23_24_264.avi
+Processing File: Atwater_23_24_271.avi
+Processing File: Atwater_23_24_266.avi
+Processing File: Atwater_23_24_276.avi
+Processing File: Atwater_23_24_268.avi
+Processing File: Atwater_23_24_269.avi
+Processing File: Atwater_23_24_272.avi
+Processing File: Atwater_23_24_273.avi
+Processing File: Atwater_23_24_280.avi
+Processing File: Atwater_23_24_282.avi
+Processing File: Atwater_23_24_281.avi
+Saved Output for: main
+Finished: feb07 at Mon Jun 15 17:17:38 MDT 2026
+Skipping feb07_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb08
+Time: Mon Jun 15 17:17:39 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_298.avi
+Processing File: Atwater_23_24_288.avi
+Processing File: Atwater_23_24_294.avi
+Processing File: Atwater_23_24_305.avi
+Processing File: Atwater_23_24_292.avi
+Processing File: Atwater_23_24_285.avi
+Processing File: Atwater_23_24_307.avi
+Processing File: Atwater_23_24_312.avi
+Processing File: Atwater_23_24_311.avi
+Processing File: Atwater_23_24_284.avi
+Processing File: Atwater_23_24_301.avi
+Processing File: Atwater_23_24_299.avi
+Processing File: Atwater_23_24_304.avi
+Processing File: Atwater_23_24_295.avi
+Processing File: Atwater_23_24_286.avi
+Processing File: Atwater_23_24_290.avi
+Processing File: Atwater_23_24_310.avi
+Processing File: Atwater_23_24_283.avi
+Processing File: Atwater_23_24_296.avi
+Processing File: Atwater_23_24_287.avi
+Processing File: Atwater_23_24_300.avi
+Processing File: Atwater_23_24_308.avi
+Processing File: Atwater_23_24_293.avi
+Processing File: Atwater_23_24_302.avi
+Processing File: Atwater_23_24_303.avi
+Processing File: Atwater_23_24_297.avi
+Processing File: Atwater_23_24_306.avi
+Processing File: Atwater_23_24_289.avi
+Processing File: Atwater_23_24_309.avi
+Processing File: Atwater_23_24_313.avi
+Processing File: Atwater_23_24_314.avi
+Processing File: Atwater_23_24_291.avi
+Processing File: Atwater_23_24_315.avi
+Saved Output for: main
+Finished: feb08 at Mon Jun 15 17:23:56 MDT 2026
+Skipping feb08_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb09
+Time: Mon Jun 15 17:23:56 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_323.avi
+Processing File: Atwater_23_24_335.avi
+Processing File: Atwater_23_24_321.avi
+Processing File: Atwater_23_24_345.avi
+Processing File: Atwater_23_24_320.avi
+Processing File: Atwater_23_24_328.avi
+Processing File: Atwater_23_24_342.avi
+Processing File: Atwater_23_24_338.avi
+Processing File: Atwater_23_24_329.avi
+Processing File: Atwater_23_24_347.avi
+Processing File: Atwater_23_24_344.avi
+Processing File: Atwater_23_24_340.avi
+Processing File: Atwater_23_24_331.avi
+Processing File: Atwater_23_24_333.avi
+Processing File: Atwater_23_24_327.avi
+Processing File: Atwater_23_24_325.avi
+Processing File: Atwater_23_24_324.avi
+Processing File: Atwater_23_24_318.avi
+Processing File: Atwater_23_24_330.avi
+Processing File: Atwater_23_24_317.avi
+Processing File: Atwater_23_24_332.avi
+Processing File: Atwater_23_24_319.avi
+Processing File: Atwater_23_24_322.avi
+Processing File: Atwater_23_24_316.avi
+Processing File: Atwater_23_24_341.avi
+Processing File: Atwater_23_24_334.avi
+Processing File: Atwater_23_24_326.avi
+Processing File: Atwater_23_24_337.avi
+Processing File: Atwater_23_24_346.avi
+Processing File: Atwater_23_24_343.avi
+Processing File: Atwater_23_24_336.avi
+Processing File: Atwater_23_24_339.avi
+Processing File: Atwater_23_24_348.avi
+Saved Output for: main
+Finished: feb09 at Mon Jun 15 17:31:21 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb10
+Time: Mon Jun 15 17:31:21 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_354.avi
+Processing File: Atwater_23_24_358.avi
+Processing File: Atwater_23_24_370.avi
+Processing File: Atwater_23_24_371.avi
+Processing File: Atwater_23_24_366.avi
+Processing File: Atwater_23_24_367.avi
+Processing File: Atwater_23_24_349.avi
+Processing File: Atwater_23_24_369.avi
+Processing File: Atwater_23_24_363.avi
+Processing File: Atwater_23_24_352.avi
+Processing File: Atwater_23_24_350.avi
+Processing File: Atwater_23_24_356.avi
+Processing File: Atwater_23_24_368.avi
+Processing File: Atwater_23_24_372.avi
+Processing File: Atwater_23_24_355.avi
+Processing File: Atwater_23_24_361.avi
+Processing File: Atwater_23_24_359.avi
+Processing File: Atwater_23_24_365.avi
+Processing File: Atwater_23_24_364.avi
+Processing File: Atwater_23_24_362.avi
+Processing File: Atwater_23_24_373.avi
+Processing File: Atwater_23_24_357.avi
+Processing File: Atwater_23_24_360.avi
+Processing File: Atwater_23_24_353.avi
+Processing File: Atwater_23_24_351.avi
+Saved Output for: main
+Finished: feb10 at Mon Jun 15 17:37:01 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb11
+Time: Mon Jun 15 17:37:01 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_374.avi
+Processing File: Atwater_23_24_382.avi
+Processing File: Atwater_23_24_377.avi
+Processing File: Atwater_23_24_387.avi
+Processing File: Atwater_23_24_386.avi
+Processing File: Atwater_23_24_375.avi
+Processing File: Atwater_23_24_385.avi
+Processing File: Atwater_23_24_379.avi
+Processing File: Atwater_23_24_381.avi
+Processing File: Atwater_23_24_383.avi
+Processing File: Atwater_23_24_380.avi
+Processing File: Atwater_23_24_384.avi
+Processing File: Atwater_23_24_376.avi
+Processing File: Atwater_23_24_378.avi
+Saved Output for: main
+Finished: feb11 at Mon Jun 15 17:41:03 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb14
+Time: Mon Jun 15 17:41:04 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_397.avi
+Processing File: Atwater_23_24_392.avi
+Processing File: Atwater_23_24_393.avi
+Processing File: Atwater_23_24_396.avi
+Processing File: Atwater_23_24_395.avi
+Processing File: Atwater_23_24_394.avi
+Processing File: Atwater_23_24_390.avi
+Processing File: Atwater_23_24_389.avi
+Processing File: Atwater_23_24_388.avi
+Processing File: Atwater_23_24_391.avi
+Saved Output for: main
+Finished: feb14 at Mon Jun 15 17:43:58 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb15
+Time: Mon Jun 15 17:43:58 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_401.avi
+Processing File: Atwater_23_24_423.avi
+Processing File: Atwater_23_24_416.avi
+Processing File: Atwater_23_24_403.avi
+Processing File: Atwater_23_24_404.avi
+Processing File: Atwater_23_24_422.avi
+Processing File: Atwater_23_24_428.avi
+Processing File: Atwater_23_24_420.avi
+Processing File: Atwater_23_24_419.avi
+Processing File: Atwater_23_24_427.avi
+Processing File: Atwater_23_24_426.avi
+Processing File: Atwater_23_24_399.avi
+Processing File: Atwater_23_24_424.avi
+Processing File: Atwater_23_24_425.avi
+Processing File: Atwater_23_24_414.avi
+Processing File: Atwater_23_24_411.avi
+Processing File: Atwater_23_24_408.avi
+Processing File: Atwater_23_24_421.avi
+Processing File: Atwater_23_24_417.avi
+Processing File: Atwater_23_24_429.avi
+Processing File: Atwater_23_24_400.avi
+Processing File: Atwater_23_24_406.avi
+Processing File: Atwater_23_24_413.avi
+Processing File: Atwater_23_24_405.avi
+Processing File: Atwater_23_24_415.avi
+Processing File: Atwater_23_24_407.avi
+Processing File: Atwater_23_24_410.avi
+Processing File: Atwater_23_24_398.avi
+Processing File: Atwater_23_24_409.avi
+Processing File: Atwater_23_24_412.avi
+Processing File: Atwater_23_24_402.avi
+Processing File: Atwater_23_24_418.avi
+Processing File: Atwater_23_24_444.avi
+Processing File: Atwater_23_24_443.avi
+Processing File: Atwater_23_24_434.avi
+Processing File: Atwater_23_24_440.avi
+Processing File: Atwater_23_24_441.avi
+Processing File: Atwater_23_24_442.avi
+Processing File: Atwater_23_24_445.avi
+Processing File: Atwater_23_24_433.avi
+Processing File: Atwater_23_24_435.avi
+Processing File: Atwater_23_24_439.avi
+Processing File: Atwater_23_24_437.avi
+Processing File: Atwater_23_24_432.avi
+Processing File: Atwater_23_24_438.avi
+Processing File: Atwater_23_24_436.avi
+Processing File: Atwater_23_24_431.avi
+Processing File: Atwater_23_24_430.avi
+Saved Output for: main
+Finished: feb15 at Mon Jun 15 17:51:43 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb16
+Time: Mon Jun 15 17:51:43 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_467.avi
+Processing File: Atwater_23_24_448.avi
+Processing File: Atwater_23_24_466.avi
+Processing File: Atwater_23_24_469.avi
+Processing File: Atwater_23_24_475.avi
+Processing File: Atwater_23_24_452.avi
+Processing File: Atwater_23_24_468.avi
+Processing File: Atwater_23_24_473.avi
+Processing File: Atwater_23_24_463.avi
+Processing File: Atwater_23_24_454.avi
+Processing File: Atwater_23_24_457.avi
+Processing File: Atwater_23_24_447.avi
+Processing File: Atwater_23_24_459.avi
+Processing File: Atwater_23_24_458.avi
+Processing File: Atwater_23_24_471.avi
+Processing File: Atwater_23_24_451.avi
+Processing File: Atwater_23_24_464.avi
+Processing File: Atwater_23_24_460.avi
+Processing File: Atwater_23_24_461.avi
+Processing File: Atwater_23_24_449.avi
+Processing File: Atwater_23_24_476.avi
+Processing File: Atwater_23_24_446.avi
+Processing File: Atwater_23_24_455.avi
+Processing File: Atwater_23_24_462.avi
+Processing File: Atwater_23_24_465.avi
+Processing File: Atwater_23_24_450.avi
+Processing File: Atwater_23_24_470.avi
+Processing File: Atwater_23_24_453.avi
+Processing File: Atwater_23_24_456.avi
+Processing File: Atwater_23_24_474.avi
+Processing File: Atwater_23_24_477.avi
+Processing File: Atwater_23_24_472.avi
+Processing File: Atwater_23_24_487.avi
+Processing File: Atwater_23_24_486.avi
+Processing File: Atwater_23_24_484.avi
+Processing File: Atwater_23_24_483.avi
+Processing File: Atwater_23_24_485.avi
+Processing File: Atwater_23_24_482.avi
+Processing File: Atwater_23_24_480.avi
+Processing File: Atwater_23_24_478.avi
+Processing File: Atwater_23_24_479.avi
+Processing File: Atwater_23_24_481.avi
+Saved Output for: main
+Finished: feb16 at Mon Jun 15 18:01:17 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb17
+Time: Mon Jun 15 18:01:17 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_497.avi
+Processing File: Atwater_23_24_491.avi
+Processing File: Atwater_23_24_498.avi
+Processing File: Atwater_23_24_489.avi
+Processing File: Atwater_23_24_504.avi
+Processing File: Atwater_23_24_501.avi
+Processing File: Atwater_23_24_490.avi
+Processing File: Atwater_23_24_493.avi
+Processing File: Atwater_23_24_503.avi
+Processing File: Atwater_23_24_488.avi
+Processing File: Atwater_23_24_492.avi
+Processing File: Atwater_23_24_496.avi
+Processing File: Atwater_23_24_499.avi
+Processing File: Atwater_23_24_494.avi
+Processing File: Atwater_23_24_500.avi
+Processing File: Atwater_23_24_495.avi
+Processing File: Atwater_23_24_502.avi
+Saved Output for: main
+Finished: feb17 at Mon Jun 15 18:05:35 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb18
+Time: Mon Jun 15 18:05:35 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_510.avi
+Processing File: Atwater_23_24_517.avi
+Processing File: Atwater_23_24_514.avi
+Processing File: Atwater_23_24_521.avi
+Processing File: Atwater_23_24_516.avi
+Processing File: Atwater_23_24_527.avi
+Processing File: Atwater_23_24_511.avi
+Processing File: Atwater_23_24_520.avi
+Processing File: Atwater_23_24_525.avi
+Processing File: Atwater_23_24_505.avi
+Processing File: Atwater_23_24_506.avi
+Processing File: Atwater_23_24_508.avi
+Processing File: Atwater_23_24_518.avi
+Processing File: Atwater_23_24_515.avi
+Processing File: Atwater_23_24_509.avi
+Processing File: Atwater_23_24_512.avi
+Processing File: Atwater_23_24_522.avi
+Processing File: Atwater_23_24_519.avi
+Processing File: Atwater_23_24_526.avi
+Processing File: Atwater_23_24_523.avi
+Processing File: Atwater_23_24_513.avi
+Processing File: Atwater_23_24_524.avi
+Processing File: Atwater_23_24_507.avi
+Saved Output for: main
+Finished: feb18 at Mon Jun 15 18:10:18 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb19
+Time: Mon Jun 15 18:10:18 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_534.avi
+Processing File: Atwater_23_24_552.avi
+Processing File: Atwater_23_24_544.avi
+Processing File: Atwater_23_24_529.avi
+Processing File: Atwater_23_24_548.avi
+Processing File: Atwater_23_24_540.avi
+Processing File: Atwater_23_24_531.avi
+Processing File: Atwater_23_24_533.avi
+Processing File: Atwater_23_24_539.avi
+Processing File: Atwater_23_24_558.avi
+Processing File: Atwater_23_24_551.avi
+Processing File: Atwater_23_24_556.avi
+Processing File: Atwater_23_24_538.avi
+Processing File: Atwater_23_24_543.avi
+Processing File: Atwater_23_24_549.avi
+Processing File: Atwater_23_24_537.avi
+Processing File: Atwater_23_24_559.avi
+Processing File: Atwater_23_24_528.avi
+Processing File: Atwater_23_24_550.avi
+Processing File: Atwater_23_24_535.avi
+Processing File: Atwater_23_24_532.avi
+Processing File: Atwater_23_24_546.avi
+Processing File: Atwater_23_24_553.avi
+Processing File: Atwater_23_24_536.avi
+Processing File: Atwater_23_24_541.avi
+Processing File: Atwater_23_24_554.avi
+Processing File: Atwater_23_24_545.avi
+Processing File: Atwater_23_24_547.avi
+Processing File: Atwater_23_24_530.avi
+Processing File: Atwater_23_24_542.avi
+Processing File: Atwater_23_24_555.avi
+Processing File: Atwater_23_24_557.avi
+Processing File: Atwater_23_24_566.avi
+Processing File: Atwater_23_24_565.avi
+Processing File: Atwater_23_24_564.avi
+Processing File: Atwater_23_24_567.avi
+Processing File: Atwater_23_24_561.avi
+Processing File: Atwater_23_24_560.avi
+Processing File: Atwater_23_24_562.avi
+Processing File: Atwater_23_24_563.avi
+Saved Output for: main
+Finished: feb19 at Mon Jun 15 18:17:51 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb20
+Time: Mon Jun 15 18:17:51 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_577.avi
+Processing File: Atwater_23_24_584.avi
+Processing File: Atwater_23_24_596.avi
+Processing File: Atwater_23_24_576.avi
+Processing File: Atwater_23_24_570.avi
+Processing File: Atwater_23_24_598.avi
+Processing File: Atwater_23_24_586.avi
+Processing File: Atwater_23_24_588.avi
+Processing File: Atwater_23_24_574.avi
+Processing File: Atwater_23_24_595.avi
+Processing File: Atwater_23_24_587.avi
+Processing File: Atwater_23_24_592.avi
+Processing File: Atwater_23_24_573.avi
+Processing File: Atwater_23_24_599.avi
+Processing File: Atwater_23_24_583.avi
+Processing File: Atwater_23_24_582.avi
+Processing File: Atwater_23_24_569.avi
+Processing File: Atwater_23_24_593.avi
+Processing File: Atwater_23_24_579.avi
+Processing File: Atwater_23_24_585.avi
+Processing File: Atwater_23_24_591.avi
+Processing File: Atwater_23_24_589.avi
+Processing File: Atwater_23_24_581.avi
+Processing File: Atwater_23_24_590.avi
+Processing File: Atwater_23_24_580.avi
+Processing File: Atwater_23_24_575.avi
+Processing File: Atwater_23_24_571.avi
+Processing File: Atwater_23_24_578.avi
+Processing File: Atwater_23_24_594.avi
+Processing File: Atwater_23_24_597.avi
+Processing File: Atwater_23_24_568.avi
+Processing File: Atwater_23_24_572.avi
+Processing File: Atwater_23_24_611.avi
+Processing File: Atwater_23_24_603.avi
+Processing File: Atwater_23_24_604.avi
+Processing File: Atwater_23_24_617.avi
+Processing File: Atwater_23_24_605.avi
+Processing File: Atwater_23_24_618.avi
+Processing File: Atwater_23_24_619.avi
+Processing File: Atwater_23_24_602.avi
+Processing File: Atwater_23_24_610.avi
+Processing File: Atwater_23_24_607.avi
+Processing File: Atwater_23_24_630.avi
+Processing File: Atwater_23_24_609.avi
+Processing File: Atwater_23_24_623.avi
+Processing File: Atwater_23_24_608.avi
+Processing File: Atwater_23_24_606.avi
+Processing File: Atwater_23_24_631.avi
+Processing File: Atwater_23_24_612.avi
+Processing File: Atwater_23_24_629.avi
+Processing File: Atwater_23_24_621.avi
+Processing File: Atwater_23_24_613.avi
+Processing File: Atwater_23_24_628.avi
+Processing File: Atwater_23_24_620.avi
+Processing File: Atwater_23_24_624.avi
+Processing File: Atwater_23_24_615.avi
+Processing File: Atwater_23_24_626.avi
+Processing File: Atwater_23_24_627.avi
+Processing File: Atwater_23_24_616.avi
+Processing File: Atwater_23_24_614.avi
+Processing File: Atwater_23_24_601.avi
+Processing File: Atwater_23_24_600.avi
+Processing File: Atwater_23_24_622.avi
+Processing File: Atwater_23_24_625.avi
+Saved Output for: main
+Finished: feb20 at Mon Jun 15 18:25:26 MDT 2026
+Skipping feb20_storm — no .avi files found.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb21
+Time: Mon Jun 15 18:25:26 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_653.avi
+Processing File: Atwater_23_24_649.avi
+Processing File: Atwater_23_24_652.avi
+Processing File: Atwater_23_24_650.avi
+Processing File: Atwater_23_24_659.avi
+Processing File: Atwater_23_24_632.avi
+Processing File: Atwater_23_24_633.avi
+Processing File: Atwater_23_24_637.avi
+Processing File: Atwater_23_24_651.avi
+Processing File: Atwater_23_24_638.avi
+Processing File: Atwater_23_24_640.avi
+Processing File: Atwater_23_24_662.avi
+Processing File: Atwater_23_24_663.avi
+Processing File: Atwater_23_24_639.avi
+Processing File: Atwater_23_24_641.avi
+Processing File: Atwater_23_24_655.avi
+Processing File: Atwater_23_24_658.avi
+Processing File: Atwater_23_24_647.avi
+Processing File: Atwater_23_24_657.avi
+Processing File: Atwater_23_24_656.avi
+Processing File: Atwater_23_24_634.avi
+Processing File: Atwater_23_24_660.avi
+Processing File: Atwater_23_24_654.avi
+Processing File: Atwater_23_24_635.avi
+Processing File: Atwater_23_24_636.avi
+Processing File: Atwater_23_24_644.avi
+Processing File: Atwater_23_24_645.avi
+Processing File: Atwater_23_24_643.avi
+Processing File: Atwater_23_24_648.avi
+Processing File: Atwater_23_24_646.avi
+Processing File: Atwater_23_24_661.avi
+Processing File: Atwater_23_24_642.avi
+Saved Output for: main
+Finished: feb21 at Mon Jun 15 18:29:39 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb26
+Time: Mon Jun 15 18:29:39 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_004.avi
+Processing File: Atwater_23_24_012.avi
+Processing File: Atwater_23_24_011.avi
+Processing File: Atwater_23_24_013.avi
+Processing File: Atwater_23_24_008.avi
+Processing File: Atwater_23_24_010.avi
+Processing File: Atwater_23_24_005.avi
+Processing File: Atwater_23_24_006.avi
+Processing File: Atwater_23_24_009.avi
+Processing File: Atwater_23_24_007.avi
+Saved Output for: main
+Finished: feb26 at Mon Jun 15 18:33:09 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb27
+Time: Mon Jun 15 18:33:09 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_017.avi
+Processing File: Atwater_23_24_018.avi
+Processing File: Atwater_23_24_015.avi
+Processing File: Atwater_23_24_016.avi
+Processing File: Atwater_23_24_019.avi
+Processing File: Atwater_23_24_021.avi
+Processing File: Atwater_23_24_020.avi
+Processing File: Atwater_23_24_014.avi
+Saved Output for: main
+Finished: feb27 at Mon Jun 15 18:35:52 MDT 2026
+All subdirectories processed.
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan15
+Time: Mon Jun 15 20:18:10 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_243.avi
+Processing File: Atwater_23_24_259.avi
+Processing File: Atwater_23_24_242.avi
+Processing File: Atwater_23_24_261.avi
+Processing File: Atwater_23_24_263.avi
+Processing File: Atwater_23_24_267.avi
+Processing File: Atwater_23_24_240.avi
+Processing File: Atwater_23_24_260.avi
+Processing File: Atwater_23_24_241.avi
+Processing File: Atwater_23_24_269.avi
+Processing File: Atwater_23_24_239.avi
+Processing File: Atwater_23_24_262.avi
+Processing File: Atwater_23_24_246.avi
+Processing File: Atwater_23_24_249.avi
+Processing File: Atwater_23_24_254.avi
+Processing File: Atwater_23_24_264.avi
+Processing File: Atwater_23_24_244.avi
+Processing File: Atwater_23_24_256.avi
+Processing File: Atwater_23_24_245.avi
+Processing File: Atwater_23_24_258.avi
+Processing File: Atwater_23_24_257.avi
+Processing File: Atwater_23_24_251.avi
+Processing File: Atwater_23_24_265.avi
+Processing File: Atwater_23_24_248.avi
+Processing File: Atwater_23_24_268.avi
+Processing File: Atwater_23_24_255.avi
+Processing File: Atwater_23_24_247.avi
+Processing File: Atwater_23_24_252.avi
+Processing File: Atwater_23_24_250.avi
+Processing File: Atwater_23_24_270.avi
+Processing File: Atwater_23_24_266.avi
+Processing File: Atwater_23_24_253.avi
+Processing File: Atwater_23_24_272.avi
+Processing File: Atwater_23_24_271.avi
+Saved Output for: main
+Finished: jan15 at Mon Jun 15 20:24:04 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan24
+Time: Mon Jun 15 20:24:04 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_000.avi
+Processing File: Atwater_23_24_005.avi
+Processing File: Atwater_23_24_001.avi
+Processing File: Atwater_23_24_002.avi
+Processing File: Atwater_23_24_003.avi
+Processing File: Atwater_23_24_004.avi
+Saved Output for: main
+Finished: jan24 at Mon Jun 15 20:28:00 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan25
+Time: Mon Jun 15 20:28:00 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_034.avi
+Processing File: Atwater_23_24_014.avi
+Processing File: Atwater_23_24_032.avi
+Processing File: Atwater_23_24_030.avi
+Processing File: Atwater_23_24_037.avi
+Processing File: Atwater_23_24_021.avi
+Processing File: Atwater_23_24_015.avi
+Processing File: Atwater_23_24_024.avi
+Processing File: Atwater_23_24_036.avi
+Processing File: Atwater_23_24_012.avi
+Processing File: Atwater_23_24_029.avi
+Processing File: Atwater_23_24_033.avi
+Processing File: Atwater_23_24_006.avi
+Processing File: Atwater_23_24_009.avi
+Processing File: Atwater_23_24_011.avi
+Processing File: Atwater_23_24_017.avi
+Processing File: Atwater_23_24_026.avi
+Processing File: Atwater_23_24_019.avi
+Processing File: Atwater_23_24_027.avi
+Processing File: Atwater_23_24_008.avi
+Processing File: Atwater_23_24_035.avi
+Processing File: Atwater_23_24_020.avi
+Processing File: Atwater_23_24_023.avi
+Processing File: Atwater_23_24_013.avi
+Processing File: Atwater_23_24_025.avi
+Processing File: Atwater_23_24_028.avi
+Processing File: Atwater_23_24_022.avi
+Processing File: Atwater_23_24_031.avi
+Processing File: Atwater_23_24_018.avi
+Processing File: Atwater_23_24_007.avi
+Processing File: Atwater_23_24_010.avi
+Processing File: Atwater_23_24_016.avi
+Processing File: Atwater_23_24_046.avi
+Processing File: Atwater_23_24_049.avi
+Processing File: Atwater_23_24_040.avi
+Processing File: Atwater_23_24_048.avi
+Processing File: Atwater_23_24_039.avi
+Processing File: Atwater_23_24_045.avi
+Processing File: Atwater_23_24_050.avi
+Processing File: Atwater_23_24_041.avi
+Processing File: Atwater_23_24_052.avi
+Processing File: Atwater_23_24_042.avi
+Processing File: Atwater_23_24_047.avi
+Processing File: Atwater_23_24_044.avi
+Processing File: Atwater_23_24_038.avi
+Processing File: Atwater_23_24_051.avi
+Processing File: Atwater_23_24_043.avi
+Saved Output for: main
+Finished: jan25 at Mon Jun 15 20:34:42 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan26
+Time: Mon Jun 15 20:34:42 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_065.avi
+Processing File: Atwater_23_24_060.avi
+Processing File: Atwater_23_24_057.avi
+Processing File: Atwater_23_24_056.avi
+Processing File: Atwater_23_24_077.avi
+Processing File: Atwater_23_24_061.avi
+Processing File: Atwater_23_24_084.avi
+Processing File: Atwater_23_24_073.avi
+Processing File: Atwater_23_24_067.avi
+Processing File: Atwater_23_24_064.avi
+Processing File: Atwater_23_24_068.avi
+Processing File: Atwater_23_24_059.avi
+Processing File: Atwater_23_24_071.avi
+Processing File: Atwater_23_24_078.avi
+Processing File: Atwater_23_24_070.avi
+Processing File: Atwater_23_24_075.avi
+Processing File: Atwater_23_24_079.avi
+Processing File: Atwater_23_24_063.avi
+Processing File: Atwater_23_24_069.avi
+Processing File: Atwater_23_24_058.avi
+Processing File: Atwater_23_24_081.avi
+Processing File: Atwater_23_24_074.avi
+Processing File: Atwater_23_24_082.avi
+Processing File: Atwater_23_24_054.avi
+Processing File: Atwater_23_24_083.avi
+Processing File: Atwater_23_24_066.avi
+Processing File: Atwater_23_24_062.avi
+Processing File: Atwater_23_24_076.avi
+Processing File: Atwater_23_24_053.avi
+Processing File: Atwater_23_24_080.avi
+Processing File: Atwater_23_24_072.avi
+Processing File: Atwater_23_24_055.avi
+Processing File: Atwater_23_24_087.avi
+Processing File: Atwater_23_24_086.avi
+Processing File: Atwater_23_24_085.avi
+Saved Output for: main
+Finished: jan26 at Mon Jun 15 20:41:01 MDT 2026
+========================================
+Starting: /uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/JAN/jan27
+Time: Mon Jun 15 20:41:01 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_095.avi
+Processing File: Atwater_23_24_090.avi
+Processing File: Atwater_23_24_097.avi
+Processing File: Atwater_23_24_091.avi
+Processing File: Atwater_23_24_096.avi
+Processing File: Atwater_23_24_089.avi
+Processing File: Atwater_23_24_099.avi
+Processing File: Atwater_23_24_098.avi
+Processing File: Atwater_23_24_093.avi
+Processing File: Atwater_23_24_100.avi
+Processing File: Atwater_23_24_088.avi
+Processing File: Atwater_23_24_092.avi
+Processing File: Atwater_23_24_094.avi
+Saved Output for: main
+Finished: jan27 at Mon Jun 15 20:44:00 MDT 2026
+All targeted subdirectories processed.

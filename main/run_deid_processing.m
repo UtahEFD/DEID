@@ -13,10 +13,15 @@
                                        
 clear, clc, close all
 
-%% set filepath, output directory, and file name for saving  
+%% set filepath, output directory, and file name for saving
 
-working_dir = '/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025/MAR/apr01_storm';
-output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/apr0125_storm';
+env_dir = getenv('DEID_WORKING_DIR');
+if ~isempty(env_dir)
+    working_dir = env_dir;
+else
+    working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/DEC/DEC_all';
+end
+output_dir = working_dir;
 
 %% load parameter structures
 
