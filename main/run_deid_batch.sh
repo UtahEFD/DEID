@@ -1,7 +1,7 @@
 #!/bin/bash
 # Batch-process all day subdirectories within each month directory in SEASON_DIR.
 
-SEASON_DIR=/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2023_2024
+SEASON_DIR=/uufs/chpc.utah.edu/common/home/snowflake4/DEID_files/2024_2025
 SCRIPT=/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/main/run_deid_processing.m
 LOG_DIR=/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/batch_runs
 

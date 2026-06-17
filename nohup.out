@@ -3629,3 +3629,5 @@ Processing File: Atwater_23_24_094.avi
 Saved Output for: main
 Finished: jan27 at Mon Jun 15 20:44:00 MDT 2026
 All targeted subdirectories processed.
+bash: /main/run_deid_batch.sh: No such file or directory
+bash: /main/run_deid_batch.sh: No such file or directory

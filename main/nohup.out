@@ -1,0 +1,2697 @@
+###################################################
+Processing month: APR
+Time: Tue Jun 16 11:03:38 MDT 2026
+###################################################
+========================================
+Starting: APR/apr01
+Time: Tue Jun 16 11:03:38 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_219.avi
+Processing File: Atwater_23_24_228 copy.avi
+Processing File: Atwater_23_24_221.avi
+Processing File: Atwater_23_24_218.avi
+Processing File: Atwater_23_24_225.avi
+Processing File: Atwater_23_24_220.avi
+Processing File: Atwater_23_24_226.avi
+Processing File: Atwater_23_24_224.avi
+Processing File: Atwater_23_24_227.avi
+Processing File: Atwater_23_24_223.avi
+Processing File: Atwater_23_24_222.avi
+Saved Output for: main
+Finished: APR/apr01 at Tue Jun 16 11:09:47 MDT 2026
+========================================
+Starting: APR/apr05
+Time: Tue Jun 16 11:09:47 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_245.avi
+Processing File: Atwater_23_24_242.avi
+Processing File: Atwater_23_24_243.avi
+Processing File: Atwater_23_24_244.avi
+Processing File: Atwater_23_24_246.avi
+Saved Output for: main
+Finished: APR/apr05 at Tue Jun 16 11:14:35 MDT 2026
+========================================
+Starting: APR/apr06
+Time: Tue Jun 16 11:14:35 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_249.avi
+Processing File: Atwater_23_24_258.avi
+Processing File: Atwater_23_24_262.avi
+Processing File: Atwater_23_24_256.avi
+Processing File: Atwater_23_24_273.avi
+Processing File: Atwater_23_24_247.avi
+Processing File: Atwater_23_24_254.avi
+Processing File: Atwater_23_24_269.avi
+Processing File: Atwater_23_24_268.avi
+Processing File: Atwater_23_24_261.avi
+Processing File: Atwater_23_24_278.avi
+Processing File: Atwater_23_24_250.avi
+Processing File: Atwater_23_24_265.avi
+Processing File: Atwater_23_24_272.avi
+Processing File: Atwater_23_24_270.avi
+Processing File: Atwater_23_24_259.avi
+Processing File: Atwater_23_24_253.avi
+Processing File: Atwater_23_24_267.avi
+Processing File: Atwater_23_24_264.avi
+Processing File: Atwater_23_24_276.avi
+Processing File: Atwater_23_24_248.avi
+Processing File: Atwater_23_24_252.avi
+Processing File: Atwater_23_24_255.avi
+Processing File: Atwater_23_24_274.avi
+Processing File: Atwater_23_24_251.avi
+Processing File: Atwater_23_24_266.avi
+Processing File: Atwater_23_24_260.avi
+Processing File: Atwater_23_24_277.avi
+Processing File: Atwater_23_24_263.avi
+Processing File: Atwater_23_24_275.avi
+Processing File: Atwater_23_24_257.avi
+Processing File: Atwater_23_24_271.avi
+Processing File: Atwater_23_24_280.avi
+Processing File: Atwater_23_24_279.avi
+Saved Output for: main
+Finished: APR/apr06 at Tue Jun 16 11:27:53 MDT 2026
+========================================
+Starting: APR/apr07
+Time: Tue Jun 16 11:27:53 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_285.avi
+Processing File: Atwater_23_24_295.avi
+Processing File: Atwater_23_24_294.avi
+Processing File: Atwater_23_24_300.avi
+Processing File: Atwater_23_24_303.avi
+Processing File: Atwater_23_24_281.avi
+Processing File: Atwater_23_24_296.avi
+Processing File: Atwater_23_24_305.avi
+Processing File: Atwater_23_24_289.avi
+Processing File: Atwater_23_24_293.avi
+Processing File: Atwater_23_24_287.avi
+Processing File: Atwater_23_24_286.avi
+Processing File: Atwater_23_24_301.avi
+Processing File: Atwater_23_24_282.avi
+Processing File: Atwater_23_24_292.avi
+Processing File: Atwater_23_24_307.avi
+Processing File: Atwater_23_24_302.avi
+Processing File: Atwater_23_24_304.avi
+Processing File: Atwater_23_24_291.avi
+Processing File: Atwater_23_24_298.avi
+Processing File: Atwater_23_24_299.avi
+Processing File: Atwater_23_24_297.avi
+Processing File: Atwater_23_24_290.avi
+Processing File: Atwater_23_24_288.avi
+Processing File: Atwater_23_24_283.avi
+Processing File: Atwater_23_24_306.avi
+Processing File: Atwater_23_24_284.avi
+Processing File: Atwater_23_24_308.avi
+Saved Output for: main
+Finished: APR/apr07 at Tue Jun 16 11:37:22 MDT 2026
+========================================
+Starting: APR/apr08
+Time: Tue Jun 16 11:37:22 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_309.avi
+Saved Output for: main
+Finished: APR/apr08 at Tue Jun 16 11:42:06 MDT 2026
+========================================
+Starting: APR/apr15
+Time: Tue Jun 16 11:42:06 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_006.avi
+Processing File: Atwater_23_24_028.avi
+Processing File: Atwater_23_24_026.avi
+Processing File: Atwater_23_24_030.avi
+Processing File: Atwater_23_24_021.avi
+Processing File: Atwater_23_24_022.avi
+Processing File: Atwater_23_24_001.avi
+Processing File: Atwater_23_24_020.avi
+Processing File: Atwater_23_24_017.avi
+Processing File: Atwater_23_24_009.avi
+Processing File: Atwater_23_24_023.avi
+Processing File: Atwater_23_24_000.avi
+Processing File: Atwater_23_24_011.avi
+Processing File: Atwater_23_24_005.avi
+Processing File: Atwater_23_24_031.avi
+Processing File: Atwater_23_24_016.avi
+Processing File: Atwater_23_24_014.avi
+Processing File: Atwater_23_24_003.avi
+Processing File: Atwater_23_24_004.avi
+Processing File: Atwater_23_24_002.avi
+Processing File: Atwater_23_24_027.avi
+Processing File: Atwater_23_24_013.avi
+Processing File: Atwater_23_24_024.avi
+Processing File: Atwater_23_24_029.avi
+Processing File: Atwater_23_24_018.avi
+Processing File: Atwater_23_24_010.avi
+Processing File: Atwater_23_24_007.avi
+Processing File: Atwater_23_24_015.avi
+Processing File: Atwater_23_24_025.avi
+Processing File: Atwater_23_24_012.avi
+Processing File: Atwater_23_24_008.avi
+Processing File: Atwater_23_24_019.avi
+Processing File: Atwater_23_24_032.avi
+Processing File: Atwater_23_24_035.avi
+Processing File: Atwater_23_24_033.avi
+Processing File: Atwater_23_24_034.avi
+Processing File: Atwater_23_24_036.avi
+Saved Output for: main
+Finished: APR/apr15 at Tue Jun 16 11:51:50 MDT 2026
+========================================
+Starting: APR/apr16
+Time: Tue Jun 16 11:51:50 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_046.avi
+Processing File: Atwater_23_24_039.avi
+Processing File: Atwater_23_24_052.avi
+Processing File: Atwater_23_24_055.avi
+Processing File: Atwater_23_24_056.avi
+Processing File: Atwater_23_24_047.avi
+Processing File: Atwater_23_24_059.avi
+Processing File: Atwater_23_24_057.avi
+Processing File: Atwater_23_24_037.avi
+Processing File: Atwater_23_24_041.avi
+Processing File: Atwater_23_24_054.avi
+Processing File: Atwater_23_24_051.avi
+Processing File: Atwater_23_24_049.avi
+Processing File: Atwater_23_24_043.avi
+Processing File: Atwater_23_24_042.avi
+Processing File: Atwater_23_24_053.avi
+Processing File: Atwater_23_24_060.avi
+Processing File: Atwater_23_24_050.avi
+Processing File: Atwater_23_24_048.avi
+Processing File: Atwater_23_24_058.avi
+Processing File: Atwater_23_24_038.avi
+Processing File: Atwater_23_24_045.avi
+Processing File: Atwater_23_24_040.avi
+Processing File: Atwater_23_24_061.avi
+Processing File: Atwater_23_24_044.avi
+Saved Output for: main
+Finished: APR/apr16 at Tue Jun 16 11:56:56 MDT 2026
+========================================
+Starting: APR/apr25
+Time: Tue Jun 16 11:56:56 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_066.avi
+Processing File: Atwater_23_24_070.avi
+Processing File: Atwater_23_24_061_2.avi
+Processing File: Atwater_23_24_062.avi
+Processing File: Atwater_23_24_073.avi
+Processing File: Atwater_23_24_064.avi
+Processing File: Atwater_23_24_072.avi
+Processing File: Atwater_23_24_063.avi
+Processing File: Atwater_23_24_068.avi
+Processing File: Atwater_23_24_067.avi
+Processing File: Atwater_23_24_074.avi
+Processing File: Atwater_23_24_071.avi
+Processing File: Atwater_23_24_069.avi
+Processing File: Atwater_23_24_075.avi
+Processing File: Atwater_23_24_065.avi
+Saved Output for: main
+Finished: APR/apr25 at Tue Jun 16 12:03:13 MDT 2026
+========================================
+Starting: APR/apr26
+Time: Tue Jun 16 12:03:14 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_098.avi
+Processing File: Atwater_23_24_082.avi
+Processing File: Atwater_23_24_094.avi
+Processing File: Atwater_23_24_106.avi
+Processing File: Atwater_23_24_105.avi
+Processing File: Atwater_23_24_097.avi
+Processing File: Atwater_23_24_084.avi
+Processing File: Atwater_23_24_102.avi
+Processing File: Atwater_23_24_081.avi
+Processing File: Atwater_23_24_093.avi
+Processing File: Atwater_23_24_089.avi
+Processing File: Atwater_23_24_103.avi
+Processing File: Atwater_23_24_085.avi
+Processing File: Atwater_23_24_104.avi
+Processing File: Atwater_23_24_096.avi
+Processing File: Atwater_23_24_076.avi
+Processing File: Atwater_23_24_087.avi
+Processing File: Atwater_23_24_088.avi
+Processing File: Atwater_23_24_100.avi
+Processing File: Atwater_23_24_091.avi
+Processing File: Atwater_23_24_086.avi
+Processing File: Atwater_23_24_078.avi
+Processing File: Atwater_23_24_077.avi
+Processing File: Atwater_23_24_107.avi
+Processing File: Atwater_23_24_083.avi
+Processing File: Atwater_23_24_080.avi
+Processing File: Atwater_23_24_090.avi
+Processing File: Atwater_23_24_079.avi
+Processing File: Atwater_23_24_099.avi
+Processing File: Atwater_23_24_095.avi
+Processing File: Atwater_23_24_092.avi
+Processing File: Atwater_23_24_101.avi
+Processing File: Atwater_23_24_128.avi
+Processing File: Atwater_23_24_129.avi
+Processing File: Atwater_23_24_112.avi
+Processing File: Atwater_23_24_130.avi
+Processing File: Atwater_23_24_113.avi
+Processing File: Atwater_23_24_115.avi
+Processing File: Atwater_23_24_132.avi
+Processing File: Atwater_23_24_116.avi
+Processing File: Atwater_23_24_125.avi
+Processing File: Atwater_23_24_135.avi
+Processing File: Atwater_23_24_114.avi
+Processing File: Atwater_23_24_133.avi
+Processing File: Atwater_23_24_117.avi
+Processing File: Atwater_23_24_118.avi
+Processing File: Atwater_23_24_119.avi
+Processing File: Atwater_23_24_123.avi
+Processing File: Atwater_23_24_124.avi
+Processing File: Atwater_23_24_131.avi
+Processing File: Atwater_23_24_110.avi
+Processing File: Atwater_23_24_109.avi
+Processing File: Atwater_23_24_134.avi
+Processing File: Atwater_23_24_122.avi
+Processing File: Atwater_23_24_121.avi
+Processing File: Atwater_23_24_108.avi
+Processing File: Atwater_23_24_111.avi
+Processing File: Atwater_23_24_126.avi
+Processing File: Atwater_23_24_127.avi
+Processing File: Atwater_23_24_120.avi
+Saved Output for: main
+Finished: APR/apr26 at Tue Jun 16 12:14:24 MDT 2026
+========================================
+Starting: APR/apr27
+Time: Tue Jun 16 12:14:24 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_163.avi
+Processing File: Atwater_23_24_137.avi
+Processing File: Atwater_23_24_155.avi
+Processing File: Atwater_23_24_138.avi
+Processing File: Atwater_23_24_157.avi
+Processing File: Atwater_23_24_143.avi
+Processing File: Atwater_23_24_164.avi
+Processing File: Atwater_23_24_154.avi
+Processing File: Atwater_23_24_153.avi
+Processing File: Atwater_23_24_161.avi
+Processing File: Atwater_23_24_146.avi
+Processing File: Atwater_23_24_152.avi
+Processing File: Atwater_23_24_165.avi
+Processing File: Atwater_23_24_147.avi
+Processing File: Atwater_23_24_148.avi
+Processing File: Atwater_23_24_144.avi
+Processing File: Atwater_23_24_149.avi
+Processing File: Atwater_23_24_159.avi
+Processing File: Atwater_23_24_142.avi
+Processing File: Atwater_23_24_162.avi
+Processing File: Atwater_23_24_141.avi
+Processing File: Atwater_23_24_136.avi
+Processing File: Atwater_23_24_160.avi
+Processing File: Atwater_23_24_150.avi
+Processing File: Atwater_23_24_140.avi
+Processing File: Atwater_23_24_151.avi
+Processing File: Atwater_23_24_145.avi
+Processing File: Atwater_23_24_139.avi
+Processing File: Atwater_23_24_156.avi
+Processing File: Atwater_23_24_158.avi
+Saved Output for: main
+Finished: APR/apr27 at Tue Jun 16 12:23:26 MDT 2026
+Done with month: APR at Tue Jun 16 12:23:26 MDT 2026
+###################################################
+Processing month: MAR
+Time: Tue Jun 16 12:23:26 MDT 2026
+###################################################
+========================================
+Starting: MAR/mar11
+Time: Tue Jun 16 12:23:27 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: mar11_06.avi
+Processing File: mar11_02.avi
+Processing File: mar11_03.avi
+Processing File: mar11_05.avi
+Processing File: mar11_01.avi
+Processing File: mar11_04.avi
+Saved Output for: main
+Finished: MAR/mar11 at Tue Jun 16 12:28:41 MDT 2026
+========================================
+Starting: MAR/mar12
+Time: Tue Jun 16 12:28:41 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: mar11_25.avi
+Processing File: mar11_27.avi
+Processing File: mar11_08.avi
+Processing File: mar11_31.avi
+Processing File: mar11_21.avi
+Processing File: mar11_07.avi
+Processing File: mar11_14.avi
+Processing File: mar11_13.avi
+Processing File: mar11_18.avi
+Processing File: mar11_23.avi
+Processing File: mar11_09.avi
+Processing File: mar11_24.avi
+Processing File: mar11_30.avi
+Processing File: mar11_29.avi
+Processing File: mar11_20.avi
+Processing File: mar11_16.avi
+Processing File: mar11_15.avi
+Processing File: mar11_10.avi
+Processing File: mar11_11.avi
+Processing File: mar11_22.avi
+Processing File: mar11_19.avi
+Processing File: mar11_17.avi
+Processing File: mar11_28.avi
+Processing File: mar11_26.avi
+Processing File: mar11_12.avi
+Saved Output for: main
+Finished: MAR/mar12 at Tue Jun 16 12:44:53 MDT 2026
+========================================
+Starting: MAR/mar13
+Time: Tue Jun 16 12:44:53 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: mar13_05.avi
+Processing File: mar13_00.avi
+Processing File: mar13_11.avi
+Processing File: mar13_06.avi
+Processing File: mar11_32.avi
+Processing File: mar11_33.avi
+Processing File: mar13_12.avi
+Processing File: mar13_09.avi
+Processing File: mar13_04.avi
+Processing File: mar13_07.avi
+Processing File: mar13_13.avi
+Processing File: mar13_01.avi
+Processing File: mar13_08.avi
+Processing File: mar13_14.avi
+Processing File: mar13_02.avi
+Processing File: mar13_03.avi
+Processing File: mar13_10.avi
+Saved Output for: main
+Finished: MAR/mar13 at Tue Jun 16 12:54:02 MDT 2026
+========================================
+Starting: MAR/mar14
+Time: Tue Jun 16 12:54:02 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: mar13_23.avi
+Processing File: mar13_24.avi
+Processing File: mar13_18.avi
+Processing File: mar13_20.avi
+Processing File: mar13_26.avi
+Processing File: mar13_19.avi
+Processing File: mar13_17.avi
+Processing File: mar13_15.avi
+Processing File: mar13_25.avi
+Processing File: mar13_16.avi
+Processing File: mar13_22.avi
+Processing File: mar13_21.avi
+Saved Output for: main
+Finished: MAR/mar14 at Tue Jun 16 13:00:31 MDT 2026
+========================================
+Starting: MAR/mar23
+Time: Tue Jun 16 13:00:31 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: mar23_01.avi
+Processing File: mar23_00.avi
+Saved Output for: main
+Finished: MAR/mar23 at Tue Jun 16 13:07:00 MDT 2026
+========================================
+Starting: MAR/mar24
+Time: Tue Jun 16 13:07:00 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: mar23_25.avi
+Processing File: mar23_24.avi
+Processing File: mar23_03.avi
+Processing File: mar23_27.avi
+Processing File: mar23_26.avi
+Processing File: mar23_16.avi
+Processing File: mar23_19.avi
+Processing File: mar23_22.avi
+Processing File: mar23_09.avi
+Processing File: mar23_21.avi
+Processing File: mar23_23.avi
+Processing File: mar23_12.avi
+Processing File: mar23_02.avi
+Processing File: mar23_18.avi
+Processing File: mar23_14.avi
+Processing File: mar23_15.avi
+Processing File: mar23_13.avi
+Processing File: mar23_05.avi
+Processing File: mar23_06.avi
+Processing File: mar23_17.avi
+Processing File: mar23_11.avi
+Processing File: mar23_04.avi
+Processing File: mar23_08.avi
+Processing File: mar23_07.avi
+Processing File: mar23_20.avi
+Processing File: mar23_10.avi
+Saved Output for: main
+Finished: MAR/mar24 at Tue Jun 16 13:19:52 MDT 2026
+========================================
+Starting: MAR/mar25
+Time: Tue Jun 16 13:19:52 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_047.avi
+Processing File: mar23_36.avi
+Processing File: Atwater_23_24_044.avi
+Processing File: Atwater_23_24_049.avi
+Processing File: Atwater_23_24_038.avi
+Processing File: mar23_37.avi
+Processing File: mar23_30.avi
+Processing File: mar23_38.avi
+Processing File: mar23_31.avi
+Processing File: Atwater_23_24_042.avi
+Processing File: mar23_29.avi
+Processing File: Atwater_23_24_045.avi
+Processing File: Atwater_23_24_048.avi
+Processing File: mar23_28.avi
+Processing File: Atwater_23_24_043.avi
+Processing File: Atwater_23_24_046.avi
+Processing File: mar23_34.avi
+Processing File: Atwater_23_24_039.avi
+Processing File: mar23_33.avi
+Processing File: mar23_35.avi
+Processing File: Atwater_23_24_041.avi
+Processing File: mar23_32.avi
+Processing File: Atwater_23_24_040.avi
+Saved Output for: main
+Finished: MAR/mar25 at Tue Jun 16 13:30:20 MDT 2026
+========================================
+Starting: MAR/mar26
+Time: Tue Jun 16 13:30:20 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_060.avi
+Processing File: Atwater_23_24_069.avi
+Processing File: Atwater_23_24_076.avi
+Processing File: Atwater_23_24_066.avi
+Processing File: Atwater_23_24_070.avi
+Processing File: Atwater_23_24_071.avi
+Processing File: Atwater_23_24_068.avi
+Processing File: Atwater_23_24_074.avi
+Processing File: Atwater_23_24_062.avi
+Processing File: Atwater_23_24_050.avi
+Processing File: Atwater_23_24_059.avi
+Processing File: Atwater_23_24_053.avi
+Processing File: Atwater_23_24_063.avi
+Processing File: Atwater_23_24_057.avi
+Processing File: Atwater_23_24_067.avi
+Processing File: Atwater_23_24_056.avi
+Processing File: Atwater_23_24_055.avi
+Processing File: Atwater_23_24_072.avi
+Processing File: Atwater_23_24_073.avi
+Processing File: Atwater_23_24_061.avi
+Processing File: Atwater_23_24_058.avi
+Processing File: Atwater_23_24_052.avi
+Processing File: Atwater_23_24_075.avi
+Processing File: Atwater_23_24_065.avi
+Processing File: Atwater_23_24_054.avi
+Processing File: Atwater_23_24_051.avi
+Processing File: Atwater_23_24_064.avi
+Saved Output for: main
+Finished: MAR/mar26 at Tue Jun 16 13:40:12 MDT 2026
+========================================
+Starting: MAR/mar27
+Time: Tue Jun 16 13:40:12 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_077.avi
+Processing File: Atwater_23_24_086.avi
+Processing File: Atwater_23_24_088.avi
+Processing File: Atwater_23_24_081.avi
+Processing File: Atwater_23_24_087.avi
+Processing File: Atwater_23_24_085.avi
+Processing File: Atwater_23_24_089.avi
+Processing File: Atwater_23_24_079.avi
+Processing File: Atwater_23_24_080.avi
+Processing File: Atwater_23_24_078.avi
+Processing File: Atwater_23_24_083.avi
+Processing File: Atwater_23_24_084.avi
+Processing File: Atwater_23_24_082.avi
+Saved Output for: main
+Finished: MAR/mar27 at Tue Jun 16 13:46:30 MDT 2026
+========================================
+Starting: MAR/mar28
+Time: Tue Jun 16 13:46:30 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_099.avi
+Processing File: Atwater_23_24_094.avi
+Processing File: Atwater_23_24_098.avi
+Processing File: Atwater_23_24_095.avi
+Processing File: Atwater_23_24_108.avi
+Processing File: Atwater_23_24_110.avi
+Processing File: Atwater_23_24_104.avi
+Processing File: Atwater_23_24_096.avi
+Processing File: Atwater_23_24_092.avi
+Processing File: Atwater_23_24_101.avi
+Processing File: Atwater_23_24_090.avi
+Processing File: Atwater_23_24_091.avi
+Processing File: Atwater_23_24_106.avi
+Processing File: Atwater_23_24_102.avi
+Processing File: Atwater_23_24_093.avi
+Processing File: Atwater_23_24_097.avi
+Processing File: Atwater_23_24_103.avi
+Processing File: Atwater_23_24_109.avi
+Processing File: Atwater_23_24_107.avi
+Processing File: Atwater_23_24_100.avi
+Processing File: Atwater_23_24_105.avi
+Saved Output for: main
+Finished: MAR/mar28 at Tue Jun 16 13:54:16 MDT 2026
+========================================
+Starting: MAR/mar29
+Time: Tue Jun 16 13:54:16 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_117.avi
+Processing File: Atwater_23_24_111.avi
+Processing File: Atwater_23_24_118.avi
+Processing File: Atwater_23_24_126.avi
+Processing File: Atwater_23_24_123.avi
+Processing File: Atwater_23_24_120.avi
+Processing File: Atwater_23_24_135.avi
+Processing File: Atwater_23_24_112.avi
+Processing File: Atwater_23_24_122.avi
+Processing File: Atwater_23_24_128.avi
+Processing File: Atwater_23_24_136.avi
+Processing File: Atwater_23_24_124.avi
+Processing File: Atwater_23_24_115.avi
+Processing File: Atwater_23_24_131.avi
+Processing File: Atwater_23_24_116.avi
+Processing File: Atwater_23_24_113.avi
+Processing File: Atwater_23_24_129.avi
+Processing File: Atwater_23_24_132.avi
+Processing File: Atwater_23_24_119.avi
+Processing File: Atwater_23_24_133.avi
+Processing File: Atwater_23_24_114.avi
+Processing File: Atwater_23_24_130.avi
+Processing File: Atwater_23_24_134.avi
+Processing File: Atwater_23_24_125.avi
+Processing File: Atwater_23_24_127.avi
+Processing File: Atwater_23_24_121.avi
+Saved Output for: main
+Finished: MAR/mar29 at Tue Jun 16 14:03:17 MDT 2026
+========================================
+Starting: MAR/mar30
+Time: Tue Jun 16 14:03:17 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_166.avi
+Processing File: Atwater_23_24_142.avi
+Processing File: Atwater_23_24_144.avi
+Processing File: Atwater_23_24_151.avi
+Processing File: Atwater_23_24_159.avi
+Processing File: Atwater_23_24_167.avi
+Processing File: Atwater_23_24_158.avi
+Processing File: Atwater_23_24_143.avi
+Processing File: Atwater_23_24_137.avi
+Processing File: Atwater_23_24_141.avi
+Processing File: Atwater_23_24_153.avi
+Processing File: Atwater_23_24_157.avi
+Processing File: Atwater_23_24_161.avi
+Processing File: Atwater_23_24_152.avi
+Processing File: Atwater_23_24_149.avi
+Processing File: Atwater_23_24_165.avi
+Processing File: Atwater_23_24_155.avi
+Processing File: Atwater_23_24_163.avi
+Processing File: Atwater_23_24_145.avi
+Processing File: Atwater_23_24_139.avi
+Processing File: Atwater_23_24_154.avi
+Processing File: Atwater_23_24_162.avi
+Processing File: Atwater_23_24_146.avi
+Processing File: Atwater_23_24_138.avi
+Processing File: Atwater_23_24_148.avi
+Processing File: Atwater_23_24_140.avi
+Processing File: Atwater_23_24_156.avi
+Processing File: Atwater_23_24_168.avi
+Processing File: Atwater_23_24_164.avi
+Processing File: Atwater_23_24_147.avi
+Processing File: Atwater_23_24_150.avi
+Processing File: Atwater_23_24_160.avi
+Processing File: Atwater_23_24_176.avi
+Processing File: Atwater_23_24_179.avi
+Processing File: Atwater_23_24_178.avi
+Processing File: Atwater_23_24_177.avi
+Processing File: Atwater_23_24_175.avi
+Processing File: Atwater_23_24_169.avi
+Processing File: Atwater_23_24_173.avi
+Processing File: Atwater_23_24_180.avi
+Processing File: Atwater_23_24_174.avi
+Processing File: Atwater_23_24_170.avi
+Processing File: Atwater_23_24_171.avi
+Processing File: Atwater_23_24_172.avi
+Saved Output for: main
+Finished: MAR/mar30 at Tue Jun 16 14:16:34 MDT 2026
+========================================
+Starting: MAR/mar31
+Time: Tue Jun 16 14:16:34 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_206.avi
+Processing File: Atwater_23_24_189.avi
+Processing File: Atwater_23_24_210.avi
+Processing File: Atwater_23_24_183.avi
+Processing File: Atwater_23_24_204.avi
+Processing File: Atwater_23_24_186.avi
+Processing File: Atwater_23_24_209.avi
+Processing File: Atwater_23_24_202.avi
+Processing File: Atwater_23_24_190.avi
+Processing File: Atwater_23_24_184.avi
+Processing File: Atwater_23_24_205.avi
+Processing File: Atwater_23_24_196.avi
+Processing File: Atwater_23_24_200.avi
+Processing File: Atwater_23_24_198.avi
+Processing File: Atwater_23_24_181.avi
+Processing File: Atwater_23_24_197.avi
+Processing File: Atwater_23_24_192.avi
+Processing File: Atwater_23_24_194.avi
+Processing File: Atwater_23_24_203.avi
+Processing File: Atwater_23_24_211.avi
+Processing File: Atwater_23_24_187.avi
+Processing File: Atwater_23_24_193.avi
+Processing File: Atwater_23_24_199.avi
+Processing File: Atwater_23_24_195.avi
+Processing File: Atwater_23_24_208.avi
+Processing File: Atwater_23_24_191.avi
+Processing File: Atwater_23_24_182.avi
+Processing File: Atwater_23_24_188.avi
+Processing File: Atwater_23_24_207.avi
+Processing File: Atwater_23_24_201.avi
+Processing File: Atwater_23_24_185.avi
+Processing File: Atwater_23_24_212.avi
+Processing File: Atwater_23_24_214.avi
+Processing File: Atwater_23_24_213.avi
+Processing File: Atwater_23_24_216.avi
+Processing File: Atwater_23_24_215.avi
+Processing File: Atwater_23_24_217.avi
+Saved Output for: main
+Finished: MAR/mar31 at Tue Jun 16 14:30:52 MDT 2026
+Done with month: MAR at Tue Jun 16 14:30:52 MDT 2026
+###################################################
+Processing month: MAY
+Time: Tue Jun 16 14:30:52 MDT 2026
+###################################################
+========================================
+Starting: MAY/may07
+Time: Tue Jun 16 14:30:52 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_182.avi
+Processing File: Atwater_23_24_168.avi
+Processing File: Atwater_23_24_184.avi
+Processing File: Atwater_23_24_170.avi
+Processing File: Atwater_23_24_176.avi
+Processing File: Atwater_23_24_171.avi
+Processing File: Atwater_23_24_178.avi
+Processing File: Atwater_23_24_174.avi
+Processing File: Atwater_23_24_183.avi
+Processing File: Atwater_23_24_175.avi
+Processing File: Atwater_23_24_166.avi
+Processing File: Atwater_23_24_173.avi
+Processing File: Atwater_23_24_177.avi
+Processing File: Atwater_23_24_180.avi
+Processing File: Atwater_23_24_172.avi
+Processing File: Atwater_23_24_179.avi
+Processing File: Atwater_23_24_167.avi
+Processing File: Atwater_23_24_185.avi
+Processing File: Atwater_23_24_169.avi
+Processing File: Atwater_23_24_181.avi
+Saved Output for: main
+Finished: MAY/may07 at Tue Jun 16 14:39:19 MDT 2026
+========================================
+Starting: MAY/may08
+Time: Tue Jun 16 14:39:19 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: Atwater_23_24_186.avi
+Processing File: Atwater_23_24_199.avi
+Processing File: Atwater_23_24_197.avi
+Processing File: Atwater_23_24_190.avi
+Processing File: Atwater_23_24_196.avi
+Processing File: Atwater_23_24_189.avi
+Processing File: Atwater_23_24_191.avi
+Processing File: Atwater_23_24_193.avi
+Processing File: Atwater_23_24_195.avi
+Processing File: Atwater_23_24_198.avi
+Processing File: Atwater_23_24_192.avi
+Processing File: Atwater_23_24_194.avi
+Processing File: Atwater_23_24_188.avi
+Processing File: Atwater_23_24_187.avi
+Saved Output for: main
+Finished: MAY/may08 at Tue Jun 16 14:45:38 MDT 2026
+Done with month: MAY at Tue Jun 16 14:45:38 MDT 2026
+All months processed.
+###################################################
+Processing month: APR
+Time: Tue Jun 16 15:52:05 MDT 2026
+###################################################
+========================================
+Starting: APR/apr01
+Time: Tue Jun 16 15:52:05 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 31032025_091.avi
+Processing File: 31032025_089.avi
+Processing File: 31032025_090.avi
+Processing File: 31032025_092.avi
+Saved Output for: main
+Finished: APR/apr01 at Tue Jun 16 15:56:09 MDT 2026
+Done with month: APR at Tue Jun 16 15:56:09 MDT 2026
+###################################################
+Processing month: DEC
+Time: Tue Jun 16 15:56:09 MDT 2026
+###################################################
+Skipping DEC/archive — no .avi files found.
+========================================
+Starting: DEC/dec12
+Time: Tue Jun 16 15:56:09 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 03112024_002.avi
+Processing File: 02112024_054.avi
+Processing File: 02112024_060.avi
+Processing File: 02112024_066.avi
+Processing File: 03112024_008.avi
+Processing File: 02112024_067.avi
+Processing File: 02112024_065.avi
+Processing File: 02112024_057.avi
+Processing File: 02112024_052.avi
+Processing File: 03112024_006.avi
+Processing File: 02112024_062.avi
+Processing File: 03112024_004.avi
+Processing File: 02112024_061.avi
+Processing File: 02112024_053.avi
+Processing File: 02112024_064.avi
+Processing File: 02112024_070.avi
+Processing File: 03112024_007.avi
+Processing File: 02112024_056.avi
+Processing File: 02112024_069.avi
+Processing File: 02112024_068.avi
+Processing File: 03112024_000.avi
+Processing File: 03112024_005.avi
+Processing File: 03112024_010.avi
+Processing File: 02112024_055.avi
+Processing File: 03112024_009.avi
+Processing File: 02112024_063.avi
+Processing File: 03112024_011.avi
+Processing File: 02112024_058.avi
+Processing File: 02112024_059.avi
+Processing File: 03112024_003.avi
+Processing File: 03112024_001.avi
+Saved Output for: main
+Finished: DEC/dec12 at Tue Jun 16 16:07:30 MDT 2026
+========================================
+Starting: DEC/dec13
+Time: Tue Jun 16 16:07:30 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13122024_009.avi
+Processing File: 13122024_006.avi
+Processing File: 13122024_011.avi
+Processing File: 13122024_013.avi
+Processing File: 13122024_010.avi
+Processing File: 13122024_008.avi
+Processing File: 13122024_012.avi
+Processing File: 13122024_000.avi
+Processing File: 13122024_003.avi
+Processing File: 13122024_001.avi
+Processing File: 13122024_002.avi
+Processing File: 13122024_005.avi
+Processing File: 13122024_004.avi
+Processing File: 13122024_007.avi
+Warning: Video 13122024_009.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Warning: Video 13122024_010.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Warning: Video 13122024_013.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Warning: Video 13122024_011.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Warning: Video 13122024_012.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Warning: Video 13122024_008.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Saved Output for: main
+Finished: DEC/dec13 at Tue Jun 16 16:12:53 MDT 2026
+========================================
+Starting: DEC/dec14
+Time: Tue Jun 16 16:12:53 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13122024_018.avi
+Processing File: 13122024_027.avi
+Processing File: 13122024_037.avi
+Processing File: 13122024_028.avi
+Processing File: 13122024_034.avi
+Processing File: 13122024_036.avi
+Processing File: 13122024_015.avi
+Processing File: 13122024_022.avi
+Processing File: 13122024_019.avi
+Processing File: 13122024_029.avi
+Processing File: 13122024_014.avi
+Processing File: 13122024_031.avi
+Processing File: 13122024_025.avi
+Processing File: 13122024_024.avi
+Processing File: 13122024_032.avi
+Processing File: 13122024_035.avi
+Processing File: 13122024_016.avi
+Processing File: 13122024_017.avi
+Processing File: 13122024_020.avi
+Processing File: 13122024_033.avi
+Processing File: 13122024_021.avi
+Processing File: 13122024_026.avi
+Processing File: 13122024_023.avi
+Processing File: 13122024_030.avi
+Warning: Video 13122024_015.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Warning: Video 13122024_017.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Warning: Video 13122024_014.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Saved Output for: main
+Finished: DEC/dec14 at Tue Jun 16 16:19:17 MDT 2026
+========================================
+Starting: DEC/dec15
+Time: Tue Jun 16 16:19:17 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13122024_042.avi
+Processing File: 13122024_046.avi
+Processing File: 13122024_048.avi
+Processing File: 13122024_041.avi
+Processing File: 13122024_050.avi
+Processing File: 13122024_043.avi
+Processing File: 13122024_038.avi
+Processing File: 13122024_039.avi
+Processing File: 13122024_044.avi
+Processing File: 13122024_047.avi
+Processing File: 13122024_051.avi
+Processing File: 13122024_040.avi
+Processing File: 13122024_045.avi
+Processing File: 13122024_049.avi
+Saved Output for: main
+Finished: DEC/dec15 at Tue Jun 16 16:23:49 MDT 2026
+========================================
+Starting: DEC/dec23
+Time: Tue Jun 16 16:23:49 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 23122024_052.avi
+Processing File: 23122024_055.avi
+Processing File: 23122024_053.avi
+Processing File: 23122024_051.avi
+Processing File: 23122024_054.avi
+Processing File: 23122024_050.avi
+Saved Output for: main
+Finished: DEC/dec23 at Tue Jun 16 16:28:14 MDT 2026
+========================================
+Starting: DEC/dec24
+Time: Tue Jun 16 16:28:15 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 24122024_055.avi
+Processing File: 24122024_056.avi
+Processing File: 24122024_057.avi
+Saved Output for: main
+Finished: DEC/dec24 at Tue Jun 16 16:31:46 MDT 2026
+========================================
+Starting: DEC/dec25
+Time: Tue Jun 16 16:31:46 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 24122024_069.avi
+Processing File: 24122024_062.avi
+Processing File: 24122024_065.avi
+Processing File: 24122024_066.avi
+Processing File: 24122024_063.avi
+Processing File: 24122024_067.avi
+Processing File: 24122024_068.avi
+Processing File: 24122024_072.avi
+Processing File: 24122024_064.avi
+Processing File: 24122024_075.avi
+Processing File: 24122024_074.avi
+Processing File: 24122024_058.avi
+Processing File: 24122024_073.avi
+Processing File: 24122024_061.avi
+Processing File: 24122024_060.avi
+Processing File: 24122024_059.avi
+Processing File: 24122024_071.avi
+Processing File: 24122024_070.avi
+Saved Output for: main
+Finished: DEC/dec25 at Tue Jun 16 16:37:23 MDT 2026
+========================================
+Starting: DEC/dec26
+Time: Tue Jun 16 16:37:23 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 26122024_086.avi
+Processing File: 26122024_079.avi
+Processing File: 26122024_083.avi
+Processing File: 26122024_084.avi
+Processing File: 26122024_077.avi
+Processing File: 26122024_081.avi
+Processing File: 26122024_075.avi
+Processing File: 26122024_080.avi
+Processing File: 26122024_076.avi
+Processing File: 26122024_088.avi
+Processing File: 26122024_089.avi
+Processing File: 26122024_078.avi
+Processing File: 26122024_082.avi
+Processing File: 26122024_085.avi
+Processing File: 26122024_087.avi
+Saved Output for: main
+Finished: DEC/dec26 at Tue Jun 16 16:47:37 MDT 2026
+========================================
+Starting: DEC/dec27
+Time: Tue Jun 16 16:47:37 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 26122024_109.avi
+Processing File: 26122024_111.avi
+Processing File: 26122024_103.avi
+Processing File: 26122024_102.avi
+Processing File: 26122024_098.avi
+Processing File: 26122024_097.avi
+Processing File: 26122024_093.avi
+Processing File: 26122024_094.avi
+Processing File: 26122024_101.avi
+Processing File: 26122024_100.avi
+Processing File: 26122024_110.avi
+Processing File: 26122024_091.avi
+Processing File: 26122024_112.avi
+Processing File: 26122024_099.avi
+Processing File: 26122024_107.avi
+Processing File: 26122024_108.avi
+Processing File: 26122024_092.avi
+Processing File: 26122024_104.avi
+Processing File: 26122024_106.avi
+Processing File: 26122024_090.avi
+Processing File: 26122024_105.avi
+Processing File: 26122024_096.avi
+Processing File: 26122024_095.avi
+Saved Output for: main
+Finished: DEC/dec27 at Tue Jun 16 16:57:03 MDT 2026
+========================================
+Starting: DEC/dec28
+Time: Tue Jun 16 16:57:03 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 26122024_115.avi
+Processing File: 26122024_135.avi
+Processing File: 26122024_137.avi
+Processing File: 26122024_114.avi
+Processing File: 26122024_136.avi
+Processing File: 26122024_133.avi
+Processing File: 26122024_140.avi
+Processing File: 26122024_118.avi
+Processing File: 26122024_127.avi
+Processing File: 26122024_113.avi
+Processing File: 26122024_138.avi
+Processing File: 26122024_141.avi
+Processing File: 26122024_139.avi
+Processing File: 26122024_131.avi
+Processing File: 26122024_124.avi
+Processing File: 26122024_126.avi
+Processing File: 26122024_121.avi
+Processing File: 26122024_130.avi
+Processing File: 26122024_125.avi
+Processing File: 26122024_129.avi
+Processing File: 26122024_142.avi
+Processing File: 26122024_123.avi
+Processing File: 26122024_128.avi
+Processing File: 26122024_117.avi
+Processing File: 26122024_122.avi
+Processing File: 26122024_120.avi
+Processing File: 26122024_119.avi
+Processing File: 26122024_116.avi
+Processing File: 26122024_132.avi
+Processing File: 26122024_134.avi
+Saved Output for: main
+Finished: DEC/dec28 at Tue Jun 16 17:07:09 MDT 2026
+========================================
+Starting: DEC/dec29
+Time: Tue Jun 16 17:07:09 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 29122024_154.avi
+Processing File: 29122024_159.avi
+Processing File: 29122024_155.avi
+Processing File: 29122024_157.avi
+Processing File: 29122024_156.avi
+Processing File: 26122024_149.avi
+Processing File: 26122024_150.avi
+Processing File: 26122024_146.avi
+Processing File: 29122024_158.avi
+Processing File: 26122024_144.avi
+Processing File: 26122024_151.avi
+Processing File: 29122024_160.avi
+Processing File: 26122024_143.avi
+Processing File: 26122024_145.avi
+Processing File: 26122024_148.avi
+Processing File: 26122024_147.avi
+Saved Output for: main
+Finished: DEC/dec29 at Tue Jun 16 17:15:03 MDT 2026
+========================================
+Starting: DEC/dec30
+Time: Tue Jun 16 17:15:03 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 29122024_170.avi
+Processing File: 29122024_161.avi
+Processing File: 29122024_179.avi
+Processing File: 29122024_164.avi
+Processing File: 29122024_181.avi
+Processing File: 29122024_169.avi
+Processing File: 29122024_175.avi
+Processing File: 29122024_176.avi
+Processing File: 29122024_172.avi
+Processing File: 29122024_171.avi
+Processing File: 29122024_162.avi
+Processing File: 29122024_163.avi
+Processing File: 29122024_180.avi
+Processing File: 29122024_168.avi
+Processing File: 29122024_173.avi
+Processing File: 29122024_177.avi
+Processing File: 29122024_167.avi
+Processing File: 29122024_174.avi
+Processing File: 29122024_166.avi
+Processing File: 29122024_178.avi
+Processing File: 29122024_165.avi
+Saved Output for: main
+Finished: DEC/dec30 at Tue Jun 16 17:21:45 MDT 2026
+Skipping DEC/dec30_storm — no .avi files found.
+Done with month: DEC at Tue Jun 16 17:21:45 MDT 2026
+###################################################
+Processing month: FEB
+Time: Tue Jun 16 17:21:45 MDT 2026
+###################################################
+========================================
+Starting: FEB/feb01
+Time: Tue Jun 16 17:21:46 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 31012025_077.avi
+Processing File: 31012025_054.avi
+Processing File: 31012025_050.avi
+Processing File: 31012025_064.avi
+Processing File: 31012025_072.avi
+Processing File: 31012025_069.avi
+Processing File: 31012025_053.avi
+Processing File: 31012025_066.avi
+Processing File: 31012025_068.avi
+Processing File: 31012025_051.avi
+Processing File: 31012025_061.avi
+Processing File: 31012025_065.avi
+Processing File: 31012025_063.avi
+Processing File: 31012025_059.avi
+Processing File: 31012025_047.avi
+Processing File: 31012025_060.avi
+Processing File: 31012025_058.avi
+Processing File: 31012025_055.avi
+Processing File: 31012025_056.avi
+Processing File: 31012025_057.avi
+Processing File: 31012025_071.avi
+Processing File: 31012025_078.avi
+Processing File: 31012025_052.avi
+Processing File: 31012025_074.avi
+Processing File: 31012025_070.avi
+Processing File: 31012025_062.avi
+Processing File: 31012025_076.avi
+Processing File: 31012025_073.avi
+Processing File: 31012025_048.avi
+Processing File: 31012025_075.avi
+Processing File: 31012025_049.avi
+Processing File: 31012025_067.avi
+Processing File: 31012025_079.avi
+Processing File: 31012025_083.avi
+Processing File: 31012025_093.avi
+Processing File: 31012025_082.avi
+Processing File: 31012025_080.avi
+Processing File: 31012025_085.avi
+Processing File: 31012025_081.avi
+Processing File: 31012025_090.avi
+Processing File: 31012025_092.avi
+Processing File: 31012025_084.avi
+Processing File: 31012025_091.avi
+Processing File: 31012025_107.avi
+Processing File: 31012025_089.avi
+Processing File: 31012025_087.avi
+Processing File: 31012025_098.avi
+Processing File: 31012025_110.avi
+Processing File: 31012025_102.avi
+Processing File: 31012025_086.avi
+Processing File: 31012025_109.avi
+Processing File: 31012025_104.avi
+Processing File: 31012025_094.avi
+Processing File: 31012025_108.avi
+Processing File: 31012025_100.avi
+Processing File: 31012025_105.avi
+Processing File: 31012025_088.avi
+Processing File: 31012025_099.avi
+Processing File: 31012025_103.avi
+Processing File: 31012025_097.avi
+Processing File: 31012025_096.avi
+Processing File: 31012025_106.avi
+Processing File: 31012025_095.avi
+Processing File: 31012025_111.avi
+Processing File: 31012025_113.avi
+Processing File: 31012025_115.avi
+Processing File: 31012025_119.avi
+Processing File: 31012025_118.avi
+Processing File: 31012025_112.avi
+Processing File: 31012025_114.avi
+Processing File: 31012025_117.avi
+Processing File: 31012025_121.avi
+Processing File: 31012025_116.avi
+Processing File: 31012025_120.avi
+Processing File: 31012025_125.avi
+Processing File: 31012025_124.avi
+Processing File: 31012025_126.avi
+Processing File: 31012025_129.avi
+Processing File: 31012025_123.avi
+Processing File: 31012025_127.avi
+Processing File: 31012025_122.avi
+Processing File: 31012025_128.avi
+Processing File: 31012025_101.avi
+Saved Output for: main
+Finished: FEB/feb01 at Tue Jun 16 17:35:06 MDT 2026
+========================================
+Starting: FEB/feb02
+Time: Tue Jun 16 17:35:06 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 31012025_149.avi
+Processing File: 31012025_151.avi
+Processing File: 31012025_136.avi
+Processing File: 31012025_139.avi
+Processing File: 31012025_145.avi
+Processing File: 31012025_137.avi
+Processing File: 31012025_131.avi
+Processing File: 31012025_130.avi
+Processing File: 31012025_135.avi
+Processing File: 31012025_146.avi
+Processing File: 31012025_150.avi
+Processing File: 31012025_138.avi
+Processing File: 31012025_148.avi
+Processing File: 31012025_134.avi
+Processing File: 31012025_147.avi
+Processing File: 31012025_142.avi
+Processing File: 31012025_152.avi
+Processing File: 31012025_141.avi
+Processing File: 31012025_144.avi
+Processing File: 31012025_153.avi
+Processing File: 31012025_133.avi
+Processing File: 31012025_143.avi
+Processing File: 31012025_140.avi
+Processing File: 31012025_132.avi
+Saved Output for: main
+Finished: FEB/feb02 at Tue Jun 16 17:38:56 MDT 2026
+========================================
+Starting: FEB/feb07
+Time: Tue Jun 16 17:38:56 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 07022025_184.avi
+Processing File: 07022025_176.avi
+Processing File: 07022025_166.avi
+Processing File: 07022025_165.avi
+Processing File: 07022025_170.avi
+Processing File: 07022025_174.avi
+Processing File: 07022025_000.avi
+Processing File: 07022025_178.avi
+Processing File: 07022025_180.avi
+Processing File: 07022025_179.avi
+Processing File: 07022025_182.avi
+Processing File: 07022025_167.avi
+Processing File: 07022025_171.avi
+Processing File: 07022025_164.avi
+Processing File: 07022025_181.avi
+Processing File: 07022025_162.avi
+Processing File: 07022025_001.avi
+Processing File: 07022025_185.avi
+Processing File: 07022025_175.avi
+Processing File: 07022025_168.avi
+Processing File: 07022025_183.avi
+Processing File: 07022025_173.avi
+Processing File: 07022025_163.avi
+Processing File: 07022025_169.avi
+Processing File: 07022025_177.avi
+Processing File: 07022025_161.avi
+Processing File: 07022025_172.avi
+Saved Output for: main
+Finished: FEB/feb07 at Tue Jun 16 17:43:24 MDT 2026
+========================================
+Starting: FEB/feb11
+Time: Tue Jun 16 17:43:25 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 11022025_016.avi
+Processing File: 11022025_019.avi
+Processing File: 11022025_014.avi
+Processing File: 11022025_018.avi
+Processing File: 11022025_017.avi
+Processing File: 11022025_021.avi
+Processing File: 11022025_015.avi
+Processing File: 11022025_020.avi
+Saved Output for: main
+Finished: FEB/feb11 at Tue Jun 16 17:47:07 MDT 2026
+========================================
+Starting: FEB/feb12
+Time: Tue Jun 16 17:47:07 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 12022025_021.avi
+Saved Output for: main
+Finished: FEB/feb12 at Tue Jun 16 17:47:58 MDT 2026
+========================================
+Starting: FEB/feb13
+Time: Tue Jun 16 17:47:58 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13022025_006.avi
+Processing File: 13022025_003.avi
+Processing File: 13022025_033.avi
+Processing File: 13022025_031.avi
+Processing File: 13022025_023.avi
+Processing File: 13022025_026.avi
+Processing File: 13022025_034.avi
+Processing File: 13022025_021.avi
+Processing File: 13022025_029.avi
+Processing File: 13022025_004.avi
+Processing File: 13022025_005.avi
+Processing File: 13022025_007.avi
+Processing File: 13022025_024.avi
+Processing File: 13022025_027.avi
+Processing File: 13022025_009.avi
+Processing File: 13022025_030.avi
+Processing File: 13022025_035.avi
+Processing File: 13022025_008.avi
+Processing File: 13022025_022.avi
+Processing File: 13022025_002.avi
+Processing File: 13022025_032.avi
+Processing File: 13022025_000.avi
+Processing File: 13022025_025.avi
+Processing File: 13022025_001.avi
+Processing File: 13022025_028.avi
+Saved Output for: main
+Finished: FEB/feb13 at Tue Jun 16 17:53:25 MDT 2026
+========================================
+Starting: FEB/feb14
+Time: Tue Jun 16 17:53:25 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13022025_047.avi
+Processing File: 13022025_010.avi
+Processing File: 13022025_037.avi
+Processing File: 13022025_045.avi
+Processing File: 13022025_017.avi
+Processing File: 13022025_053.avi
+Processing File: 13022025_036.avi
+Processing File: 13022025_039.avi
+Processing File: 13022025_015.avi
+Processing File: 13022025_048.avi
+Processing File: 13022025_014.avi
+Processing File: 13022025_013.avi
+Processing File: 13022025_016.avi
+Processing File: 13022025_019.avi
+Processing File: 13022025_043.avi
+Processing File: 13022025_020.avi
+Processing File: 13022025_011.avi
+Processing File: 13022025_052.avi
+Processing File: 13022025_012.avi
+Processing File: 13022025_038.avi
+Processing File: 13022025_044.avi
+Processing File: 13022025_042.avi
+Processing File: 13022025_018.avi
+Processing File: 13022025_041.avi
+Processing File: 13022025_055.avi
+Processing File: 13022025_046.avi
+Processing File: 13022025_056.avi
+Processing File: 13022025_051.avi
+Processing File: 13022025_050.avi
+Processing File: 13022025_054.avi
+Processing File: 13022025_049.avi
+Processing File: 13022025_040.avi
+Processing File: 13022025_058.avi
+Processing File: 13022025_060.avi
+Processing File: 13022025_066.avi
+Processing File: 13022025_061.avi
+Processing File: 13022025_062.avi
+Processing File: 13022025_059.avi
+Processing File: 13022025_057.avi
+Processing File: 13022025_067.avi
+Processing File: 13022025_065.avi
+Processing File: 13022025_064.avi
+Processing File: 13022025_063.avi
+Saved Output for: main
+Finished: FEB/feb14 at Tue Jun 16 18:04:22 MDT 2026
+Skipping FEB/feb14_storm — no .avi files found.
+========================================
+Starting: FEB/feb15
+Time: Tue Jun 16 18:04:22 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13022025_072.avi
+Processing File: 13022025_082.avi
+Processing File: 13022025_069.avi
+Processing File: 13022025_085.avi
+Processing File: 13022025_081.avi
+Processing File: 13022025_068.avi
+Processing File: 13022025_073.avi
+Processing File: 13022025_078.avi
+Processing File: 13022025_087.avi
+Processing File: 13022025_074.avi
+Processing File: 13022025_077.avi
+Processing File: 13022025_071.avi
+Processing File: 13022025_083.avi
+Processing File: 13022025_076.avi
+Processing File: 13022025_080.avi
+Processing File: 13022025_075.avi
+Processing File: 13022025_070.avi
+Processing File: 13022025_086.avi
+Processing File: 13022025_079.avi
+Processing File: 13022025_084.avi
+Saved Output for: main
+Finished: FEB/feb15 at Tue Jun 16 18:10:04 MDT 2026
+========================================
+Starting: FEB/feb16
+Time: Tue Jun 16 18:10:04 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 16022025_085.avi
+Processing File: 16022025_089.avi
+Processing File: 16022025_075.avi
+Processing File: 16022025_074.avi
+Processing File: 16022025_076.avi
+Processing File: 16022025_083.avi
+Processing File: 16022025_079.avi
+Processing File: 16022025_084.avi
+Processing File: 16022025_086.avi
+Processing File: 16022025_092.avi
+Processing File: 16022025_081.avi
+Processing File: 16022025_087.avi
+Processing File: 16022025_090.avi
+Processing File: 16022025_072.avi
+Processing File: 16022025_077.avi
+Processing File: 16022025_078.avi
+Processing File: 16022025_073.avi
+Processing File: 16022025_091.avi
+Processing File: 16022025_093.avi
+Processing File: 16022025_080.avi
+Processing File: 16022025_082.avi
+Processing File: 16022025_088.avi
+Saved Output for: main
+Finished: FEB/feb16 at Tue Jun 16 18:17:36 MDT 2026
+========================================
+Starting: FEB/feb17
+Time: Tue Jun 16 18:17:36 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 16022025_098.avi
+Processing File: 16022025_105.avi
+Processing File: 16022025_099.avi
+Processing File: 16022025_103.avi
+Processing File: 16022025_100.avi
+Processing File: 16022025_101.avi
+Processing File: 16022025_094.avi
+Processing File: 16022025_102.avi
+Processing File: 16022025_095.avi
+Processing File: 16022025_096.avi
+Processing File: 16022025_104.avi
+Processing File: 16022025_097.avi
+Saved Output for: main
+Finished: FEB/feb17 at Tue Jun 16 18:21:31 MDT 2026
+========================================
+Starting: FEB/feb19
+Time: Tue Jun 16 18:21:31 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 19022025_003.avi
+Processing File: 19022025_002.avi
+Processing File: 19022025_000.avi
+Processing File: 19022025_007.avi
+Processing File: 19022025_006.avi
+Processing File: 19022025_001.avi
+Processing File: 19022025_004.avi
+Processing File: 19022025_005.avi
+Saved Output for: main
+Finished: FEB/feb19 at Tue Jun 16 18:25:03 MDT 2026
+========================================
+Starting: FEB/feb20
+Time: Tue Jun 16 18:25:03 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 19022025_019.avi
+Processing File: 19022025_033.avi
+Processing File: 19022025_015.avi
+Processing File: 19022025_032.avi
+Processing File: 19022025_014.avi
+Processing File: 19022025_013.avi
+Processing File: 19022025_027.avi
+Processing File: 19022025_010.avi
+Processing File: 19022025_017.avi
+Processing File: 19022025_026.avi
+Processing File: 19022025_030.avi
+Processing File: 19022025_021.avi
+Processing File: 19022025_012.avi
+Processing File: 19022025_028.avi
+Processing File: 19022025_036.avi
+Processing File: 19022025_022.avi
+Processing File: 19022025_023.avi
+Processing File: 19022025_025.avi
+Processing File: 19022025_008.avi
+Processing File: 19022025_034.avi
+Processing File: 19022025_029.avi
+Processing File: 19022025_020.avi
+Processing File: 19022025_016.avi
+Processing File: 19022025_009.avi
+Processing File: 19022025_024.avi
+Processing File: 19022025_035.avi
+Processing File: 19022025_031.avi
+Processing File: 19022025_018.avi
+Processing File: 19022025_011.avi
+Saved Output for: main
+Finished: FEB/feb20 at Tue Jun 16 18:35:30 MDT 2026
+========================================
+Starting: FEB/feb21
+Time: Tue Jun 16 18:35:30 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 19022025_037.avi
+Processing File: 19022025_041.avi
+Processing File: 19022025_044.avi
+Processing File: 19022025_038.avi
+Processing File: 19022025_043.avi
+Processing File: 19022025_042.avi
+Processing File: 19022025_039.avi
+Processing File: 19022025_040.avi
+Saved Output for: main
+Finished: FEB/feb21 at Tue Jun 16 18:39:01 MDT 2026
+Done with month: FEB at Tue Jun 16 18:39:01 MDT 2026
+###################################################
+Processing month: JAN
+Time: Tue Jun 16 18:39:01 MDT 2026
+###################################################
+========================================
+Starting: JAN/jan01
+Time: Tue Jun 16 18:39:01 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 01012025_181.avi
+Processing File: 01012025_187.avi
+Processing File: 01012025_183.avi
+Processing File: 01012025_184.avi
+Processing File: 01012025_182.avi
+Processing File: 01012025_189.avi
+Processing File: 01012025_188.avi
+Processing File: 01012025_185.avi
+Processing File: 01012025_186.avi
+Saved Output for: main
+Finished: JAN/jan01 at Tue Jun 16 18:44:28 MDT 2026
+========================================
+Starting: JAN/jan02
+Time: Tue Jun 16 18:44:28 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 01012025_206.avi
+Processing File: 01012025_200.avi
+Processing File: 01012025_205.avi
+Processing File: 01012025_191.avi
+Processing File: 01012025_203.avi
+Processing File: 01012025_194.avi
+Processing File: 01012025_204.avi
+Processing File: 01012025_198.avi
+Processing File: 01012025_192.avi
+Processing File: 01012025_197.avi
+Processing File: 01012025_196.avi
+Processing File: 01012025_193.avi
+Processing File: 01012025_199.avi
+Processing File: 01012025_190.avi
+Processing File: 01012025_201.avi
+Processing File: 01012025_195.avi
+Processing File: 01012025_202.avi
+Saved Output for: main
+Finished: JAN/jan02 at Tue Jun 16 18:49:50 MDT 2026
+Skipping JAN/jan02_storm — no .avi files found.
+Skipping JAN/jan03 — no .avi files found.
+========================================
+Starting: JAN/jan04
+Time: Tue Jun 16 18:49:50 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 04012025_221.avi
+Processing File: 04012025_216.avi
+Processing File: 04012025_212.avi
+Processing File: 04012025_208.avi
+Processing File: 04012025_206.avi
+Processing File: 04012025_220.avi
+Processing File: 04012025_213.avi
+Processing File: 04012025_207.avi
+Processing File: 04012025_219.avi
+Processing File: 04012025_210.avi
+Processing File: 04012025_222.avi
+Processing File: 04012025_209.avi
+Processing File: 04012025_217.avi
+Processing File: 04012025_214.avi
+Processing File: 04012025_215.avi
+Processing File: 04012025_218.avi
+Processing File: 04012025_211.avi
+Saved Output for: main
+Finished: JAN/jan04 at Tue Jun 16 18:57:46 MDT 2026
+========================================
+Starting: JAN/jan06
+Time: Tue Jun 16 18:57:46 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 06012025_224.avi
+Processing File: 06012025_223.avi
+Processing File: 06012025_229.avi
+Processing File: 06012025_231.avi
+Processing File: 06012025_228.avi
+Processing File: 06012025_222.avi
+Processing File: 06012025_225.avi
+Processing File: 06012025_232.avi
+Processing File: 06012025_230.avi
+Processing File: 06012025_226.avi
+Processing File: 06012025_227.avi
+Saved Output for: main
+Finished: JAN/jan06 at Tue Jun 16 19:02:29 MDT 2026
+========================================
+Starting: JAN/jan07
+Time: Tue Jun 16 19:02:29 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 06012025_233.avi
+Processing File: 06012025_237.avi
+Processing File: 06012025_235.avi
+Processing File: 06012025_238.avi
+Processing File: 06012025_234.avi
+Processing File: 06012025_236.avi
+Saved Output for: main
+Finished: JAN/jan07 at Tue Jun 16 19:06:07 MDT 2026
+========================================
+Starting: JAN/jan10
+Time: Tue Jun 16 19:06:07 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 10012025_238.avi
+Processing File: 10012025_237.avi
+Saved Output for: main
+Finished: JAN/jan10 at Tue Jun 16 19:10:52 MDT 2026
+========================================
+Starting: JAN/jan11
+Time: Tue Jun 16 19:10:52 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 10012025_248.avi
+Processing File: 10012025_244.avi
+Processing File: 10012025_251.avi
+Processing File: 10012025_247.avi
+Processing File: 10012025_241.avi
+Processing File: 10012025_243.avi
+Processing File: 10012025_246.avi
+Processing File: 10012025_256.avi
+Processing File: 10012025_253.avi
+Processing File: 10012025_242.avi
+Processing File: 10012025_249.avi
+Processing File: 10012025_254.avi
+Processing File: 10012025_255.avi
+Processing File: 10012025_250.avi
+Processing File: 10012025_239.avi
+Processing File: 10012025_252.avi
+Processing File: 10012025_240.avi
+Processing File: 10012025_245.avi
+Saved Output for: main
+Finished: JAN/jan11 at Tue Jun 16 19:17:34 MDT 2026
+========================================
+Starting: JAN/jan24
+Time: Tue Jun 16 19:17:34 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 24012025_005.avi
+Processing File: 24012025_001.avi
+Processing File: 24012025_002.avi
+Processing File: 24012025_008.avi
+Processing File: 24012025_007.avi
+Processing File: 24012025_006.avi
+Processing File: 24012025_003.avi
+Processing File: 24012025_000.avi
+Processing File: 24012025_004.avi
+Saved Output for: main
+Finished: JAN/jan24 at Tue Jun 16 19:21:57 MDT 2026
+========================================
+Starting: JAN/jan25
+Time: Tue Jun 16 19:21:57 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 24012025_017.avi
+Processing File: 24012025_031.avi
+Processing File: 24012025_022.avi
+Processing File: 24012025_028.avi
+Processing File: 24012025_012.avi
+Processing File: 24012025_015.avi
+Processing File: 24012025_026.avi
+Processing File: 24012025_023.avi
+Processing File: 24012025_014.avi
+Processing File: 24012025_025.avi
+Processing File: 24012025_011.avi
+Processing File: 24012025_021.avi
+Processing File: 24012025_020.avi
+Processing File: 24012025_009.avi
+Processing File: 24012025_029.avi
+Processing File: 24012025_027.avi
+Processing File: 24012025_024.avi
+Processing File: 24012025_018.avi
+Processing File: 24012025_016.avi
+Processing File: 24012025_013.avi
+Processing File: 24012025_019.avi
+Processing File: 24012025_010.avi
+Processing File: 24012025_030.avi
+Saved Output for: main
+Finished: JAN/jan25 at Tue Jun 16 19:28:50 MDT 2026
+========================================
+Starting: JAN/jan26
+Time: Tue Jun 16 19:28:50 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 24012025_035.avi
+Processing File: 24012025_034.avi
+Processing File: 24012025_036.avi
+Processing File: 24012025_038.avi
+Processing File: 24012025_033.avi
+Processing File: 24012025_037.avi
+Processing File: 24012025_032.avi
+Saved Output for: main
+Finished: JAN/jan26 at Tue Jun 16 19:32:32 MDT 2026
+========================================
+Starting: JAN/jan31
+Time: Tue Jun 16 19:32:32 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 31012025_040.avi
+Processing File: 31012025_045.avi
+Processing File: 31012025_046.avi
+Processing File: 31012025_038.avi
+Processing File: 31012025_039.avi
+Processing File: 31012025_043.avi
+Processing File: 31012025_042.avi
+Processing File: 31012025_044.avi
+Processing File: 31012025_041.avi
+Saved Output for: main
+Finished: JAN/jan31 at Tue Jun 16 19:34:51 MDT 2026
+Done with month: JAN at Tue Jun 16 19:34:51 MDT 2026
+###################################################
+Processing month: MAR
+Time: Tue Jun 16 19:34:51 MDT 2026
+###################################################
+========================================
+Starting: MAR/apr01_storm
+Time: Tue Jun 16 19:34:51 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 31032025_041.avi
+Processing File: 31032025_032.avi
+Processing File: 31032025_062.avi
+Processing File: 31032025_049.avi
+Processing File: 31032025_033.avi
+Processing File: 31032025_039.avi
+Processing File: 31032025_040.avi
+Processing File: 31032025_043.avi
+Processing File: 31032025_042.avi
+Processing File: 31032025_052.avi
+Processing File: 31032025_050.avi
+Processing File: 31032025_054.avi
+Processing File: 31032025_060.avi
+Processing File: 31032025_056.avi
+Processing File: 31032025_046.avi
+Processing File: 31032025_045.avi
+Processing File: 31032025_038.avi
+Processing File: 31032025_048.avi
+Processing File: 31032025_051.avi
+Processing File: 31032025_057.avi
+Processing File: 31032025_034.avi
+Processing File: 31032025_037.avi
+Processing File: 31032025_061.avi
+Processing File: 31032025_036.avi
+Processing File: 31032025_047.avi
+Processing File: 31032025_053.avi
+Processing File: 31032025_031.avi
+Processing File: 31032025_044.avi
+Processing File: 31032025_059.avi
+Processing File: 31032025_055.avi
+Processing File: 31032025_035.avi
+Processing File: 31032025_058.avi
+Processing File: 31032025_072.avi
+Processing File: 31032025_068.avi
+Processing File: 31032025_067.avi
+Processing File: 31032025_079.avi
+Processing File: 31032025_070.avi
+Processing File: 31032025_074.avi
+Processing File: 31032025_075.avi
+Processing File: 31032025_071.avi
+Processing File: 31032025_069.avi
+Processing File: 31032025_081.avi
+Processing File: 31032025_066.avi
+Processing File: 31032025_078.avi
+Processing File: 31032025_073.avi
+Processing File: 31032025_076.avi
+Processing File: 31032025_080.avi
+Processing File: 31032025_077.avi
+Processing File: 31032025_065.avi
+Processing File: 31032025_082.avi
+Processing File: 31032025_083.avi
+Processing File: 31032025_064.avi
+Processing File: 31032025_084.avi
+Processing File: 31032025_063.avi
+Processing File: 31032025_087.avi
+Processing File: 31032025_086.avi
+Processing File: 31032025_085.avi
+Processing File: 31032025_088.avi
+Saved Output for: main
+Finished: MAR/apr01_storm at Tue Jun 16 19:48:50 MDT 2026
+========================================
+Starting: MAR/mar03
+Time: Tue Jun 16 19:48:50 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 03032025_004.avi
+Processing File: 03032025_006.avi
+Processing File: 03032025_000.avi
+Processing File: 03032025_002.avi
+Processing File: 03032025_005.avi
+Processing File: 03032025_001.avi
+Processing File: 03032025_003.avi
+Saved Output for: main
+Finished: MAR/mar03 at Tue Jun 16 19:58:00 MDT 2026
+========================================
+Starting: MAR/mar04
+Time: Tue Jun 16 19:58:00 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 03032025_015.avi
+Processing File: 03032025_022.avi
+Processing File: 03032025_011.avi
+Processing File: 03032025_019.avi
+Processing File: 03032025_010.avi
+Processing File: 03032025_013.avi
+Processing File: 03032025_009.avi
+Processing File: 03032025_016.avi
+Processing File: 03032025_017.avi
+Processing File: 03032025_007.avi
+Processing File: 03032025_012.avi
+Processing File: 03032025_018.avi
+Processing File: 03032025_023.avi
+Processing File: 03032025_021.avi
+Processing File: 03032025_014.avi
+Processing File: 03032025_020.avi
+Processing File: 03032025_008.avi
+Saved Output for: main
+Finished: MAR/mar04 at Tue Jun 16 20:07:16 MDT 2026
+========================================
+Starting: MAR/mar05
+Time: Tue Jun 16 20:07:16 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 05032025_013.avi
+Processing File: 05032025_010.avi
+Processing File: 05032025_012.avi
+Processing File: 05032025_014.avi
+Processing File: 05032025_001.avi
+Processing File: 05032025_011.avi
+Processing File: 05032025_008.avi
+Processing File: 05032025_007.avi
+Processing File: 05032025_005.avi
+Processing File: 05032025_006.avi
+Processing File: 05032025_009.avi
+Processing File: 05032025_002.avi
+Processing File: 05032025_000.avi
+Processing File: 05032025_004.avi
+Processing File: 05032025_003.avi
+Saved Output for: main
+Finished: MAR/mar05 at Tue Jun 16 20:11:08 MDT 2026
+========================================
+Starting: MAR/mar06
+Time: Tue Jun 16 20:11:08 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 05032025_032.avi
+Processing File: 05032025_033.avi
+Processing File: 05032025_025.avi
+Processing File: 05032025_016.avi
+Processing File: 05032025_017.avi
+Processing File: 05032025_019.avi
+Processing File: 05032025_031.avi
+Processing File: 05032025_015.avi
+Processing File: 05032025_035.avi
+Processing File: 05032025_020.avi
+Processing File: 05032025_034.avi
+Processing File: 05032025_021.avi
+Processing File: 05032025_024.avi
+Processing File: 05032025_023.avi
+Processing File: 05032025_028.avi
+Processing File: 05032025_022.avi
+Processing File: 05032025_018.avi
+Processing File: 05032025_029.avi
+Processing File: 05032025_026.avi
+Processing File: 05032025_036.avi
+Processing File: 05032025_037.avi
+Processing File: 05032025_027.avi
+Processing File: 05032025_030.avi
+{Error using VideoReader/initReader (line 732)
+Could not read file due to an unexpected error. Reason: Unable to initialize
+the video properties
+
+Error in audiovideo.internal.IVideoReader (line 136)
+            initReader(obj, fileName, currentTime);
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in VideoReader (line 104)
+            obj@audiovideo.internal.IVideoReader(varargin{:});
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in process_one_video (line 12)
+vid = VideoReader(full_filename);
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in run_deid_processing (line 61)
+parfor file_i = 1:length(file_names)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in run (line 112)
+evalin('caller', strcat(scriptStem, ';'));
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+Finished: MAR/mar06 at Tue Jun 16 20:11:52 MDT 2026
+Skipping MAR/mar06_storm — no .avi files found.
+========================================
+Starting: MAR/mar13
+Time: Tue Jun 16 20:11:52 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13032025_001.avi
+Processing File: 13032025_000.avi
+Processing File: 13032025_003.avi
+Processing File: 13032025_002.avi
+Processing File: 13032025_005.avi
+Processing File: 13032025_014.avi
+Processing File: 13032025_012.avi
+Processing File: 13032025_011.avi
+Processing File: 13032025_013.avi
+Processing File: 13032025_008.avi
+Processing File: 13032025_007.avi
+Processing File: 13032025_016.avi
+Processing File: 13032025_009.avi
+Processing File: 13032025_010.avi
+Processing File: 13032025_004.avi
+Processing File: 13032025_006.avi
+Processing File: 13032025_015.avi
+Saved Output for: main
+Finished: MAR/mar13 at Tue Jun 16 20:23:45 MDT 2026
+========================================
+Starting: MAR/mar14
+Time: Tue Jun 16 20:23:45 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13032025_024.avi
+Processing File: 13032025_034.avi
+Processing File: 13032025_019.avi
+Processing File: 13032025_037.avi
+Processing File: 13032025_026.avi
+Processing File: 13032025_035.avi
+Processing File: 13032025_021.avi
+Processing File: 13032025_036.avi
+Processing File: 13032025_017.avi
+Processing File: 13032025_025.avi
+Processing File: 13032025_022.avi
+Processing File: 13032025_031.avi
+Processing File: 13032025_027.avi
+Processing File: 13032025_033.avi
+Processing File: 13032025_028.avi
+Processing File: 13032025_020.avi
+Processing File: 13032025_029.avi
+Processing File: 13032025_030.avi
+Processing File: 13032025_040.avi
+Processing File: 13032025_032.avi
+Processing File: 13032025_038.avi
+Processing File: 13032025_018.avi
+Processing File: 13032025_023.avi
+Processing File: 13032025_039.avi
+Saved Output for: main
+Finished: MAR/mar14 at Tue Jun 16 20:35:14 MDT 2026
+========================================
+Starting: MAR/mar15
+Time: Tue Jun 16 20:35:14 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13032025_044.avi
+Processing File: 13032025_063.avi
+Processing File: 13032025_043.avi
+Processing File: 13032025_059.avi
+Processing File: 13032025_061.avi
+Processing File: 13032025_056.avi
+Processing File: 13032025_046.avi
+Processing File: 13032025_041.avi
+Processing File: 13032025_050.avi
+Processing File: 13032025_057.avi
+Processing File: 13032025_064.avi
+Processing File: 13032025_047.avi
+Processing File: 13032025_051.avi
+Processing File: 13032025_052.avi
+Processing File: 13032025_060.avi
+Processing File: 13032025_053.avi
+Processing File: 13032025_055.avi
+Processing File: 13032025_049.avi
+Processing File: 13032025_062.avi
+Processing File: 13032025_048.avi
+Processing File: 13032025_058.avi
+Processing File: 13032025_054.avi
+Processing File: 13032025_045.avi
+Processing File: 13032025_042.avi
+Saved Output for: main
+Finished: MAR/mar15 at Tue Jun 16 20:48:29 MDT 2026
+========================================
+Starting: MAR/mar16
+Time: Tue Jun 16 20:48:29 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 13032025_065.avi
+Processing File: 13032025_066.avi
+Saved Output for: main
+Finished: MAR/mar16 at Tue Jun 16 20:52:54 MDT 2026
+========================================
+Starting: MAR/mar17
+Time: Tue Jun 16 20:52:54 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 17032025_001.avi
+Processing File: 17032025_002.avi
+Processing File: 17032025_000.avi
+Saved Output for: main
+Finished: MAR/mar17 at Tue Jun 16 20:56:48 MDT 2026
+========================================
+Starting: MAR/mar18
+Time: Tue Jun 16 20:56:48 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 17032025_020.avi
+Processing File: 17032025_012.avi
+Processing File: 17032025_025.avi
+Processing File: 17032025_014.avi
+Processing File: 17032025_016.avi
+Processing File: 17032025_004.avi
+Processing File: 17032025_023.avi
+Processing File: 17032025_003.avi
+Processing File: 17032025_017.avi
+Processing File: 17032025_024.avi
+Processing File: 17032025_006.avi
+Processing File: 17032025_011.avi
+Processing File: 17032025_021.avi
+Processing File: 17032025_009.avi
+Processing File: 17032025_008.avi
+Processing File: 17032025_022.avi
+Processing File: 17032025_005.avi
+Processing File: 17032025_019.avi
+Processing File: 17032025_018.avi
+Processing File: 17032025_010.avi
+Processing File: 17032025_015.avi
+Processing File: 17032025_007.avi
+Processing File: 17032025_013.avi
+Saved Output for: main
+Finished: MAR/mar18 at Tue Jun 16 21:04:34 MDT 2026
+========================================
+Starting: MAR/mar19
+Time: Tue Jun 16 21:04:34 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 17032025_030.avi
+Processing File: 17032025_031.avi
+Processing File: 17032025_029.avi
+Processing File: 17032025_027.avi
+Processing File: 17032025_028.avi
+Processing File: 17032025_032.avi
+Processing File: 17032025_026.avi
+Saved Output for: main
+Finished: MAR/mar19 at Tue Jun 16 21:08:27 MDT 2026
+========================================
+Starting: MAR/mar29
+Time: Tue Jun 16 21:08:27 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 29032025_011.avi
+Processing File: 29032025_004.avi
+Processing File: 29032025_007.avi
+Processing File: 29032025_020.avi
+Processing File: 29032025_018.avi
+Processing File: 29032025_010.avi
+Processing File: 29032025_016.avi
+Processing File: 29032025_002.avi
+Processing File: 29032025_017.avi
+Processing File: 29032025_003.avi
+Processing File: 29032025_001.avi
+Processing File: 29032025_023.avi
+Processing File: 29032025_006.avi
+Processing File: 29032025_019.avi
+Processing File: 29032025_015.avi
+Processing File: 29032025_021.avi
+Processing File: 29032025_000.avi
+Processing File: 29032025_005.avi
+Processing File: 29032025_009.avi
+Processing File: 29032025_013.avi
+Processing File: 29032025_008.avi
+Processing File: 29032025_022.avi
+Processing File: 29032025_012.avi
+Processing File: 29032025_014.avi
+Saved Output for: main
+Finished: MAR/mar29 at Tue Jun 16 21:14:00 MDT 2026
+========================================
+Starting: MAR/mar30
+Time: Tue Jun 16 21:14:00 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 29032025_028.avi
+Processing File: 29032025_025.avi
+Processing File: 29032025_026.avi
+Processing File: 29032025_030.avi
+Processing File: 29032025_029.avi
+Processing File: 29032025_024.avi
+Processing File: 29032025_027.avi
+Processing File: 29032025_031.avi
+Saved Output for: main
+Finished: MAR/mar30 at Tue Jun 16 21:17:39 MDT 2026
+Skipping MAR/mar31 — no .avi files found.
+Done with month: MAR at Tue Jun 16 21:17:39 MDT 2026
+###################################################
+Processing month: NOV
+Time: Tue Jun 16 21:17:39 MDT 2026
+###################################################
+========================================
+Starting: NOV/nov05
+Time: Tue Jun 16 21:17:39 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 05112024_012.avi
+Processing File: 05112024_016.avi
+Processing File: 05112024_018.avi
+Processing File: 05112024_021.avi
+Processing File: 05112024_022.avi
+Processing File: 05112024_011.avi
+Processing File: 05112024_023.avi
+Processing File: 05112024_019.avi
+Processing File: 05112024_013.avi
+Processing File: 05112024_017.avi
+Processing File: 05112024_015.avi
+Processing File: 05112024_024.avi
+Processing File: 05112024_020.avi
+Processing File: 05112024_014.avi
+Saved Output for: main
+Finished: NOV/nov05 at Tue Jun 16 21:23:20 MDT 2026
+========================================
+Starting: NOV/nov06
+Time: Tue Jun 16 21:23:20 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 05112024_032.avi
+Processing File: 05112024_026.avi
+Processing File: 05112024_027.avi
+Processing File: 05112024_030.avi
+Processing File: 05112024_033.avi
+Processing File: 05112024_028.avi
+Processing File: 05112024_034.avi
+Processing File: 05112024_031.avi
+Processing File: 05112024_029.avi
+Processing File: 05112024_025.avi
+Saved Output for: main
+Finished: NOV/nov06 at Tue Jun 16 21:27:38 MDT 2026
+========================================
+Starting: NOV/nov12
+Time: Tue Jun 16 21:27:38 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 12112024_001.avi
+Processing File: 12112024_016.avi
+Processing File: 12112024_007.avi
+Processing File: 12112024_006.avi
+Processing File: 12112024_010.avi
+Processing File: 12112024_008.avi
+Processing File: 12112024_002.avi
+Processing File: 12112024_009.avi
+Processing File: 12112024_005.avi
+Processing File: 12112024_012.avi
+Processing File: 12112024_004.avi
+Processing File: 12112024_003.avi
+Processing File: 12112024_011.avi
+Processing File: 12112024_013.avi
+Processing File: 12112024_014.avi
+Processing File: 12112024_000.avi
+Processing File: 12112024_015.avi
+Saved Output for: main
+Finished: NOV/nov12 at Tue Jun 16 21:34:31 MDT 2026
+========================================
+Starting: NOV/nov13
+Time: Tue Jun 16 21:34:31 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 12112024_020.avi
+Processing File: 12112024_022.avi
+Processing File: 12112024_019.avi
+Processing File: 12112024_017.avi
+Processing File: 12112024_023.avi
+Processing File: 12112024_021.avi
+Processing File: 12112024_018.avi
+Saved Output for: main
+Finished: NOV/nov13 at Tue Jun 16 21:38:01 MDT 2026
+========================================
+Starting: NOV/nov15
+Time: Tue Jun 16 21:38:01 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 15112024_037.avi
+Processing File: 15112024_023.avi
+Processing File: 15112024_036.avi
+Processing File: 15112024_040.avi
+Processing File: 15112024_031.avi
+Processing File: 15112024_028.avi
+Processing File: 15112024_034.avi
+Processing File: 15112024_033.avi
+Processing File: 15112024_032.avi
+Processing File: 15112024_035.avi
+Processing File: 15112024_039.avi
+Processing File: 15112024_038.avi
+Processing File: 15112024_029.avi
+Processing File: 15112024_024.avi
+Processing File: 15112024_027.avi
+Processing File: 15112024_025.avi
+Processing File: 15112024_030.avi
+Processing File: 15112024_026.avi
+Saved Output for: main
+Finished: NOV/nov15 at Tue Jun 16 21:42:48 MDT 2026
+========================================
+Starting: NOV/nov16
+Time: Tue Jun 16 21:42:48 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 15112024_048.avi
+Processing File: 15112024_047.avi
+Processing File: 16112024_054.avi
+Processing File: 16112024_059.avi
+Processing File: 16112024_058.avi
+Processing File: 16112024_055.avi
+Processing File: 16112024_053.avi
+Processing File: 16112024_057.avi
+Processing File: 15112024_044.avi
+Processing File: 15112024_042.avi
+Processing File: 15112024_050.avi
+Processing File: 16112024_052.avi
+Processing File: 15112024_041.avi
+Processing File: 16112024_056.avi
+Processing File: 15112024_052.avi
+Processing File: 15112024_051.avi
+Processing File: 15112024_045.avi
+Processing File: 15112024_049.avi
+Processing File: 15112024_046.avi
+Processing File: 15112024_043.avi
+Saved Output for: main
+Finished: NOV/nov16 at Tue Jun 16 21:48:34 MDT 2026
+========================================
+Starting: NOV/nov18
+Time: Tue Jun 16 21:48:34 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 18112024_066.avi
+Processing File: 18112024_063.avi
+Processing File: 18112024_067.avi
+Processing File: 18112024_064.avi
+Processing File: 18112024_062.avi
+Processing File: 18112024_068.avi
+Processing File: 18112024_059.avi
+Processing File: 18112024_065.avi
+Processing File: 18112024_068 copy.avi
+Processing File: 18112024_061.avi
+Processing File: 18112024_060.avi
+Saved Output for: main
+Finished: NOV/nov18 at Tue Jun 16 21:52:44 MDT 2026
+========================================
+Starting: NOV/nov19
+Time: Tue Jun 16 21:52:44 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 18112024_079.avi
+Processing File: 18112024_076.avi
+Processing File: 18112024_071.avi
+Processing File: 18112024_073.avi
+Processing File: 18112024_069.avi
+Processing File: 18112024_078.avi
+Processing File: 18112024_074.avi
+Processing File: 18112024_070.avi
+Processing File: 18112024_077.avi
+Processing File: 18112024_072.avi
+Processing File: 18112024_075.avi
+Saved Output for: main
+Finished: NOV/nov19 at Tue Jun 16 21:57:08 MDT 2026
+========================================
+Starting: NOV/nov25
+Time: Tue Jun 16 21:57:08 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 11_25_19_15_2024_011.avi
+Processing File: 11_25_19_15_2024_009.avi
+Processing File: 11_25_19_15_2024_008.avi
+Processing File: 11_25_19_15_2024_012.avi
+Processing File: 11_25_19_15_2024_010.avi
+Saved Output for: main
+Finished: NOV/nov25 at Tue Jun 16 22:00:58 MDT 2026
+========================================
+Starting: NOV/nov26
+Time: Tue Jun 16 22:00:58 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 11_25_19_15_2024_030.avi
+Processing File: 11_25_19_15_2024_025.avi
+Processing File: 11_25_19_15_2024_023.avi
+Processing File: 11_25_19_15_2024_033.avi
+Processing File: 11_25_19_15_2024_036.avi
+Processing File: 11_25_19_15_2024_020.avi
+Processing File: 11_25_19_15_2024_038.avi
+Processing File: 11_25_19_15_2024_026.avi
+Processing File: 11_25_19_15_2024_031.avi
+Processing File: 11_25_19_15_2024_032.avi
+Processing File: 11_25_19_15_2024_015.avi
+Processing File: 11_25_19_15_2024_018.avi
+Processing File: 11_25_19_15_2024_016.avi
+Processing File: 11_25_19_15_2024_019.avi
+Processing File: 11_25_19_15_2024_028.avi
+Processing File: 11_25_19_15_2024_022.avi
+Processing File: 11_25_19_15_2024_024.avi
+Processing File: 11_25_19_15_2024_039.avi
+Processing File: 11_25_19_15_2024_014.avi
+Processing File: 11_25_19_15_2024_021.avi
+Processing File: 11_25_19_15_2024_013.avi
+Processing File: 11_25_19_15_2024_017.avi
+Processing File: 11_25_19_15_2024_037.avi
+Processing File: 11_25_19_15_2024_029.avi
+Processing File: 11_25_19_15_2024_027.avi
+Processing File: 11_25_19_15_2024_034.avi
+Processing File: 11_25_19_15_2024_035.avi
+Saved Output for: main
+Finished: NOV/nov26 at Tue Jun 16 22:10:43 MDT 2026
+========================================
+Starting: NOV/nov27
+Time: Tue Jun 16 22:10:43 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: 11_25_19_15_2024_043.avi
+Processing File: 11_25_19_15_2024_044.avi
+Processing File: 11_25_19_15_2024_047.avi
+Processing File: 11_25_19_15_2024_040.avi
+Processing File: 11_25_19_15_2024_041.avi
+Processing File: 11_25_19_15_2024_046.avi
+Processing File: 11_25_19_15_2024_045.avi
+Processing File: 11_25_19_15_2024_042.avi
+Warning: Video 11_25_19_15_2024_047.avi contains no hydrometeors. Skipping.
+> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort_h_data_cells', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m', 15)" style="font-weight:bold">sort_h_data_cells</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/sort_h_data_cells.m',15,0)">line 15</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('process_one_video', '/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m', 48)" style="font-weight:bold">process_one_video</a> (<a href="matlab: opentoline('/uufs/chpc.utah.edu/common/home/u6022893/Documents/DEID/dataProcessingCode/functions/process_one_video.m',48,0)">line 48</a>)
+Saved Output for: main
+Finished: NOV/nov27 at Tue Jun 16 22:16:20 MDT 2026
+Done with month: NOV at Tue Jun 16 22:16:20 MDT 2026
+###################################################
+Processing month: OCT
+Time: Tue Jun 16 22:16:20 MDT 2026
+###################################################
+========================================
+Starting: OCT/oct18
+Time: Tue Jun 16 22:16:20 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: oct18_006.avi
+Processing File: oct18_004.avi
+Processing File: oct18_003.avi
+Processing File: oct18_007.avi
+Processing File: oct18_002.avi
+Processing File: oct18_001.avi
+Processing File: oct18_005.avi
+Processing File: oct18_000.avi
+Saved Output for: main
+Finished: OCT/oct18 at Tue Jun 16 22:19:51 MDT 2026
+========================================
+Starting: OCT/oct19
+Time: Tue Jun 16 22:19:51 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: oct18_008.avi
+Processing File: oct18_011.avi
+Processing File: oct18_010.avi
+Processing File: oct18_015.avi
+Processing File: oct18_012.avi
+Processing File: oct18_014.avi
+Processing File: oct18_013.avi
+Processing File: oct18_009.avi
+Saved Output for: main
+Finished: OCT/oct19 at Tue Jun 16 22:23:19 MDT 2026
+========================================
+Starting: OCT/oct28
+Time: Tue Jun 16 22:23:19 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: oct28_021.avi
+Processing File: oct28_017.avi
+Processing File: oct28_018.avi
+Processing File: oct28_020.avi
+Processing File: oct28_019.avi
+Saved Output for: main
+Finished: OCT/oct28 at Tue Jun 16 22:26:40 MDT 2026
+========================================
+Starting: OCT/oct29
+Time: Tue Jun 16 22:26:40 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: oct28_042.avi
+Processing File: oct28_035.avi
+Processing File: oct28_041.avi
+Processing File: oct28_038.avi
+Processing File: oct28_023.avi
+Processing File: oct28_024.avi
+Processing File: oct28_026.avi
+Processing File: oct28_044.avi
+Processing File: oct28_031.avi
+Processing File: oct28_030.avi
+Processing File: oct28_022.avi
+Processing File: oct28_032.avi
+Processing File: oct28_043.avi
+Processing File: oct28_036.avi
+Processing File: oct28_029.avi
+Processing File: oct28_034.avi
+Processing File: oct28_025.avi
+Processing File: oct28_040.avi
+Processing File: oct28_033.avi
+Processing File: oct28_037.avi
+Processing File: oct28_028.avi
+Saved Output for: main
+Finished: OCT/oct29 at Tue Jun 16 22:33:20 MDT 2026
+========================================
+Starting: OCT/oct30
+Time: Tue Jun 16 22:33:20 MDT 2026
+========================================
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 14 15 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 32 workers.
+Processing File: oct28_047.avi
+Processing File: oct28_050.avi
+Processing File: oct28_046.avi
+Processing File: oct28_048.avi
+Processing File: oct28_045.avi
+Saved Output for: main
+Finished: OCT/oct30 at Tue Jun 16 22:37:01 MDT 2026
+Done with month: OCT at Tue Jun 16 22:37:01 MDT 2026
+###################################################
+Processing month: PIV
+Time: Tue Jun 16 22:37:01 MDT 2026
+###################################################
+Skipping PIV/* — no .avi files found.
+Done with month: PIV at Tue Jun 16 22:37:01 MDT 2026
+All months processed.
