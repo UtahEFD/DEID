@@ -19,9 +19,9 @@ env_dir = getenv('DEID_WORKING_DIR');
 if ~isempty(env_dir)
     working_dir = env_dir;
 else
-    working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/DEC/DEC_all';
+    working_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/2023_2024/Atwater/FEB/feb08_storm';
 end
-output_dir = working_dir;
+output_dir = '/uufs/chpc.utah.edu/common/home/snowflake3/DEID_files/stormData/feb0824_storm';
 
 %% load parameter structures
 
